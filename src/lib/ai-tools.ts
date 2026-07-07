@@ -1,0 +1,155 @@
+import {
+  MessagesSquare,
+  Image as ImageIcon,
+  Mic,
+  FileText,
+  Languages,
+  Code2,
+  FileUser,
+  Mail,
+  PenLine,
+  Share2,
+  SpellCheck,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
+
+export type AiTool = {
+  slug: string;
+  to: string;
+  title: string;
+  hindi: string;
+  description: string;
+  icon: LucideIcon;
+  accent: "saffron" | "green" | "royal";
+  status: "live" | "soon";
+};
+
+export const AI_TOOLS: AiTool[] = [
+  {
+    slug: "chat",
+    to: "/chat",
+    title: "AI Chat",
+    hindi: "एआई चैट",
+    description: "Multilingual conversational AI powered by Gemini. Ask anything in Hindi or English.",
+    icon: MessagesSquare,
+    accent: "saffron",
+    status: "live",
+  },
+  {
+    slug: "image",
+    to: "/image",
+    title: "Image Generator",
+    hindi: "इमेज जनरेटर",
+    description: "Turn ideas into stunning images. Posters, art, product mockups — instantly.",
+    icon: ImageIcon,
+    accent: "royal",
+    status: "soon",
+  },
+  {
+    slug: "voice",
+    to: "/voice",
+    title: "Voice Assistant",
+    hindi: "आवाज़ सहायक",
+    description: "Speak in any Indian language, get spoken answers back. Hands-free AI.",
+    icon: Mic,
+    accent: "green",
+    status: "soon",
+  },
+  {
+    slug: "pdf",
+    to: "/pdf",
+    title: "PDF Chat",
+    hindi: "पीडीएफ़ चैट",
+    description: "Upload contracts, notes, research papers. Chat with any PDF in seconds.",
+    icon: FileText,
+    accent: "saffron",
+    status: "soon",
+  },
+  {
+    slug: "translator",
+    to: "/translator",
+    title: "Indian Translator",
+    hindi: "अनुवादक",
+    description: "Translate across Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati, and more.",
+    icon: Languages,
+    accent: "green",
+    status: "soon",
+  },
+  {
+    slug: "coder",
+    to: "/coder",
+    title: "Coding Assistant",
+    hindi: "कोडिंग सहायक",
+    description: "Write, debug and explain code across 40+ languages with AI pair-programming.",
+    icon: Code2,
+    accent: "royal",
+    status: "soon",
+  },
+  {
+    slug: "resume",
+    to: "/resume",
+    title: "Resume Builder",
+    hindi: "रिज़्यूमे बिल्डर",
+    description: "AI-crafted, ATS-friendly resumes tailored to Indian and global recruiters.",
+    icon: FileUser,
+    accent: "saffron",
+    status: "soon",
+  },
+  {
+    slug: "email",
+    to: "/tools",
+    title: "Email Writer",
+    hindi: "ईमेल लेखक",
+    description: "Professional emails in seconds — formal, casual, sales, apology templates.",
+    icon: Mail,
+    accent: "royal",
+    status: "soon",
+  },
+  {
+    slug: "blog",
+    to: "/tools",
+    title: "Blog Writer",
+    hindi: "ब्लॉग लेखक",
+    description: "Long-form SEO-ready blog posts with outlines, hooks and calls-to-action.",
+    icon: PenLine,
+    accent: "green",
+    status: "soon",
+  },
+  {
+    slug: "social",
+    to: "/tools",
+    title: "Social Media Posts",
+    hindi: "सोशल पोस्ट",
+    description: "Instagram, LinkedIn, X and WhatsApp captions in your brand voice.",
+    icon: Share2,
+    accent: "saffron",
+    status: "soon",
+  },
+  {
+    slug: "grammar",
+    to: "/tools",
+    title: "Grammar Checker",
+    hindi: "व्याकरण जाँच",
+    description: "Fix grammar, tone and clarity for English and Hindi text.",
+    icon: SpellCheck,
+    accent: "green",
+    status: "soon",
+  },
+  {
+    slug: "summary",
+    to: "/tools",
+    title: "AI Summarizer",
+    hindi: "सारांश",
+    description: "Compress articles, meetings, research and books into crisp summaries.",
+    icon: Sparkles,
+    accent: "royal",
+    status: "soon",
+  },
+];
+
+export const accentClass: Record<AiTool["accent"], string> = {
+  saffron: "from-[oklch(0.76_0.17_55)]/25 to-[oklch(0.68_0.2_30)]/10 text-[oklch(0.76_0.17_55)] ring-[oklch(0.76_0.17_55)]/30",
+  green: "from-[oklch(0.66_0.16_155)]/25 to-[oklch(0.66_0.16_155)]/5 text-[oklch(0.72_0.16_155)] ring-[oklch(0.66_0.16_155)]/30",
+  royal: "from-[oklch(0.62_0.19_260)]/25 to-[oklch(0.62_0.19_260)]/5 text-[oklch(0.72_0.15_260)] ring-[oklch(0.62_0.19_260)]/30",
+};
