@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { UTILITY_TOOLS } from "@/lib/utility-tools";
 
-const BASE_URL = "";
+const BASE_URL = "https://sapna-ai-tech.lovable.app";
 
 interface SitemapEntry {
   path: string;
@@ -27,6 +28,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/blog", changefreq: "weekly", priority: "0.6" },
           { path: "/contact", changefreq: "monthly", priority: "0.5" },
           { path: "/auth", changefreq: "monthly", priority: "0.4" },
+          ...UTILITY_TOOLS.map((t) => ({ path: `/tools/${t.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
         ];
 
         const urls = entries
