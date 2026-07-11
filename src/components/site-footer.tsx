@@ -37,6 +37,7 @@ export function SiteFooter() {
           </h4>
           <ul className="space-y-2 text-sm">
             <li><Link to="/blog" className="hover:text-primary">Blog</Link></li>
+            <li><Link to="/faq" className="hover:text-primary">FAQ</Link></li>
             <li><Link to="/contact" className="hover:text-primary">Contact</Link></li>
             <li><Link to="/auth" className="hover:text-primary">Login</Link></li>
           </ul>
