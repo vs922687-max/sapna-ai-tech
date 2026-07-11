@@ -17,6 +17,7 @@ import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PdfRouteImport } from './routes/pdf'
 import { Route as ImageRouteImport } from './routes/image'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CoderRouteImport } from './routes/coder'
@@ -66,6 +67,11 @@ const PdfRoute = PdfRouteImport.update({
 const ImageRoute = ImageRouteImport.update({
   id: '/image',
   path: '/image',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/coder': typeof CoderRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/faq': typeof FaqRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/coder': typeof CoderRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/faq': typeof FaqRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/coder': typeof CoderRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/faq': typeof FaqRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
@@ -191,6 +200,7 @@ export interface FileRouteTypes {
     | '/coder'
     | '/contact'
     | '/dashboard'
+    | '/faq'
     | '/image'
     | '/pdf'
     | '/pricing'
@@ -211,6 +221,7 @@ export interface FileRouteTypes {
     | '/coder'
     | '/contact'
     | '/dashboard'
+    | '/faq'
     | '/image'
     | '/pdf'
     | '/pricing'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/coder'
     | '/contact'
     | '/dashboard'
+    | '/faq'
     | '/image'
     | '/pdf'
     | '/pricing'
@@ -252,6 +264,7 @@ export interface RootRouteChildren {
   CoderRoute: typeof CoderRoute
   ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
+  FaqRoute: typeof FaqRoute
   ImageRoute: typeof ImageRoute
   PdfRoute: typeof PdfRoute
   PricingRoute: typeof PricingRoute
@@ -319,6 +332,13 @@ declare module '@tanstack/react-router' {
       path: '/image'
       fullPath: '/image'
       preLoaderRoute: typeof ImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -413,6 +433,7 @@ const rootRouteChildren: RootRouteChildren = {
   CoderRoute: CoderRoute,
   ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
+  FaqRoute: FaqRoute,
   ImageRoute: ImageRoute,
   PdfRoute: PdfRoute,
   PricingRoute: PricingRoute,
@@ -426,13 +447,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
