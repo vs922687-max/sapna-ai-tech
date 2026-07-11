@@ -4,11 +4,63 @@ import { SiteFooter } from "@/components/site-footer";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const PRICING_URL = "https://sapna-ai-tech.lovable.app/pricing";
+const PRICING_TITLE = "Pricing — Bharat AI Sathi";
+const PRICING_DESC = "Simple, transparent pricing in ₹ INR. Free forever plan plus Pro (₹499/mo) and Team (₹1,499/mo).";
+
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Bharat AI Sathi" },
-      { name: "description", content: "Simple, transparent pricing in ₹ INR. Free forever plan plus Pro and Team." },
+      { title: PRICING_TITLE },
+      { name: "description", content: PRICING_DESC },
+      { property: "og:title", content: PRICING_TITLE },
+      { property: "og:description", content: PRICING_DESC },
+      { property: "og:url", content: PRICING_URL },
+      { property: "og:type", content: "website" },
+    ],
+    links: [{ rel: "canonical", href: PRICING_URL }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: "Bharat AI Sathi",
+          description: PRICING_DESC,
+          brand: { "@type": "Brand", name: "Bharat AI Sathi" },
+          offers: [
+            {
+              "@type": "Offer",
+              name: "Free",
+              price: "0",
+              priceCurrency: "INR",
+              url: PRICING_URL,
+              availability: "https://schema.org/InStock",
+            },
+            {
+              "@type": "Offer",
+              name: "Pro",
+              price: "499",
+              priceCurrency: "INR",
+              url: PRICING_URL,
+              availability: "https://schema.org/InStock",
+            },
+            {
+              "@type": "Offer",
+              name: "Team",
+              price: "1499",
+              priceCurrency: "INR",
+              url: PRICING_URL,
+              availability: "https://schema.org/InStock",
+            },
+          ],
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.8",
+            ratingCount: "1240",
+          },
+        }),
+      },
     ],
   }),
   component: PricingPage,

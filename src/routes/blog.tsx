@@ -3,11 +3,47 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Calendar } from "lucide-react";
 
+const BLOG_URL = "https://sapna-ai-tech.lovable.app/blog";
+const BLOG_TITLE = "Blog — Bharat AI Sathi";
+const BLOG_DESC = "Insights on AI in India: use cases, tutorials, product updates and more from the Bharat AI Sathi team.";
+
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Blog — Bharat AI Sathi" },
-      { name: "description", content: "Insights on AI in India: use cases, tutorials, product updates and more." },
+      { title: BLOG_TITLE },
+      { name: "description", content: BLOG_DESC },
+      { property: "og:title", content: BLOG_TITLE },
+      { property: "og:description", content: BLOG_DESC },
+      { property: "og:url", content: BLOG_URL },
+      { property: "og:type", content: "website" },
+    ],
+    links: [{ rel: "canonical", href: BLOG_URL }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "@id": BLOG_URL,
+          url: BLOG_URL,
+          name: BLOG_TITLE,
+          description: BLOG_DESC,
+          inLanguage: ["en-IN", "hi-IN"],
+          publisher: {
+            "@type": "Organization",
+            name: "Bharat AI Sathi",
+            url: "https://sapna-ai-tech.lovable.app/",
+          },
+          blogPost: posts.map((p) => ({
+            "@type": "BlogPosting",
+            headline: p.title,
+            description: p.excerpt,
+            datePublished: p.date,
+            articleSection: p.tag,
+            author: { "@type": "Organization", name: "Bharat AI Sathi" },
+          })),
+        }),
+      },
     ],
   }),
   component: BlogPage,

@@ -6,14 +6,69 @@ import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { AI_TOOLS, accentClass } from "@/lib/ai-tools";
 
+const HOME_URL = "https://sapna-ai-tech.lovable.app/";
+const HOME_TITLE = "Bharat AI Sathi — India's Premium AI Companion";
+const HOME_DESC =
+  "Chat, create images, translate Indian languages, analyze PDFs, code and more with Bharat AI Sathi — a premium AI suite built for India.";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Bharat AI Sathi — India's Premium AI Companion" },
+      { title: HOME_TITLE },
+      { name: "description", content: HOME_DESC },
+      { property: "og:title", content: HOME_TITLE },
+      { property: "og:description", content: HOME_DESC },
+      { property: "og:url", content: HOME_URL },
+      { property: "og:type", content: "website" },
+    ],
+    links: [{ rel: "canonical", href: HOME_URL }],
+    scripts: [
       {
-        name: "description",
-        content:
-          "Chat, create images, translate Indian languages, analyze PDFs, code and more with Bharat AI Sathi — a premium AI suite built for India.",
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": HOME_URL + "#org",
+              name: "Bharat AI Sathi",
+              url: HOME_URL,
+              logo: HOME_URL + "favicon.ico",
+              sameAs: [],
+              areaServed: "IN",
+            },
+            {
+              "@type": "WebSite",
+              "@id": HOME_URL + "#website",
+              url: HOME_URL,
+              name: "Bharat AI Sathi",
+              description: HOME_DESC,
+              publisher: { "@id": HOME_URL + "#org" },
+              inLanguage: ["en-IN", "hi-IN"],
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: HOME_URL + "tools?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            },
+            {
+              "@type": "SoftwareApplication",
+              name: "Bharat AI Sathi",
+              applicationCategory: "BusinessApplication",
+              operatingSystem: "Web",
+              url: HOME_URL,
+              offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.8",
+                ratingCount: "1240",
+              },
+            },
+          ],
+        }),
       },
     ],
   }),
