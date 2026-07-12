@@ -12,16 +12,11 @@ export async function streamGatewayChat(
   model = "google/gemini-2.5-flash",
 ): Promise<Response> {
   const key = process.env.LOVABLE_API_KEY;
-  if (!key) {
-    return new Response("Missing LOVABLE_API_KEY", { status: 500 });
-  }
+  if (!key) return new Response("Missing LOVABLE_API_KEY", { status: 500 });
 
   const upstream = await fetch(GATEWAY_URL, {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify({ model, messages, stream: true }),
   });
 
@@ -38,4 +33,26 @@ export async function streamGatewayChat(
       Connection: "keep-alive",
     },
   });
+}
+
+export async function completeGatewayChat(
+  messages: GatewayMessage[],
+  model = "google/gemini-2.5-flash",
+): Promise<{ ok: true; text: string } | { ok: false; status: number; error: string }> {
+  const key = process.env.LOVABLE_API_KEY;
+  if (!key) return { ok: false, status: 500, error: "Missing LOVABLE_API_KEY" };
+
+  const res = await fetch(GATEWAY_URL, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ model, messages, stream: false }),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text().catch(() => "");
+    return { ok: false, status: res.status, error: errText || `Upstream ${res.status}` };
+  }
+  const json = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+  const text = json.choices?.[0]?.message?.content ?? "";
+  return { ok: true, text };
 }
