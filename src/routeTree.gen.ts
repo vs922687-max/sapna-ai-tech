@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VoiceRouteImport } from './routes/voice'
 import { Route as TranslatorRouteImport } from './routes/translator'
+import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -37,6 +38,11 @@ const VoiceRoute = VoiceRouteImport.update({
 const TranslatorRoute = TranslatorRouteImport.update({
   id: '/translator',
   path: '/translator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsRoute = ToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -110,14 +116,14 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToolsIndexRoute = ToolsIndexRouteImport.update({
-  id: '/tools/',
-  path: '/tools/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => ToolsRoute,
 } as any)
 const ToolsSlugRoute = ToolsSlugRouteImport.update({
-  id: '/tools/$slug',
-  path: '/tools/$slug',
-  getParentRoute: () => rootRouteImport,
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ToolsRoute,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
@@ -140,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
   '/api/chat': typeof ApiChatRoute
@@ -183,6 +190,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
   '/api/chat': typeof ApiChatRoute
@@ -206,6 +214,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/resume'
     | '/sitemap.xml'
+    | '/tools'
     | '/translator'
     | '/voice'
     | '/api/chat'
@@ -248,6 +257,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/resume'
     | '/sitemap.xml'
+    | '/tools'
     | '/translator'
     | '/voice'
     | '/api/chat'
@@ -270,11 +280,10 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   ResumeRoute: typeof ResumeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ToolsRoute: typeof ToolsRouteWithChildren
   TranslatorRoute: typeof TranslatorRoute
   VoiceRoute: typeof VoiceRoute
   ApiChatRoute: typeof ApiChatRoute
-  ToolsSlugRoute: typeof ToolsSlugRoute
-  ToolsIndexRoute: typeof ToolsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -291,6 +300,13 @@ declare module '@tanstack/react-router' {
       path: '/translator'
       fullPath: '/translator'
       preLoaderRoute: typeof TranslatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools': {
+      id: '/tools'
+      path: '/tools'
+      fullPath: '/tools'
+      preLoaderRoute: typeof ToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -393,17 +409,17 @@ declare module '@tanstack/react-router' {
     }
     '/tools/': {
       id: '/tools/'
-      path: '/tools'
+      path: '/'
       fullPath: '/tools/'
       preLoaderRoute: typeof ToolsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ToolsRoute
     }
     '/tools/$slug': {
       id: '/tools/$slug'
-      path: '/tools/$slug'
+      path: '/$slug'
       fullPath: '/tools/$slug'
       preLoaderRoute: typeof ToolsSlugRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ToolsRoute
     }
     '/api/chat': {
       id: '/api/chat'
@@ -414,6 +430,18 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface ToolsRouteChildren {
+  ToolsSlugRoute: typeof ToolsSlugRoute
+  ToolsIndexRoute: typeof ToolsIndexRoute
+}
+
+const ToolsRouteChildren: ToolsRouteChildren = {
+  ToolsSlugRoute: ToolsSlugRoute,
+  ToolsIndexRoute: ToolsIndexRoute,
+}
+
+const ToolsRouteWithChildren = ToolsRoute._addFileChildren(ToolsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -430,12 +458,21 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   ResumeRoute: ResumeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ToolsRoute: ToolsRouteWithChildren,
   TranslatorRoute: TranslatorRoute,
   VoiceRoute: VoiceRoute,
   ApiChatRoute: ApiChatRoute,
-  ToolsSlugRoute: ToolsSlugRoute,
-  ToolsIndexRoute: ToolsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
