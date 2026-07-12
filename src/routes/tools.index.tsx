@@ -6,7 +6,7 @@ import { UTILITY_TOOLS, CATEGORIES, type ToolCategory } from "@/lib/utility-tool
 import { ArrowRight, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 
-export const Route = createFileRoute("/tools")({
+export const Route = createFileRoute("/tools/")({
   head: () => ({
     meta: [
       { title: "AI & Utility Tools Directory — 100+ Free Tools | Bharat AI Sathi" },
