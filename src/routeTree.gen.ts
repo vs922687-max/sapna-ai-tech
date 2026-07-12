@@ -12,16 +12,21 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VoiceRouteImport } from './routes/voice'
 import { Route as TranslatorRouteImport } from './routes/translator'
 import { Route as ToolsRouteImport } from './routes/tools'
+import { Route as SummarizerRouteImport } from './routes/summarizer'
+import { Route as SocialRouteImport } from './routes/social'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PdfRouteImport } from './routes/pdf'
 import { Route as ImageRouteImport } from './routes/image'
+import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as EmailRouteImport } from './routes/email'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CoderRouteImport } from './routes/coder'
 import { Route as ChatRouteImport } from './routes/chat'
+import { Route as BlogWriterRouteImport } from './routes/blog-writer'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -44,6 +49,16 @@ const TranslatorRoute = TranslatorRouteImport.update({
 const ToolsRoute = ToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SummarizerRoute = SummarizerRouteImport.update({
+  id: '/summarizer',
+  path: '/summarizer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SocialRoute = SocialRouteImport.update({
+  id: '/social',
+  path: '/social',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -71,9 +86,19 @@ const ImageRoute = ImageRouteImport.update({
   path: '/image',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GrammarRoute = GrammarRouteImport.update({
+  id: '/grammar',
+  path: '/grammar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmailRoute = EmailRouteImport.update({
+  id: '/email',
+  path: '/email',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -94,6 +119,11 @@ const CoderRoute = CoderRouteImport.update({
 const ChatRoute = ChatRouteImport.update({
   id: '/chat',
   path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogWriterRoute = BlogWriterRouteImport.update({
+  id: '/blog-writer',
+  path: '/blog-writer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -142,16 +172,21 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
+  '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
+  '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/social': typeof SocialRoute
+  '/summarizer': typeof SummarizerRoute
   '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
@@ -165,16 +200,21 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
+  '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
+  '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/social': typeof SocialRoute
+  '/summarizer': typeof SummarizerRoute
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
@@ -188,16 +228,21 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
+  '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
+  '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/social': typeof SocialRoute
+  '/summarizer': typeof SummarizerRoute
   '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
@@ -213,16 +258,21 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/blog'
+    | '/blog-writer'
     | '/chat'
     | '/coder'
     | '/contact'
     | '/dashboard'
+    | '/email'
     | '/faq'
+    | '/grammar'
     | '/image'
     | '/pdf'
     | '/pricing'
     | '/resume'
     | '/sitemap.xml'
+    | '/social'
+    | '/summarizer'
     | '/tools'
     | '/translator'
     | '/voice'
@@ -236,16 +286,21 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/blog'
+    | '/blog-writer'
     | '/chat'
     | '/coder'
     | '/contact'
     | '/dashboard'
+    | '/email'
     | '/faq'
+    | '/grammar'
     | '/image'
     | '/pdf'
     | '/pricing'
     | '/resume'
     | '/sitemap.xml'
+    | '/social'
+    | '/summarizer'
     | '/translator'
     | '/voice'
     | '/api/ai'
@@ -258,16 +313,21 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/blog'
+    | '/blog-writer'
     | '/chat'
     | '/coder'
     | '/contact'
     | '/dashboard'
+    | '/email'
     | '/faq'
+    | '/grammar'
     | '/image'
     | '/pdf'
     | '/pricing'
     | '/resume'
     | '/sitemap.xml'
+    | '/social'
+    | '/summarizer'
     | '/tools'
     | '/translator'
     | '/voice'
@@ -282,16 +342,21 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRoute
+  BlogWriterRoute: typeof BlogWriterRoute
   ChatRoute: typeof ChatRoute
   CoderRoute: typeof CoderRoute
   ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
+  EmailRoute: typeof EmailRoute
   FaqRoute: typeof FaqRoute
+  GrammarRoute: typeof GrammarRoute
   ImageRoute: typeof ImageRoute
   PdfRoute: typeof PdfRoute
   PricingRoute: typeof PricingRoute
   ResumeRoute: typeof ResumeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SocialRoute: typeof SocialRoute
+  SummarizerRoute: typeof SummarizerRoute
   ToolsRoute: typeof ToolsRouteWithChildren
   TranslatorRoute: typeof TranslatorRoute
   VoiceRoute: typeof VoiceRoute
@@ -320,6 +385,20 @@ declare module '@tanstack/react-router' {
       path: '/tools'
       fullPath: '/tools'
       preLoaderRoute: typeof ToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/summarizer': {
+      id: '/summarizer'
+      path: '/summarizer'
+      fullPath: '/summarizer'
+      preLoaderRoute: typeof SummarizerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/social': {
+      id: '/social'
+      path: '/social'
+      fullPath: '/social'
+      preLoaderRoute: typeof SocialRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -357,11 +436,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/grammar': {
+      id: '/grammar'
+      path: '/grammar'
+      fullPath: '/grammar'
+      preLoaderRoute: typeof GrammarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email': {
+      id: '/email'
+      path: '/email'
+      fullPath: '/email'
+      preLoaderRoute: typeof EmailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -390,6 +483,13 @@ declare module '@tanstack/react-router' {
       path: '/chat'
       fullPath: '/chat'
       preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog-writer': {
+      id: '/blog-writer'
+      path: '/blog-writer'
+      fullPath: '/blog-writer'
+      preLoaderRoute: typeof BlogWriterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -468,16 +568,21 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
   BlogRoute: BlogRoute,
+  BlogWriterRoute: BlogWriterRoute,
   ChatRoute: ChatRoute,
   CoderRoute: CoderRoute,
   ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
+  EmailRoute: EmailRoute,
   FaqRoute: FaqRoute,
+  GrammarRoute: GrammarRoute,
   ImageRoute: ImageRoute,
   PdfRoute: PdfRoute,
   PricingRoute: PricingRoute,
   ResumeRoute: ResumeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SocialRoute: SocialRoute,
+  SummarizerRoute: SummarizerRoute,
   ToolsRoute: ToolsRouteWithChildren,
   TranslatorRoute: TranslatorRoute,
   VoiceRoute: VoiceRoute,
