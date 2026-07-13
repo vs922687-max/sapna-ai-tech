@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
@@ -20,33 +21,56 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+
 const schema = z.object({
-  name: z.string().trim().min(1).max(100),
-  email: z.string().trim().email().max(255),
-  message: z.string().trim().min(5).max(1000),
+  name: z.string().trim().min(1, "Name is required").max(100),
+  email: z.string().trim().email("Invalid email").max(255),
+  phone: z.string().trim().min(7, "Phone is required").max(20),
+  message: z.string().trim().min(5, "Message is too short").max(1000),
 });
 
 function ContactPage() {
   const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const data = new FormData(form);
     const parsed = schema.safeParse({
-      name: form.get("name"),
-      email: form.get("email"),
-      message: form.get("message"),
+      name: data.get("name"),
+      email: data.get("email"),
+      phone: data.get("phone"),
+      message: data.get("message"),
     });
     if (!parsed.success) {
       toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
       return;
     }
+
     setLoading(true);
-    setTimeout(() => {
-      toast.success("Message received! We'll reply within one working day.");
-      (e.target as HTMLFormElement).reset();
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: parsed.data.name,
+          email: parsed.data.email,
+          phone: parsed.data.phone,
+          message: parsed.data.message,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      );
+      toast.success("✅ Thank you! Your message has been sent successfully. We will contact you soon.");
+      form.reset();
+    } catch {
+      toast.error("❌ Failed to send message. Please try again later.");
+    } finally {
       setLoading(false);
-    }, 700);
+    }
   };
 
   return (
@@ -77,7 +101,7 @@ function ContactPage() {
           </ul>
         </div>
 
-        <form onSubmit={submit} className="glass-strong space-y-4 rounded-3xl border border-border/60 p-8 shadow-elegant">
+        <form ref={formRef} onSubmit={submit} className="glass-strong space-y-4 rounded-3xl border border-border/60 p-8 shadow-elegant">
           <div>
             <Label htmlFor="name">Name</Label>
             <Input id="name" name="name" required maxLength={100} className="mt-1 bg-background/40" />
@@ -85,6 +109,10 @@ function ContactPage() {
           <div>
             <Label htmlFor="email">Email</Label>
             <Input id="email" name="email" type="email" required maxLength={255} className="mt-1 bg-background/40" />
+          </div>
+          <div>
+            <Label htmlFor="phone">Phone</Label>
+            <Input id="phone" name="phone" type="tel" required maxLength={20} className="mt-1 bg-background/40" />
           </div>
           <div>
             <Label htmlFor="message">Message</Label>
