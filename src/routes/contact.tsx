@@ -23,7 +23,7 @@ export const Route = createFileRoute("/contact")({
 
 const EMAILJS_SERVICE_ID = "service_m7lx0c4";
 const EMAILJS_TEMPLATE_ID = "19p4btv";
-const EMAILJS_PUBLIC_KEY = "J12QyKSq8xnRoDrpr";
+const EMAILJS_PUBLIC_KEY = "J12QyKSq8xnR0Drpr";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
