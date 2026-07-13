@@ -22,7 +22,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 const EMAILJS_SERVICE_ID = "service_m7lx0c4";
-const EMAILJS_TEMPLATE_ID = "template_19p4btv";
+const EMAILJS_TEMPLATE_ID = "19p4btv";
 const EMAILJS_PUBLIC_KEY = "J12QyKSq8xnRoDrpr";
 
 const schema = z.object({
