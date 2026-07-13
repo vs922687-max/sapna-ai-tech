@@ -21,9 +21,9 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "service_m7lx0c4";
+const EMAILJS_TEMPLATE_ID = "template_19p4btv";
+const EMAILJS_PUBLIC_KEY = "J12QyKSq8xnRoDrpr";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
