@@ -5,7 +5,7 @@ import { ArrowLeft, ExternalLink, CheckCircle2, FileText, ListChecks, AlertTrian
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
-import { GOV_SERVICES, getGovService } from "@/lib/gov-services";
+import { GOV_SERVICES, getGovService, type GovService } from "@/lib/gov-services";
 import { askAi } from "@/lib/ai-client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";

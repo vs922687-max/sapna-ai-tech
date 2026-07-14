@@ -35,6 +35,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
+import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 
@@ -168,6 +169,11 @@ const ToolsSlugRoute = ToolsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ToolsRoute,
 } as any)
+const GovSlugRoute = GovSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => GovRoute,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -205,6 +211,7 @@ export interface FileRoutesByFullPath {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/gov/$slug': typeof GovSlugRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
@@ -233,6 +240,7 @@ export interface FileRoutesByTo {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/gov/$slug': typeof GovSlugRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
@@ -264,6 +272,7 @@ export interface FileRoutesById {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/gov/$slug': typeof GovSlugRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
@@ -296,6 +305,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/gov/$slug'
     | '/tools/$slug'
     | '/gov/'
     | '/tools/'
@@ -324,6 +334,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/gov/$slug'
     | '/tools/$slug'
     | '/gov'
     | '/tools'
@@ -354,6 +365,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/gov/$slug'
     | '/tools/$slug'
     | '/gov/'
     | '/tools/'
@@ -571,6 +583,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsSlugRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/gov/$slug': {
+      id: '/gov/$slug'
+      path: '/$slug'
+      fullPath: '/gov/$slug'
+      preLoaderRoute: typeof GovSlugRouteImport
+      parentRoute: typeof GovRoute
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -589,10 +608,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface GovRouteChildren {
+  GovSlugRoute: typeof GovSlugRoute
   GovIndexRoute: typeof GovIndexRoute
 }
 
 const GovRouteChildren: GovRouteChildren = {
+  GovSlugRoute: GovSlugRoute,
   GovIndexRoute: GovIndexRoute,
 }
 
