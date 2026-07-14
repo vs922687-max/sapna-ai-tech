@@ -33,6 +33,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
+import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
@@ -157,6 +158,11 @@ const ToolsIndexRoute = ToolsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ToolsRoute,
 } as any)
+const GovIndexRoute = GovIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GovRoute,
+} as any)
 const ToolsSlugRoute = ToolsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -185,7 +191,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
-  '/gov': typeof GovRoute
+  '/gov': typeof GovRouteWithChildren
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
@@ -200,6 +206,7 @@ export interface FileRoutesByFullPath {
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -214,7 +221,6 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
-  '/gov': typeof GovRoute
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
@@ -228,6 +234,7 @@ export interface FileRoutesByTo {
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
 }
 export interface FileRoutesById {
@@ -243,7 +250,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
-  '/gov': typeof GovRoute
+  '/gov': typeof GovRouteWithChildren
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
@@ -258,6 +265,7 @@ export interface FileRoutesById {
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
 }
 export interface FileRouteTypes {
@@ -289,6 +297,7 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/chat'
     | '/tools/$slug'
+    | '/gov/'
     | '/tools/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -303,7 +312,6 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/email'
     | '/faq'
-    | '/gov'
     | '/grammar'
     | '/image'
     | '/pdf'
@@ -317,6 +325,7 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/chat'
     | '/tools/$slug'
+    | '/gov'
     | '/tools'
   id:
     | '__root__'
@@ -346,6 +355,7 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/chat'
     | '/tools/$slug'
+    | '/gov/'
     | '/tools/'
   fileRoutesById: FileRoutesById
 }
@@ -361,7 +371,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   EmailRoute: typeof EmailRoute
   FaqRoute: typeof FaqRoute
-  GovRoute: typeof GovRoute
+  GovRoute: typeof GovRouteWithChildren
   GrammarRoute: typeof GrammarRoute
   ImageRoute: typeof ImageRoute
   PdfRoute: typeof PdfRoute
@@ -547,6 +557,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsIndexRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/gov/': {
+      id: '/gov/'
+      path: '/'
+      fullPath: '/gov/'
+      preLoaderRoute: typeof GovIndexRouteImport
+      parentRoute: typeof GovRoute
+    }
     '/tools/$slug': {
       id: '/tools/$slug'
       path: '/$slug'
@@ -570,6 +587,16 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface GovRouteChildren {
+  GovIndexRoute: typeof GovIndexRoute
+}
+
+const GovRouteChildren: GovRouteChildren = {
+  GovIndexRoute: GovIndexRoute,
+}
+
+const GovRouteWithChildren = GovRoute._addFileChildren(GovRouteChildren)
 
 interface ToolsRouteChildren {
   ToolsSlugRoute: typeof ToolsSlugRoute
@@ -595,7 +622,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   EmailRoute: EmailRoute,
   FaqRoute: FaqRoute,
-  GovRoute: GovRoute,
+  GovRoute: GovRouteWithChildren,
   GrammarRoute: GrammarRoute,
   ImageRoute: ImageRoute,
   PdfRoute: PdfRoute,
