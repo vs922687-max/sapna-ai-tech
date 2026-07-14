@@ -20,6 +20,7 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PdfRouteImport } from './routes/pdf'
 import { Route as ImageRouteImport } from './routes/image'
 import { Route as GrammarRouteImport } from './routes/grammar'
+import { Route as GovRouteImport } from './routes/gov'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmailRouteImport } from './routes/email'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -89,6 +90,11 @@ const ImageRoute = ImageRouteImport.update({
 const GrammarRoute = GrammarRouteImport.update({
   id: '/grammar',
   path: '/grammar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GovRoute = GovRouteImport.update({
+  id: '/gov',
+  path: '/gov',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -179,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
+  '/gov': typeof GovRoute
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
@@ -207,6 +214,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
+  '/gov': typeof GovRoute
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
@@ -235,6 +243,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
+  '/gov': typeof GovRoute
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/pdf': typeof PdfRoute
@@ -265,6 +274,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/email'
     | '/faq'
+    | '/gov'
     | '/grammar'
     | '/image'
     | '/pdf'
@@ -293,6 +303,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/email'
     | '/faq'
+    | '/gov'
     | '/grammar'
     | '/image'
     | '/pdf'
@@ -320,6 +331,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/email'
     | '/faq'
+    | '/gov'
     | '/grammar'
     | '/image'
     | '/pdf'
@@ -349,6 +361,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   EmailRoute: typeof EmailRoute
   FaqRoute: typeof FaqRoute
+  GovRoute: typeof GovRoute
   GrammarRoute: typeof GrammarRoute
   ImageRoute: typeof ImageRoute
   PdfRoute: typeof PdfRoute
@@ -441,6 +454,13 @@ declare module '@tanstack/react-router' {
       path: '/grammar'
       fullPath: '/grammar'
       preLoaderRoute: typeof GrammarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gov': {
+      id: '/gov'
+      path: '/gov'
+      fullPath: '/gov'
+      preLoaderRoute: typeof GovRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -575,6 +595,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   EmailRoute: EmailRoute,
   FaqRoute: FaqRoute,
+  GovRoute: GovRoute,
   GrammarRoute: GrammarRoute,
   ImageRoute: ImageRoute,
   PdfRoute: PdfRoute,
