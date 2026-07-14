@@ -97,7 +97,7 @@ function ErrorView({ reset }: { reset: () => void }) {
 }
 
 function GovDetail() {
-  const { svc: s } = Route.useLoaderData();
+  const { svc: s } = Route.useLoaderData() as { svc: GovService };
   const Icon = s.icon;
   const [aiLang, setAiLang] = useState<"hi" | "en">("hi");
   const [aiText, setAiText] = useState("");
