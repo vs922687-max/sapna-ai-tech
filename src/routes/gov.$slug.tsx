@@ -183,6 +183,9 @@ function GovDetail() {
 
       <section className="mx-auto grid max-w-5xl gap-6 px-4 py-10 sm:px-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
+          <div id="gov-ai-assistant">
+            <GovAiAssistant service={s} />
+          </div>
           <Card icon={<CheckCircle2 className="h-4 w-4" />} title="Eligibility">
             <ul className="space-y-2 text-sm">
               {s.eligibility.map((e) => (
