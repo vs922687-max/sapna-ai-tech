@@ -4,7 +4,13 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-export type GovCategory = "Identity" | "Certificates" | "Welfare" | "Finance" | "Pension";
+export type GovCategory =
+  | "Identity" | "Certificates" | "Welfare" | "Finance" | "Pension"
+  | "Education" | "Scholarship" | "Jobs" | "Railways" | "Banking" | "Tax"
+  | "Business" | "Vehicle" | "Transport" | "Municipal" | "Property" | "Legal"
+  | "Utilities" | "Women" | "Minority" | "Disability" | "SeniorCitizen"
+  | "Housing" | "Labour" | "Health" | "Insurance" | "Digital" | "Agriculture"
+  | "Police" | "Consumer";
 
 export type GovService = {
   slug: string;
