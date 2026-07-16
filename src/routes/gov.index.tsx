@@ -33,9 +33,12 @@ export const Route = createFileRoute("/gov/")({
   component: GovIndex,
 });
 
+const PAGE_SIZE = 24;
+
 function GovIndex() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<GovCategory | "All">("All");
+  const [visible, setVisible] = useState(PAGE_SIZE);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -44,10 +47,18 @@ function GovIndex() {
       const qOk = !needle ||
         s.name.toLowerCase().includes(needle) ||
         s.hindi.includes(needle) ||
-        s.tagline.toLowerCase().includes(needle);
+        s.tagline.toLowerCase().includes(needle) ||
+        s.ministry.toLowerCase().includes(needle);
       return catOk && qOk;
     });
   }, [q, cat]);
+
+  useEffect(() => { setVisible(PAGE_SIZE); }, [q, cat]);
+
+  const shown = filtered.slice(0, visible);
+  const hasMore = visible < filtered.length;
+
+
 
   return (
     <div className="min-h-screen">
