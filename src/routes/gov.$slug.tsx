@@ -123,6 +123,9 @@ function GovDetail() {
     }
   };
 
+  const bookmarks = useGovBookmarks();
+  const bookmarked = bookmarks.has(s.slug);
+
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -160,6 +163,19 @@ function GovDetail() {
               <a href={s.official} target="_blank" rel="noopener noreferrer">
                 Official Website <ExternalLink className="ml-2 h-4 w-4" />
               </a>
+            </Button>
+            <Button variant="outline" onClick={() => {
+              bookmarks.toggle(s.slug);
+              toast.success(bookmarked ? "Removed from bookmarks" : "Bookmarked");
+            }}>
+              {bookmarked ? <BookmarkCheck className="mr-2 h-4 w-4 text-primary" /> : <Bookmark className="mr-2 h-4 w-4" />}
+              {bookmarked ? "Bookmarked" : "Bookmark"}
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/gov/eligibility"><Sparkles className="mr-2 h-4 w-4" />Check Eligibility</Link>
+            </Button>
+            <Button variant="outline" onClick={() => document.getElementById("gov-ai-assistant")?.scrollIntoView({ behavior: "smooth" })}>
+              <MessageSquare className="mr-2 h-4 w-4" />Ask AI
             </Button>
           </div>
         </div>
