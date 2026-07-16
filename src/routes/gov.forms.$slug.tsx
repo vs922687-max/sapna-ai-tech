@@ -4,7 +4,7 @@ import { ArrowLeft, Sparkles, Save, Download, Loader2, CheckCircle2, AlertTriang
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
-import { getForm } from "@/lib/gov-forms";
+import { getForm, type GovForm } from "@/lib/gov-forms";
 import { useGovProfile } from "@/lib/gov-profile";
 import { useGovStore, uid } from "@/lib/gov-store";
 import { cn } from "@/lib/utils";
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/gov/forms/$slug")({
 type Draft = { values: Record<string, string>; savedAt: number };
 
 function FormFiller() {
-  const { f } = Route.useLoaderData();
+  const { f } = Route.useLoaderData() as { f: GovForm };
   const [profile] = useGovProfile();
   const [draft, setDraft] = useGovStore<Draft | null>(`draft:${f.slug}`, null);
   const [values, setValues] = useState<Record<string, string>>({});
