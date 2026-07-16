@@ -420,8 +420,25 @@ export const GOV_SERVICES: GovService[] = [
   },
 ];
 
-export const GOV_CATEGORIES: GovCategory[] = ["Identity", "Certificates", "Welfare", "Finance", "Pension"];
+import { EXTRA_GOV_SERVICES } from "./gov-services-extra";
+
+// Merge base + extended services, dropping any accidental slug duplicates.
+const _seen = new Set<string>();
+export const GOV_SERVICES: GovService[] = [..._BASE_GOV_SERVICES, ...EXTRA_GOV_SERVICES].filter((x) => {
+  if (_seen.has(x.slug)) return false;
+  _seen.add(x.slug);
+  return true;
+});
+
+export const GOV_CATEGORIES: GovCategory[] = [
+  "Identity", "Certificates", "Welfare", "Education", "Scholarship",
+  "Jobs", "Railways", "Banking", "Finance", "Tax", "Business", "Vehicle",
+  "Municipal", "Property", "Housing", "Utilities", "Labour", "Health",
+  "Insurance", "Agriculture", "Women", "Disability", "SeniorCitizen",
+  "Pension", "Legal", "Police", "Consumer", "Digital",
+];
 
 export function getGovService(slug: string) {
   return GOV_SERVICES.find((s) => s.slug === slug);
 }
+
