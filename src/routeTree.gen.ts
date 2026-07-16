@@ -35,15 +35,22 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
+import { Route as GovTrackerRouteImport } from './routes/gov.tracker'
+import { Route as GovSearchRouteImport } from './routes/gov.search'
+import { Route as GovRemindersRouteImport } from './routes/gov.reminders'
+import { Route as GovProfileRouteImport } from './routes/gov.profile'
 import { Route as GovFormsRouteImport } from './routes/gov.forms'
 import { Route as GovEligibilityRouteImport } from './routes/gov.eligibility'
+import { Route as GovDownloadsRouteImport } from './routes/gov.downloads'
 import { Route as GovDocumentsRouteImport } from './routes/gov.documents'
 import { Route as GovBookmarksRouteImport } from './routes/gov.bookmarks'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as GovFormsIndexRouteImport } from './routes/gov.forms.index'
+import { Route as GovDocumentsIndexRouteImport } from './routes/gov.documents.index'
 import { Route as GovFormsSlugRouteImport } from './routes/gov.forms.$slug'
+import { Route as GovDocumentsSlugRouteImport } from './routes/gov.documents.$slug'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -175,6 +182,26 @@ const ToolsSlugRoute = ToolsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ToolsRoute,
 } as any)
+const GovTrackerRoute = GovTrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovSearchRoute = GovSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovRemindersRoute = GovRemindersRouteImport.update({
+  id: '/reminders',
+  path: '/reminders',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovProfileRoute = GovProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => GovRoute,
+} as any)
 const GovFormsRoute = GovFormsRouteImport.update({
   id: '/forms',
   path: '/forms',
@@ -183,6 +210,11 @@ const GovFormsRoute = GovFormsRouteImport.update({
 const GovEligibilityRoute = GovEligibilityRouteImport.update({
   id: '/eligibility',
   path: '/eligibility',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovDownloadsRoute = GovDownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
   getParentRoute: () => GovRoute,
 } as any)
 const GovDocumentsRoute = GovDocumentsRouteImport.update({
@@ -215,10 +247,20 @@ const GovFormsIndexRoute = GovFormsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => GovFormsRoute,
 } as any)
+const GovDocumentsIndexRoute = GovDocumentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GovDocumentsRoute,
+} as any)
 const GovFormsSlugRoute = GovFormsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => GovFormsRoute,
+} as any)
+const GovDocumentsSlugRoute = GovDocumentsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => GovDocumentsRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -249,13 +291,20 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
-  '/gov/documents': typeof GovDocumentsRoute
+  '/gov/documents': typeof GovDocumentsRouteWithChildren
+  '/gov/downloads': typeof GovDownloadsRoute
   '/gov/eligibility': typeof GovEligibilityRoute
   '/gov/forms': typeof GovFormsRouteWithChildren
+  '/gov/profile': typeof GovProfileRoute
+  '/gov/reminders': typeof GovRemindersRoute
+  '/gov/search': typeof GovSearchRoute
+  '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
+  '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
+  '/gov/documents/': typeof GovDocumentsIndexRoute
   '/gov/forms/': typeof GovFormsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -284,12 +333,18 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
-  '/gov/documents': typeof GovDocumentsRoute
+  '/gov/downloads': typeof GovDownloadsRoute
   '/gov/eligibility': typeof GovEligibilityRoute
+  '/gov/profile': typeof GovProfileRoute
+  '/gov/reminders': typeof GovRemindersRoute
+  '/gov/search': typeof GovSearchRoute
+  '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
+  '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
+  '/gov/documents': typeof GovDocumentsIndexRoute
   '/gov/forms': typeof GovFormsIndexRoute
 }
 export interface FileRoutesById {
@@ -321,13 +376,20 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
-  '/gov/documents': typeof GovDocumentsRoute
+  '/gov/documents': typeof GovDocumentsRouteWithChildren
+  '/gov/downloads': typeof GovDownloadsRoute
   '/gov/eligibility': typeof GovEligibilityRoute
   '/gov/forms': typeof GovFormsRouteWithChildren
+  '/gov/profile': typeof GovProfileRoute
+  '/gov/reminders': typeof GovRemindersRoute
+  '/gov/search': typeof GovSearchRoute
+  '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
+  '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
+  '/gov/documents/': typeof GovDocumentsIndexRoute
   '/gov/forms/': typeof GovFormsIndexRoute
 }
 export interface FileRouteTypes {
@@ -361,12 +423,19 @@ export interface FileRouteTypes {
     | '/gov/$slug'
     | '/gov/bookmarks'
     | '/gov/documents'
+    | '/gov/downloads'
     | '/gov/eligibility'
     | '/gov/forms'
+    | '/gov/profile'
+    | '/gov/reminders'
+    | '/gov/search'
+    | '/gov/tracker'
     | '/tools/$slug'
     | '/gov/'
     | '/tools/'
+    | '/gov/documents/$slug'
     | '/gov/forms/$slug'
+    | '/gov/documents/'
     | '/gov/forms/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -395,12 +464,18 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/gov/$slug'
     | '/gov/bookmarks'
-    | '/gov/documents'
+    | '/gov/downloads'
     | '/gov/eligibility'
+    | '/gov/profile'
+    | '/gov/reminders'
+    | '/gov/search'
+    | '/gov/tracker'
     | '/tools/$slug'
     | '/gov'
     | '/tools'
+    | '/gov/documents/$slug'
     | '/gov/forms/$slug'
+    | '/gov/documents'
     | '/gov/forms'
   id:
     | '__root__'
@@ -432,12 +507,19 @@ export interface FileRouteTypes {
     | '/gov/$slug'
     | '/gov/bookmarks'
     | '/gov/documents'
+    | '/gov/downloads'
     | '/gov/eligibility'
     | '/gov/forms'
+    | '/gov/profile'
+    | '/gov/reminders'
+    | '/gov/search'
+    | '/gov/tracker'
     | '/tools/$slug'
     | '/gov/'
     | '/tools/'
+    | '/gov/documents/$slug'
     | '/gov/forms/$slug'
+    | '/gov/documents/'
     | '/gov/forms/'
   fileRoutesById: FileRoutesById
 }
@@ -653,6 +735,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsSlugRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/gov/tracker': {
+      id: '/gov/tracker'
+      path: '/tracker'
+      fullPath: '/gov/tracker'
+      preLoaderRoute: typeof GovTrackerRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/search': {
+      id: '/gov/search'
+      path: '/search'
+      fullPath: '/gov/search'
+      preLoaderRoute: typeof GovSearchRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/reminders': {
+      id: '/gov/reminders'
+      path: '/reminders'
+      fullPath: '/gov/reminders'
+      preLoaderRoute: typeof GovRemindersRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/profile': {
+      id: '/gov/profile'
+      path: '/profile'
+      fullPath: '/gov/profile'
+      preLoaderRoute: typeof GovProfileRouteImport
+      parentRoute: typeof GovRoute
+    }
     '/gov/forms': {
       id: '/gov/forms'
       path: '/forms'
@@ -665,6 +775,13 @@ declare module '@tanstack/react-router' {
       path: '/eligibility'
       fullPath: '/gov/eligibility'
       preLoaderRoute: typeof GovEligibilityRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/downloads': {
+      id: '/gov/downloads'
+      path: '/downloads'
+      fullPath: '/gov/downloads'
+      preLoaderRoute: typeof GovDownloadsRouteImport
       parentRoute: typeof GovRoute
     }
     '/gov/documents': {
@@ -709,6 +826,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovFormsIndexRouteImport
       parentRoute: typeof GovFormsRoute
     }
+    '/gov/documents/': {
+      id: '/gov/documents/'
+      path: '/'
+      fullPath: '/gov/documents/'
+      preLoaderRoute: typeof GovDocumentsIndexRouteImport
+      parentRoute: typeof GovDocumentsRoute
+    }
     '/gov/forms/$slug': {
       id: '/gov/forms/$slug'
       path: '/$slug'
@@ -716,8 +840,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovFormsSlugRouteImport
       parentRoute: typeof GovFormsRoute
     }
+    '/gov/documents/$slug': {
+      id: '/gov/documents/$slug'
+      path: '/$slug'
+      fullPath: '/gov/documents/$slug'
+      preLoaderRoute: typeof GovDocumentsSlugRouteImport
+      parentRoute: typeof GovDocumentsRoute
+    }
   }
 }
+
+interface GovDocumentsRouteChildren {
+  GovDocumentsSlugRoute: typeof GovDocumentsSlugRoute
+  GovDocumentsIndexRoute: typeof GovDocumentsIndexRoute
+}
+
+const GovDocumentsRouteChildren: GovDocumentsRouteChildren = {
+  GovDocumentsSlugRoute: GovDocumentsSlugRoute,
+  GovDocumentsIndexRoute: GovDocumentsIndexRoute,
+}
+
+const GovDocumentsRouteWithChildren = GovDocumentsRoute._addFileChildren(
+  GovDocumentsRouteChildren,
+)
 
 interface GovFormsRouteChildren {
   GovFormsSlugRoute: typeof GovFormsSlugRoute
@@ -736,18 +881,28 @@ const GovFormsRouteWithChildren = GovFormsRoute._addFileChildren(
 interface GovRouteChildren {
   GovSlugRoute: typeof GovSlugRoute
   GovBookmarksRoute: typeof GovBookmarksRoute
-  GovDocumentsRoute: typeof GovDocumentsRoute
+  GovDocumentsRoute: typeof GovDocumentsRouteWithChildren
+  GovDownloadsRoute: typeof GovDownloadsRoute
   GovEligibilityRoute: typeof GovEligibilityRoute
   GovFormsRoute: typeof GovFormsRouteWithChildren
+  GovProfileRoute: typeof GovProfileRoute
+  GovRemindersRoute: typeof GovRemindersRoute
+  GovSearchRoute: typeof GovSearchRoute
+  GovTrackerRoute: typeof GovTrackerRoute
   GovIndexRoute: typeof GovIndexRoute
 }
 
 const GovRouteChildren: GovRouteChildren = {
   GovSlugRoute: GovSlugRoute,
   GovBookmarksRoute: GovBookmarksRoute,
-  GovDocumentsRoute: GovDocumentsRoute,
+  GovDocumentsRoute: GovDocumentsRouteWithChildren,
+  GovDownloadsRoute: GovDownloadsRoute,
   GovEligibilityRoute: GovEligibilityRoute,
   GovFormsRoute: GovFormsRouteWithChildren,
+  GovProfileRoute: GovProfileRoute,
+  GovRemindersRoute: GovRemindersRoute,
+  GovSearchRoute: GovSearchRoute,
+  GovTrackerRoute: GovTrackerRoute,
   GovIndexRoute: GovIndexRoute,
 }
 
