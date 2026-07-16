@@ -37,7 +37,7 @@ const A = {
   gold: "from-[oklch(0.78_0.15_85)]/25 to-[oklch(0.78_0.15_85)]/5 ring-[oklch(0.78_0.15_85)]/30 text-[oklch(0.78_0.15_85)]",
 };
 
-export const GOV_SERVICES: GovService[] = [
+const _BASE_GOV_SERVICES: GovService[] = [
   {
     slug: "aadhaar", name: "Aadhaar", hindi: "आधार", category: "Identity",
     tagline: "12-digit unique identity issued by UIDAI.",
