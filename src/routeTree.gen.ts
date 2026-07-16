@@ -35,6 +35,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
+import { Route as GovEligibilityRouteImport } from './routes/gov.eligibility'
+import { Route as GovBookmarksRouteImport } from './routes/gov.bookmarks'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
@@ -169,6 +171,16 @@ const ToolsSlugRoute = ToolsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ToolsRoute,
 } as any)
+const GovEligibilityRoute = GovEligibilityRouteImport.update({
+  id: '/eligibility',
+  path: '/eligibility',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovBookmarksRoute = GovBookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => GovRoute,
+} as any)
 const GovSlugRoute = GovSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -212,6 +224,8 @@ export interface FileRoutesByFullPath {
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/gov/$slug': typeof GovSlugRoute
+  '/gov/bookmarks': typeof GovBookmarksRoute
+  '/gov/eligibility': typeof GovEligibilityRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
@@ -241,6 +255,8 @@ export interface FileRoutesByTo {
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/gov/$slug': typeof GovSlugRoute
+  '/gov/bookmarks': typeof GovBookmarksRoute
+  '/gov/eligibility': typeof GovEligibilityRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
@@ -273,6 +289,8 @@ export interface FileRoutesById {
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/gov/$slug': typeof GovSlugRoute
+  '/gov/bookmarks': typeof GovBookmarksRoute
+  '/gov/eligibility': typeof GovEligibilityRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
@@ -306,6 +324,8 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/chat'
     | '/gov/$slug'
+    | '/gov/bookmarks'
+    | '/gov/eligibility'
     | '/tools/$slug'
     | '/gov/'
     | '/tools/'
@@ -335,6 +355,8 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/chat'
     | '/gov/$slug'
+    | '/gov/bookmarks'
+    | '/gov/eligibility'
     | '/tools/$slug'
     | '/gov'
     | '/tools'
@@ -366,6 +388,8 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/chat'
     | '/gov/$slug'
+    | '/gov/bookmarks'
+    | '/gov/eligibility'
     | '/tools/$slug'
     | '/gov/'
     | '/tools/'
@@ -583,6 +607,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsSlugRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/gov/eligibility': {
+      id: '/gov/eligibility'
+      path: '/eligibility'
+      fullPath: '/gov/eligibility'
+      preLoaderRoute: typeof GovEligibilityRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/bookmarks': {
+      id: '/gov/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/gov/bookmarks'
+      preLoaderRoute: typeof GovBookmarksRouteImport
+      parentRoute: typeof GovRoute
+    }
     '/gov/$slug': {
       id: '/gov/$slug'
       path: '/$slug'
@@ -609,11 +647,15 @@ declare module '@tanstack/react-router' {
 
 interface GovRouteChildren {
   GovSlugRoute: typeof GovSlugRoute
+  GovBookmarksRoute: typeof GovBookmarksRoute
+  GovEligibilityRoute: typeof GovEligibilityRoute
   GovIndexRoute: typeof GovIndexRoute
 }
 
 const GovRouteChildren: GovRouteChildren = {
   GovSlugRoute: GovSlugRoute,
+  GovBookmarksRoute: GovBookmarksRoute,
+  GovEligibilityRoute: GovEligibilityRoute,
   GovIndexRoute: GovIndexRoute,
 }
 
