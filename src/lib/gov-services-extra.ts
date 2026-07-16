@@ -54,6 +54,7 @@ const CAT_ACCENT: Record<GovCategory, string> = {
   Police: A.rose,
   Consumer: A.gold,
   Minority: A.saffron,
+  Railways: A.royal,
 };
 
 type Mini = {
