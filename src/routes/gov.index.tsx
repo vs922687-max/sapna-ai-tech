@@ -118,6 +118,9 @@ function GovIndex() {
                 <I className="h-3.5 w-3.5" /> {label}
               </Link>
             ))}
+          </div>
+
+
 
           <div className="mt-4 flex flex-wrap gap-2">
             {(["All", ...GOV_CATEGORIES] as const).map((c) => (
