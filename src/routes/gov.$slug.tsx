@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, ExternalLink, CheckCircle2, FileText, ListChecks, AlertTriangle, HelpCircle, Sparkles, Loader2, Landmark } from "lucide-react";
+import { ArrowLeft, ExternalLink, CheckCircle2, FileText, ListChecks, AlertTriangle, HelpCircle, Sparkles, Loader2, Landmark, Bookmark, BookmarkCheck, MessageSquare } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,8 @@ import { GOV_SERVICES, getGovService, type GovService } from "@/lib/gov-services
 import { askAi } from "@/lib/ai-client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { GovAiAssistant } from "@/components/gov-ai-assistant";
+import { useGovBookmarks } from "@/lib/gov-bookmarks";
 
 export const Route = createFileRoute("/gov/$slug")({
   loader: ({ params }) => {
