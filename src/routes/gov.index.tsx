@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Search, ArrowRight, Landmark } from "lucide-react";
+import { Search, ArrowRight, Landmark, Sparkles, Bookmark, BookmarkCheck } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { GOV_SERVICES, GOV_CATEGORIES, type GovCategory } from "@/lib/gov-services";
+import { useGovBookmarks } from "@/lib/gov-bookmarks";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/gov/")({
@@ -39,6 +40,7 @@ function GovIndex() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<GovCategory | "All">("All");
   const [visible, setVisible] = useState(PAGE_SIZE);
+  const bookmarks = useGovBookmarks();
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -95,6 +97,12 @@ function GovIndex() {
                 aria-label="Search government services"
               />
             </div>
+            <Link to="/gov/eligibility" className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-sm font-semibold text-primary transition hover:bg-primary/20">
+              <Sparkles className="h-4 w-4" /> Check Eligibility
+            </Link>
+            <Link to="/gov/bookmarks" className="inline-flex items-center justify-center gap-2 rounded-xl border border-border/60 bg-background/60 px-4 py-3 text-sm font-semibold transition hover:border-primary/40">
+              <Bookmark className="h-4 w-4" /> Bookmarks{bookmarks.items.length > 0 && ` (${bookmarks.items.length})`}
+            </Link>
           </div>
 
           <div className="mt-4 flex flex-wrap gap-2">
@@ -130,13 +138,22 @@ function GovIndex() {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {shown.map((s, i) => {
                 const Icon = s.icon;
+                const isBookmarked = bookmarks.has(s.slug);
                 return (
                   <motion.div
                     key={s.slug}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.2, delay: Math.min((i % PAGE_SIZE) * 0.015, 0.15) }}
+                    className="relative"
                   >
+                    <button
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); bookmarks.toggle(s.slug); }}
+                      className="absolute right-3 top-3 z-10 grid h-8 w-8 place-items-center rounded-lg border border-border/60 bg-background/80 text-muted-foreground backdrop-blur transition hover:border-primary/40 hover:text-primary"
+                      aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
+                    >
+                      {isBookmarked ? <BookmarkCheck className="h-3.5 w-3.5 text-primary" /> : <Bookmark className="h-3.5 w-3.5" />}
+                    </button>
                     <Link
                       to="/gov/$slug"
                       params={{ slug: s.slug }}
