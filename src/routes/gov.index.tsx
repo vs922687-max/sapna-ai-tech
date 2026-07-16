@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Search, ArrowRight, Landmark, Sparkles, Bookmark, BookmarkCheck } from "lucide-react";
+import { Search, ArrowRight, Landmark, Sparkles, Bookmark, BookmarkCheck, FileText, ClipboardList, Bell, Download, UserCircle2 } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { GOV_SERVICES, GOV_CATEGORIES, type GovCategory } from "@/lib/gov-services";
@@ -104,6 +104,23 @@ function GovIndex() {
               <Bookmark className="h-4 w-4" /> Bookmarks{bookmarks.items.length > 0 && ` (${bookmarks.items.length})`}
             </Link>
           </div>
+
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-6">
+            {[
+              { to: "/gov/forms", label: "Forms", icon: FileText },
+              { to: "/gov/documents", label: "Documents", icon: FileText },
+              { to: "/gov/tracker", label: "Tracker", icon: ClipboardList },
+              { to: "/gov/downloads", label: "Downloads", icon: Download },
+              { to: "/gov/reminders", label: "Reminders", icon: Bell },
+              { to: "/gov/profile", label: "Profile", icon: UserCircle2 },
+            ].map(({ to, label, icon: I }) => (
+              <Link key={to} to={to} className="flex items-center justify-center gap-1.5 rounded-lg border border-border/50 bg-background/40 px-3 py-2 text-xs font-medium text-muted-foreground transition hover:border-primary/40 hover:text-foreground">
+                <I className="h-3.5 w-3.5" /> {label}
+              </Link>
+            ))}
+          </div>
+
+
 
           <div className="mt-4 flex flex-wrap gap-2">
             {(["All", ...GOV_CATEGORIES] as const).map((c) => (
