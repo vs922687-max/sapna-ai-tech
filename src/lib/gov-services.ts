@@ -4,7 +4,13 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-export type GovCategory = "Identity" | "Certificates" | "Welfare" | "Finance" | "Pension";
+export type GovCategory =
+  | "Identity" | "Certificates" | "Welfare" | "Finance" | "Pension"
+  | "Education" | "Scholarship" | "Jobs" | "Railways" | "Banking" | "Tax"
+  | "Business" | "Vehicle" | "Transport" | "Municipal" | "Property" | "Legal"
+  | "Utilities" | "Women" | "Minority" | "Disability" | "SeniorCitizen"
+  | "Housing" | "Labour" | "Health" | "Insurance" | "Digital" | "Agriculture"
+  | "Police" | "Consumer";
 
 export type GovService = {
   slug: string;
@@ -31,7 +37,7 @@ const A = {
   gold: "from-[oklch(0.78_0.15_85)]/25 to-[oklch(0.78_0.15_85)]/5 ring-[oklch(0.78_0.15_85)]/30 text-[oklch(0.78_0.15_85)]",
 };
 
-export const GOV_SERVICES: GovService[] = [
+const _BASE_GOV_SERVICES: GovService[] = [
   {
     slug: "aadhaar", name: "Aadhaar", hindi: "आधार", category: "Identity",
     tagline: "12-digit unique identity issued by UIDAI.",
@@ -414,8 +420,25 @@ export const GOV_SERVICES: GovService[] = [
   },
 ];
 
-export const GOV_CATEGORIES: GovCategory[] = ["Identity", "Certificates", "Welfare", "Finance", "Pension"];
+import { EXTRA_GOV_SERVICES } from "./gov-services-extra";
+
+// Merge base + extended services, dropping any accidental slug duplicates.
+const _seen = new Set<string>();
+export const GOV_SERVICES: GovService[] = [..._BASE_GOV_SERVICES, ...EXTRA_GOV_SERVICES].filter((x) => {
+  if (_seen.has(x.slug)) return false;
+  _seen.add(x.slug);
+  return true;
+});
+
+export const GOV_CATEGORIES: GovCategory[] = [
+  "Identity", "Certificates", "Welfare", "Education", "Scholarship",
+  "Jobs", "Railways", "Banking", "Finance", "Tax", "Business", "Vehicle",
+  "Municipal", "Property", "Housing", "Utilities", "Labour", "Health",
+  "Insurance", "Agriculture", "Women", "Disability", "SeniorCitizen",
+  "Pension", "Legal", "Police", "Consumer", "Digital",
+];
 
 export function getGovService(slug: string) {
   return GOV_SERVICES.find((s) => s.slug === slug);
 }
+

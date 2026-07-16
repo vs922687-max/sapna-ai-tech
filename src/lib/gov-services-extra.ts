@@ -1,0 +1,401 @@
+// Extended catalogue of Indian government services.
+// Kept separate from the original hand-written 19 to preserve their rich content
+// while enabling large-scale expansion via a compact helper. All entries below
+// are real, publicly documented Indian government services.
+
+import {
+  IdCard, FileText, GraduationCap, Award, Briefcase, Landmark, Train, Building2,
+  Receipt, Calculator, Factory, Rocket, Wifi, Sprout, HeartPulse, Plane, Car,
+  Vote, MapPin, Home, Zap, Droplets, Flame, ShieldCheck, ShoppingBag, Store,
+  Scale, Gavel, FileSearch, Users, Baby, Accessibility, HandCoins, PiggyBank,
+  Wallet, Building, Truck, BookOpen, Stethoscope, Umbrella, School, HardHat,
+  Sunrise, TreePine, Anchor, Wrench, CreditCard, Banknote, LineChart, Globe,
+  Phone, Cpu, Mail, Radio, Package, Ship, ClipboardCheck, UserCog, Coins,
+  Handshake, ScrollText, Search, Shield, AlertTriangle, MessageSquare,
+  Fingerprint, Palette, type LucideIcon,
+} from "lucide-react";
+import type { GovService, GovCategory } from "./gov-services";
+
+const A = {
+  saffron: "from-[oklch(0.76_0.17_55)]/25 to-[oklch(0.76_0.17_55)]/5 ring-[oklch(0.76_0.17_55)]/30 text-[oklch(0.76_0.17_55)]",
+  green: "from-[oklch(0.66_0.16_155)]/25 to-[oklch(0.66_0.16_155)]/5 ring-[oklch(0.66_0.16_155)]/30 text-[oklch(0.66_0.16_155)]",
+  royal: "from-[oklch(0.55_0.2_265)]/25 to-[oklch(0.55_0.2_265)]/5 ring-[oklch(0.55_0.2_265)]/30 text-[oklch(0.7_0.18_265)]",
+  rose: "from-[oklch(0.68_0.2_20)]/25 to-[oklch(0.68_0.2_20)]/5 ring-[oklch(0.68_0.2_20)]/30 text-[oklch(0.68_0.2_20)]",
+  gold: "from-[oklch(0.78_0.15_85)]/25 to-[oklch(0.78_0.15_85)]/5 ring-[oklch(0.78_0.15_85)]/30 text-[oklch(0.78_0.15_85)]",
+};
+
+const CAT_ACCENT: Record<GovCategory, string> = {
+  Identity: A.saffron,
+  Certificates: A.rose,
+  Welfare: A.green,
+  Finance: A.royal,
+  Pension: A.gold,
+  Education: A.royal,
+  Scholarship: A.gold,
+  Jobs: A.saffron,
+  Banking: A.royal,
+  Tax: A.rose,
+  Business: A.saffron,
+  Vehicle: A.royal,
+  Municipal: A.green,
+  Property: A.gold,
+  Legal: A.rose,
+  Utilities: A.green,
+  Women: A.rose,
+  Disability: A.royal,
+  SeniorCitizen: A.gold,
+  Housing: A.saffron,
+  Labour: A.gold,
+  Health: A.rose,
+  Insurance: A.royal,
+  Digital: A.royal,
+  Agriculture: A.green,
+  Transport: A.royal,
+  Police: A.rose,
+  Consumer: A.gold,
+  Minority: A.saffron,
+  Railways: A.royal,
+};
+
+type Mini = {
+  slug: string;
+  name: string;
+  hindi: string;
+  category: GovCategory;
+  tagline: string;
+  official: string;
+  ministry: string;
+  icon: LucideIcon;
+  eligibility?: string[];
+  documents?: string[];
+  steps?: { title: string; detail: string }[];
+  notes?: string[];
+  faqs?: { q: string; a: string }[];
+  accent?: string;
+};
+
+function s(m: Mini): GovService {
+  const eligibility = m.eligibility ?? ["Eligible Indian citizens as per official guidelines"];
+  const documents = m.documents ?? ["Aadhaar", "Address proof", "Passport-size photograph", "Category-specific supporting documents"];
+  const steps = m.steps ?? [
+    { title: "Visit official portal", detail: `Open ${m.official} and register / login.` },
+    { title: "Fill application form", detail: "Enter personal, address and category-specific details accurately." },
+    { title: "Upload documents", detail: "Attach scanned copies of required proofs within size limits." },
+    { title: "Pay applicable fees", detail: "Pay online via UPI / net banking / card if any fee is applicable." },
+    { title: "Track & download", detail: "Track status with application ID and download digitally signed certificate." },
+  ];
+  const notes = m.notes ?? ["Always apply only on the official government website listed above.", "Keep the application ID safe for tracking and future reference."];
+  const faqs = m.faqs ?? [
+    { q: "Is there any fee?", a: "Fees vary by service and state. Refer to the official portal for the exact amount." },
+    { q: "How long does it take?", a: "Typical processing is 7-30 days depending on verification and department workload." },
+  ];
+  return {
+    slug: m.slug,
+    name: m.name,
+    hindi: m.hindi,
+    category: m.category,
+    tagline: m.tagline,
+    icon: m.icon,
+    accent: m.accent ?? CAT_ACCENT[m.category],
+    official: m.official,
+    ministry: m.ministry,
+    eligibility,
+    documents,
+    steps,
+    notes,
+    faqs,
+  };
+}
+
+export const EXTRA_GOV_SERVICES: GovService[] = [
+  // ================= IDENTITY (extended) =================
+  s({ slug: "digilocker", name: "DigiLocker", hindi: "डिजिलॉकर", category: "Digital", tagline: "Cloud locker for authentic digital documents.", official: "https://www.digilocker.gov.in", ministry: "Ministry of Electronics & IT", icon: Cpu }),
+  s({ slug: "umang", name: "UMANG App", hindi: "उमंग ऐप", category: "Digital", tagline: "Unified access to 1,700+ government services.", official: "https://web.umang.gov.in", ministry: "MeitY / NeGD", icon: Phone }),
+  s({ slug: "mygov", name: "MyGov Portal", hindi: "माईगव", category: "Digital", tagline: "Citizen engagement platform for policy inputs.", official: "https://www.mygov.in", ministry: "MeitY", icon: MessageSquare }),
+  s({ slug: "csc-registration", name: "CSC Registration (VLE)", hindi: "सीएससी पंजीकरण", category: "Digital", tagline: "Become a Common Service Centre operator.", official: "https://register.csc.gov.in", ministry: "CSC e-Governance / MeitY", icon: Store }),
+  s({ slug: "abha-health-id", name: "ABHA Health ID (Ayushman Bharat Digital Mission)", hindi: "आभा हेल्थ आईडी", category: "Health", tagline: "14-digit unique digital health ID.", official: "https://abha.abdm.gov.in", ministry: "National Health Authority", icon: HeartPulse }),
+  s({ slug: "apaar-id", name: "APAAR ID (One Nation One Student ID)", hindi: "अपार आईडी", category: "Education", tagline: "Lifetime academic ID for every student.", official: "https://apaar.education.gov.in", ministry: "Ministry of Education", icon: IdCard }),
+  s({ slug: "oci-card", name: "OCI Card (Overseas Citizen of India)", hindi: "ओसीआई कार्ड", category: "Identity", tagline: "Lifelong visa & entry rights for PIOs.", official: "https://ociservices.gov.in", ministry: "MHA / Bureau of Immigration", icon: Globe }),
+  s({ slug: "npr-registration", name: "NPR Registration", hindi: "एनपीआर पंजीकरण", category: "Identity", tagline: "National Population Register enrolment.", official: "https://censusindia.gov.in", ministry: "Office of the RGI, MHA", icon: Users }),
+  s({ slug: "ration-card", name: "Ration Card (PDS)", hindi: "राशन कार्ड", category: "Welfare", tagline: "Subsidised foodgrain entitlement card.", official: "https://nfsa.gov.in", ministry: "Department of Food & Public Distribution", icon: ShoppingBag }),
+  s({ slug: "one-nation-one-ration-card", name: "One Nation One Ration Card", hindi: "वन नेशन वन राशन कार्ड", category: "Welfare", tagline: "Portable PDS across all states.", official: "https://nfsa.gov.in/portal/onorc_state", ministry: "DFPD", icon: ShoppingBag }),
+  s({ slug: "maadhaar-app", name: "mAadhaar App", hindi: "एम-आधार", category: "Identity", tagline: "Aadhaar on mobile with offline features.", official: "https://uidai.gov.in/en/ecosystem/authentication-devices-documents/maadhaar.html", ministry: "UIDAI", icon: Phone }),
+  s({ slug: "aadhaar-update", name: "Aadhaar Update / Correction", hindi: "आधार अपडेट", category: "Identity", tagline: "Update address, mobile, name in Aadhaar.", official: "https://myaadhaar.uidai.gov.in", ministry: "UIDAI", icon: UserCog }),
+  s({ slug: "esign", name: "eSign (Aadhaar OTP)", hindi: "ई-साइन", category: "Digital", tagline: "Legally valid digital signature via Aadhaar.", official: "https://cca.gov.in/esign.html", ministry: "CCA, MeitY", icon: Fingerprint }),
+  s({ slug: "dsc", name: "Digital Signature Certificate (DSC)", hindi: "डिजिटल हस्ताक्षर", category: "Business", tagline: "Class 3 DSC for MCA, GST, ITR filings.", official: "https://cca.gov.in", ministry: "Controller of Certifying Authorities", icon: Fingerprint }),
+
+  // ================= CERTIFICATES (extended) =================
+  s({ slug: "marriage-certificate", name: "Marriage Certificate", hindi: "विवाह प्रमाण पत्र", category: "Certificates", tagline: "Legal proof of marriage registration.", official: "https://services.india.gov.in", ministry: "State Registration Department", icon: FileText }),
+  s({ slug: "death-certificate", name: "Death Certificate", hindi: "मृत्यु प्रमाण पत्र", category: "Certificates", tagline: "Legal proof of death by municipal authority.", official: "https://crsorgi.gov.in", ministry: "Registrar General of India", icon: FileText }),
+  s({ slug: "ews-certificate", name: "EWS Certificate", hindi: "ईडब्ल्यूएस प्रमाण पत्र", category: "Certificates", tagline: "10% reservation for Economically Weaker Sections.", official: "https://services.india.gov.in", ministry: "State Revenue Department", icon: HandCoins }),
+  s({ slug: "udid-card", name: "UDID Card (Disability)", hindi: "यूडीआईडी कार्ड", category: "Disability", tagline: "Unique Disability ID for PwD benefits.", official: "https://www.swavlambancard.gov.in", ministry: "Dept of Empowerment of PwDs", icon: Accessibility }),
+  s({ slug: "senior-citizen-card", name: "Senior Citizen Card", hindi: "वरिष्ठ नागरिक कार्ड", category: "SeniorCitizen", tagline: "ID for concessions for citizens aged 60+.", official: "https://services.india.gov.in", ministry: "State Social Welfare", icon: Sunrise }),
+  s({ slug: "legal-heir-certificate", name: "Legal Heir Certificate", hindi: "कानूनी वारिस प्रमाण पत्र", category: "Legal", tagline: "Establishes rightful heirs of deceased.", official: "https://services.india.gov.in", ministry: "State Revenue Department", icon: Scale }),
+  s({ slug: "encumbrance-certificate", name: "Encumbrance Certificate", hindi: "बोझभार प्रमाण पत्र", category: "Property", tagline: "Proof of clean property title.", official: "https://services.india.gov.in", ministry: "State Registration Department", icon: ScrollText }),
+  s({ slug: "solvency-certificate", name: "Solvency Certificate", hindi: "सॉल्वेंसी प्रमाण पत्र", category: "Certificates", tagline: "Proof of financial solvency by tehsildar.", official: "https://services.india.gov.in", ministry: "State Revenue Department", icon: Wallet }),
+  s({ slug: "character-certificate", name: "Character Certificate", hindi: "चरित्र प्रमाण पत्र", category: "Police", tagline: "Police character certificate for jobs/visa.", official: "https://digitalpolicecitizenservices.gov.in", ministry: "State Police", icon: ShieldCheck }),
+  s({ slug: "no-objection-certificate", name: "NOC (Various Departments)", hindi: "अनापत्ति प्रमाण पत्र", category: "Certificates", tagline: "Formal 'no objection' letter from an authority.", official: "https://services.india.gov.in", ministry: "Concerned Department", icon: ClipboardCheck }),
+  s({ slug: "nativity-certificate", name: "Nativity Certificate", hindi: "मूल निवासी प्रमाण पत्र", category: "Certificates", tagline: "Proof of native place / village of origin.", official: "https://services.india.gov.in", ministry: "State Revenue Department", icon: MapPin }),
+  s({ slug: "obc-ncl-certificate", name: "OBC Non-Creamy Layer Certificate", hindi: "ओबीसी नॉन-क्रीमी लेयर", category: "Certificates", tagline: "Proof of OBC status with income below ₹8 lakh.", official: "https://services.india.gov.in", ministry: "State Revenue Department", icon: Award }),
+  s({ slug: "police-clearance-certificate", name: "Police Clearance Certificate (PCC)", hindi: "पीसीसी", category: "Police", tagline: "PCC for immigration, jobs abroad, visa.", official: "https://www.passportindia.gov.in", ministry: "MEA / State Police", icon: ShieldCheck }),
+
+  // ================= EDUCATION =================
+  s({ slug: "cbse-registration", name: "CBSE Registration", hindi: "सीबीएसई पंजीकरण", category: "Education", tagline: "Central Board school & student registration.", official: "https://www.cbse.gov.in", ministry: "CBSE, Ministry of Education", icon: School }),
+  s({ slug: "cisce-icse", name: "CISCE (ICSE/ISC)", hindi: "आईसीएसई/आईएससी", category: "Education", tagline: "Council for Indian School Certificate Exams.", official: "https://www.cisce.org", ministry: "CISCE", icon: School }),
+  s({ slug: "ncert", name: "NCERT Textbooks & Programs", hindi: "एनसीईआरटी", category: "Education", tagline: "National curriculum, textbooks, teacher training.", official: "https://ncert.nic.in", ministry: "Ministry of Education", icon: BookOpen }),
+  s({ slug: "nios", name: "NIOS (Open Schooling)", hindi: "एनआईओएस", category: "Education", tagline: "Open school for 10th/12th at your own pace.", official: "https://nios.ac.in", ministry: "Ministry of Education", icon: School }),
+  s({ slug: "ignou", name: "IGNOU Admission", hindi: "इग्नू", category: "Education", tagline: "World's largest open university programs.", official: "https://ignou.ac.in", ministry: "Ministry of Education", icon: GraduationCap }),
+  s({ slug: "swayam", name: "SWAYAM Online Courses", hindi: "स्वयं", category: "Education", tagline: "Free MOOCs from IITs, IIMs, NPTEL.", official: "https://swayam.gov.in", ministry: "Ministry of Education", icon: BookOpen }),
+  s({ slug: "diksha", name: "DIKSHA Platform", hindi: "दीक्षा", category: "Education", tagline: "National platform for school teachers & students.", official: "https://diksha.gov.in", ministry: "Ministry of Education", icon: BookOpen }),
+  s({ slug: "pm-evidya", name: "PM eVidya", hindi: "पीएम ई-विद्या", category: "Education", tagline: "Multi-mode digital/online education.", official: "https://pmevidya.education.gov.in", ministry: "Ministry of Education", icon: Cpu }),
+  s({ slug: "samagra-shiksha", name: "Samagra Shiksha", hindi: "समग्र शिक्षा", category: "Education", tagline: "Integrated scheme for school education KG–12.", official: "https://samagra.education.gov.in", ministry: "Ministry of Education", icon: School }),
+  s({ slug: "pm-shri-schools", name: "PM SHRI Schools", hindi: "पीएम श्री स्कूल", category: "Education", tagline: "14,500 upgraded model schools nationwide.", official: "https://pmshrischools.education.gov.in", ministry: "Ministry of Education", icon: School }),
+  s({ slug: "pm-poshan", name: "PM POSHAN (Mid-Day Meal)", hindi: "पीएम पोषण", category: "Education", tagline: "Free hot meal to school children Class 1-8.", official: "https://pmposhan.education.gov.in", ministry: "Ministry of Education", icon: HeartPulse }),
+  s({ slug: "ugc", name: "UGC (University Grants Commission)", hindi: "यूजीसी", category: "Education", tagline: "Higher education regulator & funding body.", official: "https://www.ugc.gov.in", ministry: "Ministry of Education", icon: GraduationCap }),
+  s({ slug: "aicte", name: "AICTE Approval", hindi: "एआईसीटीई", category: "Education", tagline: "Approves technical colleges & courses.", official: "https://www.aicte-india.org", ministry: "Ministry of Education", icon: GraduationCap }),
+  s({ slug: "naac", name: "NAAC Accreditation", hindi: "एनएएसी", category: "Education", tagline: "Grading of colleges/universities on quality.", official: "http://naac.gov.in", ministry: "UGC / Ministry of Education", icon: Award }),
+  s({ slug: "nirf-ranking", name: "NIRF Rankings", hindi: "एनआईआरएफ", category: "Education", tagline: "National ranking framework for higher education.", official: "https://www.nirfindia.org", ministry: "Ministry of Education", icon: LineChart }),
+  s({ slug: "abc-id", name: "Academic Bank of Credits (ABC)", hindi: "एकेडमिक बैंक ऑफ क्रेडिट्स", category: "Education", tagline: "Store & transfer college credits digitally.", official: "https://www.abc.gov.in", ministry: "UGC / Ministry of Education", icon: Award }),
+  s({ slug: "nta", name: "NTA (National Testing Agency)", hindi: "एनटीए", category: "Education", tagline: "Conducts JEE, NEET, CUET, UGC-NET etc.", official: "https://nta.ac.in", ministry: "Ministry of Education", icon: Award }),
+  s({ slug: "jee-main", name: "JEE Main", hindi: "जेईई मेन", category: "Education", tagline: "Entrance for NITs, IIITs and CFTIs.", official: "https://jeemain.nta.nic.in", ministry: "NTA / Ministry of Education", icon: Award }),
+  s({ slug: "neet-ug", name: "NEET UG", hindi: "नीट यूजी", category: "Education", tagline: "Undergraduate medical & dental entrance.", official: "https://neet.nta.nic.in", ministry: "NTA / Ministry of Education", icon: HeartPulse }),
+  s({ slug: "cuet-ug", name: "CUET UG", hindi: "सीयूईटी यूजी", category: "Education", tagline: "Common admission test for central universities.", official: "https://cuet.nta.nic.in", ministry: "NTA / Ministry of Education", icon: Award }),
+  s({ slug: "ugc-net", name: "UGC-NET", hindi: "यूजीसी नेट", category: "Education", tagline: "Assistant Professor & JRF eligibility.", official: "https://ugcnet.nta.nic.in", ministry: "NTA / UGC", icon: Award }),
+
+  // ================= SCHOLARSHIPS =================
+  s({ slug: "nsp", name: "National Scholarship Portal (NSP)", hindi: "एनएसपी", category: "Scholarship", tagline: "One-stop portal for central scholarships.", official: "https://scholarships.gov.in", ministry: "Ministry of Electronics & IT", icon: Award }),
+  s({ slug: "inspire-scholarship", name: "INSPIRE Scholarship (SHE)", hindi: "इंस्पायर स्कॉलरशिप", category: "Scholarship", tagline: "₹80,000/year for top 1% science students.", official: "https://online-inspire.gov.in", ministry: "Department of Science & Technology", icon: Award }),
+  s({ slug: "pm-yasasvi", name: "PM YASASVI Scholarship", hindi: "पीएम यशस्वी", category: "Scholarship", tagline: "OBC/EBC/DNT students Class 9-12.", official: "https://yet.nta.ac.in", ministry: "Ministry of Social Justice", icon: Award }),
+  s({ slug: "post-matric-sc", name: "Post-Matric Scholarship SC", hindi: "पोस्ट-मैट्रिक SC छात्रवृत्ति", category: "Scholarship", tagline: "For SC students above Class 10.", official: "https://scholarships.gov.in", ministry: "Ministry of Social Justice", icon: Award }),
+  s({ slug: "post-matric-st", name: "Post-Matric Scholarship ST", hindi: "पोस्ट-मैट्रिक ST छात्रवृत्ति", category: "Scholarship", tagline: "For Scheduled Tribe students above Class 10.", official: "https://scholarships.gov.in", ministry: "Ministry of Tribal Affairs", icon: Award }),
+  s({ slug: "post-matric-obc", name: "Post-Matric Scholarship OBC", hindi: "पोस्ट-मैट्रिक OBC छात्रवृत्ति", category: "Scholarship", tagline: "For OBC students above Class 10.", official: "https://scholarships.gov.in", ministry: "Ministry of Social Justice", icon: Award }),
+  s({ slug: "pre-matric-minority", name: "Pre-Matric Scholarship (Minority)", hindi: "प्री-मैट्रिक अल्पसंख्यक", category: "Scholarship", tagline: "Class 1-10 minority students.", official: "https://scholarships.gov.in", ministry: "Ministry of Minority Affairs", icon: Award }),
+  s({ slug: "post-matric-minority", name: "Post-Matric Scholarship (Minority)", hindi: "पोस्ट-मैट्रिक अल्पसंख्यक", category: "Scholarship", tagline: "Class 11 onwards minority students.", official: "https://scholarships.gov.in", ministry: "Ministry of Minority Affairs", icon: Award }),
+  s({ slug: "maulana-azad-fellowship", name: "Maulana Azad Fellowship", hindi: "मौलाना आज़ाद फ़ेलोशिप", category: "Scholarship", tagline: "MPhil/PhD fellowship (minority).", official: "https://scholarships.gov.in", ministry: "Ministry of Minority Affairs", icon: GraduationCap }),
+  s({ slug: "begum-hazrat-mahal", name: "Begum Hazrat Mahal Scholarship", hindi: "बेगम हज़रत महल", category: "Scholarship", tagline: "Meritorious minority girls Class 9-12.", official: "https://scholarships.gov.in", ministry: "Maulana Azad Education Foundation", icon: Award }),
+  s({ slug: "nmms", name: "National Means-cum-Merit Scholarship (NMMS)", hindi: "एनएमएमएस", category: "Scholarship", tagline: "₹12,000/year for Class 9-12.", official: "https://scholarships.gov.in", ministry: "Ministry of Education", icon: Award }),
+  s({ slug: "pmsss-jk-ladakh", name: "PMSSS (J&K and Ladakh)", hindi: "पीएमएसएसएस", category: "Scholarship", tagline: "Scholarship for J&K/Ladakh students outside UT.", official: "https://www.aicte-pmsss.in", ministry: "AICTE", icon: Award }),
+  s({ slug: "pm-vidyalaxmi", name: "PM Vidyalaxmi (Education Loan)", hindi: "पीएम विद्यालक्ष्मी", category: "Scholarship", tagline: "Collateral-free education loans for top institutes.", official: "https://www.vidyalakshmi.co.in", ministry: "Ministry of Education / DFS", icon: Wallet }),
+  s({ slug: "vidyanjali", name: "Vidyanjali (School Volunteering)", hindi: "विद्यांजलि", category: "Education", tagline: "Volunteer & CSR contributions to schools.", official: "https://vidyanjali.education.gov.in", ministry: "Ministry of Education", icon: Handshake }),
+
+  // ================= JOBS / EMPLOYMENT =================
+  s({ slug: "upsc-cse", name: "UPSC Civil Services (IAS/IPS/IFS)", hindi: "यूपीएससी सिविल सेवा", category: "Jobs", tagline: "Prelims-Mains-Interview for top civil posts.", official: "https://upsc.gov.in", ministry: "Union Public Service Commission", icon: Briefcase }),
+  s({ slug: "upsc-cds", name: "UPSC CDS Exam", hindi: "यूपीएससी सीडीएस", category: "Jobs", tagline: "Officer entry to IMA, INA, AFA, OTA.", official: "https://upsc.gov.in", ministry: "UPSC", icon: Shield }),
+  s({ slug: "upsc-nda", name: "UPSC NDA & NA", hindi: "यूपीएससी एनडीए", category: "Jobs", tagline: "Entry to National Defence Academy.", official: "https://upsc.gov.in", ministry: "UPSC", icon: Shield }),
+  s({ slug: "upsc-ese", name: "UPSC ESE (IES)", hindi: "इंजीनियरिंग सेवा", category: "Jobs", tagline: "Engineering Services Examination.", official: "https://upsc.gov.in", ministry: "UPSC", icon: Wrench }),
+  s({ slug: "upsc-capf", name: "UPSC CAPF (AC)", hindi: "यूपीएससी सीएपीएफ", category: "Jobs", tagline: "Asst. Commandant in BSF, CRPF, CISF, ITBP, SSB.", official: "https://upsc.gov.in", ministry: "UPSC / MHA", icon: Shield }),
+  s({ slug: "ssc-cgl", name: "SSC CGL", hindi: "एसएससी सीजीएल", category: "Jobs", tagline: "Group B/C posts in central ministries.", official: "https://ssc.gov.in", ministry: "Staff Selection Commission", icon: Briefcase }),
+  s({ slug: "ssc-chsl", name: "SSC CHSL", hindi: "एसएससी सीएचएसएल", category: "Jobs", tagline: "12th-pass level posts (LDC, DEO, PA).", official: "https://ssc.gov.in", ministry: "SSC", icon: Briefcase }),
+  s({ slug: "ssc-mts", name: "SSC MTS & Havaldar", hindi: "एसएससी एमटीएस", category: "Jobs", tagline: "Multi-Tasking Staff, 10th-pass level.", official: "https://ssc.gov.in", ministry: "SSC", icon: Briefcase }),
+  s({ slug: "ssc-gd", name: "SSC GD Constable", hindi: "एसएससी जीडी कांस्टेबल", category: "Jobs", tagline: "Constable in CAPFs, NIA, SSF and AR.", official: "https://ssc.gov.in", ministry: "SSC / MHA", icon: Shield }),
+  s({ slug: "ssc-je", name: "SSC JE (Junior Engineer)", hindi: "एसएससी जेई", category: "Jobs", tagline: "Junior Engineer in central departments.", official: "https://ssc.gov.in", ministry: "SSC", icon: Wrench }),
+  s({ slug: "ssc-cpo", name: "SSC CPO (Delhi Police SI)", hindi: "एसएससी सीपीओ", category: "Jobs", tagline: "SI in Delhi Police & CAPFs.", official: "https://ssc.gov.in", ministry: "SSC", icon: Shield }),
+  s({ slug: "ibps-po", name: "IBPS PO", hindi: "आईबीपीएस पीओ", category: "Jobs", tagline: "Probationary Officer in PSU banks.", official: "https://ibps.in", ministry: "Institute of Banking Personnel Selection", icon: Landmark }),
+  s({ slug: "ibps-clerk", name: "IBPS Clerk", hindi: "आईबीपीएस क्लर्क", category: "Jobs", tagline: "Clerk cadre in PSU banks.", official: "https://ibps.in", ministry: "IBPS", icon: Landmark }),
+  s({ slug: "ibps-rrb", name: "IBPS RRB (Officer/Clerk)", hindi: "आईबीपीएस आरआरबी", category: "Jobs", tagline: "Regional Rural Banks recruitment.", official: "https://ibps.in", ministry: "IBPS", icon: Landmark }),
+  s({ slug: "sbi-po", name: "SBI PO", hindi: "एसबीआई पीओ", category: "Jobs", tagline: "Probationary Officer in State Bank of India.", official: "https://sbi.co.in/careers", ministry: "State Bank of India", icon: Landmark }),
+  s({ slug: "sbi-clerk", name: "SBI Clerk (Jr. Associate)", hindi: "एसबीआई क्लर्क", category: "Jobs", tagline: "Junior Associate in SBI.", official: "https://sbi.co.in/careers", ministry: "State Bank of India", icon: Landmark }),
+  s({ slug: "rbi-grade-b", name: "RBI Grade B Officer", hindi: "आरबीआई ग्रेड बी", category: "Jobs", tagline: "Officer in Reserve Bank of India.", official: "https://opportunities.rbi.org.in", ministry: "Reserve Bank of India", icon: Landmark }),
+  s({ slug: "rbi-assistant", name: "RBI Assistant", hindi: "आरबीआई असिस्टेंट", category: "Jobs", tagline: "Assistant grade in RBI.", official: "https://opportunities.rbi.org.in", ministry: "RBI", icon: Landmark }),
+  s({ slug: "nabard-grade-a", name: "NABARD Grade A/B", hindi: "नाबार्ड", category: "Jobs", tagline: "Officer roles in NABARD.", official: "https://www.nabard.org/careers-notice.aspx", ministry: "NABARD", icon: Sprout }),
+  s({ slug: "lic-aao", name: "LIC AAO/ADO", hindi: "एलआईसी एएओ", category: "Jobs", tagline: "Assistant Administrative Officer in LIC.", official: "https://licindia.in/careers", ministry: "Life Insurance Corporation", icon: Umbrella }),
+  s({ slug: "epfo-ssa", name: "EPFO SSA / Assistant", hindi: "ईपीएफओ एसएसए", category: "Jobs", tagline: "Social Security Assistant in EPFO.", official: "https://www.epfindia.gov.in", ministry: "EPFO / Ministry of Labour", icon: PiggyBank }),
+  s({ slug: "rrb-ntpc", name: "RRB NTPC", hindi: "आरआरबी एनटीपीसी", category: "Railways", tagline: "Non-Technical Popular Categories in Railways.", official: "https://www.rrbcdg.gov.in", ministry: "Railway Recruitment Board", icon: Train }),
+  s({ slug: "rrb-group-d", name: "RRB Group D", hindi: "आरआरबी ग्रुप डी", category: "Railways", tagline: "Level 1 posts in Indian Railways.", official: "https://www.rrbcdg.gov.in", ministry: "RRB", icon: Train }),
+  s({ slug: "rrb-alp", name: "RRB ALP & Technician", hindi: "आरआरबी एएलपी", category: "Railways", tagline: "Assistant Loco Pilot & Technician.", official: "https://www.rrbcdg.gov.in", ministry: "RRB", icon: Train }),
+  s({ slug: "rrb-je", name: "RRB JE (Junior Engineer)", hindi: "आरआरबी जेई", category: "Railways", tagline: "Junior Engineer in Indian Railways.", official: "https://www.rrbcdg.gov.in", ministry: "RRB", icon: Train }),
+  s({ slug: "rpf-constable", name: "RPF Constable / SI", hindi: "आरपीएफ", category: "Railways", tagline: "Railway Protection Force recruitment.", official: "https://www.rrbcdg.gov.in", ministry: "Ministry of Railways", icon: Shield }),
+  s({ slug: "agniveer-army", name: "Agniveer (Indian Army)", hindi: "अग्निवीर सेना", category: "Jobs", tagline: "4-year Agnipath entry to Indian Army.", official: "https://joinindianarmy.nic.in", ministry: "Ministry of Defence", icon: Shield }),
+  s({ slug: "agniveer-navy", name: "Agniveer (Indian Navy)", hindi: "अग्निवीर नौसेना", category: "Jobs", tagline: "Agnipath entry to Indian Navy.", official: "https://www.joinindiannavy.gov.in", ministry: "Ministry of Defence", icon: Anchor }),
+  s({ slug: "agniveer-airforce", name: "Agniveer (Indian Air Force)", hindi: "अग्निवीर वायुसेना", category: "Jobs", tagline: "Agnipath entry to IAF.", official: "https://agnipathvayu.cdac.in", ministry: "Ministry of Defence", icon: Plane }),
+  s({ slug: "ncs-portal", name: "National Career Service (NCS)", hindi: "एनसीएस पोर्टल", category: "Jobs", tagline: "Free job portal by Govt of India.", official: "https://www.ncs.gov.in", ministry: "Ministry of Labour & Employment", icon: Briefcase }),
+  s({ slug: "pmkvy", name: "PM Kaushal Vikas Yojana (PMKVY)", hindi: "पीएमकेवीवाई", category: "Jobs", tagline: "Short-term skill training with certification.", official: "https://www.pmkvyofficial.org", ministry: "MSDE", icon: Wrench }),
+  s({ slug: "naps-apprenticeship", name: "NAPS Apprenticeship", hindi: "एनएपीएस", category: "Jobs", tagline: "National Apprenticeship Promotion Scheme.", official: "https://www.apprenticeshipindia.gov.in", ministry: "MSDE", icon: Wrench }),
+  s({ slug: "skill-india-portal", name: "Skill India Digital", hindi: "स्किल इंडिया", category: "Jobs", tagline: "Unified skilling & jobs discovery portal.", official: "https://www.skillindiadigital.gov.in", ministry: "MSDE", icon: Wrench }),
+  s({ slug: "rozgar-mela", name: "Rozgar Mela", hindi: "रोज़गार मेला", category: "Jobs", tagline: "PM's recruitment drive for central posts.", official: "https://ncs.gov.in/RozgarMela", ministry: "Ministry of Personnel / DoPT", icon: Briefcase }),
+  s({ slug: "mgnrega", name: "MGNREGA", hindi: "मनरेगा", category: "Jobs", tagline: "100 days guaranteed rural employment.", official: "https://nrega.nic.in", ministry: "Ministry of Rural Development", icon: HardHat }),
+
+  // ================= BANKING / FINANCE =================
+  s({ slug: "ppf", name: "Public Provident Fund (PPF)", hindi: "पीपीएफ", category: "Banking", tagline: "15-yr tax-free savings scheme.", official: "https://www.indiapost.gov.in", ministry: "Department of Posts / DEA", icon: PiggyBank }),
+  s({ slug: "kvp", name: "Kisan Vikas Patra (KVP)", hindi: "किसान विकास पत्र", category: "Banking", tagline: "Doubles your money in fixed years.", official: "https://www.indiapost.gov.in", ministry: "Department of Posts", icon: PiggyBank }),
+  s({ slug: "nsc", name: "National Savings Certificate (NSC)", hindi: "एनएससी", category: "Banking", tagline: "5-year fixed income + 80C benefit.", official: "https://www.indiapost.gov.in", ministry: "Department of Posts", icon: PiggyBank }),
+  s({ slug: "scss", name: "Senior Citizen Savings Scheme (SCSS)", hindi: "एससीएसएस", category: "SeniorCitizen", tagline: "High-interest quarterly income for 60+.", official: "https://www.indiapost.gov.in", ministry: "Department of Posts", icon: Sunrise }),
+  s({ slug: "post-office-mis", name: "Post Office Monthly Income Scheme (POMIS)", hindi: "पीओएमआईएस", category: "Banking", tagline: "Fixed monthly income for 5 years.", official: "https://www.indiapost.gov.in", ministry: "Department of Posts", icon: Coins }),
+  s({ slug: "sovereign-gold-bond", name: "Sovereign Gold Bond (SGB)", hindi: "सॉवरेन गोल्ड बॉन्ड", category: "Banking", tagline: "Govt-backed gold investment with 2.5% interest.", official: "https://www.rbi.org.in", ministry: "RBI / Ministry of Finance", icon: Coins }),
+  s({ slug: "rbi-retail-direct", name: "RBI Retail Direct", hindi: "आरबीआई रिटेल डायरेक्ट", category: "Banking", tagline: "Buy govt securities & T-bills directly.", official: "https://rbiretaildirect.org.in", ministry: "RBI", icon: LineChart }),
+  s({ slug: "upi-nfs", name: "UPI (Unified Payments Interface)", hindi: "यूपीआई", category: "Digital", tagline: "Instant bank-to-bank real-time payments.", official: "https://www.npci.org.in/what-we-do/upi/product-overview", ministry: "NPCI / RBI", icon: Wallet }),
+  s({ slug: "bhim-upi", name: "BHIM App", hindi: "भीम ऐप", category: "Digital", tagline: "Govt UPI app by NPCI.", official: "https://www.bhimupi.org.in", ministry: "NPCI", icon: Phone }),
+  s({ slug: "e-rupi", name: "e-RUPI (Digital Voucher)", hindi: "ई-रूपी", category: "Digital", tagline: "Cashless, contactless purpose-specific voucher.", official: "https://www.npci.org.in/what-we-do/e-rupi/product-overview", ministry: "NPCI", icon: Wallet }),
+  s({ slug: "aeps", name: "AePS (Aadhaar Enabled Payment System)", hindi: "एईपीएस", category: "Digital", tagline: "Withdraw cash using Aadhaar & biometrics.", official: "https://www.npci.org.in/what-we-do/aeps/product-overview", ministry: "NPCI", icon: Fingerprint }),
+  s({ slug: "dbt-bharat", name: "DBT Bharat", hindi: "डीबीटी भारत", category: "Digital", tagline: "Direct Benefit Transfer of subsidies.", official: "https://dbtbharat.gov.in", ministry: "DBT Mission, Cabinet Secretariat", icon: Wallet }),
+  s({ slug: "rupay-card", name: "RuPay Card", hindi: "रुपे कार्ड", category: "Banking", tagline: "India's homegrown card payment network.", official: "https://www.npci.org.in/what-we-do/rupay/product-overview", ministry: "NPCI", icon: CreditCard }),
+  s({ slug: "kisan-credit-card", name: "Kisan Credit Card (KCC)", hindi: "किसान क्रेडिट कार्ड", category: "Agriculture", tagline: "Low-interest credit for farmers.", official: "https://pmkisan.gov.in/Documents/Kcc.pdf", ministry: "Ministry of Agriculture / NABARD", icon: CreditCard }),
+  s({ slug: "stand-up-india", name: "Stand-Up India", hindi: "स्टैंड-अप इंडिया", category: "Business", tagline: "₹10 lakh–1 crore loan for SC/ST/women.", official: "https://www.standupmitra.in", ministry: "Department of Financial Services", icon: Rocket }),
+  s({ slug: "pmegp", name: "PMEGP", hindi: "पीएमईजीपी", category: "Business", tagline: "Credit-linked subsidy for new micro units.", official: "https://www.kviconline.gov.in/pmegpeportal", ministry: "MoMSME / KVIC", icon: Factory }),
+  s({ slug: "cgtmse", name: "CGTMSE (Credit Guarantee)", hindi: "सीजीटीएमएसई", category: "Business", tagline: "Collateral-free MSME credit guarantee.", official: "https://www.cgtmse.in", ministry: "MoMSME / SIDBI", icon: ShieldCheck }),
+  s({ slug: "fastag", name: "FASTag", hindi: "फास्टैग", category: "Vehicle", tagline: "RFID-based electronic toll payment.", official: "https://ihmcl.co.in/fastag/", ministry: "NHAI / MoRTH", icon: Car }),
+
+  // ================= TAX / GST =================
+  s({ slug: "income-tax-efiling", name: "Income Tax e-Filing (ITR)", hindi: "इनकम टैक्स ई-फाइलिंग", category: "Tax", tagline: "File ITR-1 to ITR-7 online.", official: "https://www.incometax.gov.in", ministry: "Income Tax Department", icon: Receipt }),
+  s({ slug: "tan-application", name: "TAN Application", hindi: "टैन", category: "Tax", tagline: "Tax Deduction Account Number for TDS.", official: "https://www.protean-tinpan.com", ministry: "Income Tax Department", icon: Receipt }),
+  s({ slug: "tds-return", name: "TDS/TCS Return Filing", hindi: "टीडीएस रिटर्न", category: "Tax", tagline: "Quarterly TDS/TCS statements 24Q/26Q/27Q.", official: "https://www.incometax.gov.in", ministry: "Income Tax Department", icon: Receipt }),
+  s({ slug: "form-16", name: "Form 16 (TDS Certificate)", hindi: "फॉर्म 16", category: "Tax", tagline: "Employer-issued TDS on salary certificate.", official: "https://www.incometax.gov.in", ministry: "Income Tax Department", icon: FileText }),
+  s({ slug: "form-26as", name: "Form 26AS / AIS / TIS", hindi: "फॉर्म 26AS", category: "Tax", tagline: "Consolidated tax statement online.", official: "https://www.incometax.gov.in", ministry: "Income Tax Department", icon: FileSearch }),
+  s({ slug: "advance-tax", name: "Advance Tax Payment", hindi: "अग्रिम कर", category: "Tax", tagline: "Quarterly advance tax via Challan 280.", official: "https://www.incometax.gov.in", ministry: "Income Tax Department", icon: Calculator }),
+  s({ slug: "itr-refund-status", name: "ITR Refund Status", hindi: "आईटीआर रिफंड", category: "Tax", tagline: "Track your income tax refund.", official: "https://tin.tin.nsdl.com/oltas/refund-status-home.html", ministry: "Income Tax Department", icon: Wallet }),
+  s({ slug: "pan-correction", name: "PAN Correction / Reprint", hindi: "पैन सुधार", category: "Identity", tagline: "Update name, photo, DOB on PAN.", official: "https://www.protean-tinpan.com", ministry: "Income Tax Department", icon: UserCog }),
+  s({ slug: "gst-registration", name: "GST Registration", hindi: "जीएसटी पंजीकरण", category: "Tax", tagline: "Register your business for GST.", official: "https://www.gst.gov.in", ministry: "GSTN / CBIC", icon: Receipt }),
+  s({ slug: "gst-return", name: "GST Return Filing (GSTR-1/3B/9)", hindi: "जीएसटी रिटर्न", category: "Tax", tagline: "Monthly/quarterly/annual GST returns.", official: "https://www.gst.gov.in", ministry: "GSTN / CBIC", icon: Receipt }),
+  s({ slug: "gst-refund", name: "GST Refund", hindi: "जीएसटी रिफंड", category: "Tax", tagline: "Refund of excess GST paid or ITC.", official: "https://www.gst.gov.in", ministry: "GSTN / CBIC", icon: Wallet }),
+  s({ slug: "eway-bill", name: "E-Way Bill", hindi: "ई-वे बिल", category: "Tax", tagline: "Electronic waybill for goods movement >₹50k.", official: "https://ewaybillgst.gov.in", ministry: "GSTN", icon: Truck }),
+  s({ slug: "e-invoice", name: "E-Invoice (IRP)", hindi: "ई-इनवॉइस", category: "Tax", tagline: "GST e-invoicing for turnover >₹5 cr.", official: "https://einvoice1.gst.gov.in", ministry: "GSTN", icon: FileText }),
+
+  // ================= BUSINESS / MSME / STARTUP =================
+  s({ slug: "udyam-registration", name: "Udyam Registration (MSME)", hindi: "उद्यम पंजीकरण", category: "Business", tagline: "Free MSME/Udyam certificate.", official: "https://udyamregistration.gov.in", ministry: "MoMSME", icon: Factory }),
+  s({ slug: "udyam-assist", name: "Udyam Assist Platform (Informal Micro)", hindi: "उद्यम असिस्ट", category: "Business", tagline: "Register informal micro units.", official: "https://udyamassist.gov.in", ministry: "MoMSME / SIDBI", icon: Factory }),
+  s({ slug: "msme-samadhaan", name: "MSME Samadhaan (Delayed Payments)", hindi: "एमएसएमई समाधान", category: "Business", tagline: "File delayed payment cases against buyers.", official: "https://samadhaan.msme.gov.in", ministry: "MoMSME", icon: Scale }),
+  s({ slug: "msme-sambandh", name: "MSME Sambandh (Public Procurement)", hindi: "एमएसएमई संबंध", category: "Business", tagline: "Monitor 25% MSME purchase target of PSUs.", official: "https://sambandh.msme.gov.in", ministry: "MoMSME", icon: LineChart }),
+  s({ slug: "startup-india", name: "Startup India Recognition (DPIIT)", hindi: "स्टार्टअप इंडिया", category: "Business", tagline: "DPIIT certificate & 80-IAC tax benefits.", official: "https://www.startupindia.gov.in", ministry: "DPIIT", icon: Rocket }),
+  s({ slug: "seed-fund-scheme", name: "Startup India Seed Fund Scheme (SISFS)", hindi: "एसआईएसएफएस", category: "Business", tagline: "Up to ₹50 lakh seed funding for startups.", official: "https://seedfund.startupindia.gov.in", ministry: "DPIIT", icon: Rocket }),
+  s({ slug: "mca-company-registration", name: "Company Registration (MCA)", hindi: "कंपनी पंजीकरण", category: "Business", tagline: "Register a Pvt Ltd / OPC / Public company.", official: "https://www.mca.gov.in", ministry: "Ministry of Corporate Affairs", icon: Building2 }),
+  s({ slug: "llp-registration", name: "LLP Registration", hindi: "एलएलपी पंजीकरण", category: "Business", tagline: "Register a Limited Liability Partnership.", official: "https://www.mca.gov.in", ministry: "MCA", icon: Building2 }),
+  s({ slug: "din-registration", name: "DIN Application", hindi: "डीआईएन", category: "Business", tagline: "Director Identification Number.", official: "https://www.mca.gov.in", ministry: "MCA", icon: IdCard }),
+  s({ slug: "trademark-registration", name: "Trademark Registration", hindi: "ट्रेडमार्क", category: "Business", tagline: "Protect your brand name and logo.", official: "https://ipindia.gov.in/trade-marks.htm", ministry: "IP India / DPIIT", icon: Award }),
+  s({ slug: "patent-registration", name: "Patent Filing", hindi: "पेटेंट", category: "Business", tagline: "Register inventions with IP India.", official: "https://ipindia.gov.in/patents.htm", ministry: "IP India / DPIIT", icon: Award }),
+  s({ slug: "copyright-registration", name: "Copyright Registration", hindi: "कॉपीराइट", category: "Business", tagline: "Protect literary, artistic and software works.", official: "https://copyright.gov.in", ministry: "Copyright Office / DPIIT", icon: Palette }),
+  s({ slug: "design-registration", name: "Design Registration", hindi: "डिज़ाइन पंजीकरण", category: "Business", tagline: "Protect industrial designs.", official: "https://ipindia.gov.in/designs.htm", ministry: "IP India", icon: Palette }),
+  s({ slug: "fssai-license", name: "FSSAI Food License", hindi: "एफएसएसएआई लाइसेंस", category: "Business", tagline: "Basic/State/Central food business licence.", official: "https://foscos.fssai.gov.in", ministry: "FSSAI", icon: ShoppingBag }),
+  s({ slug: "bis-registration", name: "BIS ISI / CRS Registration", hindi: "बीआईएस पंजीकरण", category: "Business", tagline: "ISI mark & compulsory registration scheme.", official: "https://www.bis.gov.in", ministry: "BIS / Ministry of Consumer Affairs", icon: ShieldCheck }),
+  s({ slug: "iec-code", name: "Import Export Code (IEC)", hindi: "आईईसी कोड", category: "Business", tagline: "10-digit code for importers & exporters.", official: "https://www.dgft.gov.in", ministry: "DGFT", icon: Ship }),
+  s({ slug: "dgft-services", name: "DGFT Services (RCMC / SCOMET / EPCG)", hindi: "डीजीएफटी", category: "Business", tagline: "Foreign trade licenses & incentives.", official: "https://www.dgft.gov.in", ministry: "DGFT", icon: Ship }),
+  s({ slug: "gem-registration", name: "GeM Portal Registration", hindi: "जेम पोर्टल", category: "Business", tagline: "Sell to government departments online.", official: "https://gem.gov.in", ministry: "GeM SPV / DPIIT", icon: Store }),
+  s({ slug: "epfo-employer", name: "EPFO Employer Registration", hindi: "ईपीएफओ नियोक्ता", category: "Labour", tagline: "Register your establishment under EPF Act.", official: "https://www.epfindia.gov.in", ministry: "EPFO", icon: PiggyBank }),
+  s({ slug: "shram-suvidha", name: "Shram Suvidha Portal", hindi: "श्रम सुविधा", category: "Labour", tagline: "Unified labour compliance for employers.", official: "https://shramsuvidha.gov.in", ministry: "Ministry of Labour & Employment", icon: HardHat }),
+
+  // ================= VEHICLE / TRANSPORT =================
+  s({ slug: "vehicle-registration", name: "Vehicle Registration (RC)", hindi: "आरसी", category: "Vehicle", tagline: "Register a new vehicle at RTO.", official: "https://parivahan.gov.in", ministry: "MoRTH", icon: Car }),
+  s({ slug: "vehicle-ownership-transfer", name: "Ownership Transfer (Form 29/30)", hindi: "स्वामित्व हस्तांतरण", category: "Vehicle", tagline: "Transfer vehicle ownership after sale.", official: "https://parivahan.gov.in", ministry: "MoRTH", icon: Car }),
+  s({ slug: "duplicate-rc", name: "Duplicate RC", hindi: "डुप्लीकेट आरसी", category: "Vehicle", tagline: "Reissue lost/damaged RC.", official: "https://parivahan.gov.in", ministry: "MoRTH", icon: FileText }),
+  s({ slug: "vehicle-noc", name: "Vehicle NOC (Inter-State)", hindi: "वाहन एनओसी", category: "Vehicle", tagline: "NOC to shift vehicle to another state.", official: "https://parivahan.gov.in", ministry: "MoRTH", icon: ClipboardCheck }),
+  s({ slug: "hsrp", name: "High-Security Registration Plate (HSRP)", hindi: "एचएसआरपी", category: "Vehicle", tagline: "Tamper-proof number plate for vehicles.", official: "https://bookmyhsrp.com", ministry: "MoRTH", icon: Car }),
+  s({ slug: "puc-certificate", name: "PUC Certificate", hindi: "पीयूसी", category: "Vehicle", tagline: "Pollution Under Control certificate.", official: "https://vahan.parivahan.gov.in/puc/", ministry: "MoRTH", icon: Wrench }),
+  s({ slug: "fitness-certificate", name: "Vehicle Fitness Certificate", hindi: "फिटनेस प्रमाण पत्र", category: "Vehicle", tagline: "Mandatory fitness test for commercial vehicles.", official: "https://parivahan.gov.in", ministry: "MoRTH", icon: Wrench }),
+  s({ slug: "learner-licence", name: "Learner's Licence (LL)", hindi: "लर्नर लाइसेंस", category: "Vehicle", tagline: "Apply for learner's licence online.", official: "https://parivahan.gov.in/sarathiservice", ministry: "MoRTH", icon: Car }),
+  s({ slug: "dl-renewal", name: "DL Renewal / Duplicate", hindi: "डीएल रिन्यूअल", category: "Vehicle", tagline: "Renew or reissue driving licence.", official: "https://parivahan.gov.in/sarathiservice", ministry: "MoRTH", icon: Car }),
+  s({ slug: "international-dl", name: "International Driving Permit (IDP)", hindi: "आईडीपी", category: "Vehicle", tagline: "Drive abroad with Indian DL + IDP.", official: "https://parivahan.gov.in/sarathiservice", ministry: "MoRTH", icon: Globe }),
+  s({ slug: "e-challan", name: "e-Challan Payment", hindi: "ई-चालान", category: "Vehicle", tagline: "Check & pay traffic violation fines online.", official: "https://echallan.parivahan.gov.in", ministry: "MoRTH", icon: Receipt }),
+  s({ slug: "vahan-search", name: "Vahan Vehicle Details Search", hindi: "वाहन खोज", category: "Vehicle", tagline: "Look up any vehicle by registration number.", official: "https://vahan.parivahan.gov.in/nrservices/", ministry: "MoRTH", icon: Search }),
+
+  // ================= MUNICIPAL / PROPERTY / LAND =================
+  s({ slug: "property-tax-online", name: "Property Tax Payment", hindi: "संपत्ति कर", category: "Municipal", tagline: "Pay municipal property tax online.", official: "https://services.india.gov.in", ministry: "Urban Local Bodies", icon: Home }),
+  s({ slug: "water-bill-payment", name: "Water Bill Payment", hindi: "पानी बिल भुगतान", category: "Utilities", tagline: "Pay municipal / Jal Board water bills.", official: "https://services.india.gov.in", ministry: "Urban Local Bodies", icon: Droplets }),
+  s({ slug: "trade-license", name: "Trade License", hindi: "व्यापार लाइसेंस", category: "Business", tagline: "Municipal permit to run a business.", official: "https://services.india.gov.in", ministry: "Urban Local Bodies", icon: Store }),
+  s({ slug: "building-plan-approval", name: "Building Plan Approval", hindi: "भवन योजना अनुमोदन", category: "Property", tagline: "Sanction of construction/renovation plans.", official: "https://services.india.gov.in", ministry: "Urban Local Bodies", icon: Building }),
+  s({ slug: "occupancy-certificate", name: "Occupancy Certificate (OC)", hindi: "ऑक्यूपेंसी सर्टिफिकेट", category: "Property", tagline: "Legal permission to occupy a building.", official: "https://services.india.gov.in", ministry: "Urban Local Bodies", icon: Building }),
+  s({ slug: "completion-certificate", name: "Completion Certificate (CC)", hindi: "कम्प्लीशन सर्टिफिकेट", category: "Property", tagline: "Certifies building completion per plan.", official: "https://services.india.gov.in", ministry: "Urban Local Bodies", icon: Building }),
+  s({ slug: "khata-certificate", name: "Khata Certificate & Extract", hindi: "खाता प्रमाण पत्र", category: "Property", tagline: "Record of ownership for property tax.", official: "https://services.india.gov.in", ministry: "Urban Local Bodies", icon: ScrollText }),
+  s({ slug: "land-mutation", name: "Land Mutation (Dakhil Kharij)", hindi: "दाखिल खारिज", category: "Property", tagline: "Update land records after transfer.", official: "https://services.india.gov.in", ministry: "State Revenue Department", icon: MapPin }),
+  s({ slug: "property-registration", name: "Property Registration (e-Stamp)", hindi: "संपत्ति पंजीकरण", category: "Property", tagline: "Register sale deed with sub-registrar.", official: "https://services.india.gov.in", ministry: "State Registration Dept", icon: ScrollText }),
+  s({ slug: "bhulekh", name: "Bhulekh / ROR (Record of Rights)", hindi: "भूलेख", category: "Property", tagline: "Digital land record extract of your state.", official: "https://dolr.gov.in", ministry: "Department of Land Resources", icon: MapPin }),
+  s({ slug: "bhu-naksha", name: "Bhu Naksha (Cadastral Map)", hindi: "भू-नक्शा", category: "Property", tagline: "View plot boundaries on state map portal.", official: "https://dolr.gov.in", ministry: "State Revenue Dept", icon: MapPin }),
+  s({ slug: "patta-chitta-tn", name: "Patta Chitta (Tamil Nadu)", hindi: "पट्टा चिट्टा", category: "Property", tagline: "TN land record for individual plots.", official: "https://eservices.tn.gov.in", ministry: "TN Revenue Department", icon: MapPin }),
+  s({ slug: "dharani-telangana", name: "Dharani Portal (Telangana)", hindi: "धरणी", category: "Property", tagline: "Integrated land records portal Telangana.", official: "https://dharani.telangana.gov.in", ministry: "Telangana Revenue Dept", icon: MapPin }),
+  s({ slug: "mahabhulekh", name: "Mahabhulekh (Maharashtra 7/12)", hindi: "महाभूलेख", category: "Property", tagline: "Maharashtra 7/12 land extract online.", official: "https://bhulekh.mahabhumi.gov.in", ministry: "Maharashtra Revenue Dept", icon: MapPin }),
+  s({ slug: "anyror-gujarat", name: "AnyRoR (Gujarat)", hindi: "एनीआरओआर", category: "Property", tagline: "Gujarat land record 7/12 & 8A online.", official: "https://anyror.gujarat.gov.in", ministry: "Gujarat Revenue Dept", icon: MapPin }),
+  s({ slug: "jamabandi-punjab", name: "Jamabandi (Punjab/Haryana)", hindi: "जमाबंदी", category: "Property", tagline: "Land records of Punjab & Haryana.", official: "https://jamabandi.nic.in", ministry: "State Revenue Dept", icon: MapPin }),
+  s({ slug: "bhunaksha-up", name: "UP Bhulekh", hindi: "यूपी भूलेख", category: "Property", tagline: "Uttar Pradesh land record portal.", official: "https://upbhulekh.gov.in", ministry: "UP Revenue Department", icon: MapPin }),
+  s({ slug: "apnakhata-rajasthan", name: "Apna Khata (Rajasthan)", hindi: "अपना खाता", category: "Property", tagline: "Rajasthan land record e-Dharti.", official: "https://apnakhata.raj.nic.in", ministry: "Rajasthan Revenue Dept", icon: MapPin }),
+  s({ slug: "bihar-bhumi", name: "Bihar Bhumi (LRC)", hindi: "बिहार भूमि", category: "Property", tagline: "Bihar online land record & mutation.", official: "https://biharbhumi.bihar.gov.in", ministry: "Bihar Revenue Dept", icon: MapPin }),
+
+  // ================= LEGAL / POLICE / RTI / COURT =================
+  s({ slug: "rti-online", name: "RTI Online", hindi: "आरटीआई ऑनलाइन", category: "Legal", tagline: "File Right to Information application.", official: "https://rtionline.gov.in", ministry: "DoPT", icon: FileSearch }),
+  s({ slug: "ecourts-services", name: "eCourts Case Status", hindi: "ई-कोर्ट्स", category: "Legal", tagline: "Track case status across all courts.", official: "https://services.ecourts.gov.in/ecourtindia_v6/", ministry: "Department of Justice", icon: Gavel }),
+  s({ slug: "nyaya-bandhu", name: "Nyaya Bandhu (Pro Bono Legal)", hindi: "न्याय बंधु", category: "Legal", tagline: "Free legal aid via pro-bono lawyers.", official: "https://nyayabandhu.gov.in", ministry: "Department of Justice", icon: Scale }),
+  s({ slug: "nalsa-legal-aid", name: "NALSA Legal Aid", hindi: "नालसा", category: "Legal", tagline: "Free legal services to weaker sections.", official: "https://nalsa.gov.in", ministry: "National Legal Services Authority", icon: Scale }),
+  s({ slug: "fir-online", name: "File FIR Online (State e-FIR)", hindi: "ऑनलाइन एफआईआर", category: "Police", tagline: "Register FIR via state police portal.", official: "https://digitalpolicecitizenservices.gov.in", ministry: "State Police / MHA", icon: ShieldCheck }),
+  s({ slug: "lost-report", name: "Lost Article / Missing Report", hindi: "गुमशुदगी रिपोर्ट", category: "Police", tagline: "File online report for lost items/persons.", official: "https://digitalpolicecitizenservices.gov.in", ministry: "State Police / MHA", icon: AlertTriangle }),
+  s({ slug: "tenant-verification", name: "Tenant / Servant Verification", hindi: "किरायेदार सत्यापन", category: "Police", tagline: "Police verification of tenants/servants.", official: "https://digitalpolicecitizenservices.gov.in", ministry: "State Police", icon: ShieldCheck }),
+  s({ slug: "cybercrime-i4c", name: "Cyber Crime Reporting (1930)", hindi: "साइबर क्राइम रिपोर्ट", category: "Police", tagline: "Report cyber fraud & financial crimes.", official: "https://cybercrime.gov.in", ministry: "I4C, MHA", icon: Shield }),
+  s({ slug: "national-consumer-helpline", name: "National Consumer Helpline (1915)", hindi: "उपभोक्ता हेल्पलाइन", category: "Consumer", tagline: "Register consumer complaints.", official: "https://consumerhelpline.gov.in", ministry: "Dept of Consumer Affairs", icon: Phone }),
+  s({ slug: "edaakhil", name: "e-Daakhil (Consumer Court)", hindi: "ई-दाखिल", category: "Consumer", tagline: "File consumer commission complaints online.", official: "https://edaakhil.nic.in", ministry: "Dept of Consumer Affairs / NCDRC", icon: Gavel }),
+  s({ slug: "jagriti-app", name: "Jagriti App (Consumer)", hindi: "जागृति ऐप", category: "Consumer", tagline: "Consumer awareness by DoCA.", official: "https://consumeraffairs.nic.in", ministry: "Dept of Consumer Affairs", icon: MessageSquare }),
+  s({ slug: "women-helpline-181", name: "Women Helpline (181)", hindi: "महिला हेल्पलाइन 181", category: "Women", tagline: "24x7 helpline for women in distress.", official: "https://wcd.gov.in", ministry: "Ministry of Women & Child Dev", icon: Phone }),
+  s({ slug: "child-helpline-1098", name: "Child Helpline (1098)", hindi: "चाइल्ड हेल्पलाइन 1098", category: "Women", tagline: "24x7 emergency service for children.", official: "https://www.childlineindia.org", ministry: "Ministry of Women & Child Dev", icon: Baby }),
+
+  // ================= WOMEN / MINORITY / DISABILITY / SENIOR =================
+  s({ slug: "beti-bachao", name: "Beti Bachao Beti Padhao", hindi: "बेटी बचाओ बेटी पढ़ाओ", category: "Women", tagline: "Girl child survival & education campaign.", official: "https://wcd.nic.in/bbbp-schemes", ministry: "MWCD", icon: Baby }),
+  s({ slug: "pmmvy", name: "PM Matru Vandana Yojana (PMMVY)", hindi: "पीएमएमवीवाई", category: "Women", tagline: "₹5,000 cash for first-time mothers.", official: "https://pmmvy.wcd.gov.in", ministry: "MWCD", icon: Baby }),
+  s({ slug: "pmuy-ujjwala", name: "PM Ujjwala Yojana (PMUY)", hindi: "पीएम उज्ज्वला योजना", category: "Welfare", tagline: "Free LPG connection to poor households.", official: "https://www.pmuy.gov.in", ministry: "Ministry of Petroleum & Natural Gas", icon: Flame }),
+  s({ slug: "sukanya-samriddhi", name: "Sukanya Samriddhi (Post Office)", hindi: "सुकन्या समृद्धि", category: "Women", tagline: "High-interest savings for girl child.", official: "https://www.indiapost.gov.in", ministry: "Department of Posts", icon: PiggyBank }),
+  s({ slug: "one-stop-centre", name: "One Stop Centre (Sakhi)", hindi: "वन स्टॉप सेंटर", category: "Women", tagline: "Integrated support for women affected by violence.", official: "https://wcd.nic.in/schemes/one-stop-centre-scheme-1", ministry: "MWCD", icon: HeartPulse }),
+  s({ slug: "mahila-e-haat", name: "Mahila E-Haat", hindi: "महिला ई-हाट", category: "Women", tagline: "Online marketing platform for women entrepreneurs.", official: "https://mahilaehaat-rmk.gov.in", ministry: "MWCD", icon: Store }),
+  s({ slug: "swadhar-greh", name: "Swadhar Greh", hindi: "स्वाधार गृह", category: "Women", tagline: "Shelter for women in difficult circumstances.", official: "https://wcd.nic.in/schemes/swadhar-greh-scheme-women-difficult-circumstances", ministry: "MWCD", icon: Home }),
+  s({ slug: "working-women-hostel", name: "Working Women Hostel", hindi: "वर्किंग वुमन हॉस्टल", category: "Women", tagline: "Safe & affordable hostel for working women.", official: "https://wcd.nic.in/schemes/working-women-hostel", ministry: "MWCD", icon: Home }),
+  s({ slug: "accessible-india", name: "Accessible India Campaign (Sugamya Bharat)", hindi: "सुगम्य भारत", category: "Disability", tagline: "Barrier-free environment for PwDs.", official: "https://depwd.gov.in", ministry: "DEPwD", icon: Accessibility }),
+  s({ slug: "adip-scheme", name: "ADIP Scheme (Aids & Appliances)", hindi: "एडीआईपी", category: "Disability", tagline: "Free/subsidised aids & assistive devices.", official: "https://depwd.gov.in", ministry: "DEPwD", icon: Accessibility }),
+  s({ slug: "rashtriya-vayoshri", name: "Rashtriya Vayoshri Yojana", hindi: "राष्ट्रीय वयोश्री", category: "SeniorCitizen", tagline: "Free aids for senior citizens (BPL).", official: "https://socialjustice.gov.in", ministry: "MoSJE", icon: Sunrise }),
+  s({ slug: "ignoaps", name: "IGNOAPS (Old Age Pension)", hindi: "आईजीएनओएपीएस", category: "Pension", tagline: "₹200-500/month old-age pension.", official: "https://nsap.nic.in", ministry: "Ministry of Rural Development", icon: Sunrise }),
+  s({ slug: "ignwps", name: "IGNWPS (Widow Pension)", hindi: "आईजीएनडब्ल्यूपीएस", category: "Pension", tagline: "Pension for BPL widows aged 40-79.", official: "https://nsap.nic.in", ministry: "Ministry of Rural Development", icon: Users }),
+  s({ slug: "igndps", name: "IGNDPS (Disability Pension)", hindi: "आईजीएनडीपीएस", category: "Pension", tagline: "Pension for BPL persons with severe disability.", official: "https://nsap.nic.in", ministry: "Ministry of Rural Development", icon: Accessibility }),
+  s({ slug: "nfbs", name: "National Family Benefit Scheme (NFBS)", hindi: "एनएफबीएस", category: "Welfare", tagline: "₹20,000 to BPL family on breadwinner death.", official: "https://nsap.nic.in", ministry: "Ministry of Rural Development", icon: HandCoins }),
+  s({ slug: "annapurna", name: "Annapurna Scheme", hindi: "अन्नपूर्णा", category: "Welfare", tagline: "10 kg free food grain to indigent seniors.", official: "https://nsap.nic.in", ministry: "Ministry of Rural Development", icon: ShoppingBag }),
+  s({ slug: "pre-matric-disability", name: "Pre-Matric Scholarship (Disability)", hindi: "प्री-मैट्रिक विकलांग", category: "Disability", tagline: "For students with disabilities Class 9-10.", official: "https://scholarships.gov.in", ministry: "DEPwD", icon: Award }),
+  s({ slug: "nhfdc-loan", name: "NHFDC Loans for PwDs", hindi: "एनएचएफडीसी", category: "Disability", tagline: "Concessional loans for self-employment.", official: "https://nhfdc.nic.in", ministry: "DEPwD", icon: Wallet }),
+  s({ slug: "national-trust", name: "National Trust (Autism / CP / MR)", hindi: "राष्ट्रीय न्यास", category: "Disability", tagline: "Support for persons with intellectual disabilities.", official: "https://thenationaltrust.gov.in", ministry: "DEPwD", icon: HeartPulse }),
+
+  // ================= HOUSING / UTILITIES =================
+  s({ slug: "pmay-urban", name: "PMAY-Urban (Housing for All)", hindi: "पीएमएवाई-शहरी", category: "Housing", tagline: "Pucca house / subsidy for urban poor.", official: "https://pmay-urban.gov.in", ministry: "MoHUA", icon: Home }),
+  s({ slug: "pmay-gramin", name: "PMAY-Gramin (Rural)", hindi: "पीएमएवाई-ग्रामीण", category: "Housing", tagline: "Assistance to build pucca rural house.", official: "https://pmayg.nic.in", ministry: "Ministry of Rural Development", icon: Home }),
+  s({ slug: "pm-suryodaya", name: "PM Suryodaya (Rooftop Solar)", hindi: "पीएम सूर्योदय", category: "Utilities", tagline: "300 units free bijli via rooftop solar.", official: "https://pmsuryaghar.gov.in", ministry: "MNRE", icon: Zap }),
+  s({ slug: "pm-surya-ghar", name: "PM Surya Ghar Muft Bijli Yojana", hindi: "पीएम सूर्य घर मुफ्त बिजली", category: "Utilities", tagline: "Rooftop solar subsidy for 1 crore homes.", official: "https://pmsuryaghar.gov.in", ministry: "MNRE", icon: Zap }),
+  s({ slug: "saubhagya", name: "Saubhagya (Household Electrification)", hindi: "सौभाग्य", category: "Utilities", tagline: "Free electricity connection to poor.", official: "https://saubhagya.gov.in", ministry: "Ministry of Power", icon: Zap }),
+  s({ slug: "ddugjy", name: "Deen Dayal Upadhyaya Gram Jyoti Yojana", hindi: "डीडीयूजीजेवाई", category: "Utilities", tagline: "Rural electrification & feeder separation.", official: "https://www.ddugjy.gov.in", ministry: "Ministry of Power", icon: Zap }),
+  s({ slug: "jal-jeevan-mission", name: "Jal Jeevan Mission (Har Ghar Nal)", hindi: "जल जीवन मिशन", category: "Utilities", tagline: "Tap water connection to every rural household.", official: "https://jaljeevanmission.gov.in", ministry: "Jal Shakti Ministry", icon: Droplets }),
+  s({ slug: "swachh-bharat-toilet", name: "Swachh Bharat (Toilet Subsidy)", hindi: "स्वच्छ भारत मिशन", category: "Housing", tagline: "₹12,000 to build household toilet.", official: "https://swachhbharatmission.gov.in", ministry: "Jal Shakti / MoHUA", icon: Home }),
+  s({ slug: "amrut", name: "AMRUT 2.0", hindi: "अमृत", category: "Housing", tagline: "Water, sewerage & green space in cities.", official: "https://amrut.gov.in", ministry: "MoHUA", icon: Building }),
+  s({ slug: "smart-cities-mission", name: "Smart Cities Mission", hindi: "स्मार्ट सिटीज़ मिशन", category: "Housing", tagline: "100 cities with modern infrastructure.", official: "https://smartcities.gov.in", ministry: "MoHUA", icon: Building }),
+  s({ slug: "electricity-bill-payment", name: "Electricity Bill Payment (Bharat BillPay)", hindi: "बिजली बिल भुगतान", category: "Utilities", tagline: "Pay any DISCOM electricity bill online.", official: "https://www.billavenue.com", ministry: "NPCI (BBPS)", icon: Zap }),
+
+  // ================= LABOUR / EPFO / ESIC =================
+  s({ slug: "epfo-uan", name: "EPFO UAN Activation", hindi: "यूएएन एक्टिवेशन", category: "Labour", tagline: "Activate Universal Account Number.", official: "https://unifiedportal-mem.epfindia.gov.in", ministry: "EPFO", icon: PiggyBank }),
+  s({ slug: "epf-passbook", name: "EPF Passbook & Balance", hindi: "ईपीएफ पासबुक", category: "Labour", tagline: "Check EPF balance & download passbook.", official: "https://passbook.epfindia.gov.in", ministry: "EPFO", icon: PiggyBank }),
+  s({ slug: "epf-withdrawal", name: "EPF Withdrawal (Form 19/10C/31)", hindi: "ईपीएफ निकासी", category: "Labour", tagline: "Online claim for EPF final/partial withdrawal.", official: "https://unifiedportal-mem.epfindia.gov.in", ministry: "EPFO", icon: Wallet }),
+  s({ slug: "epf-transfer", name: "EPF Transfer (Form 13)", hindi: "ईपीएफ ट्रांसफर", category: "Labour", tagline: "Transfer PF on change of job online.", official: "https://unifiedportal-mem.epfindia.gov.in", ministry: "EPFO", icon: PiggyBank }),
+  s({ slug: "eps-pension", name: "EPS Pension (Form 10D)", hindi: "ईपीएस पेंशन", category: "Pension", tagline: "Monthly pension from EPS after 58.", official: "https://www.epfindia.gov.in", ministry: "EPFO", icon: Sunrise }),
+  s({ slug: "esic-employee", name: "ESIC Employee Registration", hindi: "ईएसआईसी कर्मचारी", category: "Labour", tagline: "Medical care & benefits for insured workers.", official: "https://www.esic.gov.in", ministry: "ESIC", icon: HeartPulse }),
+  s({ slug: "esic-employer", name: "ESIC Employer Registration", hindi: "ईएसआईसी नियोक्ता", category: "Labour", tagline: "Register establishment (10+ workers) under ESI Act.", official: "https://www.esic.gov.in", ministry: "ESIC", icon: HardHat }),
+  s({ slug: "pm-shram-yogi-maandhan", name: "PM Shram Yogi Maandhan (PMSYM)", hindi: "पीएम श्रम योगी मानधन", category: "Pension", tagline: "₹3,000/month pension for unorganised workers.", official: "https://maandhan.in", ministry: "Ministry of Labour", icon: Sunrise }),
+  s({ slug: "pm-karam-yogi", name: "PM Laghu Vyapari Maandhan", hindi: "पीएम लघु व्यापारी", category: "Pension", tagline: "Pension scheme for small traders.", official: "https://maandhan.in", ministry: "Ministry of Labour", icon: Sunrise }),
+  s({ slug: "bocw-labour-card", name: "BOCW (Construction Workers Card)", hindi: "बीओसीडब्ल्यू", category: "Labour", tagline: "Welfare card for building & construction workers.", official: "https://labour.gov.in", ministry: "Ministry of Labour", icon: HardHat }),
+
+  // ================= HEALTH =================
+  s({ slug: "cowin-vaccination", name: "CoWIN Vaccination Certificate", hindi: "कोविन", category: "Health", tagline: "Download COVID vaccination certificate.", official: "https://cowin.gov.in", ministry: "Ministry of Health & Family Welfare", icon: HeartPulse }),
+  s({ slug: "esanjeevani", name: "eSanjeevani (Telemedicine)", hindi: "ई-संजीवनी", category: "Health", tagline: "Free doctor consultation online.", official: "https://esanjeevani.mohfw.gov.in", ministry: "MoHFW", icon: Stethoscope }),
+  s({ slug: "janaushadhi", name: "PM Bhartiya Janaushadhi Pariyojana", hindi: "जन औषधि", category: "Health", tagline: "Quality generic medicines at low prices.", official: "https://janaushadhi.gov.in", ministry: "Dept of Pharmaceuticals", icon: HeartPulse }),
+  s({ slug: "nikshay-tb", name: "Nikshay Poshan Yojana (TB Support)", hindi: "निक्षय पोषण", category: "Health", tagline: "₹1,000/month nutrition to TB patients.", official: "https://www.nikshay.in", ministry: "MoHFW", icon: HeartPulse }),
+  s({ slug: "national-dialysis", name: "PM National Dialysis Programme", hindi: "पीएम राष्ट्रीय डायलिसिस", category: "Health", tagline: "Free dialysis to poor patients.", official: "https://nhm.gov.in", ministry: "MoHFW", icon: HeartPulse }),
+  s({ slug: "rbsk", name: "Rashtriya Bal Swasthya Karyakram (RBSK)", hindi: "आरबीएसके", category: "Health", tagline: "Free health screening for children 0-18.", official: "https://rbsk.gov.in", ministry: "MoHFW", icon: Baby }),
+  s({ slug: "mission-indradhanush", name: "Mission Indradhanush (Immunisation)", hindi: "मिशन इंद्रधनुष", category: "Health", tagline: "Full immunisation for all children.", official: "https://nhm.gov.in/index1.php?lang=1&level=2&sublinkid=824&lid=220", ministry: "MoHFW", icon: HeartPulse }),
+  s({ slug: "poshan-abhiyaan", name: "POSHAN Abhiyaan", hindi: "पोषण अभियान", category: "Health", tagline: "Reduce malnutrition in children & women.", official: "https://poshanabhiyaan.gov.in", ministry: "MWCD", icon: Baby }),
+  s({ slug: "ayushman-vay-vandana", name: "Ayushman Vay Vandana (70+ Free Health)", hindi: "आयुष्मान वय वंदना", category: "SeniorCitizen", tagline: "Free ₹5 lakh cover for citizens 70+.", official: "https://pmjay.gov.in", ministry: "National Health Authority", icon: Sunrise }),
+  s({ slug: "ayushman-arogya-mandir", name: "Ayushman Arogya Mandir (HWC)", hindi: "आयुष्मान आरोग्य मंदिर", category: "Health", tagline: "Comprehensive primary healthcare centres.", official: "https://ab-hwc.nhp.gov.in", ministry: "MoHFW", icon: HeartPulse }),
+
+  // ================= INSURANCE =================
+  s({ slug: "pmjjby", name: "PM Jeevan Jyoti Bima Yojana (PMJJBY)", hindi: "पीएमजेजेबीवाई", category: "Insurance", tagline: "₹2 lakh life cover at ₹436/year.", official: "https://www.jansuraksha.gov.in", ministry: "DFS / Insurance Companies", icon: Umbrella }),
+  s({ slug: "pmsby", name: "PM Suraksha Bima Yojana (PMSBY)", hindi: "पीएमएसबीवाई", category: "Insurance", tagline: "₹2 lakh accident cover at ₹20/year.", official: "https://www.jansuraksha.gov.in", ministry: "DFS / Insurance Companies", icon: Umbrella }),
+  s({ slug: "pmvvy", name: "PM Vaya Vandana Yojana (PMVVY)", hindi: "पीएमवीवीवाई", category: "SeniorCitizen", tagline: "10-year pension plan for citizens 60+.", official: "https://licindia.in", ministry: "LIC", icon: Sunrise }),
+  s({ slug: "pmfby", name: "PM Fasal Bima Yojana (PMFBY)", hindi: "पीएम फसल बीमा", category: "Insurance", tagline: "Crop insurance against natural risks.", official: "https://pmfby.gov.in", ministry: "Ministry of Agriculture", icon: Sprout }),
+  s({ slug: "aabhy", name: "Aam Aadmi Bima Yojana", hindi: "आम आदमी बीमा", category: "Insurance", tagline: "Life & disability cover for rural landless.", official: "https://licindia.in", ministry: "LIC / DFS", icon: Umbrella }),
+
+  // ================= AGRICULTURE =================
+  s({ slug: "soil-health-card", name: "Soil Health Card", hindi: "मृदा स्वास्थ्य कार्ड", category: "Agriculture", tagline: "Nutrient status report for your farm soil.", official: "https://soilhealth.dac.gov.in", ministry: "Ministry of Agriculture", icon: Sprout }),
+  s({ slug: "enam", name: "e-NAM (National Agriculture Market)", hindi: "ई-नाम", category: "Agriculture", tagline: "Online trading of agri commodities.", official: "https://enam.gov.in", ministry: "Ministry of Agriculture / SFAC", icon: Store }),
+  s({ slug: "pmksy-irrigation", name: "PM Krishi Sinchayee Yojana", hindi: "पीएमकेएसवाई", category: "Agriculture", tagline: "Har khet ko paani irrigation scheme.", official: "https://pmksy.gov.in", ministry: "Ministry of Jal Shakti", icon: Droplets }),
+  s({ slug: "paramparagat-krishi", name: "Paramparagat Krishi Vikas (Organic)", hindi: "परंपरागत कृषि", category: "Agriculture", tagline: "Support for organic farming clusters.", official: "https://pgsindia-ncof.gov.in", ministry: "Ministry of Agriculture", icon: Sprout }),
+  s({ slug: "rkvy", name: "Rashtriya Krishi Vikas Yojana (RKVY)", hindi: "आरकेवीवाई", category: "Agriculture", tagline: "Flexible state-led agri development scheme.", official: "https://rkvy.da.gov.in", ministry: "Ministry of Agriculture", icon: Sprout }),
+  s({ slug: "pm-matsya-sampada", name: "PM Matsya Sampada Yojana", hindi: "पीएम मत्स्य संपदा", category: "Agriculture", tagline: "Blue revolution for fisheries sector.", official: "https://pmmsy.dof.gov.in", ministry: "Ministry of Fisheries", icon: Sprout }),
+  s({ slug: "dairy-entrepreneur", name: "Dairy Entrepreneurship Dev Scheme", hindi: "डेयरी उद्यमिता", category: "Agriculture", tagline: "Subsidy for dairy farming & processing.", official: "https://www.nabard.org", ministry: "NABARD / DAHD", icon: Sprout }),
+  s({ slug: "atma-agri-extension", name: "ATMA (Agriculture Extension)", hindi: "एटीएमए", category: "Agriculture", tagline: "Farmer training & tech dissemination.", official: "https://extensionreforms.dac.gov.in", ministry: "Ministry of Agriculture", icon: Sprout }),
+  s({ slug: "pm-pranam", name: "PM PRANAM", hindi: "पीएम प्रणाम", category: "Agriculture", tagline: "Incentive for reducing chemical fertilisers.", official: "https://www.fert.nic.in", ministry: "Dept of Fertilizers", icon: Sprout }),
+  s({ slug: "namo-drone-didi", name: "Namo Drone Didi", hindi: "नमो ड्रोन दीदी", category: "Agriculture", tagline: "Drones to women SHGs for agri services.", official: "https://www.india.gov.in", ministry: "Ministry of Agriculture", icon: Sprout }),
+];
