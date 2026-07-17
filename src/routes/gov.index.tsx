@@ -105,8 +105,11 @@ function GovIndex() {
             </Link>
           </div>
 
-          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-6">
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-9">
             {[
+              { to: "/gov/ask", label: "Ask AI", icon: MessagesSquare },
+              { to: "/gov/ocr", label: "Doc OCR", icon: ScanText },
+              { to: "/gov/scan", label: "QR Scan", icon: QrCode },
               { to: "/gov/forms", label: "Forms", icon: FileText },
               { to: "/gov/documents", label: "Documents", icon: FileText },
               { to: "/gov/tracker", label: "Tracker", icon: ClipboardList },
