@@ -37,6 +37,7 @@ import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
 import { Route as GovTrackerRouteImport } from './routes/gov.tracker'
 import { Route as GovSearchRouteImport } from './routes/gov.search'
+import { Route as GovScanRouteImport } from './routes/gov.scan'
 import { Route as GovRemindersRouteImport } from './routes/gov.reminders'
 import { Route as GovProfileRouteImport } from './routes/gov.profile'
 import { Route as GovOcrRouteImport } from './routes/gov.ocr'
@@ -194,6 +195,11 @@ const GovSearchRoute = GovSearchRouteImport.update({
   path: '/search',
   getParentRoute: () => GovRoute,
 } as any)
+const GovScanRoute = GovScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => GovRoute,
+} as any)
 const GovRemindersRoute = GovRemindersRouteImport.update({
   id: '/reminders',
   path: '/reminders',
@@ -311,6 +317,7 @@ export interface FileRoutesByFullPath {
   '/gov/ocr': typeof GovOcrRoute
   '/gov/profile': typeof GovProfileRoute
   '/gov/reminders': typeof GovRemindersRoute
+  '/gov/scan': typeof GovScanRoute
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
@@ -353,6 +360,7 @@ export interface FileRoutesByTo {
   '/gov/ocr': typeof GovOcrRoute
   '/gov/profile': typeof GovProfileRoute
   '/gov/reminders': typeof GovRemindersRoute
+  '/gov/scan': typeof GovScanRoute
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
@@ -400,6 +408,7 @@ export interface FileRoutesById {
   '/gov/ocr': typeof GovOcrRoute
   '/gov/profile': typeof GovProfileRoute
   '/gov/reminders': typeof GovRemindersRoute
+  '/gov/scan': typeof GovScanRoute
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
@@ -448,6 +457,7 @@ export interface FileRouteTypes {
     | '/gov/ocr'
     | '/gov/profile'
     | '/gov/reminders'
+    | '/gov/scan'
     | '/gov/search'
     | '/gov/tracker'
     | '/tools/$slug'
@@ -490,6 +500,7 @@ export interface FileRouteTypes {
     | '/gov/ocr'
     | '/gov/profile'
     | '/gov/reminders'
+    | '/gov/scan'
     | '/gov/search'
     | '/gov/tracker'
     | '/tools/$slug'
@@ -536,6 +547,7 @@ export interface FileRouteTypes {
     | '/gov/ocr'
     | '/gov/profile'
     | '/gov/reminders'
+    | '/gov/scan'
     | '/gov/search'
     | '/gov/tracker'
     | '/tools/$slug'
@@ -773,6 +785,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovSearchRouteImport
       parentRoute: typeof GovRoute
     }
+    '/gov/scan': {
+      id: '/gov/scan'
+      path: '/scan'
+      fullPath: '/gov/scan'
+      preLoaderRoute: typeof GovScanRouteImport
+      parentRoute: typeof GovRoute
+    }
     '/gov/reminders': {
       id: '/gov/reminders'
       path: '/reminders'
@@ -927,6 +946,7 @@ interface GovRouteChildren {
   GovOcrRoute: typeof GovOcrRoute
   GovProfileRoute: typeof GovProfileRoute
   GovRemindersRoute: typeof GovRemindersRoute
+  GovScanRoute: typeof GovScanRoute
   GovSearchRoute: typeof GovSearchRoute
   GovTrackerRoute: typeof GovTrackerRoute
   GovIndexRoute: typeof GovIndexRoute
@@ -943,6 +963,7 @@ const GovRouteChildren: GovRouteChildren = {
   GovOcrRoute: GovOcrRoute,
   GovProfileRoute: GovProfileRoute,
   GovRemindersRoute: GovRemindersRoute,
+  GovScanRoute: GovScanRoute,
   GovSearchRoute: GovSearchRoute,
   GovTrackerRoute: GovTrackerRoute,
   GovIndexRoute: GovIndexRoute,
