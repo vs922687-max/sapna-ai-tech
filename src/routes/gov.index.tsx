@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Search, ArrowRight, Landmark, Sparkles, Bookmark, BookmarkCheck, FileText, ClipboardList, Bell, Download, UserCircle2 } from "lucide-react";
+import { Search, ArrowRight, Landmark, Sparkles, Bookmark, BookmarkCheck, FileText, ClipboardList, Bell, Download, UserCircle2, MessagesSquare, ScanText, QrCode } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { GOV_SERVICES, GOV_CATEGORIES, type GovCategory } from "@/lib/gov-services";
@@ -105,8 +105,11 @@ function GovIndex() {
             </Link>
           </div>
 
-          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-6">
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-9">
             {[
+              { to: "/gov/ask", label: "Ask AI", icon: MessagesSquare },
+              { to: "/gov/ocr", label: "Doc OCR", icon: ScanText },
+              { to: "/gov/scan", label: "QR Scan", icon: QrCode },
               { to: "/gov/forms", label: "Forms", icon: FileText },
               { to: "/gov/documents", label: "Documents", icon: FileText },
               { to: "/gov/tracker", label: "Tracker", icon: ClipboardList },
