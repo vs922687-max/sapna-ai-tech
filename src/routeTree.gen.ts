@@ -39,6 +39,7 @@ import { Route as GovTrackerRouteImport } from './routes/gov.tracker'
 import { Route as GovSearchRouteImport } from './routes/gov.search'
 import { Route as GovRemindersRouteImport } from './routes/gov.reminders'
 import { Route as GovProfileRouteImport } from './routes/gov.profile'
+import { Route as GovOcrRouteImport } from './routes/gov.ocr'
 import { Route as GovFormsRouteImport } from './routes/gov.forms'
 import { Route as GovEligibilityRouteImport } from './routes/gov.eligibility'
 import { Route as GovDownloadsRouteImport } from './routes/gov.downloads'
@@ -203,6 +204,11 @@ const GovProfileRoute = GovProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => GovRoute,
 } as any)
+const GovOcrRoute = GovOcrRouteImport.update({
+  id: '/ocr',
+  path: '/ocr',
+  getParentRoute: () => GovRoute,
+} as any)
 const GovFormsRoute = GovFormsRouteImport.update({
   id: '/forms',
   path: '/forms',
@@ -302,6 +308,7 @@ export interface FileRoutesByFullPath {
   '/gov/downloads': typeof GovDownloadsRoute
   '/gov/eligibility': typeof GovEligibilityRoute
   '/gov/forms': typeof GovFormsRouteWithChildren
+  '/gov/ocr': typeof GovOcrRoute
   '/gov/profile': typeof GovProfileRoute
   '/gov/reminders': typeof GovRemindersRoute
   '/gov/search': typeof GovSearchRoute
@@ -343,6 +350,7 @@ export interface FileRoutesByTo {
   '/gov/bookmarks': typeof GovBookmarksRoute
   '/gov/downloads': typeof GovDownloadsRoute
   '/gov/eligibility': typeof GovEligibilityRoute
+  '/gov/ocr': typeof GovOcrRoute
   '/gov/profile': typeof GovProfileRoute
   '/gov/reminders': typeof GovRemindersRoute
   '/gov/search': typeof GovSearchRoute
@@ -389,6 +397,7 @@ export interface FileRoutesById {
   '/gov/downloads': typeof GovDownloadsRoute
   '/gov/eligibility': typeof GovEligibilityRoute
   '/gov/forms': typeof GovFormsRouteWithChildren
+  '/gov/ocr': typeof GovOcrRoute
   '/gov/profile': typeof GovProfileRoute
   '/gov/reminders': typeof GovRemindersRoute
   '/gov/search': typeof GovSearchRoute
@@ -436,6 +445,7 @@ export interface FileRouteTypes {
     | '/gov/downloads'
     | '/gov/eligibility'
     | '/gov/forms'
+    | '/gov/ocr'
     | '/gov/profile'
     | '/gov/reminders'
     | '/gov/search'
@@ -477,6 +487,7 @@ export interface FileRouteTypes {
     | '/gov/bookmarks'
     | '/gov/downloads'
     | '/gov/eligibility'
+    | '/gov/ocr'
     | '/gov/profile'
     | '/gov/reminders'
     | '/gov/search'
@@ -522,6 +533,7 @@ export interface FileRouteTypes {
     | '/gov/downloads'
     | '/gov/eligibility'
     | '/gov/forms'
+    | '/gov/ocr'
     | '/gov/profile'
     | '/gov/reminders'
     | '/gov/search'
@@ -775,6 +787,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovProfileRouteImport
       parentRoute: typeof GovRoute
     }
+    '/gov/ocr': {
+      id: '/gov/ocr'
+      path: '/ocr'
+      fullPath: '/gov/ocr'
+      preLoaderRoute: typeof GovOcrRouteImport
+      parentRoute: typeof GovRoute
+    }
     '/gov/forms': {
       id: '/gov/forms'
       path: '/forms'
@@ -905,6 +924,7 @@ interface GovRouteChildren {
   GovDownloadsRoute: typeof GovDownloadsRoute
   GovEligibilityRoute: typeof GovEligibilityRoute
   GovFormsRoute: typeof GovFormsRouteWithChildren
+  GovOcrRoute: typeof GovOcrRoute
   GovProfileRoute: typeof GovProfileRoute
   GovRemindersRoute: typeof GovRemindersRoute
   GovSearchRoute: typeof GovSearchRoute
@@ -920,6 +940,7 @@ const GovRouteChildren: GovRouteChildren = {
   GovDownloadsRoute: GovDownloadsRoute,
   GovEligibilityRoute: GovEligibilityRoute,
   GovFormsRoute: GovFormsRouteWithChildren,
+  GovOcrRoute: GovOcrRoute,
   GovProfileRoute: GovProfileRoute,
   GovRemindersRoute: GovRemindersRoute,
   GovSearchRoute: GovSearchRoute,
