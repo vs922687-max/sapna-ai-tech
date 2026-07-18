@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { UTILITY_TOOLS } from "@/lib/utility-tools";
 
-const BASE_URL = "https://sapna-ai-tech.lovable.app";
+const BASE_URL = "https://bharataisathi.com";
 
 interface SitemapEntry {
   path: string;
@@ -27,8 +27,17 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/pricing", changefreq: "monthly", priority: "0.8" },
           { path: "/blog", changefreq: "weekly", priority: "0.6" },
           { path: "/faq", changefreq: "monthly", priority: "0.6" },
+          { path: "/about", changefreq: "monthly", priority: "0.7" },
           { path: "/contact", changefreq: "monthly", priority: "0.5" },
           { path: "/auth", changefreq: "monthly", priority: "0.4" },
+          { path: "/gov", changefreq: "weekly", priority: "0.9" },
+          { path: "/gov/forms", changefreq: "weekly", priority: "0.8" },
+          { path: "/gov/documents", changefreq: "monthly", priority: "0.7" },
+          { path: "/gov/eligibility", changefreq: "monthly", priority: "0.7" },
+          { path: "/privacy", changefreq: "yearly", priority: "0.3" },
+          { path: "/terms", changefreq: "yearly", priority: "0.3" },
+          { path: "/disclaimer", changefreq: "yearly", priority: "0.3" },
+          { path: "/cookies", changefreq: "yearly", priority: "0.3" },
           ...UTILITY_TOOLS.map((t) => ({ path: `/tools/${t.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
         ];
 
