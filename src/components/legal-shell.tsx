@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -23,7 +22,7 @@ export function LegalShell({
           {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
           <p className="mt-2 text-xs text-muted-foreground">Last updated: {updated}</p>
         </header>
-        <article className="prose prose-invert mt-8 max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-a:text-primary prose-strong:text-foreground">
+        <article className="mt-8 space-y-6 text-sm leading-relaxed text-muted-foreground [&_h2]:mt-8 [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-foreground [&_h3]:mt-4 [&_h3]:font-semibold [&_h3]:text-foreground [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-6 [&_a]:text-primary [&_a:hover]:underline [&_strong]:text-foreground">
           {children}
         </article>
       </main>
@@ -31,8 +30,3 @@ export function LegalShell({
     </div>
   );
 }
-
-// dummy default route so this file itself is not treated as a route
-export const Route = createFileRoute("/_legal-shell")({
-  component: () => null,
-}).update ? undefined as never : undefined as never;
