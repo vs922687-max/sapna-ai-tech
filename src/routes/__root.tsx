@@ -16,19 +16,31 @@ import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-dvh items-center justify-center bg-background px-4">
       <div className="glass-strong max-w-md rounded-2xl p-10 text-center shadow-elegant">
         <h1 className="text-7xl font-bold text-gradient-primary">404</h1>
         <h2 className="mt-4 text-xl font-semibold">Page not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
         </p>
-        <div className="mt-6">
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:opacity-90"
           >
             Go home
+          </Link>
+          <Link
+            to="/gov"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent"
+          >
+            Government Services
+          </Link>
+          <Link
+            to="/tools"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent"
+          >
+            AI Tools
           </Link>
         </div>
       </div>
