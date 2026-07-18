@@ -6,7 +6,7 @@ const BASE_URL = "https://bharataisathi.com";
 
 interface SitemapEntry {
   path: string;
-  changefreq?: "daily" | "weekly" | "monthly";
+  changefreq?: "daily" | "weekly" | "monthly" | "yearly";
   priority?: string;
 }
 
