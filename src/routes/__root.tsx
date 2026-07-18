@@ -56,13 +56,14 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-dvh items-center justify-center bg-background px-4">
       <div className="glass-strong max-w-md rounded-2xl p-10 text-center shadow-elegant">
-        <h1 className="text-xl font-semibold tracking-tight">
+        <h1 className="text-7xl font-bold text-gradient-primary">500</h1>
+        <h2 className="mt-4 text-xl font-semibold tracking-tight">
           This page didn't load
-        </h1>
+        </h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong. You can try refreshing or head back home.
+          Something went wrong on our end. Try again, or explore another section.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -79,6 +80,18 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
             Go home
+          </a>
+          <a
+            href="/gov"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Government Services
+          </a>
+          <a
+            href="/tools"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            AI Tools
           </a>
         </div>
       </div>
