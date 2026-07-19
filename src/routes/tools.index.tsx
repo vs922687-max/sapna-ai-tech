@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { AI_TOOLS, accentClass } from "@/lib/ai-tools";
+import { CORE_TOOLS, OFFICE_TOOLS, accentClass, type AiTool } from "@/lib/ai-tools";
 import { UTILITY_TOOLS, CATEGORIES, type ToolCategory } from "@/lib/utility-tools";
 import { ArrowRight, Search } from "lucide-react";
 import { useMemo, useState } from "react";
