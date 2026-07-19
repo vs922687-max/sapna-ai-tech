@@ -171,8 +171,18 @@ export const AI_TOOLS: AiTool[] = [
     accent: "royal",
     status: "live",
   },
-
+  {
+    slug: "letter",
+    to: "/letter",
+    title: "Official Letter Writer",
+    hindi: "आधिकारिक पत्र लेखक",
+    description: "Draft formal Indian letters — leave, job, RTI, bank, complaint — in Hindi, English or Hinglish.",
+    icon: ScrollText,
+    accent: "saffron",
+    status: "live",
+  },
 ];
+
 
 export const accentClass: Record<AiTool["accent"], string> = {
   saffron: "from-[oklch(0.76_0.17_55)]/25 to-[oklch(0.68_0.2_30)]/10 text-[oklch(0.76_0.17_55)] ring-[oklch(0.76_0.17_55)]/30",
