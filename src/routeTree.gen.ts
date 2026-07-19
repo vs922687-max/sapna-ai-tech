@@ -41,6 +41,7 @@ import { Route as BlogWriterRouteImport } from './routes/blog-writer'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AiPolicyRouteImport } from './routes/ai-policy'
+import { Route as AgreementRouteImport } from './routes/agreement'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -229,6 +230,11 @@ const AiPolicyRoute = AiPolicyRouteImport.update({
   path: '/ai-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgreementRoute = AgreementRouteImport.update({
+  id: '/agreement',
+  path: '/agreement',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -369,6 +375,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/agreement': typeof AgreementRoute
   '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
@@ -430,6 +437,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/agreement': typeof AgreementRoute
   '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
@@ -488,6 +496,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/agreement': typeof AgreementRoute
   '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
@@ -551,6 +560,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/agreement'
     | '/ai-policy'
     | '/auth'
     | '/blog'
@@ -612,6 +622,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/agreement'
     | '/ai-policy'
     | '/auth'
     | '/blog'
@@ -669,6 +680,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/agreement'
     | '/ai-policy'
     | '/auth'
     | '/blog'
@@ -731,6 +743,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  AgreementRoute: typeof AgreementRoute
   AiPolicyRoute: typeof AiPolicyRoute
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRouteWithChildren
@@ -992,6 +1005,13 @@ declare module '@tanstack/react-router' {
       path: '/ai-policy'
       fullPath: '/ai-policy'
       preLoaderRoute: typeof AiPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agreement': {
+      id: '/agreement'
+      path: '/agreement'
+      fullPath: '/agreement'
+      preLoaderRoute: typeof AgreementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -1276,6 +1296,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  AgreementRoute: AgreementRoute,
   AiPolicyRoute: AiPolicyRoute,
   AuthRoute: AuthRoute,
   BlogRoute: BlogRouteWithChildren,

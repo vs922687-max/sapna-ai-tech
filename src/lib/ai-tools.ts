@@ -16,6 +16,7 @@ import {
   ScrollText,
   BarChart3,
   Briefcase,
+  FileSignature,
   type LucideIcon,
 
 
@@ -202,6 +203,16 @@ export const AI_TOOLS: AiTool[] = [
     description: "Generate professional job descriptions and categorized interview questions in Hindi or English.",
     icon: Briefcase,
     accent: "royal",
+    status: "live",
+  },
+  {
+    slug: "agreement",
+    to: "/agreement",
+    title: "Agreement Generator",
+    hindi: "एग्रीमेंट जनरेटर",
+    description: "Draft Indian legal agreements — rent, NDA, offer letter, freelance, partnership — with editable output and PDF/DOCX export.",
+    icon: FileSignature,
+    accent: "saffron",
     status: "live",
   },
 ];
