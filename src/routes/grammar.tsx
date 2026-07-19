@@ -8,7 +8,12 @@ import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/grammar")({
-  head: () => ({ meta: [{ title: "AI Grammar Checker — Bharat AI Sathi" }, { name: "description", content: "Fix grammar, spelling, and tone in English or Hindi with AI." }] }),
+  head: () => ({
+    meta: [{ title: "AI Grammar Checker — Bharat AI Sathi" }, { name: "description", content: "Fix grammar, spelling, and tone in English or Hindi with AI." },
+      { property: "og:url", content: "https://bharataisathi.com/grammar" },
+    ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/grammar" }],
+  }),
   component: GrammarPage,
 });
 

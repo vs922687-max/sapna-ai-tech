@@ -8,7 +8,12 @@ import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/summarizer")({
-  head: () => ({ meta: [{ title: "AI Summarizer — Bharat AI Sathi" }, { name: "description", content: "Summarize long articles into crisp bullet points with AI." }] }),
+  head: () => ({
+    meta: [{ title: "AI Summarizer — Bharat AI Sathi" }, { name: "description", content: "Summarize long articles into crisp bullet points with AI." },
+      { property: "og:url", content: "https://bharataisathi.com/summarizer" },
+    ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/summarizer" }],
+  }),
   component: SummarizerPage,
 });
 

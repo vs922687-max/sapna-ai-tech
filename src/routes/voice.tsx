@@ -7,7 +7,12 @@ import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/voice")({
-  head: () => ({ meta: [{ title: "AI Voice Assistant — Bharat AI Sathi" }, { name: "description", content: "Speak to AI in Hindi or English. Voice in, voice out — using your browser." }] }),
+  head: () => ({
+    meta: [{ title: "AI Voice Assistant — Bharat AI Sathi" }, { name: "description", content: "Speak to AI in Hindi or English. Voice in, voice out — using your browser." },
+      { property: "og:url", content: "https://bharataisathi.com/voice" },
+    ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/voice" }],
+  }),
   component: VoicePage,
 });
 

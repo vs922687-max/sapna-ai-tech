@@ -9,7 +9,12 @@ import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/resume")({
-  head: () => ({ meta: [{ title: "AI Resume Builder — Bharat AI Sathi" }, { name: "description", content: "Generate ATS-friendly resumes tailored for Indian and global recruiters." }] }),
+  head: () => ({
+    meta: [{ title: "AI Resume Builder — Bharat AI Sathi" }, { name: "description", content: "Generate ATS-friendly resumes tailored for Indian and global recruiters." },
+      { property: "og:url", content: "https://bharataisathi.com/resume" },
+    ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/resume" }],
+  }),
   component: ResumePage,
 });
 
