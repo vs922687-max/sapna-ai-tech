@@ -21,10 +21,16 @@ function AdminPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) nav({ to: "/auth" });
-      else setLoading(false);
-    });
+    (async () => {
+      const { data: sess } = await supabase.auth.getSession();
+      if (!sess.session) { nav({ to: "/auth" }); return; }
+      const { data, error } = await supabase.rpc("has_role", {
+        _user_id: sess.session.user.id,
+        _role: "admin",
+      });
+      if (error || !data) { nav({ to: "/" }); return; }
+      setLoading(false);
+    })();
   }, [nav]);
 
   if (loading) {
