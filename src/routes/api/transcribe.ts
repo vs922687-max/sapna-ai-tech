@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { verifyBearer } from "@/lib/verify-auth.server";
 
 const STT_URL = "https://ai.gateway.lovable.dev/v1/audio/transcriptions";
 
@@ -6,6 +7,9 @@ export const Route = createFileRoute("/api/transcribe")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const auth = await verifyBearer(request);
+        if (!auth.ok) return auth.response;
+
         const key = process.env.LOVABLE_API_KEY;
         if (!key) return new Response(JSON.stringify({ error: "Missing LOVABLE_API_KEY" }), { status: 500 });
 
