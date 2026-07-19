@@ -371,7 +371,7 @@ function CTA() {
           <span className="text-gradient-tricolor">आज ही, मुफ़्त में</span>
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-          Sign up in seconds. No credit card. Unlimited chat on the free plan.
+          Sign up in seconds. No credit card. 20 messages per day on the free plan.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Button
