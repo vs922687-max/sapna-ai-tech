@@ -20,6 +20,7 @@ import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PdfRouteImport } from './routes/pdf'
+import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
 import { Route as InvoiceRouteImport } from './routes/invoice'
 import { Route as ImageRouteImport } from './routes/image'
 import { Route as GrammarRouteImport } from './routes/grammar'
@@ -118,6 +119,11 @@ const PricingRoute = PricingRouteImport.update({
 const PdfRoute = PdfRouteImport.update({
   id: '/pdf',
   path: '/pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeetingNotesRoute = MeetingNotesRouteImport.update({
+  id: '/meeting-notes',
+  path: '/meeting-notes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InvoiceRoute = InvoiceRouteImport.update({
@@ -362,6 +368,7 @@ export interface FileRoutesByFullPath {
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
+  '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -418,6 +425,7 @@ export interface FileRoutesByTo {
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
+  '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -473,6 +481,7 @@ export interface FileRoutesById {
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
+  '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -532,6 +541,7 @@ export interface FileRouteTypes {
     | '/grammar'
     | '/image'
     | '/invoice'
+    | '/meeting-notes'
     | '/pdf'
     | '/pricing'
     | '/privacy'
@@ -588,6 +598,7 @@ export interface FileRouteTypes {
     | '/grammar'
     | '/image'
     | '/invoice'
+    | '/meeting-notes'
     | '/pdf'
     | '/pricing'
     | '/privacy'
@@ -642,6 +653,7 @@ export interface FileRouteTypes {
     | '/grammar'
     | '/image'
     | '/invoice'
+    | '/meeting-notes'
     | '/pdf'
     | '/pricing'
     | '/privacy'
@@ -700,6 +712,7 @@ export interface RootRouteChildren {
   GrammarRoute: typeof GrammarRoute
   ImageRoute: typeof ImageRoute
   InvoiceRoute: typeof InvoiceRoute
+  MeetingNotesRoute: typeof MeetingNotesRoute
   PdfRoute: typeof PdfRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -793,6 +806,13 @@ declare module '@tanstack/react-router' {
       path: '/pdf'
       fullPath: '/pdf'
       preLoaderRoute: typeof PdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meeting-notes': {
+      id: '/meeting-notes'
+      path: '/meeting-notes'
+      fullPath: '/meeting-notes'
+      preLoaderRoute: typeof MeetingNotesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/invoice': {
@@ -1213,6 +1233,7 @@ const rootRouteChildren: RootRouteChildren = {
   GrammarRoute: GrammarRoute,
   ImageRoute: ImageRoute,
   InvoiceRoute: InvoiceRoute,
+  MeetingNotesRoute: MeetingNotesRoute,
   PdfRoute: PdfRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
