@@ -5,11 +5,11 @@ import { SiteFooter } from "@/components/site-footer";
 const FAQS = [
   {
     q: "Bharat AI Sathi kya hai?",
-    a: "Bharat AI Sathi ek premium, made-for-India AI suite hai jismein chat, image generation, translator, PDF chat, voice assistant, coding assistant aur 100+ utility tools shamil hain — Hindi, English aur 10+ Indian languages mein.",
+    a: "Bharat AI Sathi ek premium, made-for-India AI suite hai jismein chat, translator, PDF chat, voice assistant, coding assistant aur 100+ utility tools shamil hain — Hindi, English aur 10+ Indian languages mein.",
   },
   {
     q: "Kya Bharat AI Sathi free hai?",
-    a: "Haan, Free plan hamesha ke liye free hai — unlimited AI chat, basic image generation aur 10+ Indian languages ke saath. Pro plan ₹499/month se shuru hota hai.",
+    a: "Haan, Free plan hamesha ke liye free hai — 20 messages per day AI chat aur 10+ Indian languages ke saath. Pro plan ₹499/month se shuru hota hai.",
   },
   {
     q: "Kaunsa AI model use hota hai?",
