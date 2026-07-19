@@ -25,6 +25,7 @@ import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GovRouteImport } from './routes/gov'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmailRouteImport } from './routes/email'
+import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CookiesRouteImport } from './routes/cookies'
@@ -34,6 +35,7 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as BlogWriterRouteImport } from './routes/blog-writer'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AiPolicyRouteImport } from './routes/ai-policy'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -53,6 +55,7 @@ import { Route as GovDocumentsRouteImport } from './routes/gov.documents'
 import { Route as GovBookmarksRouteImport } from './routes/gov.bookmarks'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as GovFormsIndexRouteImport } from './routes/gov.forms.index'
@@ -140,6 +143,11 @@ const EmailRoute = EmailRouteImport.update({
   path: '/email',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EditorialPolicyRoute = EditorialPolicyRouteImport.update({
+  id: '/editorial-policy',
+  path: '/editorial-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DisclaimerRoute = DisclaimerRouteImport.update({
   id: '/disclaimer',
   path: '/disclaimer',
@@ -183,6 +191,11 @@ const BlogRoute = BlogRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiPolicyRoute = AiPolicyRouteImport.update({
+  id: '/ai-policy',
+  path: '/ai-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -280,6 +293,11 @@ const GovSlugRoute = GovSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => GovRoute,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -315,8 +333,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
@@ -324,6 +343,7 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
   '/gov': typeof GovRouteWithChildren
@@ -342,6 +362,7 @@ export interface FileRoutesByFullPath {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -367,8 +388,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
@@ -376,6 +398,7 @@ export interface FileRoutesByTo {
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
   '/grammar': typeof GrammarRoute
@@ -392,6 +415,7 @@ export interface FileRoutesByTo {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -416,8 +440,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
@@ -425,6 +450,7 @@ export interface FileRoutesById {
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
   '/gov': typeof GovRouteWithChildren
@@ -443,6 +469,7 @@ export interface FileRoutesById {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -470,6 +497,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/ai-policy'
     | '/auth'
     | '/blog'
     | '/blog-writer'
@@ -479,6 +507,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dashboard'
     | '/disclaimer'
+    | '/editorial-policy'
     | '/email'
     | '/faq'
     | '/gov'
@@ -497,6 +526,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -522,6 +552,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/ai-policy'
     | '/auth'
     | '/blog'
     | '/blog-writer'
@@ -531,6 +562,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dashboard'
     | '/disclaimer'
+    | '/editorial-policy'
     | '/email'
     | '/faq'
     | '/grammar'
@@ -547,6 +579,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -570,6 +603,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/ai-policy'
     | '/auth'
     | '/blog'
     | '/blog-writer'
@@ -579,6 +613,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dashboard'
     | '/disclaimer'
+    | '/editorial-policy'
     | '/email'
     | '/faq'
     | '/gov'
@@ -597,6 +632,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -623,8 +659,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  AiPolicyRoute: typeof AiPolicyRoute
   AuthRoute: typeof AuthRoute
-  BlogRoute: typeof BlogRoute
+  BlogRoute: typeof BlogRouteWithChildren
   BlogWriterRoute: typeof BlogWriterRoute
   ChatRoute: typeof ChatRoute
   CoderRoute: typeof CoderRoute
@@ -632,6 +669,7 @@ export interface RootRouteChildren {
   CookiesRoute: typeof CookiesRoute
   DashboardRoute: typeof DashboardRoute
   DisclaimerRoute: typeof DisclaimerRoute
+  EditorialPolicyRoute: typeof EditorialPolicyRoute
   EmailRoute: typeof EmailRoute
   FaqRoute: typeof FaqRoute
   GovRoute: typeof GovRouteWithChildren
@@ -766,6 +804,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmailRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/editorial-policy': {
+      id: '/editorial-policy'
+      path: '/editorial-policy'
+      fullPath: '/editorial-policy'
+      preLoaderRoute: typeof EditorialPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/disclaimer': {
       id: '/disclaimer'
       path: '/disclaimer'
@@ -827,6 +872,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-policy': {
+      id: '/ai-policy'
+      path: '/ai-policy'
+      fullPath: '/ai-policy'
+      preLoaderRoute: typeof AiPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -962,6 +1014,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovSlugRouteImport
       parentRoute: typeof GovRoute
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -1006,6 +1065,16 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface GovDocumentsRouteChildren {
   GovDocumentsSlugRoute: typeof GovDocumentsSlugRoute
@@ -1087,8 +1156,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  AiPolicyRoute: AiPolicyRoute,
   AuthRoute: AuthRoute,
-  BlogRoute: BlogRoute,
+  BlogRoute: BlogRouteWithChildren,
   BlogWriterRoute: BlogWriterRoute,
   ChatRoute: ChatRoute,
   CoderRoute: CoderRoute,
@@ -1096,6 +1166,7 @@ const rootRouteChildren: RootRouteChildren = {
   CookiesRoute: CookiesRoute,
   DashboardRoute: DashboardRoute,
   DisclaimerRoute: DisclaimerRoute,
+  EditorialPolicyRoute: EditorialPolicyRoute,
   EmailRoute: EmailRoute,
   FaqRoute: FaqRoute,
   GovRoute: GovRouteWithChildren,

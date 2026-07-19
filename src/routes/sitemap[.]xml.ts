@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { UTILITY_TOOLS } from "@/lib/utility-tools";
+import { BLOG_POSTS } from "@/lib/blog-posts";
 
 const BASE_URL = "https://bharataisathi.com";
 
@@ -38,6 +39,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/terms", changefreq: "yearly", priority: "0.3" },
           { path: "/disclaimer", changefreq: "yearly", priority: "0.3" },
           { path: "/cookies", changefreq: "yearly", priority: "0.3" },
+          { path: "/ai-policy", changefreq: "yearly", priority: "0.4" },
+          { path: "/editorial-policy", changefreq: "yearly", priority: "0.4" },
+          ...BLOG_POSTS.map((p) => ({ path: `/blog/${p.slug}`, changefreq: "monthly" as const, priority: "0.6" })),
           ...UTILITY_TOOLS.map((t) => ({ path: `/tools/${t.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
         ];
 
