@@ -181,7 +181,7 @@ function Features() {
     { icon: Zap, title: "Lightning fast", body: "Streamed responses, edge-served. Every keystroke feels instant." },
     { icon: Globe, title: "Truly Indian", body: "Fluent in Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati, Kannada and more." },
     { icon: Shield, title: "Private by default", body: "Your conversations are yours. Enterprise-grade encryption end-to-end." },
-    { icon: Sparkles, title: "One suite, everything", body: "Chat, image, PDF, voice, resume, translator — under one login." },
+    { icon: Sparkles, title: "One suite, everything", body: "Chat, PDF, voice, resume, translator, office tools — under one login." },
   ];
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
