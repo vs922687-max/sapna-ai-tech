@@ -14,7 +14,9 @@ import {
   Receipt,
   ClipboardList,
   ScrollText,
+  BarChart3,
   type LucideIcon,
+
 
 } from "lucide-react";
 
@@ -181,7 +183,18 @@ export const AI_TOOLS: AiTool[] = [
     accent: "saffron",
     status: "live",
   },
+  {
+    slug: "data-analyzer",
+    to: "/data-analyzer",
+    title: "Data Analyzer",
+    hindi: "डेटा एनालाइज़र",
+    description: "Upload CSV or Excel and chat with your data. Auto-generated charts and instant insights.",
+    icon: BarChart3,
+    accent: "green",
+    status: "live",
+  },
 ];
+
 
 
 export const accentClass: Record<AiTool["accent"], string> = {
