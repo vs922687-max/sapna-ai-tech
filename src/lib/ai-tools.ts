@@ -194,6 +194,16 @@ export const AI_TOOLS: AiTool[] = [
     accent: "green",
     status: "live",
   },
+  {
+    slug: "hr-assistant",
+    to: "/hr-assistant",
+    title: "HR Assistant",
+    hindi: "एचआर सहायक",
+    description: "Generate professional job descriptions and categorized interview questions in Hindi or English.",
+    icon: Briefcase,
+    accent: "royal",
+    status: "live",
+  },
 ];
 
 
