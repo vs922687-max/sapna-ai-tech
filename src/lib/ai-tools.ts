@@ -46,16 +46,6 @@ export const AI_TOOLS: AiTool[] = [
     status: "live",
   },
   {
-    slug: "image",
-    to: "/image",
-    title: "Image Generator",
-    hindi: "इमेज जनरेटर",
-    description: "Turn ideas into stunning images. Posters, art, product mockups — instantly.",
-    icon: ImageIcon,
-    accent: "royal",
-    status: "soon",
-  },
-  {
     slug: "voice",
     to: "/voice",
     title: "Voice Assistant",
