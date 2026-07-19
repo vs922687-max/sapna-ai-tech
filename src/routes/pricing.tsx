@@ -174,6 +174,21 @@ function PricingPage() {
             </div>
           ))}
         </div>
+
+        <div className="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Secure payments via Razorpay & UPI
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> 256-bit SSL encryption
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Cancel anytime · GST invoices
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Made in India 🇮🇳
+          </span>
+        </div>
       </section>
       <SiteFooter />
     </div>
