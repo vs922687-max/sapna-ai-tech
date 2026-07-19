@@ -75,7 +75,6 @@ const tiers = [
     features: [
       "20 messages per day (resets every 24h)",
       "Hindi + English + 9 languages",
-      "Basic image generation",
       "Community support",
     ],
     cta: "Get started",
