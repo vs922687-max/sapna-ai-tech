@@ -148,6 +148,17 @@ export const AI_TOOLS: AiTool[] = [
     accent: "royal",
     status: "live",
   },
+  {
+    slug: "invoice",
+    to: "/invoice",
+    title: "Invoice Generator",
+    hindi: "इनवॉइस जनरेटर",
+    description: "Create GST-ready invoices in INR with live preview and instant PDF download.",
+    icon: Receipt,
+    accent: "green",
+    status: "live",
+  },
+
 ];
 
 export const accentClass: Record<AiTool["accent"], string> = {
