@@ -13,9 +13,9 @@ export const Route = createFileRoute("/tools/")({
       { name: "description", content: "100+ free AI, text, calculator, SEO, developer, image and utility tools. Everything in one place, no signup required." },
       { property: "og:title", content: "100+ Free AI & Utility Tools — Bharat AI Sathi" },
       { property: "og:description", content: "PDF, image, text, calculators, SEO, developer and utility tools — all free." },
-      { property: "og:url", content: "https://sapna-ai-tech.lovable.app/tools" },
+      { property: "og:url", content: "https://bharataisathi.com/tools" },
     ],
-    links: [{ rel: "canonical", href: "https://sapna-ai-tech.lovable.app/tools" }],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/tools" }],
   }),
   component: ToolsPage,
 });

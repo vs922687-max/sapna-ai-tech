@@ -19,7 +19,7 @@ export const Route = createFileRoute("/gov/eligibility")({
       { property: "og:description", content: "Personalized government scheme eligibility in 1 minute." },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: "https://sapna-ai-tech.lovable.app/gov/eligibility" }],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/eligibility" }],
   }),
   component: EligibilityPage,
 });

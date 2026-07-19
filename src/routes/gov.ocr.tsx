@@ -17,7 +17,7 @@ export const Route = createFileRoute("/gov/ocr")({
           "Upload Aadhaar, PAN, Passport, Driving Licence or any government certificate — extract Name, DOB, Number, Address instantly. All processing runs in your browser.",
       },
     ],
-    links: [{ rel: "canonical", href: "https://sapna-ai-tech.lovable.app/gov/ocr" }],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/ocr" }],
   }),
   component: OcrPage,
 });

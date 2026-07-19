@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const PRICING_URL = "https://sapna-ai-tech.lovable.app/pricing";
+const PRICING_URL = "https://bharataisathi.com/pricing";
 const PRICING_TITLE = "Pricing — Bharat AI Sathi";
 const PRICING_DESC = "Simple, transparent pricing in ₹ INR. Free forever plan plus Pro (₹499/mo) and Team (₹1,499/mo).";
 
@@ -73,7 +73,7 @@ const tiers = [
     period: "forever",
     tag: "Start here",
     features: [
-      "20 messages per day",
+      "20 messages per day (resets every 24h)",
       "Hindi + English + 9 languages",
       "Basic image generation",
       "Community support",
@@ -91,7 +91,7 @@ const tiers = [
       "Everything in Free",
       "Priority Gemini Pro access",
       "PDF chat + voice assistant",
-      "Unlimited image generation",
+      "Image generation (coming soon)",
       "Save & export conversations",
     ],
     cta: "Upgrade to Pro",
@@ -173,6 +173,21 @@ function PricingPage() {
               </Button>
             </div>
           ))}
+        </div>
+
+        <div className="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Secure payments via Razorpay & UPI
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> 256-bit SSL encryption
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Cancel anytime · GST invoices
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Made in India 🇮🇳
+          </span>
         </div>
       </section>
       <SiteFooter />

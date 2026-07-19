@@ -14,7 +14,7 @@ export const Route = createFileRoute("/gov/documents/")({
       { property: "og:title", content: "AI Document Generator — Bharat AI Sathi" },
       { property: "og:description", content: "20+ ready templates for Indian legal & government documents." },
     ],
-    links: [{ rel: "canonical", href: "https://sapna-ai-tech.lovable.app/gov/documents" }],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/documents" }],
   }),
   component: DocsIndex,
 });

@@ -9,7 +9,7 @@ const I = inputCls();
 const T = textareaCls();
 
 export function QrCodeGenerator() {
-  const [text, setText] = useState("https://sapna-ai-tech.lovable.app");
+  const [text, setText] = useState("https://bharataisathi.com");
   const [size, setSize] = useState(300);
   const [dark, setDark] = useState("#000000");
   const [light, setLight] = useState("#ffffff");

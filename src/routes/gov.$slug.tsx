@@ -23,7 +23,7 @@ export const Route = createFileRoute("/gov/$slug")({
       return { meta: [{ title: "Service not found — Bharat AI Sathi" }, { name: "robots", content: "noindex" }] };
     }
     const s = loaderData.svc;
-    const url = `https://sapna-ai-tech.lovable.app/gov/${params.slug}`;
+    const url = `https://bharataisathi.com/gov/${params.slug}`;
     const title = `${s.name} (${s.hindi}) — Eligibility, Documents & How to Apply | Bharat AI Sathi`;
     const desc = `${s.tagline} Complete guide to ${s.name}: eligibility, required documents, step-by-step application and official links.`;
     return {

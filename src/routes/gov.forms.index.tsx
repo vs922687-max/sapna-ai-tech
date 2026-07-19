@@ -14,7 +14,7 @@ export const Route = createFileRoute("/gov/forms/")({
       { property: "og:title", content: "AI Form Center — Government Forms with AI Auto-Fill" },
       { property: "og:description", content: "Auto-fill 60+ Indian government forms from your saved profile. Free, secure, private." },
     ],
-    links: [{ rel: "canonical", href: "https://sapna-ai-tech.lovable.app/gov/forms" }],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/forms" }],
   }),
   component: FormsIndex,
 });

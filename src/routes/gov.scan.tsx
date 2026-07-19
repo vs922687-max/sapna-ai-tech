@@ -16,7 +16,7 @@ export const Route = createFileRoute("/gov/scan")({
           "Scan Aadhaar QR, government certificate QR or verification QR safely using your camera or by uploading an image. Runs entirely in your browser.",
       },
     ],
-    links: [{ rel: "canonical", href: "https://sapna-ai-tech.lovable.app/gov/scan" }],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/scan" }],
   }),
   component: ScanPage,
 });

@@ -37,7 +37,7 @@ const FAQS = [
   },
 ];
 
-const URL = "https://sapna-ai-tech.lovable.app/faq";
+const URL = "https://bharataisathi.com/faq";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
