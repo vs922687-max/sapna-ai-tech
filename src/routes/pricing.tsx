@@ -90,7 +90,6 @@ const tiers = [
       "Everything in Free",
       "Priority Gemini Pro access",
       "PDF chat + voice assistant",
-      "Image generation (coming soon)",
       "Save & export conversations",
     ],
     cta: "Upgrade to Pro",
