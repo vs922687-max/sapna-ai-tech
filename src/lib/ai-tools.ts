@@ -12,6 +12,7 @@ import {
   SpellCheck,
   Sparkles,
   Receipt,
+  ClipboardList,
   type LucideIcon,
 } from "lucide-react";
 
