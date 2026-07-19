@@ -16,6 +16,7 @@ import {
   ScrollText,
   BarChart3,
   Briefcase,
+  FileSignature,
   type LucideIcon,
 
 
