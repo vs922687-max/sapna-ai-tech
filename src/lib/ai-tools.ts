@@ -159,6 +159,16 @@ export const AI_TOOLS: AiTool[] = [
     accent: "green",
     status: "live",
   },
+  {
+    slug: "meeting-notes",
+    to: "/meeting-notes",
+    title: "Meeting Notes Generator",
+    hindi: "मीटिंग नोट्स जनरेटर",
+    description: "Turn meeting transcripts or audio into summary, action items and decisions.",
+    icon: ClipboardList,
+    accent: "royal",
+    status: "live",
+  },
 
 ];
 
