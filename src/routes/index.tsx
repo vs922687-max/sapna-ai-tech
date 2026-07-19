@@ -83,6 +83,7 @@ function HomePage() {
       <Features />
       <ToolsGrid />
       <Why />
+      <Testimonials />
       <CTA />
       <SiteFooter />
     </div>
