@@ -57,7 +57,9 @@ function MeetingNotesPage() {
     try {
       const fd = new FormData();
       fd.append("file", file);
-      const res = await fetch("/api/transcribe", { method: "POST", body: fd });
+      const { aiAuthHeaders } = await import("@/lib/ai-client");
+      const auth = await aiAuthHeaders();
+      const res = await fetch("/api/transcribe", { method: "POST", body: fd, headers: auth });
       const data = (await res.json().catch(() => ({}))) as { text?: string; error?: string };
       if (!res.ok) throw new Error(data.error || "Transcription failed");
       setTranscript((t) => (t ? t + "\n\n" : "") + (data.text ?? ""));
