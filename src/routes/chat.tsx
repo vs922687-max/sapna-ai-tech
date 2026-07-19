@@ -62,9 +62,16 @@ function ChatPage() {
     setStreaming(true);
 
     try {
+      const { data: sess } = await supabase.auth.getSession();
+      const token = sess.session?.access_token;
+      if (!token) {
+        toast.error("Please sign in to use chat.");
+        setMessages((m) => m.slice(0, -1));
+        return;
+      }
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           system: SYSTEM,
           messages: next.slice(0, -1).map((m) => ({ role: m.role, content: m.content })),
