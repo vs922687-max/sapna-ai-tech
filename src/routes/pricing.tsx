@@ -73,7 +73,7 @@ const tiers = [
     period: "forever",
     tag: "Start here",
     features: [
-      "20 messages per day",
+      "20 messages per day (resets every 24h)",
       "Hindi + English + 9 languages",
       "Basic image generation",
       "Community support",
