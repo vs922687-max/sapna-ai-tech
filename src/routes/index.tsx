@@ -9,7 +9,7 @@ import { CORE_TOOLS, OFFICE_TOOLS, accentClass, type AiTool } from "@/lib/ai-too
 const HOME_URL = "https://bharataisathi.com/";
 const HOME_TITLE = "Bharat AI Sathi — India's Premium AI Companion";
 const HOME_DESC =
-  "Chat, create images, translate Indian languages, analyze PDFs, code and more with Bharat AI Sathi — a premium AI suite built for India.";
+  "Chat, translate Indian languages, analyze PDFs, code and more with Bharat AI Sathi — a premium AI suite built for India.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
