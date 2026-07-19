@@ -20,7 +20,7 @@ export const Route = createFileRoute("/gov/ask")({
       { property: "og:title", content: "AI Government Expert — Bharat AI Sathi" },
       { property: "og:description", content: "Ask any Sarkari question and get simple, verified guidance." },
     ],
-    links: [{ rel: "canonical", href: "https://sapna-ai-tech.lovable.app/gov/ask" }],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/ask" }],
   }),
   component: GovAsk,
 });

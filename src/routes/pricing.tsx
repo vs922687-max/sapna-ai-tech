@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const PRICING_URL = "https://sapna-ai-tech.lovable.app/pricing";
+const PRICING_URL = "https://bharataisathi.com/pricing";
 const PRICING_TITLE = "Pricing — Bharat AI Sathi";
 const PRICING_DESC = "Simple, transparent pricing in ₹ INR. Free forever plan plus Pro (₹499/mo) and Team (₹1,499/mo).";
 

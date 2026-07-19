@@ -13,7 +13,7 @@ export const Route = createFileRoute("/gov/search")({
       { title: "Search Government Services, Forms & Documents | Bharat AI Sathi" },
       { name: "description", content: "Universal search across 276 Indian government services, 60+ forms and 20+ document templates." },
     ],
-    links: [{ rel: "canonical", href: "https://sapna-ai-tech.lovable.app/gov/search" }],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/search" }],
   }),
   component: SearchPage,
 });

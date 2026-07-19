@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 
-const BASE = "https://sapna-ai-tech.lovable.app";
+const BASE = "https://bharataisathi.com";
 
 export const Route = createFileRoute("/tools/$slug")({
   loader: ({ params }) => {

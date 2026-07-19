@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { AI_TOOLS, accentClass } from "@/lib/ai-tools";
 
-const HOME_URL = "https://sapna-ai-tech.lovable.app/";
+const HOME_URL = "https://bharataisathi.com/";
 const HOME_TITLE = "Bharat AI Sathi — India's Premium AI Companion";
 const HOME_DESC =
   "Chat, create images, translate Indian languages, analyze PDFs, code and more with Bharat AI Sathi — a premium AI suite built for India.";
