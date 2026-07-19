@@ -294,6 +294,74 @@ function Why() {
   );
 }
 
+function Testimonials() {
+  const testimonials = [
+    {
+      quote:
+        "Bharat AI Sathi se maine apna Aadhaar card easily update kar liya, process bilkul simple tha.",
+      name: "Gurpreet Singh",
+      role: "Punjab",
+    },
+    {
+      quote:
+        "Bharat AI Sathi ne mujhe apna business plan Hindi mein samjhaya, bahut hi easy tha.",
+      name: "Priya Sharma",
+      role: "Small Business Owner, Lucknow",
+    },
+    {
+      quote:
+        "Bharat AI Sathi ne mera resume Hindi mein 5 minute mein bana diya, bahut madad mili interview ke liye.",
+      name: "Rajesh Kumar",
+      role: "Software Engineer, Jaipur",
+    },
+  ];
+
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <div className="mx-auto max-w-2xl text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+          Loved across Bharat
+        </p>
+        <h2 className="mt-2 font-display text-3xl font-bold sm:text-4xl">
+          Real users. <span className="text-gradient-tricolor">Real impact.</span>
+        </h2>
+      </div>
+
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {testimonials.map((t, i) => (
+          <motion.div
+            key={t.name}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, delay: i * 0.1 }}
+            className="glass relative flex flex-col rounded-3xl border border-border/60 p-6 sm:p-8"
+          >
+            <Quote className="h-6 w-6 text-primary/40" />
+            <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground sm:text-base">
+              "{t.quote}"
+            </p>
+            <div className="mt-6 flex items-center gap-3">
+              <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-primary to-[oklch(0.68_0.2_30)] font-display text-sm font-bold text-primary-foreground">
+                {t.name.charAt(0)}
+              </div>
+              <div>
+                <p className="text-sm font-semibold">{t.name}</p>
+                <p className="text-xs text-muted-foreground">{t.role}</p>
+              </div>
+            </div>
+            <div className="absolute right-6 top-6 flex gap-0.5">
+              {[...Array(5)].map((_, j) => (
+                <Star key={j} className="h-3.5 w-3.5 fill-[oklch(0.72_0.16_55)] text-[oklch(0.72_0.16_55)]" />
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function CTA() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
