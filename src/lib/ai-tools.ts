@@ -17,11 +17,9 @@ import {
   BarChart3,
   Briefcase,
   FileSignature,
+  Presentation,
   type LucideIcon,
-
-
 } from "lucide-react";
-
 
 export type AiTool = {
   slug: string;
@@ -32,7 +30,9 @@ export type AiTool = {
   icon: LucideIcon;
   accent: "saffron" | "green" | "royal";
   status: "live" | "soon";
+  category?: "core" | "office";
 };
+
 
 export const AI_TOOLS: AiTool[] = [
   {
