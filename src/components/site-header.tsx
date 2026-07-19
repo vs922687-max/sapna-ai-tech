@@ -10,12 +10,17 @@ type NavItem = {
   to: string;
   label: string;
   icon?: typeof Landmark;
+  hash?: string;
   children?: { to: string; label: string }[];
 };
+
 
 const nav: NavItem[] = [
   { to: "/", label: "Home" },
   { to: "/tools", label: "AI Tools" },
+  { to: "/tools", label: "Office Tools", hash: "office-tools" },
+
+
   {
     to: "/gov",
     label: "Government",
@@ -135,8 +140,9 @@ export function SiteHeader() {
               }
               return (
                 <Link
-                  key={item.to}
+                  key={item.label}
                   to={item.to}
+                  hash={item.hash}
                   className={cn(
                     "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                     active
@@ -147,6 +153,7 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
               );
+
             })}
           </nav>
 
@@ -183,14 +190,16 @@ export function SiteHeader() {
               {nav.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.to}>
+                  <div key={item.label}>
                     <Link
                       to={item.to}
+                      hash={item.hash}
                       className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                     >
                       {Icon && <Icon className="h-4 w-4" aria-hidden="true" />}
                       {item.label}
                     </Link>
+
                     {item.children && (
                       <>
                         {item.to === "/gov" && (

@@ -4,7 +4,7 @@ import { ArrowRight, Check, Sparkles, Zap, Shield, Globe, Star, Quote } from "lu
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
-import { AI_TOOLS, accentClass } from "@/lib/ai-tools";
+import { CORE_TOOLS, OFFICE_TOOLS, accentClass, type AiTool } from "@/lib/ai-tools";
 
 const HOME_URL = "https://bharataisathi.com/";
 const HOME_TITLE = "Bharat AI Sathi — India's Premium AI Companion";
@@ -155,7 +155,7 @@ function Hero() {
           <div className="rounded-[calc(theme(borderRadius.3xl)-4px)] bg-background/60 p-6 sm:p-10">
             <div className="grid gap-6 sm:grid-cols-3">
               {[
-                { k: "12+", v: "AI tools" },
+                { k: "19+", v: "AI tools" },
                 { k: "11", v: "Indian languages" },
                 { k: "<200ms", v: "First token" },
               ].map((s) => (
@@ -200,6 +200,46 @@ function Features() {
   );
 }
 
+function ToolCard({ tool, i }: { tool: AiTool; i: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.4, delay: i * 0.04 }}
+    >
+      <Link
+        to={tool.to}
+        className="group relative block h-full overflow-hidden rounded-2xl border border-border/60 bg-card/40 p-6 backdrop-blur-xl transition-all hover:border-primary/40 hover:shadow-glow"
+      >
+        <div className="flex items-start justify-between">
+          <div
+            className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ring-1 ${accentClass[tool.accent]}`}
+          >
+            <tool.icon className="h-5 w-5" />
+          </div>
+          {tool.status === "soon" && (
+            <span className="rounded-full border border-border/60 bg-muted/40 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              Soon
+            </span>
+          )}
+          {tool.status === "live" && (
+            <span className="rounded-full border border-[oklch(0.66_0.16_155)]/40 bg-[oklch(0.66_0.16_155)]/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[oklch(0.72_0.16_155)]">
+              Live
+            </span>
+          )}
+        </div>
+        <h3 className="mt-5 font-display text-lg font-semibold">{tool.title}</h3>
+        <p className="text-xs text-muted-foreground">{tool.hindi}</p>
+        <p className="mt-3 text-sm text-muted-foreground">{tool.description}</p>
+        <div className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-primary opacity-0 transition-opacity group-hover:opacity-100">
+          Open <ArrowRight className="h-3 w-3" />
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
 function ToolsGrid() {
   return (
     <section id="tools" className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
@@ -213,48 +253,30 @@ function ToolsGrid() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {AI_TOOLS.map((tool, i) => (
-          <motion.div
-            key={tool.slug}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.4, delay: i * 0.04 }}
-          >
-            <Link
-              to={tool.to}
-              className="group relative block h-full overflow-hidden rounded-2xl border border-border/60 bg-card/40 p-6 backdrop-blur-xl transition-all hover:border-primary/40 hover:shadow-glow"
-            >
-              <div className="flex items-start justify-between">
-                <div
-                  className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ring-1 ${accentClass[tool.accent]}`}
-                >
-                  <tool.icon className="h-5 w-5" />
-                </div>
-                {tool.status === "soon" && (
-                  <span className="rounded-full border border-border/60 bg-muted/40 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-                    Soon
-                  </span>
-                )}
-                {tool.status === "live" && (
-                  <span className="rounded-full border border-[oklch(0.66_0.16_155)]/40 bg-[oklch(0.66_0.16_155)]/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[oklch(0.72_0.16_155)]">
-                    Live
-                  </span>
-                )}
-              </div>
-              <h3 className="mt-5 font-display text-lg font-semibold">{tool.title}</h3>
-              <p className="text-xs text-muted-foreground">{tool.hindi}</p>
-              <p className="mt-3 text-sm text-muted-foreground">{tool.description}</p>
-              <div className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-primary opacity-0 transition-opacity group-hover:opacity-100">
-                Open <ArrowRight className="h-3 w-3" />
-              </div>
-            </Link>
-          </motion.div>
+        {CORE_TOOLS.map((tool, i) => (
+          <ToolCard key={tool.slug} tool={tool} i={i} />
         ))}
+      </div>
+
+      <div className="mt-16 border-t border-border/60 pt-12" id="office-tools">
+        <div className="mb-10 max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[oklch(0.72_0.16_155)]">
+            Office Tools · ऑफिस टूल्स
+          </p>
+          <h2 className="mt-2 font-display text-3xl font-bold sm:text-4xl">
+            Everything you need to run your <span className="text-gradient-tricolor">office</span>, in one place.
+          </h2>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {OFFICE_TOOLS.map((tool, i) => (
+            <ToolCard key={tool.slug} tool={tool} i={i} />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+
 
 function Why() {
   return (

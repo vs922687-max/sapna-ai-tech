@@ -19,6 +19,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PresentationRouteImport } from './routes/presentation'
 import { Route as PdfRouteImport } from './routes/pdf'
 import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
 import { Route as LetterRouteImport } from './routes/letter'
@@ -118,6 +119,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresentationRoute = PresentationRouteImport.update({
+  id: '/presentation',
+  path: '/presentation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PdfRoute = PdfRouteImport.update({
@@ -398,6 +404,7 @@ export interface FileRoutesByFullPath {
   '/letter': typeof LetterRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
+  '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/resume': typeof ResumeRoute
@@ -459,6 +466,7 @@ export interface FileRoutesByTo {
   '/letter': typeof LetterRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
+  '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/resume': typeof ResumeRoute
@@ -519,6 +527,7 @@ export interface FileRoutesById {
   '/letter': typeof LetterRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
+  '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/resume': typeof ResumeRoute
@@ -583,6 +592,7 @@ export interface FileRouteTypes {
     | '/letter'
     | '/meeting-notes'
     | '/pdf'
+    | '/presentation'
     | '/pricing'
     | '/privacy'
     | '/resume'
@@ -644,6 +654,7 @@ export interface FileRouteTypes {
     | '/letter'
     | '/meeting-notes'
     | '/pdf'
+    | '/presentation'
     | '/pricing'
     | '/privacy'
     | '/resume'
@@ -703,6 +714,7 @@ export interface FileRouteTypes {
     | '/letter'
     | '/meeting-notes'
     | '/pdf'
+    | '/presentation'
     | '/pricing'
     | '/privacy'
     | '/resume'
@@ -766,6 +778,7 @@ export interface RootRouteChildren {
   LetterRoute: typeof LetterRoute
   MeetingNotesRoute: typeof MeetingNotesRoute
   PdfRoute: typeof PdfRoute
+  PresentationRoute: typeof PresentationRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   ResumeRoute: typeof ResumeRoute
@@ -851,6 +864,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/presentation': {
+      id: '/presentation'
+      path: '/presentation'
+      fullPath: '/presentation'
+      preLoaderRoute: typeof PresentationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pdf': {
@@ -1319,6 +1339,7 @@ const rootRouteChildren: RootRouteChildren = {
   LetterRoute: LetterRoute,
   MeetingNotesRoute: MeetingNotesRoute,
   PdfRoute: PdfRoute,
+  PresentationRoute: PresentationRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   ResumeRoute: ResumeRoute,

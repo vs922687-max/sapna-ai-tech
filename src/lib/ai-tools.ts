@@ -17,11 +17,9 @@ import {
   BarChart3,
   Briefcase,
   FileSignature,
+  Presentation,
   type LucideIcon,
-
-
 } from "lucide-react";
-
 
 export type AiTool = {
   slug: string;
@@ -32,7 +30,9 @@ export type AiTool = {
   icon: LucideIcon;
   accent: "saffron" | "green" | "royal";
   status: "live" | "soon";
+  category?: "core" | "office";
 };
+
 
 export const AI_TOOLS: AiTool[] = [
   {
@@ -160,62 +160,83 @@ export const AI_TOOLS: AiTool[] = [
     to: "/invoice",
     title: "Invoice Generator",
     hindi: "इनवॉइस जनरेटर",
-    description: "Create GST-ready invoices in INR with live preview and instant PDF download.",
+    description: "Create GST-ready invoices in seconds. Download as PDF.",
     icon: Receipt,
     accent: "green",
     status: "live",
+    category: "office",
   },
   {
     slug: "meeting-notes",
     to: "/meeting-notes",
     title: "Meeting Notes Generator",
     hindi: "मीटिंग नोट्स जनरेटर",
-    description: "Turn meeting transcripts or audio into summary, action items and decisions.",
+    description: "Turn meeting audio or transcripts into clean notes and action items.",
     icon: ClipboardList,
     accent: "royal",
     status: "live",
+    category: "office",
+  },
+  {
+    slug: "presentation",
+    to: "/presentation",
+    title: "Presentation Generator",
+    hindi: "प्रेजेंटेशन जनरेटर",
+    description: "Turn any topic into a ready slide outline. Export as PPTX.",
+    icon: Presentation,
+    accent: "royal",
+    status: "live",
+    category: "office",
   },
   {
     slug: "letter",
     to: "/letter",
     title: "Official Letter Writer",
     hindi: "आधिकारिक पत्र लेखक",
-    description: "Draft formal Indian letters — leave, job, RTI, bank, complaint — in Hindi, English or Hinglish.",
+    description: "Draft leave applications, government letters and business letters instantly.",
     icon: ScrollText,
     accent: "saffron",
     status: "live",
+    category: "office",
   },
   {
     slug: "data-analyzer",
     to: "/data-analyzer",
     title: "Data Analyzer",
     hindi: "डेटा एनालाइज़र",
-    description: "Upload CSV or Excel and chat with your data. Auto-generated charts and instant insights.",
+    description: "Upload Excel or CSV files and get instant insights and charts.",
     icon: BarChart3,
     accent: "green",
     status: "live",
+    category: "office",
   },
   {
     slug: "hr-assistant",
     to: "/hr-assistant",
     title: "HR Assistant",
     hindi: "एचआर सहायक",
-    description: "Generate professional job descriptions and categorized interview questions in Hindi or English.",
+    description: "Generate job descriptions and interview questions in seconds.",
     icon: Briefcase,
     accent: "royal",
     status: "live",
+    category: "office",
   },
   {
     slug: "agreement",
     to: "/agreement",
     title: "Agreement Generator",
     hindi: "एग्रीमेंट जनरेटर",
-    description: "Draft Indian legal agreements — rent, NDA, offer letter, freelance, partnership — with editable output and PDF/DOCX export.",
+    description: "Draft rent agreements, NDAs, offer letters and more.",
     icon: FileSignature,
     accent: "saffron",
     status: "live",
+    category: "office",
   },
 ];
+
+export const CORE_TOOLS = AI_TOOLS.filter((t) => t.category !== "office");
+export const OFFICE_TOOLS = AI_TOOLS.filter((t) => t.category === "office");
+
 
 
 
