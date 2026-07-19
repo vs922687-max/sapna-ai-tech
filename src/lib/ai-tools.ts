@@ -11,8 +11,10 @@ import {
   Share2,
   SpellCheck,
   Sparkles,
+  Receipt,
   type LucideIcon,
 } from "lucide-react";
+
 
 export type AiTool = {
   slug: string;
