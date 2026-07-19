@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Sparkles, Zap, Shield, Globe } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Zap, Shield, Globe, Star, Quote } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
