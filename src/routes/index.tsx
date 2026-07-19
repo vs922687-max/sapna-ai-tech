@@ -9,7 +9,7 @@ import { CORE_TOOLS, OFFICE_TOOLS, accentClass, type AiTool } from "@/lib/ai-too
 const HOME_URL = "https://bharataisathi.com/";
 const HOME_TITLE = "Bharat AI Sathi — India's Premium AI Companion";
 const HOME_DESC =
-  "Chat, create images, translate Indian languages, analyze PDFs, code and more with Bharat AI Sathi — a premium AI suite built for India.";
+  "Chat, translate Indian languages, analyze PDFs, code and more with Bharat AI Sathi — a premium AI suite built for India.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -137,7 +137,7 @@ function Hero() {
             {[
               "No credit card",
               "Hindi + 10 Indian languages",
-              "Voice & image support",
+              "Voice & PDF support",
             ].map((t) => (
               <span key={t} className="inline-flex items-center gap-1.5">
                 <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> {t}
@@ -181,7 +181,7 @@ function Features() {
     { icon: Zap, title: "Lightning fast", body: "Streamed responses, edge-served. Every keystroke feels instant." },
     { icon: Globe, title: "Truly Indian", body: "Fluent in Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati, Kannada and more." },
     { icon: Shield, title: "Private by default", body: "Your conversations are yours. Enterprise-grade encryption end-to-end." },
-    { icon: Sparkles, title: "One suite, everything", body: "Chat, image, PDF, voice, resume, translator — under one login." },
+    { icon: Sparkles, title: "One suite, everything", body: "Chat, PDF, voice, resume, translator, office tools — under one login." },
   ];
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">

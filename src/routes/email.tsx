@@ -9,7 +9,12 @@ import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/email")({
-  head: () => ({ meta: [{ title: "AI Email Writer — Bharat AI Sathi" }, { name: "description", content: "Write professional emails in seconds with AI — formal, casual, sales, apology." }] }),
+  head: () => ({
+    meta: [{ title: "AI Email Writer — Bharat AI Sathi" }, { name: "description", content: "Write professional emails in seconds with AI — formal, casual, sales, apology." },
+      { property: "og:url", content: "https://bharataisathi.com/email" },
+    ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/email" }],
+  }),
   component: EmailPage,
 });
 

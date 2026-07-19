@@ -8,7 +8,12 @@ import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/blog-writer")({
-  head: () => ({ meta: [{ title: "AI Blog Writer — Bharat AI Sathi" }, { name: "description", content: "Generate full SEO-ready blog posts in Hindi or English with AI." }] }),
+  head: () => ({
+    meta: [{ title: "AI Blog Writer — Bharat AI Sathi" }, { name: "description", content: "Generate full SEO-ready blog posts in Hindi or English with AI." },
+      { property: "og:url", content: "https://bharataisathi.com/blog-writer" },
+    ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/blog-writer" }],
+  }),
   component: BlogWriterPage,
 });
 

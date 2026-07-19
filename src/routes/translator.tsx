@@ -8,7 +8,12 @@ import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/translator")({
-  head: () => ({ meta: [{ title: "Indian Language Translator — Bharat AI Sathi" }, { name: "description", content: "Translate across Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati and more with AI." }] }),
+  head: () => ({
+    meta: [{ title: "Indian Language Translator — Bharat AI Sathi" }, { name: "description", content: "Translate across Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati and more with AI." },
+      { property: "og:url", content: "https://bharataisathi.com/translator" },
+    ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/translator" }],
+  }),
   component: TranslatorPage,
 });
 

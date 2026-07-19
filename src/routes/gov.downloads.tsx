@@ -13,7 +13,9 @@ export const Route = createFileRoute("/gov/downloads")({
       { title: "Download Center | Bharat AI Sathi" },
       { name: "description", content: "All your generated forms, documents, letters and certificates in one place." },
       { name: "robots", content: "noindex" },
+      { property: "og:url", content: "https://bharataisathi.com/gov/downloads" },
     ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/downloads" }],
   }),
   component: Downloads,
 });

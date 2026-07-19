@@ -1,6 +1,6 @@
 import {
   MessagesSquare,
-  Image as ImageIcon,
+  
   Mic,
   FileText,
   Languages,
@@ -44,16 +44,6 @@ export const AI_TOOLS: AiTool[] = [
     icon: MessagesSquare,
     accent: "saffron",
     status: "live",
-  },
-  {
-    slug: "image",
-    to: "/image",
-    title: "Image Generator",
-    hindi: "इमेज जनरेटर",
-    description: "Turn ideas into stunning images. Posters, art, product mockups — instantly.",
-    icon: ImageIcon,
-    accent: "royal",
-    status: "soon",
   },
   {
     slug: "voice",

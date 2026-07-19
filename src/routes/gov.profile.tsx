@@ -12,7 +12,9 @@ export const Route = createFileRoute("/gov/profile")({
       { title: "My Profile — AI Form Auto-Fill | Bharat AI Sathi" },
       { name: "description", content: "Save your details once. Auto-fill 500+ Indian government forms and letters instantly. Stored securely on your device." },
       { name: "robots", content: "noindex" },
+      { property: "og:url", content: "https://bharataisathi.com/gov/profile" },
     ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/profile" }],
   }),
   component: ProfilePage,
 });

@@ -8,7 +8,12 @@ import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/coder")({
-  head: () => ({ meta: [{ title: "AI Coding Assistant — Bharat AI Sathi" }, { name: "description", content: "Write, debug and explain code with AI pair-programming across 40+ languages." }] }),
+  head: () => ({
+    meta: [{ title: "AI Coding Assistant — Bharat AI Sathi" }, { name: "description", content: "Write, debug and explain code with AI pair-programming across 40+ languages." },
+      { property: "og:url", content: "https://bharataisathi.com/coder" },
+    ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/coder" }],
+  }),
   component: CoderPage,
 });
 

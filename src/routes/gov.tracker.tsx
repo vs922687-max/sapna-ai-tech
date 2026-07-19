@@ -14,7 +14,9 @@ export const Route = createFileRoute("/gov/tracker")({
       { title: "Application Tracker | Bharat AI Sathi" },
       { name: "description", content: "Track your Indian government applications, reference numbers, status updates and reminders — all in one place." },
       { name: "robots", content: "noindex" },
+      { property: "og:url", content: "https://bharataisathi.com/gov/tracker" },
     ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/tracker" }],
   }),
   component: Tracker,
 });
