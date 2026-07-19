@@ -25,6 +25,7 @@ import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GovRouteImport } from './routes/gov'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmailRouteImport } from './routes/email'
+import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CookiesRouteImport } from './routes/cookies'
@@ -34,6 +35,7 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as BlogWriterRouteImport } from './routes/blog-writer'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AiPolicyRouteImport } from './routes/ai-policy'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -140,6 +142,11 @@ const EmailRoute = EmailRouteImport.update({
   path: '/email',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EditorialPolicyRoute = EditorialPolicyRouteImport.update({
+  id: '/editorial-policy',
+  path: '/editorial-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DisclaimerRoute = DisclaimerRouteImport.update({
   id: '/disclaimer',
   path: '/disclaimer',
@@ -183,6 +190,11 @@ const BlogRoute = BlogRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiPolicyRoute = AiPolicyRouteImport.update({
+  id: '/ai-policy',
+  path: '/ai-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -315,6 +327,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
   '/blog-writer': typeof BlogWriterRoute
@@ -324,6 +337,7 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
   '/gov': typeof GovRouteWithChildren
@@ -367,6 +381,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
   '/blog-writer': typeof BlogWriterRoute
@@ -376,6 +391,7 @@ export interface FileRoutesByTo {
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
   '/grammar': typeof GrammarRoute
@@ -416,6 +432,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
   '/blog-writer': typeof BlogWriterRoute
@@ -425,6 +442,7 @@ export interface FileRoutesById {
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
   '/gov': typeof GovRouteWithChildren
@@ -470,6 +488,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/ai-policy'
     | '/auth'
     | '/blog'
     | '/blog-writer'
@@ -479,6 +498,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dashboard'
     | '/disclaimer'
+    | '/editorial-policy'
     | '/email'
     | '/faq'
     | '/gov'
@@ -522,6 +542,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/ai-policy'
     | '/auth'
     | '/blog'
     | '/blog-writer'
@@ -531,6 +552,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dashboard'
     | '/disclaimer'
+    | '/editorial-policy'
     | '/email'
     | '/faq'
     | '/grammar'
@@ -570,6 +592,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/ai-policy'
     | '/auth'
     | '/blog'
     | '/blog-writer'
@@ -579,6 +602,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dashboard'
     | '/disclaimer'
+    | '/editorial-policy'
     | '/email'
     | '/faq'
     | '/gov'
@@ -623,6 +647,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  AiPolicyRoute: typeof AiPolicyRoute
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRoute
   BlogWriterRoute: typeof BlogWriterRoute
@@ -632,6 +657,7 @@ export interface RootRouteChildren {
   CookiesRoute: typeof CookiesRoute
   DashboardRoute: typeof DashboardRoute
   DisclaimerRoute: typeof DisclaimerRoute
+  EditorialPolicyRoute: typeof EditorialPolicyRoute
   EmailRoute: typeof EmailRoute
   FaqRoute: typeof FaqRoute
   GovRoute: typeof GovRouteWithChildren
@@ -766,6 +792,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmailRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/editorial-policy': {
+      id: '/editorial-policy'
+      path: '/editorial-policy'
+      fullPath: '/editorial-policy'
+      preLoaderRoute: typeof EditorialPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/disclaimer': {
       id: '/disclaimer'
       path: '/disclaimer'
@@ -827,6 +860,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-policy': {
+      id: '/ai-policy'
+      path: '/ai-policy'
+      fullPath: '/ai-policy'
+      preLoaderRoute: typeof AiPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -1087,6 +1127,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  AiPolicyRoute: AiPolicyRoute,
   AuthRoute: AuthRoute,
   BlogRoute: BlogRoute,
   BlogWriterRoute: BlogWriterRoute,
@@ -1096,6 +1137,7 @@ const rootRouteChildren: RootRouteChildren = {
   CookiesRoute: CookiesRoute,
   DashboardRoute: DashboardRoute,
   DisclaimerRoute: DisclaimerRoute,
+  EditorialPolicyRoute: EditorialPolicyRoute,
   EmailRoute: EmailRoute,
   FaqRoute: FaqRoute,
   GovRoute: GovRouteWithChildren,
@@ -1118,13 +1160,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

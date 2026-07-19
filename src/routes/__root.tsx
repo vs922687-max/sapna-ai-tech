@@ -138,6 +138,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           sameAs: [],
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Bharat AI Sathi",
+          url: "https://bharataisathi.com",
+          inLanguage: ["en-IN", "hi-IN"],
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "https://bharataisathi.com/gov/search?q={search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,

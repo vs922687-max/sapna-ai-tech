@@ -52,6 +52,8 @@ export function SiteFooter() {
             <li><Link to="/terms" className="hover:text-primary">Terms &amp; Conditions</Link></li>
             <li><Link to="/disclaimer" className="hover:text-primary">Disclaimer</Link></li>
             <li><Link to="/cookies" className="hover:text-primary">Cookie Policy</Link></li>
+            <li><Link to="/ai-policy" className="hover:text-primary">AI Usage Policy</Link></li>
+            <li><Link to="/editorial-policy" className="hover:text-primary">Editorial Policy</Link></li>
             <li>
               <button
                 type="button"
