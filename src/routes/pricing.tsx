@@ -73,7 +73,7 @@ const tiers = [
     period: "forever",
     tag: "Start here",
     features: [
-      "Unlimited AI chat",
+      "20 messages per day",
       "Hindi + English + 9 languages",
       "Basic image generation",
       "Community support",
