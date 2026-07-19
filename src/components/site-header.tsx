@@ -113,6 +113,10 @@ export function SiteHeader() {
                         onMouseLeave={scheduleClose}
                       >
                         <div className="glass-strong overflow-hidden rounded-xl border border-border/60 p-1 shadow-glow">
+                          <div className="px-3 py-2 text-[11px] leading-snug text-muted-foreground">
+                            AI help for 275+ Indian govt schemes, forms & documents.
+                          </div>
+                          <div className="mx-1 my-1 h-px bg-border/60" />
                           {item.children.map((c) => (
                             <Link
                               key={c.to}
