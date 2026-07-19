@@ -11,7 +11,7 @@ export const Route = createFileRoute("/admin")({
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://bharataisathi.com/admin" },
     ],
-    links: [{ rel: "canonical", href: "https://bharataisathi.com/admin" }],,
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/admin" }],
   }),
   component: AdminPage,
 });

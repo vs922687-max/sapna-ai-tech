@@ -16,7 +16,7 @@ export const Route = createFileRoute("/gov/tracker")({
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://bharataisathi.com/gov/tracker" },
     ],
-    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/tracker" }],,
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/tracker" }],
   }),
   component: Tracker,
 });

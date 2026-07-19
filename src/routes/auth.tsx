@@ -21,7 +21,7 @@ export const Route = createFileRoute("/auth")({
       { name: "description", content: "Sign in or create your Bharat AI Sathi account with email or Google." },
       { property: "og:url", content: "https://bharataisathi.com/auth" },
     ],
-    links: [{ rel: "canonical", href: "https://bharataisathi.com/auth" }],,
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/auth" }],
   }),
   component: AuthPage,
 });

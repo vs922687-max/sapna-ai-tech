@@ -20,7 +20,7 @@ export const Route = createFileRoute("/hr-assistant")({
       },
       { property: "og:url", content: "https://bharataisathi.com/hr-assistant" },
     ],
-    links: [{ rel: "canonical", href: "https://bharataisathi.com/hr-assistant" }],,
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/hr-assistant" }],
   }),
   component: HrAssistantPage,
 });

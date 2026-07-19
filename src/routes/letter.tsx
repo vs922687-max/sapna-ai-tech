@@ -16,7 +16,7 @@ export const Route = createFileRoute("/letter")({
       { name: "description", content: "AI Official Letter Writer for Indian formats — leave, job, resignation, complaint, RTI, bank & school applications in Hindi, English or Hinglish." },
       { property: "og:url", content: "https://bharataisathi.com/letter" },
     ],
-    links: [{ rel: "canonical", href: "https://bharataisathi.com/letter" }],,
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/letter" }],
   }),
   component: LetterPage,
 });

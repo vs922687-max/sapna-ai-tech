@@ -33,7 +33,7 @@ export const Route = createFileRoute("/data-analyzer")({
       },
       { property: "og:url", content: "https://bharataisathi.com/data-analyzer" },
     ],
-    links: [{ rel: "canonical", href: "https://bharataisathi.com/data-analyzer" }],,
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/data-analyzer" }],
   }),
   component: DataAnalyzerPage,
 });

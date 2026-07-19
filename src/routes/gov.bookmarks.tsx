@@ -15,7 +15,7 @@ export const Route = createFileRoute("/gov/bookmarks")({
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://bharataisathi.com/gov/bookmarks" },
     ],
-    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/bookmarks" }],,
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/bookmarks" }],
   }),
   component: BookmarksPage,
 });
