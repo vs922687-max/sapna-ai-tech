@@ -15,6 +15,7 @@ import {
   ClipboardList,
   ScrollText,
   BarChart3,
+  Briefcase,
   type LucideIcon,
 
 
