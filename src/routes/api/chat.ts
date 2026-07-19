@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { streamGatewayChat, type GatewayMessage } from "@/lib/ai-gateway.server";
+import { verifyBearer } from "@/lib/verify-auth.server";
 
 type ChatBody = {
   messages?: GatewayMessage[];
@@ -11,6 +12,9 @@ export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const auth = await verifyBearer(request);
+        if (!auth.ok) return auth.response;
+
         let body: ChatBody;
         try {
           body = (await request.json()) as ChatBody;
