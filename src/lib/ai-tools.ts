@@ -1,6 +1,6 @@
 import {
   MessagesSquare,
-  Image as ImageIcon,
+  
   Mic,
   FileText,
   Languages,
