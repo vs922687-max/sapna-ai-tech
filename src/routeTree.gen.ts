@@ -55,6 +55,7 @@ import { Route as GovDocumentsRouteImport } from './routes/gov.documents'
 import { Route as GovBookmarksRouteImport } from './routes/gov.bookmarks'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as GovFormsIndexRouteImport } from './routes/gov.forms.index'
@@ -292,6 +293,11 @@ const GovSlugRoute = GovSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => GovRoute,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -329,7 +335,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
@@ -356,6 +362,7 @@ export interface FileRoutesByFullPath {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -383,7 +390,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
@@ -408,6 +415,7 @@ export interface FileRoutesByTo {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -434,7 +442,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
@@ -461,6 +469,7 @@ export interface FileRoutesById {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -517,6 +526,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -569,6 +579,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -621,6 +632,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -649,7 +661,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AiPolicyRoute: typeof AiPolicyRoute
   AuthRoute: typeof AuthRoute
-  BlogRoute: typeof BlogRoute
+  BlogRoute: typeof BlogRouteWithChildren
   BlogWriterRoute: typeof BlogWriterRoute
   ChatRoute: typeof ChatRoute
   CoderRoute: typeof CoderRoute
@@ -1002,6 +1014,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovSlugRouteImport
       parentRoute: typeof GovRoute
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -1046,6 +1065,16 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface GovDocumentsRouteChildren {
   GovDocumentsSlugRoute: typeof GovDocumentsSlugRoute
@@ -1129,7 +1158,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   AiPolicyRoute: AiPolicyRoute,
   AuthRoute: AuthRoute,
-  BlogRoute: BlogRoute,
+  BlogRoute: BlogRouteWithChildren,
   BlogWriterRoute: BlogWriterRoute,
   ChatRoute: ChatRoute,
   CoderRoute: CoderRoute,
