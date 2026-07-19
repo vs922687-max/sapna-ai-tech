@@ -222,11 +222,7 @@ Requirements:
       sections: [
         {
           properties: { page: { size: { width: 12240, height: 15840 } } },
-          children: [...bodyParas, new Paragraph({ children: [new TextRun(" "),
-      { property: "og:url", content: "https://bharataisathi.com/agreement" },
-    ],
-    links: [{ rel: "canonical", href: "https://bharataisathi.com/agreement" }],
-  }), discPara],
+          children: [...bodyParas, new Paragraph({ children: [new TextRun(" ")] }), discPara],
         },
       ],
     });
