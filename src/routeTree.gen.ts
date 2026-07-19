@@ -30,6 +30,7 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmailRouteImport } from './routes/email'
 import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as DataAnalyzerRouteImport } from './routes/data-analyzer'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -170,6 +171,11 @@ const EditorialPolicyRoute = EditorialPolicyRouteImport.update({
 const DisclaimerRoute = DisclaimerRouteImport.update({
   id: '/disclaimer',
   path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataAnalyzerRoute = DataAnalyzerRouteImport.update({
+  id: '/data-analyzer',
+  path: '/data-analyzer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -366,6 +372,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
+  '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
@@ -425,6 +432,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
+  '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
@@ -481,6 +489,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
+  '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
@@ -542,6 +551,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookies'
     | '/dashboard'
+    | '/data-analyzer'
     | '/disclaimer'
     | '/editorial-policy'
     | '/email'
@@ -601,6 +611,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookies'
     | '/dashboard'
+    | '/data-analyzer'
     | '/disclaimer'
     | '/editorial-policy'
     | '/email'
@@ -656,6 +667,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookies'
     | '/dashboard'
+    | '/data-analyzer'
     | '/disclaimer'
     | '/editorial-policy'
     | '/email'
@@ -716,6 +728,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
   DashboardRoute: typeof DashboardRoute
+  DataAnalyzerRoute: typeof DataAnalyzerRoute
   DisclaimerRoute: typeof DisclaimerRoute
   EditorialPolicyRoute: typeof EditorialPolicyRoute
   EmailRoute: typeof EmailRoute
@@ -889,6 +902,13 @@ declare module '@tanstack/react-router' {
       path: '/disclaimer'
       fullPath: '/disclaimer'
       preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data-analyzer': {
+      id: '/data-analyzer'
+      path: '/data-analyzer'
+      fullPath: '/data-analyzer'
+      preLoaderRoute: typeof DataAnalyzerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -1245,6 +1265,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
   DashboardRoute: DashboardRoute,
+  DataAnalyzerRoute: DataAnalyzerRoute,
   DisclaimerRoute: DisclaimerRoute,
   EditorialPolicyRoute: EditorialPolicyRoute,
   EmailRoute: EmailRoute,
