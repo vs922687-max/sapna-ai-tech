@@ -140,8 +140,9 @@ export function SiteHeader() {
               }
               return (
                 <Link
-                  key={item.to}
+                  key={item.label}
                   to={item.to}
+                  hash={item.hash}
                   className={cn(
                     "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                     active
@@ -152,6 +153,7 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
               );
+
             })}
           </nav>
 
