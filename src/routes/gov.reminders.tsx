@@ -79,11 +79,7 @@ function Reminders() {
               className="rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary/60" />
             <input type="date" value={draft.date ?? ""} onChange={(e) => setDraft({ ...draft, date: e.target.value })}
               className="rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary/60" />
-            <select value={draft.channel} onChange={(e) => setDraft({ ...draft, channel: e.target.value as Reminder["channel",
-      { property: "og:url", content: "https://bharataisathi.com/gov/reminders" },
-    ],
-    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/reminders" }],
-  })}
+            <select value={draft.channel} onChange={(e) => setDraft({ ...draft, channel: e.target.value as Reminder["channel"] })}
               className="rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm">
               <option>In-app</option><option>Email</option><option>SMS</option>
             </select>
