@@ -385,6 +385,15 @@ function CTA() {
             <Link to="/chat">Try AI Chat</Link>
           </Button>
         </div>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+          <span>🔒 Secure payments via Razorpay & UPI</span>
+          <span>·</span>
+          <span>256-bit SSL</span>
+          <span>·</span>
+          <span>Cancel anytime</span>
+          <span>·</span>
+          <span>Made in India 🇮🇳</span>
+        </div>
       </div>
     </section>
   );
