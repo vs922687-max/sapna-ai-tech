@@ -93,9 +93,17 @@ function GovAsk() {
     setInput("");
     setStreaming(true);
     try {
+      const { aiAuthHeaders } = await import("@/lib/ai-client");
+      let auth: Record<string, string>;
+      try { auth = await aiAuthHeaders(); } catch (e) {
+        toast.error((e as Error).message);
+        setMsgs((m) => m.slice(0, -1));
+        setStreaming(false);
+        return;
+      }
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...auth },
         body: JSON.stringify({
           system: buildSystem(lang),
           messages: next.slice(0, -1).map((m) => ({ role: m.role, content: m.content })),
