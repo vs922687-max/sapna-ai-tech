@@ -20,6 +20,7 @@ import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PdfRouteImport } from './routes/pdf'
+import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
 import { Route as InvoiceRouteImport } from './routes/invoice'
 import { Route as ImageRouteImport } from './routes/image'
 import { Route as GrammarRouteImport } from './routes/grammar'
@@ -57,6 +58,7 @@ import { Route as GovBookmarksRouteImport } from './routes/gov.bookmarks'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as GovFormsIndexRouteImport } from './routes/gov.forms.index'
@@ -117,6 +119,11 @@ const PricingRoute = PricingRouteImport.update({
 const PdfRoute = PdfRouteImport.update({
   id: '/pdf',
   path: '/pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeetingNotesRoute = MeetingNotesRouteImport.update({
+  id: '/meeting-notes',
+  path: '/meeting-notes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InvoiceRoute = InvoiceRouteImport.update({
@@ -304,6 +311,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const ApiTranscribeRoute = ApiTranscribeRouteImport.update({
+  id: '/api/transcribe',
+  path: '/api/transcribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -356,6 +368,7 @@ export interface FileRoutesByFullPath {
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
+  '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -369,6 +382,7 @@ export interface FileRoutesByFullPath {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
@@ -411,6 +425,7 @@ export interface FileRoutesByTo {
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
+  '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -423,6 +438,7 @@ export interface FileRoutesByTo {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
@@ -465,6 +481,7 @@ export interface FileRoutesById {
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
+  '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -478,6 +495,7 @@ export interface FileRoutesById {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
@@ -523,6 +541,7 @@ export interface FileRouteTypes {
     | '/grammar'
     | '/image'
     | '/invoice'
+    | '/meeting-notes'
     | '/pdf'
     | '/pricing'
     | '/privacy'
@@ -536,6 +555,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/api/transcribe'
     | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
@@ -578,6 +598,7 @@ export interface FileRouteTypes {
     | '/grammar'
     | '/image'
     | '/invoice'
+    | '/meeting-notes'
     | '/pdf'
     | '/pricing'
     | '/privacy'
@@ -590,6 +611,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/api/transcribe'
     | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
@@ -631,6 +653,7 @@ export interface FileRouteTypes {
     | '/grammar'
     | '/image'
     | '/invoice'
+    | '/meeting-notes'
     | '/pdf'
     | '/pricing'
     | '/privacy'
@@ -644,6 +667,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/api/transcribe'
     | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
@@ -688,6 +712,7 @@ export interface RootRouteChildren {
   GrammarRoute: typeof GrammarRoute
   ImageRoute: typeof ImageRoute
   InvoiceRoute: typeof InvoiceRoute
+  MeetingNotesRoute: typeof MeetingNotesRoute
   PdfRoute: typeof PdfRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -701,6 +726,7 @@ export interface RootRouteChildren {
   VoiceRoute: typeof VoiceRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiTranscribeRoute: typeof ApiTranscribeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -780,6 +806,13 @@ declare module '@tanstack/react-router' {
       path: '/pdf'
       fullPath: '/pdf'
       preLoaderRoute: typeof PdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meeting-notes': {
+      id: '/meeting-notes'
+      path: '/meeting-notes'
+      fullPath: '/meeting-notes'
+      preLoaderRoute: typeof MeetingNotesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/invoice': {
@@ -1041,6 +1074,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/api/transcribe': {
+      id: '/api/transcribe'
+      path: '/api/transcribe'
+      fullPath: '/api/transcribe'
+      preLoaderRoute: typeof ApiTranscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -1193,6 +1233,7 @@ const rootRouteChildren: RootRouteChildren = {
   GrammarRoute: GrammarRoute,
   ImageRoute: ImageRoute,
   InvoiceRoute: InvoiceRoute,
+  MeetingNotesRoute: MeetingNotesRoute,
   PdfRoute: PdfRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
@@ -1206,6 +1247,7 @@ const rootRouteChildren: RootRouteChildren = {
   VoiceRoute: VoiceRoute,
   ApiAiRoute: ApiAiRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiTranscribeRoute: ApiTranscribeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

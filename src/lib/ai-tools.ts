@@ -12,6 +12,7 @@ import {
   SpellCheck,
   Sparkles,
   Receipt,
+  ClipboardList,
   type LucideIcon,
 } from "lucide-react";
 
@@ -156,6 +157,16 @@ export const AI_TOOLS: AiTool[] = [
     description: "Create GST-ready invoices in INR with live preview and instant PDF download.",
     icon: Receipt,
     accent: "green",
+    status: "live",
+  },
+  {
+    slug: "meeting-notes",
+    to: "/meeting-notes",
+    title: "Meeting Notes Generator",
+    hindi: "मीटिंग नोट्स जनरेटर",
+    description: "Turn meeting transcripts or audio into summary, action items and decisions.",
+    icon: ClipboardList,
+    accent: "royal",
     status: "live",
   },
 
