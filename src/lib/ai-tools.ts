@@ -13,7 +13,9 @@ import {
   Sparkles,
   Receipt,
   ClipboardList,
+  ScrollText,
   type LucideIcon,
+
 } from "lucide-react";
 
 
