@@ -20,6 +20,7 @@ import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PdfRouteImport } from './routes/pdf'
+import { Route as InvoiceRouteImport } from './routes/invoice'
 import { Route as ImageRouteImport } from './routes/image'
 import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GovRouteImport } from './routes/gov'
@@ -116,6 +117,11 @@ const PricingRoute = PricingRouteImport.update({
 const PdfRoute = PdfRouteImport.update({
   id: '/pdf',
   path: '/pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvoiceRoute = InvoiceRouteImport.update({
+  id: '/invoice',
+  path: '/invoice',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImageRoute = ImageRouteImport.update({
@@ -349,6 +355,7 @@ export interface FileRoutesByFullPath {
   '/gov': typeof GovRouteWithChildren
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
+  '/invoice': typeof InvoiceRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -403,6 +410,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
+  '/invoice': typeof InvoiceRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -456,6 +464,7 @@ export interface FileRoutesById {
   '/gov': typeof GovRouteWithChildren
   '/grammar': typeof GrammarRoute
   '/image': typeof ImageRoute
+  '/invoice': typeof InvoiceRoute
   '/pdf': typeof PdfRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -513,6 +522,7 @@ export interface FileRouteTypes {
     | '/gov'
     | '/grammar'
     | '/image'
+    | '/invoice'
     | '/pdf'
     | '/pricing'
     | '/privacy'
@@ -567,6 +577,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/grammar'
     | '/image'
+    | '/invoice'
     | '/pdf'
     | '/pricing'
     | '/privacy'
@@ -619,6 +630,7 @@ export interface FileRouteTypes {
     | '/gov'
     | '/grammar'
     | '/image'
+    | '/invoice'
     | '/pdf'
     | '/pricing'
     | '/privacy'
@@ -675,6 +687,7 @@ export interface RootRouteChildren {
   GovRoute: typeof GovRouteWithChildren
   GrammarRoute: typeof GrammarRoute
   ImageRoute: typeof ImageRoute
+  InvoiceRoute: typeof InvoiceRoute
   PdfRoute: typeof PdfRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -767,6 +780,13 @@ declare module '@tanstack/react-router' {
       path: '/pdf'
       fullPath: '/pdf'
       preLoaderRoute: typeof PdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoice': {
+      id: '/invoice'
+      path: '/invoice'
+      fullPath: '/invoice'
+      preLoaderRoute: typeof InvoiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/image': {
@@ -1172,6 +1192,7 @@ const rootRouteChildren: RootRouteChildren = {
   GovRoute: GovRouteWithChildren,
   GrammarRoute: GrammarRoute,
   ImageRoute: ImageRoute,
+  InvoiceRoute: InvoiceRoute,
   PdfRoute: PdfRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
