@@ -18,7 +18,8 @@ type NavItem = {
 const nav: NavItem[] = [
   { to: "/", label: "Home" },
   { to: "/tools", label: "AI Tools" },
-  { to: "/tools", label: "Office Tools" },
+  { to: "/tools", label: "Office Tools", hash: "office-tools" },
+
 
   {
     to: "/gov",
