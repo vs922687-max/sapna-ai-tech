@@ -205,6 +205,16 @@ export const AI_TOOLS: AiTool[] = [
     accent: "royal",
     status: "live",
   },
+  {
+    slug: "agreement",
+    to: "/agreement",
+    title: "Agreement Generator",
+    hindi: "एग्रीमेंट जनरेटर",
+    description: "Draft Indian legal agreements — rent, NDA, offer letter, freelance, partnership — with editable output and PDF/DOCX export.",
+    icon: FileSignature,
+    accent: "saffron",
+    status: "live",
+  },
 ];
 
 
