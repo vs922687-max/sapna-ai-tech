@@ -190,14 +190,16 @@ export function SiteHeader() {
               {nav.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.to}>
+                  <div key={item.label}>
                     <Link
                       to={item.to}
+                      hash={item.hash}
                       className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                     >
                       {Icon && <Icon className="h-4 w-4" aria-hidden="true" />}
                       {item.label}
                     </Link>
+
                     {item.children && (
                       <>
                         {item.to === "/gov" && (
