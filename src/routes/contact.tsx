@@ -16,7 +16,9 @@ export const Route = createFileRoute("/contact")({
     meta: [
       { title: "Contact — Bharat AI Sathi" },
       { name: "description", content: "Get in touch with the Bharat AI Sathi team. We reply within one working day." },
+      { property: "og:url", content: "https://bharataisathi.com/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/contact" }],,
   }),
   component: ContactPage,
 });

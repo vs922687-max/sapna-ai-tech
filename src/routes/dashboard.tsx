@@ -13,7 +13,9 @@ export const Route = createFileRoute("/dashboard")({
     meta: [
       { title: "Dashboard — Bharat AI Sathi" },
       { name: "robots", content: "noindex" },
+      { property: "og:url", content: "https://bharataisathi.com/dashboard" },
     ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/dashboard" }],,
   }),
   component: Dashboard,
 });

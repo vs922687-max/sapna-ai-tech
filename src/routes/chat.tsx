@@ -13,7 +13,9 @@ export const Route = createFileRoute("/chat")({
     meta: [
       { title: "AI Chat — Bharat AI Sathi" },
       { name: "description", content: "Multilingual AI chat in Hindi, English and Indian languages. Powered by Gemini." },
+      { property: "og:url", content: "https://bharataisathi.com/chat" },
     ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/chat" }],,
   }),
   component: ChatPage,
 });

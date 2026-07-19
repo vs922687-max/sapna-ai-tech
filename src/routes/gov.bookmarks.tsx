@@ -13,7 +13,9 @@ export const Route = createFileRoute("/gov/bookmarks")({
       { title: "My Bookmarked Government Services | Bharat AI Sathi" },
       { name: "description", content: "Your saved Indian government schemes and services for quick access." },
       { name: "robots", content: "noindex" },
+      { property: "og:url", content: "https://bharataisathi.com/gov/bookmarks" },
     ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/bookmarks" }],,
   }),
   component: BookmarksPage,
 });

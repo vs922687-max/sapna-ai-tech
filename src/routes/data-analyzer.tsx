@@ -31,7 +31,9 @@ export const Route = createFileRoute("/data-analyzer")({
         content:
           "Upload CSV or Excel files and chat with your data. Get instant insights, summaries, error detection and auto-generated charts.",
       },
+      { property: "og:url", content: "https://bharataisathi.com/data-analyzer" },
     ],
+    links: [{ rel: "canonical", href: "https://bharataisathi.com/data-analyzer" }],,
   }),
   component: DataAnalyzerPage,
 });
