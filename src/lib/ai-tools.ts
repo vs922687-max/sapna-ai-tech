@@ -15,6 +15,7 @@ import {
   ClipboardList,
   ScrollText,
   BarChart3,
+  Briefcase,
   type LucideIcon,
 
 
@@ -191,6 +192,16 @@ export const AI_TOOLS: AiTool[] = [
     description: "Upload CSV or Excel and chat with your data. Auto-generated charts and instant insights.",
     icon: BarChart3,
     accent: "green",
+    status: "live",
+  },
+  {
+    slug: "hr-assistant",
+    to: "/hr-assistant",
+    title: "HR Assistant",
+    hindi: "एचआर सहायक",
+    description: "Generate professional job descriptions and categorized interview questions in Hindi or English.",
+    icon: Briefcase,
+    accent: "royal",
     status: "live",
   },
 ];

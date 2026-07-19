@@ -24,6 +24,7 @@ import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
 import { Route as LetterRouteImport } from './routes/letter'
 import { Route as InvoiceRouteImport } from './routes/invoice'
 import { Route as ImageRouteImport } from './routes/image'
+import { Route as HrAssistantRouteImport } from './routes/hr-assistant'
 import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GovRouteImport } from './routes/gov'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -141,6 +142,11 @@ const InvoiceRoute = InvoiceRouteImport.update({
 const ImageRoute = ImageRouteImport.update({
   id: '/image',
   path: '/image',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrAssistantRoute = HrAssistantRouteImport.update({
+  id: '/hr-assistant',
+  path: '/hr-assistant',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GrammarRoute = GrammarRouteImport.update({
@@ -379,6 +385,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/gov': typeof GovRouteWithChildren
   '/grammar': typeof GrammarRoute
+  '/hr-assistant': typeof HrAssistantRoute
   '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
@@ -438,6 +445,7 @@ export interface FileRoutesByTo {
   '/email': typeof EmailRoute
   '/faq': typeof FaqRoute
   '/grammar': typeof GrammarRoute
+  '/hr-assistant': typeof HrAssistantRoute
   '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
@@ -496,6 +504,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/gov': typeof GovRouteWithChildren
   '/grammar': typeof GrammarRoute
+  '/hr-assistant': typeof HrAssistantRoute
   '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
@@ -558,6 +567,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/gov'
     | '/grammar'
+    | '/hr-assistant'
     | '/image'
     | '/invoice'
     | '/letter'
@@ -617,6 +627,7 @@ export interface FileRouteTypes {
     | '/email'
     | '/faq'
     | '/grammar'
+    | '/hr-assistant'
     | '/image'
     | '/invoice'
     | '/letter'
@@ -674,6 +685,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/gov'
     | '/grammar'
+    | '/hr-assistant'
     | '/image'
     | '/invoice'
     | '/letter'
@@ -735,6 +747,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   GovRoute: typeof GovRouteWithChildren
   GrammarRoute: typeof GrammarRoute
+  HrAssistantRoute: typeof HrAssistantRoute
   ImageRoute: typeof ImageRoute
   InvoiceRoute: typeof InvoiceRoute
   LetterRoute: typeof LetterRoute
@@ -860,6 +873,13 @@ declare module '@tanstack/react-router' {
       path: '/image'
       fullPath: '/image'
       preLoaderRoute: typeof ImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr-assistant': {
+      id: '/hr-assistant'
+      path: '/hr-assistant'
+      fullPath: '/hr-assistant'
+      preLoaderRoute: typeof HrAssistantRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/grammar': {
@@ -1272,6 +1292,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   GovRoute: GovRouteWithChildren,
   GrammarRoute: GrammarRoute,
+  HrAssistantRoute: HrAssistantRoute,
   ImageRoute: ImageRoute,
   InvoiceRoute: InvoiceRoute,
   LetterRoute: LetterRoute,
