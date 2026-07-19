@@ -57,6 +57,7 @@ import { Route as GovBookmarksRouteImport } from './routes/gov.bookmarks'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as GovFormsIndexRouteImport } from './routes/gov.forms.index'
@@ -304,6 +305,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const ApiTranscribeRoute = ApiTranscribeRouteImport.update({
+  id: '/api/transcribe',
+  path: '/api/transcribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -369,6 +375,7 @@ export interface FileRoutesByFullPath {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
@@ -423,6 +430,7 @@ export interface FileRoutesByTo {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
@@ -478,6 +486,7 @@ export interface FileRoutesById {
   '/voice': typeof VoiceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
@@ -536,6 +545,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/api/transcribe'
     | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
@@ -590,6 +600,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/api/transcribe'
     | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
@@ -644,6 +655,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/ai'
     | '/api/chat'
+    | '/api/transcribe'
     | '/blog/$slug'
     | '/gov/$slug'
     | '/gov/ask'
@@ -701,6 +713,7 @@ export interface RootRouteChildren {
   VoiceRoute: typeof VoiceRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiTranscribeRoute: typeof ApiTranscribeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1041,6 +1054,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/api/transcribe': {
+      id: '/api/transcribe'
+      path: '/api/transcribe'
+      fullPath: '/api/transcribe'
+      preLoaderRoute: typeof ApiTranscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -1206,6 +1226,7 @@ const rootRouteChildren: RootRouteChildren = {
   VoiceRoute: VoiceRoute,
   ApiAiRoute: ApiAiRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiTranscribeRoute: ApiTranscribeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
