@@ -14,7 +14,9 @@ import {
   Receipt,
   ClipboardList,
   ScrollText,
+  BarChart3,
   type LucideIcon,
+
 
 } from "lucide-react";
 
