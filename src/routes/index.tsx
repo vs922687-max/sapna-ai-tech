@@ -155,7 +155,7 @@ function Hero() {
           <div className="rounded-[calc(theme(borderRadius.3xl)-4px)] bg-background/60 p-6 sm:p-10">
             <div className="grid gap-6 sm:grid-cols-3">
               {[
-                { k: "12+", v: "AI tools" },
+                { k: "19+", v: "AI tools" },
                 { k: "11", v: "Indian languages" },
                 { k: "<200ms", v: "First token" },
               ].map((s) => (
