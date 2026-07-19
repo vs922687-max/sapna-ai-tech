@@ -24,7 +24,6 @@ import { Route as PdfRouteImport } from './routes/pdf'
 import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
 import { Route as LetterRouteImport } from './routes/letter'
 import { Route as InvoiceRouteImport } from './routes/invoice'
-import { Route as ImageRouteImport } from './routes/image'
 import { Route as HrAssistantRouteImport } from './routes/hr-assistant'
 import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GovRouteImport } from './routes/gov'
@@ -144,11 +143,6 @@ const LetterRoute = LetterRouteImport.update({
 const InvoiceRoute = InvoiceRouteImport.update({
   id: '/invoice',
   path: '/invoice',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ImageRoute = ImageRouteImport.update({
-  id: '/image',
-  path: '/image',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HrAssistantRoute = HrAssistantRouteImport.update({
@@ -399,7 +393,6 @@ export interface FileRoutesByFullPath {
   '/gov': typeof GovRouteWithChildren
   '/grammar': typeof GrammarRoute
   '/hr-assistant': typeof HrAssistantRoute
-  '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
   '/meeting-notes': typeof MeetingNotesRoute
@@ -461,7 +454,6 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/grammar': typeof GrammarRoute
   '/hr-assistant': typeof HrAssistantRoute
-  '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
   '/meeting-notes': typeof MeetingNotesRoute
@@ -522,7 +514,6 @@ export interface FileRoutesById {
   '/gov': typeof GovRouteWithChildren
   '/grammar': typeof GrammarRoute
   '/hr-assistant': typeof HrAssistantRoute
-  '/image': typeof ImageRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
   '/meeting-notes': typeof MeetingNotesRoute
@@ -587,7 +578,6 @@ export interface FileRouteTypes {
     | '/gov'
     | '/grammar'
     | '/hr-assistant'
-    | '/image'
     | '/invoice'
     | '/letter'
     | '/meeting-notes'
@@ -649,7 +639,6 @@ export interface FileRouteTypes {
     | '/faq'
     | '/grammar'
     | '/hr-assistant'
-    | '/image'
     | '/invoice'
     | '/letter'
     | '/meeting-notes'
@@ -709,7 +698,6 @@ export interface FileRouteTypes {
     | '/gov'
     | '/grammar'
     | '/hr-assistant'
-    | '/image'
     | '/invoice'
     | '/letter'
     | '/meeting-notes'
@@ -773,7 +761,6 @@ export interface RootRouteChildren {
   GovRoute: typeof GovRouteWithChildren
   GrammarRoute: typeof GrammarRoute
   HrAssistantRoute: typeof HrAssistantRoute
-  ImageRoute: typeof ImageRoute
   InvoiceRoute: typeof InvoiceRoute
   LetterRoute: typeof LetterRoute
   MeetingNotesRoute: typeof MeetingNotesRoute
@@ -899,13 +886,6 @@ declare module '@tanstack/react-router' {
       path: '/invoice'
       fullPath: '/invoice'
       preLoaderRoute: typeof InvoiceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/image': {
-      id: '/image'
-      path: '/image'
-      fullPath: '/image'
-      preLoaderRoute: typeof ImageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hr-assistant': {
@@ -1334,7 +1314,6 @@ const rootRouteChildren: RootRouteChildren = {
   GovRoute: GovRouteWithChildren,
   GrammarRoute: GrammarRoute,
   HrAssistantRoute: HrAssistantRoute,
-  ImageRoute: ImageRoute,
   InvoiceRoute: InvoiceRoute,
   LetterRoute: LetterRoute,
   MeetingNotesRoute: MeetingNotesRoute,
