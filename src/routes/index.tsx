@@ -137,7 +137,7 @@ function Hero() {
             {[
               "No credit card",
               "Hindi + 10 Indian languages",
-              "Voice & image support",
+              "Voice & PDF support",
             ].map((t) => (
               <span key={t} className="inline-flex items-center gap-1.5">
                 <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> {t}
