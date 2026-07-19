@@ -10,8 +10,10 @@ type NavItem = {
   to: string;
   label: string;
   icon?: typeof Landmark;
+  hash?: string;
   children?: { to: string; label: string }[];
 };
+
 
 const nav: NavItem[] = [
   { to: "/", label: "Home" },
