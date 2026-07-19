@@ -192,17 +192,24 @@ export function SiteHeader() {
                       {item.label}
                     </Link>
                     {item.children && (
-                      <div className="ml-6 space-y-1">
-                        {item.children.map((c) => (
-                          <Link
-                            key={c.to}
-                            to={c.to}
-                            className="block rounded-lg px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                          >
-                            {c.label}
-                          </Link>
-                        ))}
-                      </div>
+                      <>
+                        {item.to === "/gov" && (
+                          <p className="px-3 pb-1 pt-0.5 text-[11px] leading-snug text-muted-foreground">
+                            AI help for 275+ Indian govt schemes, forms & documents.
+                          </p>
+                        )}
+                        <div className="ml-6 space-y-1">
+                          {item.children.map((c) => (
+                            <Link
+                              key={c.to}
+                              to={c.to}
+                              className="block rounded-lg px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                            >
+                              {c.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </>
                     )}
                   </div>
                 );
