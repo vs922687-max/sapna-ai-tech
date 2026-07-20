@@ -20,6 +20,7 @@ import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PresentationRouteImport } from './routes/presentation'
+import { Route as PmayRouteImport } from './routes/pmay'
 import { Route as PdfRouteImport } from './routes/pdf'
 import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
 import { Route as LetterRouteImport } from './routes/letter'
@@ -123,6 +124,11 @@ const PricingRoute = PricingRouteImport.update({
 const PresentationRoute = PresentationRouteImport.update({
   id: '/presentation',
   path: '/presentation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PmayRoute = PmayRouteImport.update({
+  id: '/pmay',
+  path: '/pmay',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PdfRoute = PdfRouteImport.update({
@@ -397,6 +403,7 @@ export interface FileRoutesByFullPath {
   '/letter': typeof LetterRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
+  '/pmay': typeof PmayRoute
   '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -458,6 +465,7 @@ export interface FileRoutesByTo {
   '/letter': typeof LetterRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
+  '/pmay': typeof PmayRoute
   '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -518,6 +526,7 @@ export interface FileRoutesById {
   '/letter': typeof LetterRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
+  '/pmay': typeof PmayRoute
   '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -582,6 +591,7 @@ export interface FileRouteTypes {
     | '/letter'
     | '/meeting-notes'
     | '/pdf'
+    | '/pmay'
     | '/presentation'
     | '/pricing'
     | '/privacy'
@@ -643,6 +653,7 @@ export interface FileRouteTypes {
     | '/letter'
     | '/meeting-notes'
     | '/pdf'
+    | '/pmay'
     | '/presentation'
     | '/pricing'
     | '/privacy'
@@ -702,6 +713,7 @@ export interface FileRouteTypes {
     | '/letter'
     | '/meeting-notes'
     | '/pdf'
+    | '/pmay'
     | '/presentation'
     | '/pricing'
     | '/privacy'
@@ -765,6 +777,7 @@ export interface RootRouteChildren {
   LetterRoute: typeof LetterRoute
   MeetingNotesRoute: typeof MeetingNotesRoute
   PdfRoute: typeof PdfRoute
+  PmayRoute: typeof PmayRoute
   PresentationRoute: typeof PresentationRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -858,6 +871,13 @@ declare module '@tanstack/react-router' {
       path: '/presentation'
       fullPath: '/presentation'
       preLoaderRoute: typeof PresentationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pmay': {
+      id: '/pmay'
+      path: '/pmay'
+      fullPath: '/pmay'
+      preLoaderRoute: typeof PmayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pdf': {
@@ -1318,6 +1338,7 @@ const rootRouteChildren: RootRouteChildren = {
   LetterRoute: LetterRoute,
   MeetingNotesRoute: MeetingNotesRoute,
   PdfRoute: PdfRoute,
+  PmayRoute: PmayRoute,
   PresentationRoute: PresentationRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
@@ -1336,3 +1357,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
