@@ -24,10 +24,12 @@ function AdminPage() {
     (async () => {
       const { data: sess } = await supabase.auth.getSession();
       if (!sess.session) { nav({ to: "/auth" }); return; }
-      const { data, error } = await supabase.rpc("has_role", {
-        _user_id: sess.session.user.id,
-        _role: "admin",
-      });
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", sess.session.user.id)
+        .eq("role", "admin")
+        .maybeSingle();
       if (error || !data) { nav({ to: "/" }); return; }
       setLoading(false);
     })();
