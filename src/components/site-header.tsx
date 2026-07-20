@@ -29,6 +29,7 @@ const nav: NavItem[] = [
       { to: "/gov", label: "Government Services" },
       { to: "/gov/eligibility", label: "Eligibility Checker" },
       { to: "/gov/bookmarks", label: "Saved Bookmarks" },
+      { to: "/pmay", label: "PMAY Guide" },
     ],
   },
   { to: "/pricing", label: "Pricing" },
