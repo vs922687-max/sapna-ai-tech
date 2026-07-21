@@ -38,6 +38,7 @@ import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CoderRouteImport } from './routes/coder'
 import { Route as ChatRouteImport } from './routes/chat'
+import { Route as BusinessRouteImport } from './routes/business'
 import { Route as BlogWriterRouteImport } from './routes/blog-writer'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -48,6 +49,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
+import { Route as BusinessIndexRouteImport } from './routes/business.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
 import { Route as GovTrackerRouteImport } from './routes/gov.tracker'
 import { Route as GovSearchRouteImport } from './routes/gov.search'
@@ -62,6 +64,10 @@ import { Route as GovDocumentsRouteImport } from './routes/gov.documents'
 import { Route as GovBookmarksRouteImport } from './routes/gov.bookmarks'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
+import { Route as BusinessUdyamRouteImport } from './routes/business.udyam'
+import { Route as BusinessSvanidhiRouteImport } from './routes/business.svanidhi'
+import { Route as BusinessGstRouteImport } from './routes/business.gst'
+import { Route as BusinessFssaiRouteImport } from './routes/business.fssai'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
@@ -216,6 +222,11 @@ const ChatRoute = ChatRouteImport.update({
   path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BusinessRoute = BusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogWriterRoute = BlogWriterRouteImport.update({
   id: '/blog-writer',
   path: '/blog-writer',
@@ -265,6 +276,11 @@ const GovIndexRoute = GovIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => GovRoute,
+} as any)
+const BusinessIndexRoute = BusinessIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BusinessRoute,
 } as any)
 const ToolsSlugRoute = ToolsSlugRouteImport.update({
   id: '/$slug',
@@ -336,6 +352,26 @@ const GovSlugRoute = GovSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => GovRoute,
 } as any)
+const BusinessUdyamRoute = BusinessUdyamRouteImport.update({
+  id: '/udyam',
+  path: '/udyam',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const BusinessSvanidhiRoute = BusinessSvanidhiRouteImport.update({
+  id: '/svanidhi',
+  path: '/svanidhi',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const BusinessGstRoute = BusinessGstRouteImport.update({
+  id: '/gst',
+  path: '/gst',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const BusinessFssaiRoute = BusinessFssaiRouteImport.update({
+  id: '/fssai',
+  path: '/fssai',
+  getParentRoute: () => BusinessRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -386,6 +422,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/blog-writer': typeof BlogWriterRoute
+  '/business': typeof BusinessRouteWithChildren
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
   '/contact': typeof ContactRoute
@@ -419,6 +456,10 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/business/fssai': typeof BusinessFssaiRoute
+  '/business/gst': typeof BusinessGstRoute
+  '/business/svanidhi': typeof BusinessSvanidhiRoute
+  '/business/udyam': typeof BusinessUdyamRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -433,6 +474,7 @@ export interface FileRoutesByFullPath {
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/business/': typeof BusinessIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
@@ -480,6 +522,10 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/business/fssai': typeof BusinessFssaiRoute
+  '/business/gst': typeof BusinessGstRoute
+  '/business/svanidhi': typeof BusinessSvanidhiRoute
+  '/business/udyam': typeof BusinessUdyamRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -492,6 +538,7 @@ export interface FileRoutesByTo {
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/business': typeof BusinessIndexRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
@@ -509,6 +556,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/blog-writer': typeof BlogWriterRoute
+  '/business': typeof BusinessRouteWithChildren
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
   '/contact': typeof ContactRoute
@@ -542,6 +590,10 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/business/fssai': typeof BusinessFssaiRoute
+  '/business/gst': typeof BusinessGstRoute
+  '/business/svanidhi': typeof BusinessSvanidhiRoute
+  '/business/udyam': typeof BusinessUdyamRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -556,6 +608,7 @@ export interface FileRoutesById {
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/business/': typeof BusinessIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
@@ -574,6 +627,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/blog-writer'
+    | '/business'
     | '/chat'
     | '/coder'
     | '/contact'
@@ -607,6 +661,10 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/transcribe'
     | '/blog/$slug'
+    | '/business/fssai'
+    | '/business/gst'
+    | '/business/svanidhi'
+    | '/business/udyam'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -621,6 +679,7 @@ export interface FileRouteTypes {
     | '/gov/search'
     | '/gov/tracker'
     | '/tools/$slug'
+    | '/business/'
     | '/gov/'
     | '/tools/'
     | '/gov/documents/$slug'
@@ -668,6 +727,10 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/transcribe'
     | '/blog/$slug'
+    | '/business/fssai'
+    | '/business/gst'
+    | '/business/svanidhi'
+    | '/business/udyam'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -680,6 +743,7 @@ export interface FileRouteTypes {
     | '/gov/search'
     | '/gov/tracker'
     | '/tools/$slug'
+    | '/business'
     | '/gov'
     | '/tools'
     | '/gov/documents/$slug'
@@ -696,6 +760,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/blog-writer'
+    | '/business'
     | '/chat'
     | '/coder'
     | '/contact'
@@ -729,6 +794,10 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/transcribe'
     | '/blog/$slug'
+    | '/business/fssai'
+    | '/business/gst'
+    | '/business/svanidhi'
+    | '/business/udyam'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -743,6 +812,7 @@ export interface FileRouteTypes {
     | '/gov/search'
     | '/gov/tracker'
     | '/tools/$slug'
+    | '/business/'
     | '/gov/'
     | '/tools/'
     | '/gov/documents/$slug'
@@ -760,6 +830,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRouteWithChildren
   BlogWriterRoute: typeof BlogWriterRoute
+  BusinessRoute: typeof BusinessRouteWithChildren
   ChatRoute: typeof ChatRoute
   CoderRoute: typeof CoderRoute
   ContactRoute: typeof ContactRoute
@@ -999,6 +1070,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/business': {
+      id: '/business'
+      path: '/business'
+      fullPath: '/business'
+      preLoaderRoute: typeof BusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog-writer': {
       id: '/blog-writer'
       path: '/blog-writer'
@@ -1068,6 +1146,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/gov/'
       preLoaderRoute: typeof GovIndexRouteImport
       parentRoute: typeof GovRoute
+    }
+    '/business/': {
+      id: '/business/'
+      path: '/'
+      fullPath: '/business/'
+      preLoaderRoute: typeof BusinessIndexRouteImport
+      parentRoute: typeof BusinessRoute
     }
     '/tools/$slug': {
       id: '/tools/$slug'
@@ -1167,6 +1252,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovSlugRouteImport
       parentRoute: typeof GovRoute
     }
+    '/business/udyam': {
+      id: '/business/udyam'
+      path: '/udyam'
+      fullPath: '/business/udyam'
+      preLoaderRoute: typeof BusinessUdyamRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/business/svanidhi': {
+      id: '/business/svanidhi'
+      path: '/svanidhi'
+      fullPath: '/business/svanidhi'
+      preLoaderRoute: typeof BusinessSvanidhiRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/business/gst': {
+      id: '/business/gst'
+      path: '/gst'
+      fullPath: '/business/gst'
+      preLoaderRoute: typeof BusinessGstRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/business/fssai': {
+      id: '/business/fssai'
+      path: '/fssai'
+      fullPath: '/business/fssai'
+      preLoaderRoute: typeof BusinessFssaiRouteImport
+      parentRoute: typeof BusinessRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -1235,6 +1348,26 @@ const BlogRouteChildren: BlogRouteChildren = {
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
+interface BusinessRouteChildren {
+  BusinessFssaiRoute: typeof BusinessFssaiRoute
+  BusinessGstRoute: typeof BusinessGstRoute
+  BusinessSvanidhiRoute: typeof BusinessSvanidhiRoute
+  BusinessUdyamRoute: typeof BusinessUdyamRoute
+  BusinessIndexRoute: typeof BusinessIndexRoute
+}
+
+const BusinessRouteChildren: BusinessRouteChildren = {
+  BusinessFssaiRoute: BusinessFssaiRoute,
+  BusinessGstRoute: BusinessGstRoute,
+  BusinessSvanidhiRoute: BusinessSvanidhiRoute,
+  BusinessUdyamRoute: BusinessUdyamRoute,
+  BusinessIndexRoute: BusinessIndexRoute,
+}
+
+const BusinessRouteWithChildren = BusinessRoute._addFileChildren(
+  BusinessRouteChildren,
+)
 
 interface GovDocumentsRouteChildren {
   GovDocumentsSlugRoute: typeof GovDocumentsSlugRoute
@@ -1321,6 +1454,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BlogRoute: BlogRouteWithChildren,
   BlogWriterRoute: BlogWriterRoute,
+  BusinessRoute: BusinessRouteWithChildren,
   ChatRoute: ChatRoute,
   CoderRoute: CoderRoute,
   ContactRoute: ContactRoute,
@@ -1357,13 +1491,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
