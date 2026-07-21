@@ -32,6 +32,7 @@ const nav: NavItem[] = [
       { to: "/pmay", label: "PMAY Guide" },
     ],
   },
+  { to: "/business", label: "Business Services" },
   { to: "/pricing", label: "Pricing" },
   { to: "/blog", label: "Blog" },
   { to: "/contact", label: "Contact" },
