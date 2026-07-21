@@ -40,15 +40,25 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { next } = useSearch({ from: "/auth" });
+  const nextPath = safeNext(next);
 
   useEffect(() => {
+    // Restore any previously stashed OAuth redirect target (Google full-page flow).
+    const stashed = typeof window !== "undefined" ? sessionStorage.getItem("bas_oauth_next") : null;
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) nav({ to: "/dashboard" });
+      if (data.session) {
+        const dest = safeNext(nextPath ?? stashed ?? undefined) ?? "/dashboard";
+        if (stashed) sessionStorage.removeItem("bas_oauth_next");
+        nav({ to: dest });
+      }
     });
-  }, [nav]);
+  }, [nav, nextPath]);
 
   const handleGoogle = async () => {
     setLoading(true);
+    // Preserve the intended destination across the Google full-page round-trip.
+    if (nextPath) sessionStorage.setItem("bas_oauth_next", nextPath);
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
     });
@@ -58,7 +68,7 @@ function AuthPage() {
       return;
     }
     if (result.redirected) return;
-    nav({ to: "/dashboard" });
+    nav({ to: nextPath ?? "/dashboard" });
   };
 
   const handleEmail = async (e: React.FormEvent) => {
@@ -66,10 +76,13 @@ function AuthPage() {
     setLoading(true);
     try {
       if (mode === "signup") {
+        const emailRedirectTo = nextPath
+          ? `${window.location.origin}/auth?next=${encodeURIComponent(nextPath)}`
+          : window.location.origin;
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: window.location.origin },
+          options: { emailRedirectTo },
         });
         if (error) throw error;
         toast.success("Account created! Check your email to confirm.");
@@ -77,7 +90,7 @@ function AuthPage() {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("Welcome back!");
-        nav({ to: "/dashboard" });
+        nav({ to: nextPath ?? "/dashboard" });
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
