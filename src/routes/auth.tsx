@@ -11,7 +11,14 @@ import { Sparkles, Loader2 } from "lucide-react";
 
 const searchSchema = z.object({
   mode: z.enum(["login", "signup"]).optional(),
+  next: z.string().optional(),
 });
+
+function safeNext(next: string | undefined): string | null {
+  if (!next) return null;
+  if (!next.startsWith("/") || next.startsWith("//")) return null;
+  return next;
+}
 
 export const Route = createFileRoute("/auth")({
   validateSearch: searchSchema,

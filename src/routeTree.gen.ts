@@ -9,252 +9,82 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VoiceRouteImport } from './routes/voice'
-import { Route as TranslatorRouteImport } from './routes/translator'
-import { Route as ToolsRouteImport } from './routes/tools'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SummarizerRouteImport } from './routes/summarizer'
-import { Route as SocialRouteImport } from './routes/social'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ResumeRouteImport } from './routes/resume'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PricingRouteImport } from './routes/pricing'
-import { Route as PresentationRouteImport } from './routes/presentation'
-import { Route as PmayRouteImport } from './routes/pmay'
-import { Route as PdfRouteImport } from './routes/pdf'
-import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
-import { Route as LetterRouteImport } from './routes/letter'
-import { Route as InvoiceRouteImport } from './routes/invoice'
-import { Route as HrAssistantRouteImport } from './routes/hr-assistant'
-import { Route as GrammarRouteImport } from './routes/grammar'
-import { Route as GovRouteImport } from './routes/gov'
-import { Route as FaqRouteImport } from './routes/faq'
-import { Route as EmailRouteImport } from './routes/email'
-import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
-import { Route as DisclaimerRouteImport } from './routes/disclaimer'
-import { Route as DataAnalyzerRouteImport } from './routes/data-analyzer'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as CookiesRouteImport } from './routes/cookies'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as CoderRouteImport } from './routes/coder'
-import { Route as ChatRouteImport } from './routes/chat'
-import { Route as BusinessRouteImport } from './routes/business'
-import { Route as BlogWriterRouteImport } from './routes/blog-writer'
-import { Route as BlogRouteImport } from './routes/blog'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AiPolicyRouteImport } from './routes/ai-policy'
-import { Route as AgreementRouteImport } from './routes/agreement'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ToolsIndexRouteImport } from './routes/tools.index'
-import { Route as GovIndexRouteImport } from './routes/gov.index'
-import { Route as BusinessIndexRouteImport } from './routes/business.index'
-import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
-import { Route as GovTrackerRouteImport } from './routes/gov.tracker'
-import { Route as GovSearchRouteImport } from './routes/gov.search'
-import { Route as GovScanRouteImport } from './routes/gov.scan'
-import { Route as GovRemindersRouteImport } from './routes/gov.reminders'
-import { Route as GovProfileRouteImport } from './routes/gov.profile'
-import { Route as GovOcrRouteImport } from './routes/gov.ocr'
-import { Route as GovFormsRouteImport } from './routes/gov.forms'
-import { Route as GovEligibilityRouteImport } from './routes/gov.eligibility'
-import { Route as GovDownloadsRouteImport } from './routes/gov.downloads'
-import { Route as GovDocumentsRouteImport } from './routes/gov.documents'
-import { Route as GovBookmarksRouteImport } from './routes/gov.bookmarks'
-import { Route as GovAskRouteImport } from './routes/gov.ask'
-import { Route as GovSlugRouteImport } from './routes/gov.$slug'
-import { Route as BusinessUdyamRouteImport } from './routes/business.udyam'
-import { Route as BusinessSvanidhiRouteImport } from './routes/business.svanidhi'
-import { Route as BusinessGstRouteImport } from './routes/business.gst'
-import { Route as BusinessFssaiRouteImport } from './routes/business.fssai'
-import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
-import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AgreementRouteImport } from './routes/agreement'
+import { Route as AiPolicyRouteImport } from './routes/ai-policy'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BlogWriterRouteImport } from './routes/blog-writer'
+import { Route as BusinessRouteImport } from './routes/business'
+import { Route as ChatRouteImport } from './routes/chat'
+import { Route as CoderRouteImport } from './routes/coder'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DataAnalyzerRouteImport } from './routes/data-analyzer'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
+import { Route as EmailRouteImport } from './routes/email'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as GovRouteImport } from './routes/gov'
+import { Route as GrammarRouteImport } from './routes/grammar'
+import { Route as HrAssistantRouteImport } from './routes/hr-assistant'
+import { Route as InvoiceRouteImport } from './routes/invoice'
+import { Route as LetterRouteImport } from './routes/letter'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
+import { Route as PdfRouteImport } from './routes/pdf'
+import { Route as PmayRouteImport } from './routes/pmay'
+import { Route as PresentationRouteImport } from './routes/presentation'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResumeRouteImport } from './routes/resume'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SocialRouteImport } from './routes/social'
+import { Route as SummarizerRouteImport } from './routes/summarizer'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ToolsRouteImport } from './routes/tools'
+import { Route as TranslatorRouteImport } from './routes/translator'
+import { Route as VoiceRouteImport } from './routes/voice'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
-import { Route as GovFormsIndexRouteImport } from './routes/gov.forms.index'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as BusinessIndexRouteImport } from './routes/business.index'
+import { Route as BusinessFssaiRouteImport } from './routes/business.fssai'
+import { Route as BusinessGstRouteImport } from './routes/business.gst'
+import { Route as BusinessSvanidhiRouteImport } from './routes/business.svanidhi'
+import { Route as BusinessUdyamRouteImport } from './routes/business.udyam'
+import { Route as GovIndexRouteImport } from './routes/gov.index'
+import { Route as GovSlugRouteImport } from './routes/gov.$slug'
+import { Route as GovAskRouteImport } from './routes/gov.ask'
+import { Route as GovBookmarksRouteImport } from './routes/gov.bookmarks'
+import { Route as GovDocumentsRouteImport } from './routes/gov.documents'
+import { Route as GovDownloadsRouteImport } from './routes/gov.downloads'
+import { Route as GovEligibilityRouteImport } from './routes/gov.eligibility'
+import { Route as GovFormsRouteImport } from './routes/gov.forms'
+import { Route as GovOcrRouteImport } from './routes/gov.ocr'
+import { Route as GovProfileRouteImport } from './routes/gov.profile'
+import { Route as GovRemindersRouteImport } from './routes/gov.reminders'
+import { Route as GovScanRouteImport } from './routes/gov.scan'
+import { Route as GovSearchRouteImport } from './routes/gov.search'
+import { Route as GovTrackerRouteImport } from './routes/gov.tracker'
+import { Route as ToolsIndexRouteImport } from './routes/tools.index'
+import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as GovDocumentsIndexRouteImport } from './routes/gov.documents.index'
-import { Route as GovFormsSlugRouteImport } from './routes/gov.forms.$slug'
 import { Route as GovDocumentsSlugRouteImport } from './routes/gov.documents.$slug'
+import { Route as GovFormsIndexRouteImport } from './routes/gov.forms.index'
+import { Route as GovFormsSlugRouteImport } from './routes/gov.forms.$slug'
 
-const VoiceRoute = VoiceRouteImport.update({
-  id: '/voice',
-  path: '/voice',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TranslatorRoute = TranslatorRouteImport.update({
-  id: '/translator',
-  path: '/translator',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ToolsRoute = ToolsRouteImport.update({
-  id: '/tools',
-  path: '/tools',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SummarizerRoute = SummarizerRouteImport.update({
-  id: '/summarizer',
-  path: '/summarizer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SocialRoute = SocialRouteImport.update({
-  id: '/social',
-  path: '/social',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResumeRoute = ResumeRouteImport.update({
-  id: '/resume',
-  path: '/resume',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PricingRoute = PricingRouteImport.update({
-  id: '/pricing',
-  path: '/pricing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PresentationRoute = PresentationRouteImport.update({
-  id: '/presentation',
-  path: '/presentation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PmayRoute = PmayRouteImport.update({
-  id: '/pmay',
-  path: '/pmay',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PdfRoute = PdfRouteImport.update({
-  id: '/pdf',
-  path: '/pdf',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MeetingNotesRoute = MeetingNotesRouteImport.update({
-  id: '/meeting-notes',
-  path: '/meeting-notes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LetterRoute = LetterRouteImport.update({
-  id: '/letter',
-  path: '/letter',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InvoiceRoute = InvoiceRouteImport.update({
-  id: '/invoice',
-  path: '/invoice',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HrAssistantRoute = HrAssistantRouteImport.update({
-  id: '/hr-assistant',
-  path: '/hr-assistant',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GrammarRoute = GrammarRouteImport.update({
-  id: '/grammar',
-  path: '/grammar',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GovRoute = GovRouteImport.update({
-  id: '/gov',
-  path: '/gov',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FaqRoute = FaqRouteImport.update({
-  id: '/faq',
-  path: '/faq',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmailRoute = EmailRouteImport.update({
-  id: '/email',
-  path: '/email',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EditorialPolicyRoute = EditorialPolicyRouteImport.update({
-  id: '/editorial-policy',
-  path: '/editorial-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DisclaimerRoute = DisclaimerRouteImport.update({
-  id: '/disclaimer',
-  path: '/disclaimer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DataAnalyzerRoute = DataAnalyzerRouteImport.update({
-  id: '/data-analyzer',
-  path: '/data-analyzer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CookiesRoute = CookiesRouteImport.update({
-  id: '/cookies',
-  path: '/cookies',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CoderRoute = CoderRouteImport.update({
-  id: '/coder',
-  path: '/coder',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChatRoute = ChatRouteImport.update({
-  id: '/chat',
-  path: '/chat',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BusinessRoute = BusinessRouteImport.update({
-  id: '/business',
-  path: '/business',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogWriterRoute = BlogWriterRouteImport.update({
-  id: '/blog-writer',
-  path: '/blog-writer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AiPolicyRoute = AiPolicyRouteImport.update({
-  id: '/ai-policy',
-  path: '/ai-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AgreementRoute = AgreementRouteImport.update({
-  id: '/agreement',
-  path: '/agreement',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -262,124 +92,206 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ToolsIndexRoute = ToolsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ToolsRoute,
+const AgreementRoute = AgreementRouteImport.update({
+  id: '/agreement',
+  path: '/agreement',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovIndexRoute = GovIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => GovRoute,
+const AiPolicyRoute = AiPolicyRouteImport.update({
+  id: '/ai-policy',
+  path: '/ai-policy',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const BusinessIndexRoute = BusinessIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => BusinessRoute,
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ToolsSlugRoute = ToolsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ToolsRoute,
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovTrackerRoute = GovTrackerRouteImport.update({
-  id: '/tracker',
-  path: '/tracker',
-  getParentRoute: () => GovRoute,
+const BlogWriterRoute = BlogWriterRouteImport.update({
+  id: '/blog-writer',
+  path: '/blog-writer',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovSearchRoute = GovSearchRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => GovRoute,
+const BusinessRoute = BusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovScanRoute = GovScanRouteImport.update({
-  id: '/scan',
-  path: '/scan',
-  getParentRoute: () => GovRoute,
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovRemindersRoute = GovRemindersRouteImport.update({
-  id: '/reminders',
-  path: '/reminders',
-  getParentRoute: () => GovRoute,
+const CoderRoute = CoderRouteImport.update({
+  id: '/coder',
+  path: '/coder',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovProfileRoute = GovProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => GovRoute,
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovOcrRoute = GovOcrRouteImport.update({
-  id: '/ocr',
-  path: '/ocr',
-  getParentRoute: () => GovRoute,
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovFormsRoute = GovFormsRouteImport.update({
-  id: '/forms',
-  path: '/forms',
-  getParentRoute: () => GovRoute,
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovEligibilityRoute = GovEligibilityRouteImport.update({
-  id: '/eligibility',
-  path: '/eligibility',
-  getParentRoute: () => GovRoute,
+const DataAnalyzerRoute = DataAnalyzerRouteImport.update({
+  id: '/data-analyzer',
+  path: '/data-analyzer',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovDownloadsRoute = GovDownloadsRouteImport.update({
-  id: '/downloads',
-  path: '/downloads',
-  getParentRoute: () => GovRoute,
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovDocumentsRoute = GovDocumentsRouteImport.update({
-  id: '/documents',
-  path: '/documents',
-  getParentRoute: () => GovRoute,
+const EditorialPolicyRoute = EditorialPolicyRouteImport.update({
+  id: '/editorial-policy',
+  path: '/editorial-policy',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovBookmarksRoute = GovBookmarksRouteImport.update({
-  id: '/bookmarks',
-  path: '/bookmarks',
-  getParentRoute: () => GovRoute,
+const EmailRoute = EmailRouteImport.update({
+  id: '/email',
+  path: '/email',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovAskRoute = GovAskRouteImport.update({
-  id: '/ask',
-  path: '/ask',
-  getParentRoute: () => GovRoute,
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GovSlugRoute = GovSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => GovRoute,
+const GovRoute = GovRouteImport.update({
+  id: '/gov',
+  path: '/gov',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const BusinessUdyamRoute = BusinessUdyamRouteImport.update({
-  id: '/udyam',
-  path: '/udyam',
-  getParentRoute: () => BusinessRoute,
+const GrammarRoute = GrammarRouteImport.update({
+  id: '/grammar',
+  path: '/grammar',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const BusinessSvanidhiRoute = BusinessSvanidhiRouteImport.update({
-  id: '/svanidhi',
-  path: '/svanidhi',
-  getParentRoute: () => BusinessRoute,
+const HrAssistantRoute = HrAssistantRouteImport.update({
+  id: '/hr-assistant',
+  path: '/hr-assistant',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const BusinessGstRoute = BusinessGstRouteImport.update({
-  id: '/gst',
-  path: '/gst',
-  getParentRoute: () => BusinessRoute,
+const InvoiceRoute = InvoiceRouteImport.update({
+  id: '/invoice',
+  path: '/invoice',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const BusinessFssaiRoute = BusinessFssaiRouteImport.update({
-  id: '/fssai',
-  path: '/fssai',
-  getParentRoute: () => BusinessRoute,
+const LetterRoute = LetterRouteImport.update({
+  id: '/letter',
+  path: '/letter',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ApiTranscribeRoute = ApiTranscribeRouteImport.update({
-  id: '/api/transcribe',
-  path: '/api/transcribe',
+const MeetingNotesRoute = MeetingNotesRouteImport.update({
+  id: '/meeting-notes',
+  path: '/meeting-notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PdfRoute = PdfRouteImport.update({
+  id: '/pdf',
+  path: '/pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PmayRoute = PmayRouteImport.update({
+  id: '/pmay',
+  path: '/pmay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresentationRoute = PresentationRouteImport.update({
+  id: '/presentation',
+  path: '/presentation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResumeRoute = ResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SocialRoute = SocialRouteImport.update({
+  id: '/social',
+  path: '/social',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SummarizerRoute = SummarizerRouteImport.update({
+  id: '/summarizer',
+  path: '/summarizer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsRoute = ToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TranslatorRoute = TranslatorRouteImport.update({
+  id: '/translator',
+  path: '/translator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceRoute = VoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAiRoute = ApiAiRouteImport.update({
+  id: '/api/ai',
+  path: '/api/ai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
@@ -387,30 +299,151 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAiRoute = ApiAiRouteImport.update({
-  id: '/api/ai',
-  path: '/api/ai',
+const ApiTranscribeRoute = ApiTranscribeRouteImport.update({
+  id: '/api/transcribe',
+  path: '/api/transcribe',
   getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
+const BusinessIndexRoute = BusinessIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const BusinessFssaiRoute = BusinessFssaiRouteImport.update({
+  id: '/fssai',
+  path: '/fssai',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const BusinessGstRoute = BusinessGstRouteImport.update({
+  id: '/gst',
+  path: '/gst',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const BusinessSvanidhiRoute = BusinessSvanidhiRouteImport.update({
+  id: '/svanidhi',
+  path: '/svanidhi',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const BusinessUdyamRoute = BusinessUdyamRouteImport.update({
+  id: '/udyam',
+  path: '/udyam',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const GovIndexRoute = GovIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovSlugRoute = GovSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovAskRoute = GovAskRouteImport.update({
+  id: '/ask',
+  path: '/ask',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovBookmarksRoute = GovBookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovDocumentsRoute = GovDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovDownloadsRoute = GovDownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovEligibilityRoute = GovEligibilityRouteImport.update({
+  id: '/eligibility',
+  path: '/eligibility',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovFormsRoute = GovFormsRouteImport.update({
+  id: '/forms',
+  path: '/forms',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovOcrRoute = GovOcrRouteImport.update({
+  id: '/ocr',
+  path: '/ocr',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovProfileRoute = GovProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovRemindersRoute = GovRemindersRouteImport.update({
+  id: '/reminders',
+  path: '/reminders',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovScanRoute = GovScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovSearchRoute = GovSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovTrackerRoute = GovTrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
+  getParentRoute: () => GovRoute,
+} as any)
+const ToolsIndexRoute = ToolsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ToolsRoute,
+} as any)
+const ToolsSlugRoute = ToolsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ToolsRoute,
+} as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GovDocumentsIndexRoute = GovDocumentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GovDocumentsRoute,
+} as any)
+const GovDocumentsSlugRoute = GovDocumentsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => GovDocumentsRoute,
 } as any)
 const GovFormsIndexRoute = GovFormsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => GovFormsRoute,
 } as any)
-const GovDocumentsIndexRoute = GovDocumentsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => GovDocumentsRoute,
-} as any)
 const GovFormsSlugRoute = GovFormsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => GovFormsRoute,
-} as any)
-const GovDocumentsSlugRoute = GovDocumentsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => GovDocumentsRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -438,6 +471,7 @@ export interface FileRoutesByFullPath {
   '/hr-assistant': typeof HrAssistantRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
+  '/mcp': typeof McpRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pmay': typeof PmayRoute
@@ -452,6 +486,8 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/api/transcribe': typeof ApiTranscribeRoute
@@ -477,6 +513,8 @@ export interface FileRoutesByFullPath {
   '/business/': typeof BusinessIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
   '/gov/documents/': typeof GovDocumentsIndexRoute
@@ -505,6 +543,7 @@ export interface FileRoutesByTo {
   '/hr-assistant': typeof HrAssistantRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
+  '/mcp': typeof McpRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pmay': typeof PmayRoute
@@ -518,6 +557,8 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/api/transcribe': typeof ApiTranscribeRoute
@@ -541,6 +582,8 @@ export interface FileRoutesByTo {
   '/business': typeof BusinessIndexRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
   '/gov/documents': typeof GovDocumentsIndexRoute
@@ -572,6 +615,7 @@ export interface FileRoutesById {
   '/hr-assistant': typeof HrAssistantRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
+  '/mcp': typeof McpRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pmay': typeof PmayRoute
@@ -586,6 +630,8 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/api/transcribe': typeof ApiTranscribeRoute
@@ -611,6 +657,8 @@ export interface FileRoutesById {
   '/business/': typeof BusinessIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
   '/gov/documents/': typeof GovDocumentsIndexRoute
@@ -643,6 +691,7 @@ export interface FileRouteTypes {
     | '/hr-assistant'
     | '/invoice'
     | '/letter'
+    | '/mcp'
     | '/meeting-notes'
     | '/pdf'
     | '/pmay'
@@ -657,6 +706,8 @@ export interface FileRouteTypes {
     | '/tools'
     | '/translator'
     | '/voice'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
     | '/api/transcribe'
@@ -682,6 +733,8 @@ export interface FileRouteTypes {
     | '/business/'
     | '/gov/'
     | '/tools/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
     | '/gov/forms/$slug'
     | '/gov/documents/'
@@ -710,6 +763,7 @@ export interface FileRouteTypes {
     | '/hr-assistant'
     | '/invoice'
     | '/letter'
+    | '/mcp'
     | '/meeting-notes'
     | '/pdf'
     | '/pmay'
@@ -723,6 +777,8 @@ export interface FileRouteTypes {
     | '/terms'
     | '/translator'
     | '/voice'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
     | '/api/transcribe'
@@ -746,6 +802,8 @@ export interface FileRouteTypes {
     | '/business'
     | '/gov'
     | '/tools'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
     | '/gov/forms/$slug'
     | '/gov/documents'
@@ -776,6 +834,7 @@ export interface FileRouteTypes {
     | '/hr-assistant'
     | '/invoice'
     | '/letter'
+    | '/mcp'
     | '/meeting-notes'
     | '/pdf'
     | '/pmay'
@@ -790,6 +849,8 @@ export interface FileRouteTypes {
     | '/tools'
     | '/translator'
     | '/voice'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
     | '/api/transcribe'
@@ -815,6 +876,8 @@ export interface FileRouteTypes {
     | '/business/'
     | '/gov/'
     | '/tools/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
     | '/gov/forms/$slug'
     | '/gov/documents/'
@@ -846,6 +909,7 @@ export interface RootRouteChildren {
   HrAssistantRoute: typeof HrAssistantRoute
   InvoiceRoute: typeof InvoiceRoute
   LetterRoute: typeof LetterRoute
+  McpRoute: typeof McpRoute
   MeetingNotesRoute: typeof MeetingNotesRoute
   PdfRoute: typeof PdfRoute
   PmayRoute: typeof PmayRoute
@@ -860,263 +924,22 @@ export interface RootRouteChildren {
   ToolsRoute: typeof ToolsRouteWithChildren
   TranslatorRoute: typeof TranslatorRoute
   VoiceRoute: typeof VoiceRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiTranscribeRoute: typeof ApiTranscribeRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/voice': {
-      id: '/voice'
-      path: '/voice'
-      fullPath: '/voice'
-      preLoaderRoute: typeof VoiceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/translator': {
-      id: '/translator'
-      path: '/translator'
-      fullPath: '/translator'
-      preLoaderRoute: typeof TranslatorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tools': {
-      id: '/tools'
-      path: '/tools'
-      fullPath: '/tools'
-      preLoaderRoute: typeof ToolsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/summarizer': {
-      id: '/summarizer'
-      path: '/summarizer'
-      fullPath: '/summarizer'
-      preLoaderRoute: typeof SummarizerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/social': {
-      id: '/social'
-      path: '/social'
-      fullPath: '/social'
-      preLoaderRoute: typeof SocialRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resume': {
-      id: '/resume'
-      path: '/resume'
-      fullPath: '/resume'
-      preLoaderRoute: typeof ResumeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pricing': {
-      id: '/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof PricingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/presentation': {
-      id: '/presentation'
-      path: '/presentation'
-      fullPath: '/presentation'
-      preLoaderRoute: typeof PresentationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pmay': {
-      id: '/pmay'
-      path: '/pmay'
-      fullPath: '/pmay'
-      preLoaderRoute: typeof PmayRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pdf': {
-      id: '/pdf'
-      path: '/pdf'
-      fullPath: '/pdf'
-      preLoaderRoute: typeof PdfRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/meeting-notes': {
-      id: '/meeting-notes'
-      path: '/meeting-notes'
-      fullPath: '/meeting-notes'
-      preLoaderRoute: typeof MeetingNotesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/letter': {
-      id: '/letter'
-      path: '/letter'
-      fullPath: '/letter'
-      preLoaderRoute: typeof LetterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/invoice': {
-      id: '/invoice'
-      path: '/invoice'
-      fullPath: '/invoice'
-      preLoaderRoute: typeof InvoiceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hr-assistant': {
-      id: '/hr-assistant'
-      path: '/hr-assistant'
-      fullPath: '/hr-assistant'
-      preLoaderRoute: typeof HrAssistantRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/grammar': {
-      id: '/grammar'
-      path: '/grammar'
-      fullPath: '/grammar'
-      preLoaderRoute: typeof GrammarRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gov': {
-      id: '/gov'
-      path: '/gov'
-      fullPath: '/gov'
-      preLoaderRoute: typeof GovRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/faq': {
-      id: '/faq'
-      path: '/faq'
-      fullPath: '/faq'
-      preLoaderRoute: typeof FaqRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/email': {
-      id: '/email'
-      path: '/email'
-      fullPath: '/email'
-      preLoaderRoute: typeof EmailRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/editorial-policy': {
-      id: '/editorial-policy'
-      path: '/editorial-policy'
-      fullPath: '/editorial-policy'
-      preLoaderRoute: typeof EditorialPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/disclaimer': {
-      id: '/disclaimer'
-      path: '/disclaimer'
-      fullPath: '/disclaimer'
-      preLoaderRoute: typeof DisclaimerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/data-analyzer': {
-      id: '/data-analyzer'
-      path: '/data-analyzer'
-      fullPath: '/data-analyzer'
-      preLoaderRoute: typeof DataAnalyzerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cookies': {
-      id: '/cookies'
-      path: '/cookies'
-      fullPath: '/cookies'
-      preLoaderRoute: typeof CookiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/coder': {
-      id: '/coder'
-      path: '/coder'
-      fullPath: '/coder'
-      preLoaderRoute: typeof CoderRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/chat': {
-      id: '/chat'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof ChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/business': {
-      id: '/business'
-      path: '/business'
-      fullPath: '/business'
-      preLoaderRoute: typeof BusinessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog-writer': {
-      id: '/blog-writer'
-      path: '/blog-writer'
-      fullPath: '/blog-writer'
-      preLoaderRoute: typeof BlogWriterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ai-policy': {
-      id: '/ai-policy'
-      path: '/ai-policy'
-      fullPath: '/ai-policy'
-      preLoaderRoute: typeof AiPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/agreement': {
-      id: '/agreement'
-      path: '/agreement'
-      fullPath: '/agreement'
-      preLoaderRoute: typeof AgreementRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -1126,179 +949,277 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tools/': {
-      id: '/tools/'
-      path: '/'
-      fullPath: '/tools/'
-      preLoaderRoute: typeof ToolsIndexRouteImport
-      parentRoute: typeof ToolsRoute
-    }
-    '/gov/': {
-      id: '/gov/'
-      path: '/'
-      fullPath: '/gov/'
-      preLoaderRoute: typeof GovIndexRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/business/': {
-      id: '/business/'
-      path: '/'
-      fullPath: '/business/'
-      preLoaderRoute: typeof BusinessIndexRouteImport
-      parentRoute: typeof BusinessRoute
-    }
-    '/tools/$slug': {
-      id: '/tools/$slug'
-      path: '/$slug'
-      fullPath: '/tools/$slug'
-      preLoaderRoute: typeof ToolsSlugRouteImport
-      parentRoute: typeof ToolsRoute
-    }
-    '/gov/tracker': {
-      id: '/gov/tracker'
-      path: '/tracker'
-      fullPath: '/gov/tracker'
-      preLoaderRoute: typeof GovTrackerRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/search': {
-      id: '/gov/search'
-      path: '/search'
-      fullPath: '/gov/search'
-      preLoaderRoute: typeof GovSearchRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/scan': {
-      id: '/gov/scan'
-      path: '/scan'
-      fullPath: '/gov/scan'
-      preLoaderRoute: typeof GovScanRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/reminders': {
-      id: '/gov/reminders'
-      path: '/reminders'
-      fullPath: '/gov/reminders'
-      preLoaderRoute: typeof GovRemindersRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/profile': {
-      id: '/gov/profile'
-      path: '/profile'
-      fullPath: '/gov/profile'
-      preLoaderRoute: typeof GovProfileRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/ocr': {
-      id: '/gov/ocr'
-      path: '/ocr'
-      fullPath: '/gov/ocr'
-      preLoaderRoute: typeof GovOcrRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/forms': {
-      id: '/gov/forms'
-      path: '/forms'
-      fullPath: '/gov/forms'
-      preLoaderRoute: typeof GovFormsRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/eligibility': {
-      id: '/gov/eligibility'
-      path: '/eligibility'
-      fullPath: '/gov/eligibility'
-      preLoaderRoute: typeof GovEligibilityRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/downloads': {
-      id: '/gov/downloads'
-      path: '/downloads'
-      fullPath: '/gov/downloads'
-      preLoaderRoute: typeof GovDownloadsRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/documents': {
-      id: '/gov/documents'
-      path: '/documents'
-      fullPath: '/gov/documents'
-      preLoaderRoute: typeof GovDocumentsRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/bookmarks': {
-      id: '/gov/bookmarks'
-      path: '/bookmarks'
-      fullPath: '/gov/bookmarks'
-      preLoaderRoute: typeof GovBookmarksRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/ask': {
-      id: '/gov/ask'
-      path: '/ask'
-      fullPath: '/gov/ask'
-      preLoaderRoute: typeof GovAskRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/gov/$slug': {
-      id: '/gov/$slug'
-      path: '/$slug'
-      fullPath: '/gov/$slug'
-      preLoaderRoute: typeof GovSlugRouteImport
-      parentRoute: typeof GovRoute
-    }
-    '/business/udyam': {
-      id: '/business/udyam'
-      path: '/udyam'
-      fullPath: '/business/udyam'
-      preLoaderRoute: typeof BusinessUdyamRouteImport
-      parentRoute: typeof BusinessRoute
-    }
-    '/business/svanidhi': {
-      id: '/business/svanidhi'
-      path: '/svanidhi'
-      fullPath: '/business/svanidhi'
-      preLoaderRoute: typeof BusinessSvanidhiRouteImport
-      parentRoute: typeof BusinessRoute
-    }
-    '/business/gst': {
-      id: '/business/gst'
-      path: '/gst'
-      fullPath: '/business/gst'
-      preLoaderRoute: typeof BusinessGstRouteImport
-      parentRoute: typeof BusinessRoute
-    }
-    '/business/fssai': {
-      id: '/business/fssai'
-      path: '/fssai'
-      fullPath: '/business/fssai'
-      preLoaderRoute: typeof BusinessFssaiRouteImport
-      parentRoute: typeof BusinessRoute
-    }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
-    }
-    '/api/transcribe': {
-      id: '/api/transcribe'
-      path: '/api/transcribe'
-      fullPath: '/api/transcribe'
-      preLoaderRoute: typeof ApiTranscribeRouteImport
+    '/agreement': {
+      id: '/agreement'
+      path: '/agreement'
+      fullPath: '/agreement'
+      preLoaderRoute: typeof AgreementRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/chat': {
-      id: '/api/chat'
-      path: '/api/chat'
-      fullPath: '/api/chat'
-      preLoaderRoute: typeof ApiChatRouteImport
+    '/ai-policy': {
+      id: '/ai-policy'
+      path: '/ai-policy'
+      fullPath: '/ai-policy'
+      preLoaderRoute: typeof AiPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog-writer': {
+      id: '/blog-writer'
+      path: '/blog-writer'
+      fullPath: '/blog-writer'
+      preLoaderRoute: typeof BlogWriterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business': {
+      id: '/business'
+      path: '/business'
+      fullPath: '/business'
+      preLoaderRoute: typeof BusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coder': {
+      id: '/coder'
+      path: '/coder'
+      fullPath: '/coder'
+      preLoaderRoute: typeof CoderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data-analyzer': {
+      id: '/data-analyzer'
+      path: '/data-analyzer'
+      fullPath: '/data-analyzer'
+      preLoaderRoute: typeof DataAnalyzerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/editorial-policy': {
+      id: '/editorial-policy'
+      path: '/editorial-policy'
+      fullPath: '/editorial-policy'
+      preLoaderRoute: typeof EditorialPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email': {
+      id: '/email'
+      path: '/email'
+      fullPath: '/email'
+      preLoaderRoute: typeof EmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gov': {
+      id: '/gov'
+      path: '/gov'
+      fullPath: '/gov'
+      preLoaderRoute: typeof GovRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grammar': {
+      id: '/grammar'
+      path: '/grammar'
+      fullPath: '/grammar'
+      preLoaderRoute: typeof GrammarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hr-assistant': {
+      id: '/hr-assistant'
+      path: '/hr-assistant'
+      fullPath: '/hr-assistant'
+      preLoaderRoute: typeof HrAssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoice': {
+      id: '/invoice'
+      path: '/invoice'
+      fullPath: '/invoice'
+      preLoaderRoute: typeof InvoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/letter': {
+      id: '/letter'
+      path: '/letter'
+      fullPath: '/letter'
+      preLoaderRoute: typeof LetterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meeting-notes': {
+      id: '/meeting-notes'
+      path: '/meeting-notes'
+      fullPath: '/meeting-notes'
+      preLoaderRoute: typeof MeetingNotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pdf': {
+      id: '/pdf'
+      path: '/pdf'
+      fullPath: '/pdf'
+      preLoaderRoute: typeof PdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pmay': {
+      id: '/pmay'
+      path: '/pmay'
+      fullPath: '/pmay'
+      preLoaderRoute: typeof PmayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/presentation': {
+      id: '/presentation'
+      path: '/presentation'
+      fullPath: '/presentation'
+      preLoaderRoute: typeof PresentationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume': {
+      id: '/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/social': {
+      id: '/social'
+      path: '/social'
+      fullPath: '/social'
+      preLoaderRoute: typeof SocialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/summarizer': {
+      id: '/summarizer'
+      path: '/summarizer'
+      fullPath: '/summarizer'
+      preLoaderRoute: typeof SummarizerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools': {
+      id: '/tools'
+      path: '/tools'
+      fullPath: '/tools'
+      preLoaderRoute: typeof ToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/translator': {
+      id: '/translator'
+      path: '/translator'
+      fullPath: '/translator'
+      preLoaderRoute: typeof TranslatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice': {
+      id: '/voice'
+      path: '/voice'
+      fullPath: '/voice'
+      preLoaderRoute: typeof VoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/ai': {
@@ -1308,12 +1229,187 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAiRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/gov/forms/': {
-      id: '/gov/forms/'
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/transcribe': {
+      id: '/api/transcribe'
+      path: '/api/transcribe'
+      fullPath: '/api/transcribe'
+      preLoaderRoute: typeof ApiTranscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/business/': {
+      id: '/business/'
       path: '/'
-      fullPath: '/gov/forms/'
-      preLoaderRoute: typeof GovFormsIndexRouteImport
-      parentRoute: typeof GovFormsRoute
+      fullPath: '/business/'
+      preLoaderRoute: typeof BusinessIndexRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/business/fssai': {
+      id: '/business/fssai'
+      path: '/fssai'
+      fullPath: '/business/fssai'
+      preLoaderRoute: typeof BusinessFssaiRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/business/gst': {
+      id: '/business/gst'
+      path: '/gst'
+      fullPath: '/business/gst'
+      preLoaderRoute: typeof BusinessGstRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/business/svanidhi': {
+      id: '/business/svanidhi'
+      path: '/svanidhi'
+      fullPath: '/business/svanidhi'
+      preLoaderRoute: typeof BusinessSvanidhiRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/business/udyam': {
+      id: '/business/udyam'
+      path: '/udyam'
+      fullPath: '/business/udyam'
+      preLoaderRoute: typeof BusinessUdyamRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/gov/': {
+      id: '/gov/'
+      path: '/'
+      fullPath: '/gov/'
+      preLoaderRoute: typeof GovIndexRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/$slug': {
+      id: '/gov/$slug'
+      path: '/$slug'
+      fullPath: '/gov/$slug'
+      preLoaderRoute: typeof GovSlugRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/ask': {
+      id: '/gov/ask'
+      path: '/ask'
+      fullPath: '/gov/ask'
+      preLoaderRoute: typeof GovAskRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/bookmarks': {
+      id: '/gov/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/gov/bookmarks'
+      preLoaderRoute: typeof GovBookmarksRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/documents': {
+      id: '/gov/documents'
+      path: '/documents'
+      fullPath: '/gov/documents'
+      preLoaderRoute: typeof GovDocumentsRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/downloads': {
+      id: '/gov/downloads'
+      path: '/downloads'
+      fullPath: '/gov/downloads'
+      preLoaderRoute: typeof GovDownloadsRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/eligibility': {
+      id: '/gov/eligibility'
+      path: '/eligibility'
+      fullPath: '/gov/eligibility'
+      preLoaderRoute: typeof GovEligibilityRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/forms': {
+      id: '/gov/forms'
+      path: '/forms'
+      fullPath: '/gov/forms'
+      preLoaderRoute: typeof GovFormsRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/ocr': {
+      id: '/gov/ocr'
+      path: '/ocr'
+      fullPath: '/gov/ocr'
+      preLoaderRoute: typeof GovOcrRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/profile': {
+      id: '/gov/profile'
+      path: '/profile'
+      fullPath: '/gov/profile'
+      preLoaderRoute: typeof GovProfileRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/reminders': {
+      id: '/gov/reminders'
+      path: '/reminders'
+      fullPath: '/gov/reminders'
+      preLoaderRoute: typeof GovRemindersRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/scan': {
+      id: '/gov/scan'
+      path: '/scan'
+      fullPath: '/gov/scan'
+      preLoaderRoute: typeof GovScanRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/search': {
+      id: '/gov/search'
+      path: '/search'
+      fullPath: '/gov/search'
+      preLoaderRoute: typeof GovSearchRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/tracker': {
+      id: '/gov/tracker'
+      path: '/tracker'
+      fullPath: '/gov/tracker'
+      preLoaderRoute: typeof GovTrackerRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/tools/': {
+      id: '/tools/'
+      path: '/'
+      fullPath: '/tools/'
+      preLoaderRoute: typeof ToolsIndexRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/$slug': {
+      id: '/tools/$slug'
+      path: '/$slug'
+      fullPath: '/tools/$slug'
+      preLoaderRoute: typeof ToolsSlugRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/gov/documents/': {
       id: '/gov/documents/'
@@ -1322,19 +1418,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovDocumentsIndexRouteImport
       parentRoute: typeof GovDocumentsRoute
     }
-    '/gov/forms/$slug': {
-      id: '/gov/forms/$slug'
-      path: '/$slug'
-      fullPath: '/gov/forms/$slug'
-      preLoaderRoute: typeof GovFormsSlugRouteImport
-      parentRoute: typeof GovFormsRoute
-    }
     '/gov/documents/$slug': {
       id: '/gov/documents/$slug'
       path: '/$slug'
       fullPath: '/gov/documents/$slug'
       preLoaderRoute: typeof GovDocumentsSlugRouteImport
       parentRoute: typeof GovDocumentsRoute
+    }
+    '/gov/forms/': {
+      id: '/gov/forms/'
+      path: '/'
+      fullPath: '/gov/forms/'
+      preLoaderRoute: typeof GovFormsIndexRouteImport
+      parentRoute: typeof GovFormsRoute
+    }
+    '/gov/forms/$slug': {
+      id: '/gov/forms/$slug'
+      path: '/$slug'
+      fullPath: '/gov/forms/$slug'
+      preLoaderRoute: typeof GovFormsSlugRouteImport
+      parentRoute: typeof GovFormsRoute
     }
   }
 }
@@ -1470,6 +1573,7 @@ const rootRouteChildren: RootRouteChildren = {
   HrAssistantRoute: HrAssistantRoute,
   InvoiceRoute: InvoiceRoute,
   LetterRoute: LetterRoute,
+  McpRoute: McpRoute,
   MeetingNotesRoute: MeetingNotesRoute,
   PdfRoute: PdfRoute,
   PmayRoute: PmayRoute,
@@ -1484,10 +1588,25 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsRoute: ToolsRouteWithChildren,
   TranslatorRoute: TranslatorRoute,
   VoiceRoute: VoiceRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ApiAiRoute: ApiAiRoute,
   ApiChatRoute: ApiChatRoute,
   ApiTranscribeRoute: ApiTranscribeRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
