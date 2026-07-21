@@ -33,6 +33,7 @@ import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as HrAssistantRouteImport } from './routes/hr-assistant'
 import { Route as InvoiceRouteImport } from './routes/invoice'
 import { Route as LetterRouteImport } from './routes/letter'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
 import { Route as PdfRouteImport } from './routes/pdf'
 import { Route as PmayRouteImport } from './routes/pmay'
@@ -47,6 +48,8 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as TranslatorRouteImport } from './routes/translator'
 import { Route as VoiceRouteImport } from './routes/voice'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
@@ -72,6 +75,8 @@ import { Route as GovSearchRouteImport } from './routes/gov.search'
 import { Route as GovTrackerRouteImport } from './routes/gov.tracker'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as GovDocumentsIndexRouteImport } from './routes/gov.documents.index'
 import { Route as GovDocumentsSlugRouteImport } from './routes/gov.documents.$slug'
 import { Route as GovFormsIndexRouteImport } from './routes/gov.forms.index'
@@ -197,6 +202,11 @@ const LetterRoute = LetterRouteImport.update({
   path: '/letter',
   getParentRoute: () => rootRouteImport,
 } as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MeetingNotesRoute = MeetingNotesRouteImport.update({
   id: '/meeting-notes',
   path: '/meeting-notes',
@@ -267,6 +277,18 @@ const VoiceRoute = VoiceRouteImport.update({
   path: '/voice',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAiRoute = ApiAiRouteImport.update({
   id: '/api/ai',
   path: '/api/ai',
@@ -392,6 +414,17 @@ const ToolsSlugRoute = ToolsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ToolsRoute,
 } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GovDocumentsIndexRoute = GovDocumentsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -438,6 +471,7 @@ export interface FileRoutesByFullPath {
   '/hr-assistant': typeof HrAssistantRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
+  '/mcp': typeof McpRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pmay': typeof PmayRoute
@@ -452,6 +486,8 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/api/transcribe': typeof ApiTranscribeRoute
@@ -477,6 +513,8 @@ export interface FileRoutesByFullPath {
   '/business/': typeof BusinessIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
   '/gov/documents/': typeof GovDocumentsIndexRoute
@@ -505,6 +543,7 @@ export interface FileRoutesByTo {
   '/hr-assistant': typeof HrAssistantRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
+  '/mcp': typeof McpRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pmay': typeof PmayRoute
@@ -518,6 +557,8 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/api/transcribe': typeof ApiTranscribeRoute
@@ -541,6 +582,8 @@ export interface FileRoutesByTo {
   '/business': typeof BusinessIndexRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
   '/gov/documents': typeof GovDocumentsIndexRoute
@@ -572,6 +615,7 @@ export interface FileRoutesById {
   '/hr-assistant': typeof HrAssistantRoute
   '/invoice': typeof InvoiceRoute
   '/letter': typeof LetterRoute
+  '/mcp': typeof McpRoute
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pmay': typeof PmayRoute
@@ -586,6 +630,8 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/api/transcribe': typeof ApiTranscribeRoute
@@ -611,6 +657,8 @@ export interface FileRoutesById {
   '/business/': typeof BusinessIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
   '/gov/documents/': typeof GovDocumentsIndexRoute
@@ -643,6 +691,7 @@ export interface FileRouteTypes {
     | '/hr-assistant'
     | '/invoice'
     | '/letter'
+    | '/mcp'
     | '/meeting-notes'
     | '/pdf'
     | '/pmay'
@@ -657,6 +706,8 @@ export interface FileRouteTypes {
     | '/tools'
     | '/translator'
     | '/voice'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
     | '/api/transcribe'
@@ -682,6 +733,8 @@ export interface FileRouteTypes {
     | '/business/'
     | '/gov/'
     | '/tools/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
     | '/gov/forms/$slug'
     | '/gov/documents/'
@@ -710,6 +763,7 @@ export interface FileRouteTypes {
     | '/hr-assistant'
     | '/invoice'
     | '/letter'
+    | '/mcp'
     | '/meeting-notes'
     | '/pdf'
     | '/pmay'
@@ -723,6 +777,8 @@ export interface FileRouteTypes {
     | '/terms'
     | '/translator'
     | '/voice'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
     | '/api/transcribe'
@@ -746,6 +802,8 @@ export interface FileRouteTypes {
     | '/business'
     | '/gov'
     | '/tools'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
     | '/gov/forms/$slug'
     | '/gov/documents'
@@ -776,6 +834,7 @@ export interface FileRouteTypes {
     | '/hr-assistant'
     | '/invoice'
     | '/letter'
+    | '/mcp'
     | '/meeting-notes'
     | '/pdf'
     | '/pmay'
@@ -790,6 +849,8 @@ export interface FileRouteTypes {
     | '/tools'
     | '/translator'
     | '/voice'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
     | '/api/transcribe'
@@ -815,6 +876,8 @@ export interface FileRouteTypes {
     | '/business/'
     | '/gov/'
     | '/tools/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
     | '/gov/forms/$slug'
     | '/gov/documents/'
@@ -846,6 +909,7 @@ export interface RootRouteChildren {
   HrAssistantRoute: typeof HrAssistantRoute
   InvoiceRoute: typeof InvoiceRoute
   LetterRoute: typeof LetterRoute
+  McpRoute: typeof McpRoute
   MeetingNotesRoute: typeof MeetingNotesRoute
   PdfRoute: typeof PdfRoute
   PmayRoute: typeof PmayRoute
@@ -860,9 +924,13 @@ export interface RootRouteChildren {
   ToolsRoute: typeof ToolsRouteWithChildren
   TranslatorRoute: typeof TranslatorRoute
   VoiceRoute: typeof VoiceRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiTranscribeRoute: typeof ApiTranscribeRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1035,6 +1103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LetterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/meeting-notes': {
       id: '/meeting-notes'
       path: '/meeting-notes'
@@ -1131,6 +1206,20 @@ declare module '@tanstack/react-router' {
       path: '/voice'
       fullPath: '/voice'
       preLoaderRoute: typeof VoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/ai': {
@@ -1308,6 +1397,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsSlugRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gov/documents/': {
       id: '/gov/documents/'
       path: '/'
@@ -1470,6 +1573,7 @@ const rootRouteChildren: RootRouteChildren = {
   HrAssistantRoute: HrAssistantRoute,
   InvoiceRoute: InvoiceRoute,
   LetterRoute: LetterRoute,
+  McpRoute: McpRoute,
   MeetingNotesRoute: MeetingNotesRoute,
   PdfRoute: PdfRoute,
   PmayRoute: PmayRoute,
@@ -1484,9 +1588,14 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsRoute: ToolsRouteWithChildren,
   TranslatorRoute: TranslatorRoute,
   VoiceRoute: VoiceRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ApiAiRoute: ApiAiRoute,
   ApiChatRoute: ApiChatRoute,
   ApiTranscribeRoute: ApiTranscribeRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
