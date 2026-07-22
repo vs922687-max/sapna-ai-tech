@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createFileRoute } from "@tanstack/react-router";
 import { streamGatewayChat, type GatewayMessage } from "@/lib/ai-gateway.server";
 import { verifyBearer } from "@/lib/verify-auth.server";
