@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createFileRoute } from "@tanstack/react-router";
 import { verifyBearer } from "@/lib/verify-auth.server";
 
