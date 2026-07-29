@@ -408,7 +408,7 @@ Har portal ka apna rule hota hai — kabhi 50 KB se 200 KB, kabhi 2 MB tak. Form
 
 Yeh galti scholarship, subsidy aur DBT wali har scheme mein paisa rok deti hai. Log sochte hain "Aadhaar bank mein diya tha" — lekin **Aadhaar linking aur NPCI seeding do alag cheezein hain**. DBT ke liye NPCI mapper mein aapka Aadhaar us account se juda hona chahiye.
 
-**Solution:** Bank branch ya net banking se "Aadhaar seeding status" check kariye. Ya `bhimupi`-independent NPCI ki official Aadhaar mapper status service use kariye. Ek Aadhaar ek hi account se seeded ho sakta hai — agar aapke kai accounts hain, to woh choose kariye jise aap active rakhenge.
+**Solution:** Bank branch ya net banking se "Aadhaar seeding status" check kariye. Ya "bhimupi"-independent NPCI ki official Aadhaar mapper status service use kariye. Ek Aadhaar ek hi account se seeded ho sakta hai — agar aapke kai accounts hain, to woh choose kariye jise aap active rakhenge.
 
 ## 6. Mobile number registered nahi ya band
 
@@ -716,7 +716,7 @@ Naya card, member add/delete, aur address change — zyadatar states mein online
 
 ## 4. Driving licence renewal
 
-Parivahan Sarathi portal (`sarathi.parivahan.gov.in`) par renewal online hota hai. 40 saal se upar walon ko medical certificate (Form 1A) upload karna padta hai.
+Parivahan Sarathi portal ("sarathi.parivahan.gov.in") par renewal online hota hai. 40 saal se upar walon ko medical certificate (Form 1A) upload karna padta hai.
 
 Naya licence lene ke liye learner's test ab kai states mein ghar se online ho gaya hai, lekin driving test ke liye RTO jaana hi padta hai.
 
@@ -742,7 +742,7 @@ Zaroori: UAN par Aadhaar, PAN aur bank account verified hone chahiye, aur employ
 
 ## 9. Income tax return aur refund
 
-`incometax.gov.in` par ITR filing, e-verification aur refund tracking. Simple salaried cases mein pre-filled data aa jaata hai — aapko sirf verify karna hota hai.
+"incometax.gov.in" par ITR filing, e-verification aur refund tracking. Simple salaried cases mein pre-filled data aa jaata hai — aapko sirf verify karna hota hai.
 
 ## 10. Passport appointment aur re-issue
 
@@ -782,13 +782,13 @@ Realistic rehna zaroori hai. In cases mein aapko physically jaana hi hoga:
 
 ## Ek smart approach
 
-**Pehle official portal dhoondhiye, Google ke ad results nahi.** Search results mein sabse upar aksar paid, fake sites hoti hain jo ₹500 "service charge" leti hain us kaam ke liye jo free hai. Official sites `.gov.in` ya `.nic.in` par hoti hain.
+**Pehle official portal dhoondhiye, Google ke ad results nahi.** Search results mein sabse upar aksar paid, fake sites hoti hain jo ₹500 "service charge" leti hain us kaam ke liye jo free hai. Official sites ".gov.in" ya ".nic.in" par hoti hain.
 
 **CSC (Common Service Centre) ek valid option hai** agar aapke paas internet ya device nahi hai. Unke charges government-notified hote hain aur displayed hone chahiye. Receipt zaroor lijiye.
 
 **Har application ka record rakhiye.** Ek folder banaiye — physical aur digital dono — jisme har application ka number, date aur receipt ho. Yeh follow-up ke waqt sabse zyada kaam aata hai.
 
-**Grievance system use kariye.** Agar koi application 30 din se zyada atki hai, to CPGRAMS (`pgportal.gov.in`) ya state grievance portal par shikayat file kariye. Yeh sach mein kaam karta hai — har complaint track hoti hai aur nodal officer ko jawab dena padta hai.
+**Grievance system use kariye.** Agar koi application 30 din se zyada atki hai, to CPGRAMS ("pgportal.gov.in") ya state grievance portal par shikayat file kariye. Yeh sach mein kaam karta hai — har complaint track hoti hai aur nodal officer ko jawab dena padta hai.
 
 Bharat AI Sathi ke Government section mein 270+ services ke liye eligibility, documents aur official links ek jagah mil jaate hain — lekin application hamesha official government portal par hi kariye. Hum ek independent guidance platform hain, sarkari website nahi.`,
   ),
