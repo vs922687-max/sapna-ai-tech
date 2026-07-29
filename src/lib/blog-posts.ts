@@ -37,7 +37,7 @@ const T = (title: string, description: string, category: BlogPost["category"], d
   body: body.trim(),
 });
 
-export const BLOG_POSTS: BlogPost[] = [
+const CORE_POSTS: BlogPost[] = [
   T(
     "How Indian small businesses can use AI to save 10 hours a week",
     "A practical, non-hyped guide to putting AI to work in a small Indian business — from replying to WhatsApp enquiries to writing GST-ready invoices.",
@@ -625,6 +625,11 @@ Report the message to WhatsApp (long-press → Report). Forward to PIB Fact Chec
 Don't be the person who forwards first. Be the person who waits.`,
   ),
 ];
+
+import { GUIDE_POSTS_A } from "./blog-guides-a";
+import { GUIDE_POSTS_B } from "./blog-guides-b";
+
+export const BLOG_POSTS: BlogPost[] = [...GUIDE_POSTS_A, ...GUIDE_POSTS_B, ...CORE_POSTS];
 
 export const BLOG_CATEGORIES = Array.from(new Set(BLOG_POSTS.map((p) => p.category)));
 

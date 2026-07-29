@@ -81,6 +81,16 @@ export const Route = createFileRoute("/blog/$slug")({
   notFoundComponent: BlogPostNotFound,
 });
 
+function inline(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, k) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={k}>{part.slice(2, -2)}</strong>
+    ) : (
+      part
+    ),
+  );
+}
+
 function renderBody(body: string) {
   const blocks = body.split(/\n\n+/);
   return blocks.map((block, i) => {
@@ -91,19 +101,36 @@ function renderBody(body: string) {
         </h2>
       );
     }
+    if (block.startsWith("### ")) {
+      return (
+        <h3 key={i} className="mt-6 font-display text-base font-semibold text-foreground">
+          {block.replace(/^###\s+/, "")}
+        </h3>
+      );
+    }
+    if (/^-\s/.test(block)) {
+      const items = block.split(/\n/).map((l) => l.replace(/^-\s*/, ""));
+      return (
+        <ul key={i} className="mt-4 list-disc space-y-1 pl-6">
+          {items.map((it, j) => (
+            <li key={j}>{inline(it)}</li>
+          ))}
+        </ul>
+      );
+    }
     if (/^\d+\.\s/.test(block)) {
       const items = block.split(/\n/).map((l) => l.replace(/^\d+\.\s*/, ""));
       return (
         <ol key={i} className="mt-4 list-decimal space-y-1 pl-6">
           {items.map((it, j) => (
-            <li key={j}>{it}</li>
+            <li key={j}>{inline(it)}</li>
           ))}
         </ol>
       );
     }
     return (
       <p key={i} className="mt-4 leading-relaxed">
-        {block}
+        {inline(block)}
       </p>
     );
   });
@@ -152,7 +179,7 @@ function BlogPostPage() {
 
         <AdSlot name="articleTop" className="my-8" />
 
-        <article className="mt-8 text-sm text-muted-foreground [&_h2]:text-foreground">
+        <article className="mt-8 text-sm text-muted-foreground [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground">
           {renderBody(post.body)}
         </article>
 
