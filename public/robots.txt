@@ -5,4 +5,16 @@ Disallow: /admin
 Disallow: /dashboard
 Disallow: /auth
 
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://bharataisathi.com/sitemap.xml
