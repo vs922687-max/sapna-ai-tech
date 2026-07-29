@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ArrowLeft, Calendar, Clock, Home, User } from "lucide-react";
 import { BLOG_POSTS, getPostBySlug, type BlogPost } from "@/lib/blog-posts";
+import { AdSlot } from "@/components/ad-slot";
 
 const BASE = "https://bharataisathi.com";
 
@@ -149,9 +150,14 @@ function BlogPostPage() {
           <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {post.readMinutes} min read</span>
         </div>
 
+        <AdSlot name="articleTop" className="my-8" />
+
         <article className="mt-8 text-sm text-muted-foreground [&_h2]:text-foreground">
           {renderBody(post.body)}
         </article>
+
+        <AdSlot name="articleBottom" className="my-10" />
+
 
         <div className="mt-10 rounded-2xl border border-border/60 bg-card/30 p-5 text-xs text-muted-foreground">
           <p>
