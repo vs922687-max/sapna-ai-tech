@@ -81,6 +81,16 @@ export const Route = createFileRoute("/blog/$slug")({
   notFoundComponent: BlogPostNotFound,
 });
 
+function inline(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, k) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={k}>{part.slice(2, -2)}</strong>
+    ) : (
+      part
+    ),
+  );
+}
+
 function renderBody(body: string) {
   const blocks = body.split(/\n\n+/);
   return blocks.map((block, i) => {
@@ -103,7 +113,7 @@ function renderBody(body: string) {
       return (
         <ul key={i} className="mt-4 list-disc space-y-1 pl-6">
           {items.map((it, j) => (
-            <li key={j}>{it}</li>
+            <li key={j}>{inline(it)}</li>
           ))}
         </ul>
       );
@@ -113,14 +123,14 @@ function renderBody(body: string) {
       return (
         <ol key={i} className="mt-4 list-decimal space-y-1 pl-6">
           {items.map((it, j) => (
-            <li key={j}>{it}</li>
+            <li key={j}>{inline(it)}</li>
           ))}
         </ol>
       );
     }
     return (
       <p key={i} className="mt-4 leading-relaxed">
-        {block}
+        {inline(block)}
       </p>
     );
   });
