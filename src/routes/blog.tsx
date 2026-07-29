@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { Calendar, Clock, User } from "lucide-react";
 import { useMemo, useState } from "react";
 import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blog-posts";
+import { AdSlot } from "@/components/ad-slot";
 
 const BLOG_URL = "https://bharataisathi.com/blog";
 const BLOG_TITLE = "Blog — Bharat AI Sathi";
@@ -164,7 +165,9 @@ function BlogPage() {
             <p className="text-sm text-muted-foreground">No articles match your search.</p>
           )}
         </div>
+        <AdSlot name="listing" className="mt-10" />
       </main>
+
       <SiteFooter />
     </div>
   );
