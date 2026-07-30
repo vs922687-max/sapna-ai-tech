@@ -53,6 +53,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as BusinessIndexRouteImport } from './routes/business.index'
 import { Route as BusinessFssaiRouteImport } from './routes/business.fssai'
@@ -304,6 +305,11 @@ const ApiTranscribeRoute = ApiTranscribeRouteImport.update({
   path: '/api/transcribe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -510,6 +516,7 @@ export interface FileRoutesByFullPath {
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
@@ -527,7 +534,6 @@ export interface FileRoutesByTo {
   '/agreement': typeof AgreementRoute
   '/ai-policy': typeof AiPolicyRoute
   '/auth': typeof AuthRoute
-  '/blog': typeof BlogRouteWithChildren
   '/blog-writer': typeof BlogWriterRoute
   '/chat': typeof ChatRoute
   '/coder': typeof CoderRoute
@@ -579,6 +585,7 @@ export interface FileRoutesByTo {
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/blog': typeof BlogIndexRoute
   '/business': typeof BusinessIndexRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
@@ -654,6 +661,7 @@ export interface FileRoutesById {
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
@@ -730,6 +738,7 @@ export interface FileRouteTypes {
     | '/gov/search'
     | '/gov/tracker'
     | '/tools/$slug'
+    | '/blog/'
     | '/business/'
     | '/gov/'
     | '/tools/'
@@ -747,7 +756,6 @@ export interface FileRouteTypes {
     | '/agreement'
     | '/ai-policy'
     | '/auth'
-    | '/blog'
     | '/blog-writer'
     | '/chat'
     | '/coder'
@@ -799,6 +807,7 @@ export interface FileRouteTypes {
     | '/gov/search'
     | '/gov/tracker'
     | '/tools/$slug'
+    | '/blog'
     | '/business'
     | '/gov'
     | '/tools'
@@ -873,6 +882,7 @@ export interface FileRouteTypes {
     | '/gov/search'
     | '/gov/tracker'
     | '/tools/$slug'
+    | '/blog/'
     | '/business/'
     | '/gov/'
     | '/tools/'
@@ -1243,6 +1253,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiTranscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -1444,10 +1461,12 @@ declare module '@tanstack/react-router' {
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
