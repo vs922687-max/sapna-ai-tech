@@ -161,6 +161,7 @@ export const deleteApplication = createServerFn({ method: "POST" })
   });
 
 export const suggestNextSteps = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>
     z.object({
       service: z.string(),
