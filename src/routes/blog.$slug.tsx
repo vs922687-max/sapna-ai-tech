@@ -62,6 +62,7 @@ export const Route = createFileRoute("/blog/$slug")({
             datePublished: post.date,
             dateModified: post.date,
             articleSection: post.category,
+            image: [ogImage],
             inLanguage: "en-IN",
             author: { "@type": "Person", name: post.author },
             publisher: {
@@ -188,7 +189,23 @@ function BlogPostPage() {
           <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {post.readMinutes} min read</span>
         </div>
 
+        <ShareButtons
+          url={`${BASE}/blog/${post.slug}`}
+          title={post.title}
+          className="mt-6 border-t border-border/50 pt-5"
+        />
+
+        <img
+          src={ogImageForPost(post)}
+          alt={`${post.title} — Bharat AI Sathi`}
+          width={1200}
+          height={630}
+          loading="lazy"
+          className="mt-8 w-full rounded-2xl border border-border/60"
+        />
+
         <AdSlot name="articleTop" className="my-8" />
+
 
         <article className="mt-8 text-sm text-muted-foreground [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground">
           {renderBody(post.body)}
