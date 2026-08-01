@@ -18,6 +18,7 @@ import {
   Briefcase,
   FileSignature,
   Presentation,
+  TrendingUp,
   type LucideIcon,
 } from "lucide-react";
 
