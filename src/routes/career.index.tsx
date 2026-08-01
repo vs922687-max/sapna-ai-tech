@@ -28,7 +28,7 @@ const TABS = [
   { id: "planner", label: "Study Planner", icon: BookOpen },
   { id: "mcq", label: "Exam Prep", icon: GraduationCap },
   { id: "scholarships", label: "Scholarships", icon: Award },
-  { id: "roadmap", label: "Skills Roadmap", icon: Route },
+  { id: "roadmap", label: "Skills Roadmap", icon: RouteIcon },
 ];
 
 const SCHOLARSHIPS = [
