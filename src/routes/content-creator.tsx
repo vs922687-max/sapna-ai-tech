@@ -212,7 +212,7 @@ function IdeasTab() {
           )
         }
       />
-      <Output text={output} />
+      <Output text={output} name="content-ideas" />
     </div>
   );
 }
@@ -240,7 +240,7 @@ function MetaTab() {
           )
         }
       />
-      <Output text={output} />
+      <Output text={output} name="titles-hashtags" />
     </div>
   );
 }
@@ -282,7 +282,7 @@ function ScriptTab() {
           )
         }
       />
-      <Output text={output} />
+      <Output text={output} name="video-script" />
     </div>
   );
 }
