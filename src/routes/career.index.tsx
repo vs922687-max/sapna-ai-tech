@@ -23,7 +23,7 @@ export const Route = createFileRoute("/career/")({
   component: CareerHub,
 });
 
-const TABS = [
+const TABS: { id: string; label: string; icon: LucideIcon }[] = [
   { id: "interview", label: "Mock Interview", icon: Briefcase },
   { id: "planner", label: "Study Planner", icon: BookOpen },
   { id: "mcq", label: "Exam Prep", icon: GraduationCap },
