@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Briefcase, BookOpen, GraduationCap, Award, Route as RouteIcon, ArrowLeft, Sparkles, CheckCircle2, XCircle, Loader2 } from "lucide-react";
+import { Briefcase, BookOpen, GraduationCap, Award, Route as RouteIcon, ArrowLeft, Sparkles, CheckCircle2, XCircle, Loader2, type LucideIcon } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
