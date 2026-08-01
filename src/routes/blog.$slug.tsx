@@ -4,6 +4,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { ArrowLeft, Calendar, Clock, Home, User } from "lucide-react";
 import { BLOG_POSTS, getPostBySlug, type BlogPost } from "@/lib/blog-posts";
 import { AdSlot } from "@/components/ad-slot";
+import { ShareButtons } from "@/components/share-buttons";
+import { ogImageForPost } from "@/lib/og-image";
 
 const BASE = "https://bharataisathi.com";
 
