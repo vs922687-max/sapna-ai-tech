@@ -417,12 +417,22 @@ const TIMING: { platform: string; slots: string[]; note: { en: string; hi: strin
 ];
 
 function PostingTime() {
+  const text = TIMING.map(
+    (t) => `${t.platform.toUpperCase()}\n${t.slots.map((s) => `- ${s}`).join("\n")}\n${t.note.en}\n${t.note.hi}`,
+  ).join("\n\n");
+  const csvRows: string[][] = [
+    ["Platform", "Best slot (IST)", "Note (EN)", "Note (HI)"],
+    ...TIMING.flatMap((t) => t.slots.map((s) => [t.platform, s, t.note.en, t.note.hi])),
+  ];
+
   return (
     <div className="grid gap-4">
       <p className="text-sm text-muted-foreground">
         Indian audience (IST) ke liye best posting windows — platform ke hisaab se.
       </p>
+      <ExportBar text={text} name="best-posting-time" csvRows={csvRows} />
       <div className="grid gap-4 sm:grid-cols-2">
+
         {TIMING.map((t) => (
           <div key={t.platform} className="glass rounded-2xl border border-border/60 p-5">
             <h2 className="font-display text-base font-semibold">{t.platform}</h2>
