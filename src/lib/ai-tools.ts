@@ -18,6 +18,7 @@ import {
   Briefcase,
   FileSignature,
   Presentation,
+  TrendingUp,
   type LucideIcon,
 } from "lucide-react";
 
@@ -221,6 +222,16 @@ export const AI_TOOLS: AiTool[] = [
     accent: "saffron",
     status: "live",
     category: "office",
+  },
+  {
+    slug: "content-creator",
+    to: "/content-creator",
+    title: "Content Creator Hub",
+    hindi: "कंटेंट क्रिएटर हब",
+    description: "Trending video ideas, titles, hashtags, scripts and growth tips to boost views and reach.",
+    icon: TrendingUp,
+    accent: "saffron",
+    status: "live",
   },
 ];
 
