@@ -61,6 +61,7 @@ import { Route as BusinessFssaiRouteImport } from './routes/business.fssai'
 import { Route as BusinessGstRouteImport } from './routes/business.gst'
 import { Route as BusinessSvanidhiRouteImport } from './routes/business.svanidhi'
 import { Route as BusinessUdyamRouteImport } from './routes/business.udyam'
+import { Route as CareerIndexRouteImport } from './routes/career.index'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
@@ -75,6 +76,7 @@ import { Route as GovRemindersRouteImport } from './routes/gov.reminders'
 import { Route as GovScanRouteImport } from './routes/gov.scan'
 import { Route as GovSearchRouteImport } from './routes/gov.search'
 import { Route as GovTrackerRouteImport } from './routes/gov.tracker'
+import { Route as GovVaultRouteImport } from './routes/gov.vault'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -346,6 +348,11 @@ const BusinessUdyamRoute = BusinessUdyamRouteImport.update({
   path: '/udyam',
   getParentRoute: () => BusinessRoute,
 } as any)
+const CareerIndexRoute = CareerIndexRouteImport.update({
+  id: '/career/',
+  path: '/career/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GovIndexRoute = GovIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -414,6 +421,11 @@ const GovSearchRoute = GovSearchRouteImport.update({
 const GovTrackerRoute = GovTrackerRouteImport.update({
   id: '/tracker',
   path: '/tracker',
+  getParentRoute: () => GovRoute,
+} as any)
+const GovVaultRoute = GovVaultRouteImport.update({
+  id: '/vault',
+  path: '/vault',
   getParentRoute: () => GovRoute,
 } as any)
 const ToolsIndexRoute = ToolsIndexRouteImport.update({
@@ -522,9 +534,11 @@ export interface FileRoutesByFullPath {
   '/gov/scan': typeof GovScanRoute
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
+  '/gov/vault': typeof GovVaultRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
+  '/career/': typeof CareerIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -592,9 +606,11 @@ export interface FileRoutesByTo {
   '/gov/scan': typeof GovScanRoute
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
+  '/gov/vault': typeof GovVaultRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/blog': typeof BlogIndexRoute
   '/business': typeof BusinessIndexRoute
+  '/career': typeof CareerIndexRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -669,9 +685,11 @@ export interface FileRoutesById {
   '/gov/scan': typeof GovScanRoute
   '/gov/search': typeof GovSearchRoute
   '/gov/tracker': typeof GovTrackerRoute
+  '/gov/vault': typeof GovVaultRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
+  '/career/': typeof CareerIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -747,9 +765,11 @@ export interface FileRouteTypes {
     | '/gov/scan'
     | '/gov/search'
     | '/gov/tracker'
+    | '/gov/vault'
     | '/tools/$slug'
     | '/blog/'
     | '/business/'
+    | '/career/'
     | '/gov/'
     | '/tools/'
     | '/.lovable/oauth/consent'
@@ -817,9 +837,11 @@ export interface FileRouteTypes {
     | '/gov/scan'
     | '/gov/search'
     | '/gov/tracker'
+    | '/gov/vault'
     | '/tools/$slug'
     | '/blog'
     | '/business'
+    | '/career'
     | '/gov'
     | '/tools'
     | '/.lovable/oauth/consent'
@@ -893,9 +915,11 @@ export interface FileRouteTypes {
     | '/gov/scan'
     | '/gov/search'
     | '/gov/tracker'
+    | '/gov/vault'
     | '/tools/$slug'
     | '/blog/'
     | '/business/'
+    | '/career/'
     | '/gov/'
     | '/tools/'
     | '/.lovable/oauth/consent'
@@ -952,6 +976,7 @@ export interface RootRouteChildren {
   ApiAiRoute: typeof ApiAiRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiTranscribeRoute: typeof ApiTranscribeRoute
+  CareerIndexRoute: typeof CareerIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -1322,6 +1347,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessUdyamRouteImport
       parentRoute: typeof BusinessRoute
     }
+    '/career/': {
+      id: '/career/'
+      path: '/career'
+      fullPath: '/career/'
+      preLoaderRoute: typeof CareerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gov/': {
       id: '/gov/'
       path: '/'
@@ -1418,6 +1450,13 @@ declare module '@tanstack/react-router' {
       path: '/tracker'
       fullPath: '/gov/tracker'
       preLoaderRoute: typeof GovTrackerRouteImport
+      parentRoute: typeof GovRoute
+    }
+    '/gov/vault': {
+      id: '/gov/vault'
+      path: '/vault'
+      fullPath: '/gov/vault'
+      preLoaderRoute: typeof GovVaultRouteImport
       parentRoute: typeof GovRoute
     }
     '/tools/': {
@@ -1553,6 +1592,7 @@ interface GovRouteChildren {
   GovScanRoute: typeof GovScanRoute
   GovSearchRoute: typeof GovSearchRoute
   GovTrackerRoute: typeof GovTrackerRoute
+  GovVaultRoute: typeof GovVaultRoute
   GovIndexRoute: typeof GovIndexRoute
 }
 
@@ -1570,6 +1610,7 @@ const GovRouteChildren: GovRouteChildren = {
   GovScanRoute: GovScanRoute,
   GovSearchRoute: GovSearchRoute,
   GovTrackerRoute: GovTrackerRoute,
+  GovVaultRoute: GovVaultRoute,
   GovIndexRoute: GovIndexRoute,
 }
 
@@ -1634,6 +1675,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAiRoute: ApiAiRoute,
   ApiChatRoute: ApiChatRoute,
   ApiTranscribeRoute: ApiTranscribeRoute,
+  CareerIndexRoute: CareerIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }

@@ -19,8 +19,7 @@ const nav: NavItem[] = [
   { to: "/", label: "Home" },
   { to: "/tools", label: "AI Tools" },
   { to: "/tools", label: "Office Tools", hash: "office-tools" },
-
-
+  { to: "/career", label: "Career Hub" },
   {
     to: "/gov",
     label: "Government",
@@ -28,6 +27,9 @@ const nav: NavItem[] = [
     children: [
       { to: "/gov", label: "Government Services" },
       { to: "/gov/eligibility", label: "Eligibility Checker" },
+      { to: "/gov/forms", label: "AI Form Center" },
+      { to: "/gov/vault", label: "Document Vault" },
+      { to: "/gov/tracker", label: "Application Tracker" },
       { to: "/gov/bookmarks", label: "Saved Bookmarks" },
       { to: "/pmay", label: "PMAY Guide" },
     ],

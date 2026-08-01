@@ -14,6 +14,192 @@ export type Database = {
   }
   public: {
     Tables: {
+      gov_applications: {
+        Row: {
+          ai_next_steps: string | null
+          created_at: string
+          follow_up: string | null
+          id: string
+          notes: string | null
+          ref_no: string | null
+          service: string
+          status: string
+          submitted_on: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_next_steps?: string | null
+          created_at?: string
+          follow_up?: string | null
+          id?: string
+          notes?: string | null
+          ref_no?: string | null
+          service: string
+          status?: string
+          submitted_on?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_next_steps?: string | null
+          created_at?: string
+          follow_up?: string | null
+          id?: string
+          notes?: string | null
+          ref_no?: string | null
+          service?: string
+          status?: string
+          submitted_on?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      gov_documents: {
+        Row: {
+          created_at: string
+          document_number: string | null
+          expires_on: string | null
+          file_path: string | null
+          id: string
+          issued_on: string | null
+          name: string
+          notes: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          document_number?: string | null
+          expires_on?: string | null
+          file_path?: string | null
+          id?: string
+          issued_on?: string | null
+          name: string
+          notes?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          document_number?: string | null
+          expires_on?: string | null
+          file_path?: string | null
+          id?: string
+          issued_on?: string | null
+          name?: string
+          notes?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          aadhaar: string | null
+          address: string | null
+          annual_income: string | null
+          bank_account: string | null
+          bank_name: string | null
+          category: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          district: string | null
+          dob: string | null
+          driving_license: string | null
+          email: string | null
+          father_name: string | null
+          full_name: string | null
+          gender: string | null
+          id: string
+          ifsc: string | null
+          marital_status: string | null
+          mobile: string | null
+          mother_name: string | null
+          nationality: string | null
+          occupation: string | null
+          pan: string | null
+          passport: string | null
+          pincode: string | null
+          religion: string | null
+          spouse_name: string | null
+          state: string | null
+          updated_at: string
+          user_id: string
+          voter_id: string | null
+        }
+        Insert: {
+          aadhaar?: string | null
+          address?: string | null
+          annual_income?: string | null
+          bank_account?: string | null
+          bank_name?: string | null
+          category?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          district?: string | null
+          dob?: string | null
+          driving_license?: string | null
+          email?: string | null
+          father_name?: string | null
+          full_name?: string | null
+          gender?: string | null
+          id?: string
+          ifsc?: string | null
+          marital_status?: string | null
+          mobile?: string | null
+          mother_name?: string | null
+          nationality?: string | null
+          occupation?: string | null
+          pan?: string | null
+          passport?: string | null
+          pincode?: string | null
+          religion?: string | null
+          spouse_name?: string | null
+          state?: string | null
+          updated_at?: string
+          user_id: string
+          voter_id?: string | null
+        }
+        Update: {
+          aadhaar?: string | null
+          address?: string | null
+          annual_income?: string | null
+          bank_account?: string | null
+          bank_name?: string | null
+          category?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          district?: string | null
+          dob?: string | null
+          driving_license?: string | null
+          email?: string | null
+          father_name?: string | null
+          full_name?: string | null
+          gender?: string | null
+          id?: string
+          ifsc?: string | null
+          marital_status?: string | null
+          mobile?: string | null
+          mother_name?: string | null
+          nationality?: string | null
+          occupation?: string | null
+          pan?: string | null
+          passport?: string | null
+          pincode?: string | null
+          religion?: string | null
+          spouse_name?: string | null
+          state?: string | null
+          updated_at?: string
+          user_id?: string
+          voter_id?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

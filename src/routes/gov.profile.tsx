@@ -1,16 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { UserCircle2, Save, RotateCcw, ArrowLeft } from "lucide-react";
+import { UserCircle2, Save, RotateCcw, ArrowLeft, Cloud, CloudOff, Loader2 } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { EMPTY_PROFILE, profileCompletion, useGovProfile, type GovProfile } from "@/lib/gov-profile";
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import type { User } from "@supabase/supabase-js";
+import { useServerFn } from "@tanstack/react-start";
+import { getProfile, upsertProfile } from "@/lib/gov.functions";
 
 export const Route = createFileRoute("/gov/profile")({
   head: () => ({
     meta: [
       { title: "My Profile — AI Form Auto-Fill | Bharat AI Sathi" },
-      { name: "description", content: "Save your details once. Auto-fill 500+ Indian government forms and letters instantly. Stored securely on your device." },
+      { name: "description", content: "Save your details once. Auto-fill 500+ Indian government forms and letters instantly. Sync to your account to access across devices." },
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://bharataisathi.com/gov/profile" },
     ],
@@ -37,12 +42,53 @@ const LABELS: Record<keyof GovProfile, string> = {
 };
 
 function ProfilePage() {
+  const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useGovProfile();
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const fetchProfile = useServerFn(getProfile);
+  const saveProfile = useServerFn(upsertProfile);
   const complete = profileCompletion(profile);
 
   const set = (k: keyof GovProfile, v: string) => setProfile({ ...profile, [k]: v } as GovProfile);
 
   const clear = () => { if (confirm("Reset all profile fields?")) setProfile(EMPTY_PROFILE); };
+
+  useEffect(() => {
+    let mounted = true;
+    supabase.auth.getSession().then(async ({ data }) => {
+      const u = data.session?.user ?? null;
+      if (mounted) setUser(u);
+      if (u) {
+        try {
+          const cloudProfile = await fetchProfile();
+          if (mounted && cloudProfile) setProfile(cloudProfile);
+        } catch (e) {
+          console.error("Failed to load cloud profile", e);
+        }
+      }
+      if (mounted) setLoading(false);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => setUser(session?.user ?? null));
+    return () => { mounted = false; sub.subscription.unsubscribe(); };
+  }, [fetchProfile, setProfile]);
+
+  const save = async () => {
+    setSaving(true);
+    try {
+      if (user) {
+        await saveProfile({ data: profile as Record<string, string> });
+        toast.success("Profile saved to cloud and this device");
+      } else {
+        toast.success("Profile saved on this device — sign in to sync");
+      }
+      setProfile(profile);
+    } catch (e) {
+      toast.error((e as Error).message || "Save failed");
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -58,10 +104,19 @@ function ProfilePage() {
             </div>
             <div>
               <h1 className="font-display text-2xl font-bold sm:text-3xl">My Profile</h1>
-              <p className="text-xs text-muted-foreground">Saved on this device only. Used for AI Auto-Fill across forms & documents.</p>
+              <p className="text-xs text-muted-foreground">
+                {user ? "Saved to your account and this device." : "Saved on this device only — sign in to sync across devices."}
+              </p>
             </div>
           </div>
           <div className="hidden sm:flex flex-col items-end gap-1">
+            {loading ? (
+              <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+            ) : user ? (
+              <span className="inline-flex items-center gap-1 text-[11px] text-[oklch(0.72_0.16_155)]"><Cloud className="h-3 w-3" /> Cloud synced</span>
+            ) : (
+              <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground"><CloudOff className="h-3 w-3" /> Device only</span>
+            )}
             <div className="h-2 w-40 overflow-hidden rounded-full bg-muted">
               <div className="h-full bg-primary transition-all" style={{ width: `${complete}%` }} />
             </div>
@@ -100,7 +155,10 @@ function ProfilePage() {
         ))}
 
         <div className="mt-6 flex flex-wrap gap-2">
-          <Button onClick={() => toast.success("Profile saved on this device")}><Save className="mr-1 h-4 w-4" /> Save</Button>
+          <Button onClick={save} disabled={saving}>
+            {saving ? <Loader2 className="mr-1 h-4 w-4 animate-spin" /> : <Save className="mr-1 h-4 w-4" />}
+            {user ? "Save to cloud" : "Save"}
+          </Button>
           <Button variant="outline" onClick={clear}><RotateCcw className="mr-1 h-4 w-4" /> Reset</Button>
         </div>
       </section>

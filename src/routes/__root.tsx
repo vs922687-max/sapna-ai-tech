@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { CookieConsent } from "@/components/cookie-consent";
+import { AdSenseLoader } from "@/components/adsense-loader";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -101,7 +102,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 const TITLE = "Bharat AI Sathi — India's Premium AI Companion";
 const DESCRIPTION =
-  "Chat, create images, translate Indian languages, analyze PDFs, code and more with Bharat AI Sathi — a premium AI suite built for India.";
+  "Chat, translate Indian languages, analyze PDFs, code, prepare for exams and access government services with Bharat AI Sathi — a premium AI suite built for India.";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -159,11 +160,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           },
         }),
       },
-      {
-        async: true,
-        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4119150710486933",
-        crossOrigin: "anonymous",
-      },
     ],
   }),
 
@@ -194,6 +190,7 @@ function RootComponent() {
       <Outlet />
       <Toaster position="top-right" richColors />
       <CookieConsent />
+      <AdSenseLoader />
     </QueryClientProvider>
   );
 }
