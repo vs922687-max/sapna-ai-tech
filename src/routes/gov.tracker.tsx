@@ -1,18 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ArrowLeft, ClipboardList, Plus, Search, Trash2, Calendar } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowLeft, ClipboardList, Plus, Search, Trash2, Calendar, Sparkles, Lightbulb, Bell } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { useGovStore, uid } from "@/lib/gov-store";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { suggestNextSteps } from "@/lib/gov.functions";
 
 export const Route = createFileRoute("/gov/tracker")({
   head: () => ({
     meta: [
       { title: "Application Tracker | Bharat AI Sathi" },
-      { name: "description", content: "Track your Indian government applications, reference numbers, status updates and reminders — all in one place." },
+      { name: "description", content: "Track your Indian government applications, reference numbers, status updates and AI-powered next steps — all in one place." },
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://bharataisathi.com/gov/tracker" },
     ],
@@ -32,13 +34,21 @@ type App = {
   submittedOn: string;
   followUp?: string;
   notes?: string;
+  aiNextSteps?: string[];
 };
+
+function daysUntil(d: string): number {
+  const target = new Date(d + "T00:00:00");
+  return Math.ceil((target.getTime() - Date.now()) / 86400000);
+}
 
 function Tracker() {
   const [apps, setApps] = useGovStore<App[]>("applications", []);
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<"All" | Status>("All");
   const [draft, setDraft] = useState<Partial<App>>({ status: "Submitted" });
+  const [loadingId, setLoadingId] = useState<string | null>(null);
+  const fetchSteps = useServerFn(suggestNextSteps);
 
   const filtered = useMemo(() => {
     const n = q.trim().toLowerCase();
@@ -60,6 +70,35 @@ function Tracker() {
   const del = (id: string) => setApps(apps.filter((a) => a.id !== id));
   const setStatus = (id: string, s: Status) => setApps(apps.map((a) => a.id === id ? { ...a, status: s } : a));
 
+  const askAi = async (a: App) => {
+    setLoadingId(a.id);
+    try {
+      const steps = await fetchSteps({
+        data: {
+          service: a.service,
+          refNo: a.refNo,
+          status: a.status,
+          submittedOn: a.submittedOn,
+          notes: a.notes,
+        },
+      });
+      setApps(apps.map((x) => x.id === a.id ? { ...x, aiNextSteps: steps } : x));
+      toast.success("AI next steps added");
+    } catch (e) {
+      toast.error((e as Error).message || "AI failed. Try again.");
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
+  const addReminder = (title: string, date?: string) => {
+    const stored = localStorage.getItem("bharat-gov-reminders");
+    const reminders = stored ? JSON.parse(stored) : [];
+    reminders.unshift({ id: uid("rem"), title, date: date || new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10), channel: "In-app" });
+    localStorage.setItem("bharat-gov-reminders", JSON.stringify(reminders));
+    toast.success("Added to Smart Reminders");
+  };
+
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -69,7 +108,7 @@ function Tracker() {
           <div className="grid h-11 w-11 place-items-center rounded-2xl bg-primary/15 text-primary ring-1 ring-border/60"><ClipboardList className="h-5 w-5" /></div>
           <div>
             <h1 className="font-display text-2xl font-bold sm:text-3xl">Application Tracker</h1>
-            <p className="text-xs text-muted-foreground">Save reference numbers, track status, and set follow-up dates.</p>
+            <p className="text-xs text-muted-foreground">Save reference numbers, track status, and get AI next-step suggestions.</p>
           </div>
         </div>
 
@@ -112,25 +151,49 @@ function Tracker() {
         <div className="mt-4 space-y-3">
           {filtered.length === 0 ? (
             <p className="rounded-2xl border border-border/60 bg-card/40 p-8 text-center text-sm text-muted-foreground">No applications tracked yet.</p>
-          ) : filtered.map((a) => (
-            <div key={a.id} className="rounded-2xl border border-border/60 bg-card/40 p-4">
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <h3 className="font-semibold">{a.service}</h3>
-                  <p className="text-xs text-muted-foreground">Ref: <span className="text-foreground">{a.refNo}</span> · Submitted: {a.submittedOn}</p>
-                  {a.followUp && <p className="mt-1 inline-flex items-center gap-1 text-xs text-primary"><Calendar className="h-3 w-3" /> Follow-up: {a.followUp}</p>}
-                  {a.notes && <p className="mt-1 text-xs text-muted-foreground">{a.notes}</p>}
+          ) : filtered.map((a) => {
+            const d = a.followUp ? daysUntil(a.followUp) : null;
+            const overdue = d !== null && d < 0;
+            const soon = d !== null && d >= 0 && d <= 7;
+            return (
+              <div key={a.id} className="rounded-2xl border border-border/60 bg-card/40 p-4">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <h3 className="font-semibold">{a.service}</h3>
+                    <p className="text-xs text-muted-foreground">Ref: <span className="text-foreground">{a.refNo}</span> · Submitted: {a.submittedOn}</p>
+                    {a.followUp && <p className={cn("mt-1 inline-flex items-center gap-1 text-xs", overdue ? "text-red-500" : soon ? "text-primary" : "text-muted-foreground")}><Calendar className="h-3 w-3" /> Follow-up: {a.followUp} {overdue ? `(${-d}d overdue)` : soon ? `(${d}d left)` : ""}</p>}
+                    {a.notes && <p className="mt-1 text-xs text-muted-foreground">{a.notes}</p>}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <select value={a.status} onChange={(e) => setStatus(a.id, e.target.value as Status)}
+                      className="rounded-lg border border-border/60 bg-background/60 px-2 py-1 text-xs">
+                      {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                    <Button size="sm" variant="outline" onClick={() => askAi(a)} disabled={loadingId === a.id}>
+                      {loadingId === a.id ? <Sparkles className="h-3.5 w-3.5 animate-pulse" /> : <Lightbulb className="h-3.5 w-3.5" />}
+                      <span className="ml-1 hidden sm:inline">AI steps</span>
+                    </Button>
+                    <button onClick={() => del(a.id)} className="rounded-lg border border-border/60 p-1.5 text-muted-foreground hover:border-red-500/50 hover:text-red-500" aria-label="Delete"><Trash2 className="h-3.5 w-3.5" /></button>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <select value={a.status} onChange={(e) => setStatus(a.id, e.target.value as Status)}
-                    className="rounded-lg border border-border/60 bg-background/60 px-2 py-1 text-xs">
-                    {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                  <button onClick={() => del(a.id)} className="rounded-lg border border-border/60 p-1.5 text-muted-foreground hover:border-red-500/50 hover:text-red-500" aria-label="Delete"><Trash2 className="h-3.5 w-3.5" /></button>
-                </div>
+                {a.aiNextSteps && a.aiNextSteps.length > 0 && (
+                  <div className="mt-3 rounded-xl border border-primary/20 bg-primary/5 p-3">
+                    <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-primary"><Lightbulb className="h-3.5 w-3.5" /> AI suggested next steps</div>
+                    <ul className="space-y-1.5">
+                      {a.aiNextSteps.map((step, i) => (
+                        <li key={i} className="flex items-start gap-2 text-xs">
+                          <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-primary/15 text-[10px] text-primary">{i + 1}</span>
+                          <span className="flex-1">{step}</span>
+                          <button onClick={() => addReminder(`${a.service} — ${step}`, a.followUp)} title="Add reminder"
+                            className="shrink-0 rounded p-1 text-muted-foreground hover:bg-primary/10 hover:text-primary"><Bell className="h-3 w-3" /></button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
       <SiteFooter />
