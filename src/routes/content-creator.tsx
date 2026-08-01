@@ -355,12 +355,22 @@ const TIPS: { en: string; hi: string; points: { en: string; hi: string }[] }[] =
 ];
 
 function GrowthTips() {
+  const text = TIPS.map(
+    (t) => `${t.en.toUpperCase()} / ${t.hi}\n${t.points.map((p) => `- ${p.en}\n  ${p.hi}`).join("\n")}`,
+  ).join("\n\n");
+  const csvRows: string[][] = [
+    ["Topic (EN)", "Topic (HI)", "Tip (EN)", "Tip (HI)"],
+    ...TIPS.flatMap((t) => t.points.map((p) => [t.en, t.hi, p.en, p.hi])),
+  ];
+
   return (
     <div className="grid gap-4">
       <p className="text-sm text-muted-foreground">
         Practical growth playbook — Hindi + English. हर tip actionable है, generic advice नहीं.
       </p>
+      <ExportBar text={text} name="growth-tips" csvRows={csvRows} />
       {TIPS.map((t) => (
+
         <div key={t.en} className="glass rounded-2xl border border-border/60 p-5">
           <h2 className="font-display text-lg font-semibold">{t.en}</h2>
           <p className="text-xs text-primary">{t.hi}</p>
