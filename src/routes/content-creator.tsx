@@ -3,9 +3,11 @@ import { useState } from "react";
 import { AiToolShell } from "@/components/ai-tool-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, Copy, Lightbulb, Hash, FileVideo, Clock, TrendingUp } from "lucide-react";
+import { Loader2, Copy, Lightbulb, Hash, FileVideo, Clock, TrendingUp, FileText, Sheet } from "lucide-react";
 import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
+import { downloadCsv, downloadTxt, textToCsvRows } from "@/lib/export-file";
+
 
 export const Route = createFileRoute("/content-creator")({
   head: () => ({
@@ -77,26 +79,72 @@ function ContentCreatorPage() {
   );
 }
 
-function Output({ text }: { text: string }) {
-  if (!text) return null;
+function ExportBar({
+  text,
+  name,
+  csvRows,
+  csvHeader,
+}: {
+  text: string;
+  name: string;
+  csvRows?: string[][];
+  csvHeader?: [string, string];
+}) {
   return (
-    <div className="glass rounded-2xl border border-border/60 p-4">
-      <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed">{text}</pre>
+    <div className="flex flex-wrap gap-2">
       <Button
         size="sm"
         variant="outline"
-        className="mt-3"
-        onClick={() => {
-          navigator.clipboard.writeText(text);
-          toast.success("Copied");
+        onClick={async () => {
+          try {
+            await navigator.clipboard.writeText(text);
+            toast.success("Copied to clipboard");
+          } catch {
+            toast.error("Copy failed — please select and copy manually");
+          }
         }}
       >
         <Copy className="mr-1 h-4 w-4" />
         Copy
       </Button>
+      <Button
+        size="sm"
+        variant="outline"
+        onClick={() => {
+          downloadTxt(name, text);
+          toast.success("TXT downloaded");
+        }}
+      >
+        <FileText className="mr-1 h-4 w-4" />
+        TXT
+      </Button>
+      <Button
+        size="sm"
+        variant="outline"
+        onClick={() => {
+          downloadCsv(name, csvRows ?? textToCsvRows(text, csvHeader));
+          toast.success("CSV downloaded");
+        }}
+      >
+        <Sheet className="mr-1 h-4 w-4" />
+        CSV
+      </Button>
     </div>
   );
 }
+
+function Output({ text, name }: { text: string; name: string }) {
+  if (!text) return null;
+  return (
+    <div className="glass rounded-2xl border border-border/60 p-4">
+      <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed">{text}</pre>
+      <div className="mt-3">
+        <ExportBar text={text} name={name} />
+      </div>
+    </div>
+  );
+}
+
 
 function useAiRun() {
   const [output, setOutput] = useState("");
@@ -164,7 +212,7 @@ function IdeasTab() {
           )
         }
       />
-      <Output text={output} />
+      <Output text={output} name="content-ideas" />
     </div>
   );
 }
@@ -192,7 +240,7 @@ function MetaTab() {
           )
         }
       />
-      <Output text={output} />
+      <Output text={output} name="titles-hashtags" />
     </div>
   );
 }
@@ -234,7 +282,7 @@ function ScriptTab() {
           )
         }
       />
-      <Output text={output} />
+      <Output text={output} name="video-script" />
     </div>
   );
 }
@@ -307,12 +355,22 @@ const TIPS: { en: string; hi: string; points: { en: string; hi: string }[] }[] =
 ];
 
 function GrowthTips() {
+  const text = TIPS.map(
+    (t) => `${t.en.toUpperCase()} / ${t.hi}\n${t.points.map((p) => `- ${p.en}\n  ${p.hi}`).join("\n")}`,
+  ).join("\n\n");
+  const csvRows: string[][] = [
+    ["Topic (EN)", "Topic (HI)", "Tip (EN)", "Tip (HI)"],
+    ...TIPS.flatMap((t) => t.points.map((p) => [t.en, t.hi, p.en, p.hi])),
+  ];
+
   return (
     <div className="grid gap-4">
       <p className="text-sm text-muted-foreground">
         Practical growth playbook — Hindi + English. हर tip actionable है, generic advice नहीं.
       </p>
+      <ExportBar text={text} name="growth-tips" csvRows={csvRows} />
       {TIPS.map((t) => (
+
         <div key={t.en} className="glass rounded-2xl border border-border/60 p-5">
           <h2 className="font-display text-lg font-semibold">{t.en}</h2>
           <p className="text-xs text-primary">{t.hi}</p>
@@ -359,12 +417,22 @@ const TIMING: { platform: string; slots: string[]; note: { en: string; hi: strin
 ];
 
 function PostingTime() {
+  const text = TIMING.map(
+    (t) => `${t.platform.toUpperCase()}\n${t.slots.map((s) => `- ${s}`).join("\n")}\n${t.note.en}\n${t.note.hi}`,
+  ).join("\n\n");
+  const csvRows: string[][] = [
+    ["Platform", "Best slot (IST)", "Note (EN)", "Note (HI)"],
+    ...TIMING.flatMap((t) => t.slots.map((s) => [t.platform, s, t.note.en, t.note.hi])),
+  ];
+
   return (
     <div className="grid gap-4">
       <p className="text-sm text-muted-foreground">
         Indian audience (IST) ke liye best posting windows — platform ke hisaab se.
       </p>
+      <ExportBar text={text} name="best-posting-time" csvRows={csvRows} />
       <div className="grid gap-4 sm:grid-cols-2">
+
         {TIMING.map((t) => (
           <div key={t.platform} className="glass rounded-2xl border border-border/60 p-5">
             <h2 className="font-display text-base font-semibold">{t.platform}</h2>
