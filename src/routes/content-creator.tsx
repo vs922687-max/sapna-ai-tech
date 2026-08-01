@@ -3,9 +3,11 @@ import { useState } from "react";
 import { AiToolShell } from "@/components/ai-tool-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, Copy, Lightbulb, Hash, FileVideo, Clock, TrendingUp } from "lucide-react";
+import { Loader2, Copy, Lightbulb, Hash, FileVideo, Clock, TrendingUp, FileText, Sheet } from "lucide-react";
 import { toast } from "sonner";
 import { askAi } from "@/lib/ai-client";
+import { downloadCsv, downloadTxt, textToCsvRows } from "@/lib/export-file";
+
 
 export const Route = createFileRoute("/content-creator")({
   head: () => ({
