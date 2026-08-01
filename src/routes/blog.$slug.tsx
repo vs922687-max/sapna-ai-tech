@@ -4,6 +4,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { ArrowLeft, Calendar, Clock, Home, User } from "lucide-react";
 import { BLOG_POSTS, getPostBySlug, type BlogPost } from "@/lib/blog-posts";
 import { AdSlot } from "@/components/ad-slot";
+import { ShareButtons } from "@/components/share-buttons";
+import { ogImageForPost } from "@/lib/og-image";
 
 const BASE = "https://bharataisathi.com";
 
@@ -24,6 +26,7 @@ export const Route = createFileRoute("/blog/$slug")({
     }
     const post = loaderData.post;
     const url = `${BASE}/blog/${params.slug}`;
+    const ogImage = ogImageForPost(post);
     return {
       meta: [
         { title: `${post.title} — Bharat AI Sathi` },
@@ -35,9 +38,17 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: post.description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
+        { property: "og:site_name", content: "Bharat AI Sathi" },
+        { property: "og:locale", content: "en_IN" },
+        { property: "og:image", content: ogImage },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: post.title },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: post.title },
         { name: "twitter:description", content: post.description },
+        { name: "twitter:image", content: ogImage },
+        { name: "twitter:image:alt", content: post.title },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
@@ -51,6 +62,7 @@ export const Route = createFileRoute("/blog/$slug")({
             datePublished: post.date,
             dateModified: post.date,
             articleSection: post.category,
+            image: [ogImage],
             inLanguage: "en-IN",
             author: { "@type": "Person", name: post.author },
             publisher: {
@@ -177,7 +189,23 @@ function BlogPostPage() {
           <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {post.readMinutes} min read</span>
         </div>
 
+        <ShareButtons
+          url={`${BASE}/blog/${post.slug}`}
+          title={post.title}
+          className="mt-6 border-t border-border/50 pt-5"
+        />
+
+        <img
+          src={ogImageForPost(post)}
+          alt={`${post.title} — Bharat AI Sathi`}
+          width={1200}
+          height={630}
+          loading="lazy"
+          className="mt-8 w-full rounded-2xl border border-border/60"
+        />
+
         <AdSlot name="articleTop" className="my-8" />
+
 
         <article className="mt-8 text-sm text-muted-foreground [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground">
           {renderBody(post.body)}
