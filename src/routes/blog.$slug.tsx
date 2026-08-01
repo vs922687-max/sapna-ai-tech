@@ -26,6 +26,7 @@ export const Route = createFileRoute("/blog/$slug")({
     }
     const post = loaderData.post;
     const url = `${BASE}/blog/${params.slug}`;
+    const ogImage = ogImageForPost(post);
     return {
       meta: [
         { title: `${post.title} — Bharat AI Sathi` },
@@ -37,9 +38,17 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: post.description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
+        { property: "og:site_name", content: "Bharat AI Sathi" },
+        { property: "og:locale", content: "en_IN" },
+        { property: "og:image", content: ogImage },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: post.title },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: post.title },
         { name: "twitter:description", content: post.description },
+        { name: "twitter:image", content: ogImage },
+        { name: "twitter:image:alt", content: post.title },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
