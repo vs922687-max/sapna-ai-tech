@@ -66,6 +66,7 @@ import { Route as CareerIndexRouteImport } from './routes/career.index'
 import { Route as CreatorIndexRouteImport } from './routes/creator.index'
 import { Route as CreatorContentGeneratorRouteImport } from './routes/creator.content-generator'
 import { Route as CreatorScriptGeneratorRouteImport } from './routes/creator.script-generator'
+import { Route as CreatorShortsGeneratorRouteImport } from './routes/creator.shorts-generator'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
@@ -377,6 +378,11 @@ const CreatorScriptGeneratorRoute = CreatorScriptGeneratorRouteImport.update({
   path: '/script-generator',
   getParentRoute: () => CreatorRoute,
 } as any)
+const CreatorShortsGeneratorRoute = CreatorShortsGeneratorRouteImport.update({
+  id: '/shorts-generator',
+  path: '/shorts-generator',
+  getParentRoute: () => CreatorRoute,
+} as any)
 const GovIndexRoute = GovIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -548,6 +554,7 @@ export interface FileRoutesByFullPath {
   '/business/udyam': typeof BusinessUdyamRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
+  '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -625,6 +632,7 @@ export interface FileRoutesByTo {
   '/business/udyam': typeof BusinessUdyamRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
+  '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -706,6 +714,7 @@ export interface FileRoutesById {
   '/business/udyam': typeof BusinessUdyamRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
+  '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -790,6 +799,7 @@ export interface FileRouteTypes {
     | '/business/udyam'
     | '/creator/content-generator'
     | '/creator/script-generator'
+    | '/creator/shorts-generator'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -867,6 +877,7 @@ export interface FileRouteTypes {
     | '/business/udyam'
     | '/creator/content-generator'
     | '/creator/script-generator'
+    | '/creator/shorts-generator'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -947,6 +958,7 @@ export interface FileRouteTypes {
     | '/business/udyam'
     | '/creator/content-generator'
     | '/creator/script-generator'
+    | '/creator/shorts-generator'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -1429,6 +1441,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorScriptGeneratorRouteImport
       parentRoute: typeof CreatorRoute
     }
+    '/creator/shorts-generator': {
+      id: '/creator/shorts-generator'
+      path: '/shorts-generator'
+      fullPath: '/creator/shorts-generator'
+      preLoaderRoute: typeof CreatorShortsGeneratorRouteImport
+      parentRoute: typeof CreatorRoute
+    }
     '/gov/': {
       id: '/gov/'
       path: '/'
@@ -1628,12 +1647,14 @@ const BusinessRouteWithChildren = BusinessRoute._addFileChildren(
 interface CreatorRouteChildren {
   CreatorContentGeneratorRoute: typeof CreatorContentGeneratorRoute
   CreatorScriptGeneratorRoute: typeof CreatorScriptGeneratorRoute
+  CreatorShortsGeneratorRoute: typeof CreatorShortsGeneratorRoute
   CreatorIndexRoute: typeof CreatorIndexRoute
 }
 
 const CreatorRouteChildren: CreatorRouteChildren = {
   CreatorContentGeneratorRoute: CreatorContentGeneratorRoute,
   CreatorScriptGeneratorRoute: CreatorScriptGeneratorRoute,
+  CreatorShortsGeneratorRoute: CreatorShortsGeneratorRoute,
   CreatorIndexRoute: CreatorIndexRoute,
 }
 
