@@ -23,6 +23,7 @@ import { Route as CoderRouteImport } from './routes/coder'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ContentCreatorRouteImport } from './routes/content-creator'
 import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as CreatorRouteImport } from './routes/creator'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DataAnalyzerRouteImport } from './routes/data-analyzer'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
@@ -154,6 +155,11 @@ const ContentCreatorRoute = ContentCreatorRouteImport.update({
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorRoute = CreatorRouteImport.update({
+  id: '/creator',
+  path: '/creator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -485,6 +491,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/content-creator': typeof ContentCreatorRoute
   '/cookies': typeof CookiesRoute
+  '/creator': typeof CreatorRoute
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -561,6 +568,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/content-creator': typeof ContentCreatorRoute
   '/cookies': typeof CookiesRoute
+  '/creator': typeof CreatorRoute
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -636,6 +644,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/content-creator': typeof ContentCreatorRoute
   '/cookies': typeof CookiesRoute
+  '/creator': typeof CreatorRoute
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -716,6 +725,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/content-creator'
     | '/cookies'
+    | '/creator'
     | '/dashboard'
     | '/data-analyzer'
     | '/disclaimer'
@@ -792,6 +802,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/content-creator'
     | '/cookies'
+    | '/creator'
     | '/dashboard'
     | '/data-analyzer'
     | '/disclaimer'
@@ -866,6 +877,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/content-creator'
     | '/cookies'
+    | '/creator'
     | '/dashboard'
     | '/data-analyzer'
     | '/disclaimer'
@@ -945,6 +957,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ContentCreatorRoute: typeof ContentCreatorRoute
   CookiesRoute: typeof CookiesRoute
+  CreatorRoute: typeof CreatorRoute
   DashboardRoute: typeof DashboardRoute
   DataAnalyzerRoute: typeof DataAnalyzerRoute
   DisclaimerRoute: typeof DisclaimerRoute
@@ -1079,6 +1092,13 @@ declare module '@tanstack/react-router' {
       path: '/cookies'
       fullPath: '/cookies'
       preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator': {
+      id: '/creator'
+      path: '/creator'
+      fullPath: '/creator'
+      preLoaderRoute: typeof CreatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -1643,6 +1663,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ContentCreatorRoute: ContentCreatorRoute,
   CookiesRoute: CookiesRoute,
+  CreatorRoute: CreatorRoute,
   DashboardRoute: DashboardRoute,
   DataAnalyzerRoute: DataAnalyzerRoute,
   DisclaimerRoute: DisclaimerRoute,
