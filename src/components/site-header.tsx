@@ -19,6 +19,7 @@ const nav: NavItem[] = [
   { to: "/", label: "Home" },
   { to: "/tools", label: "AI Tools" },
   { to: "/tools", label: "Office Tools", hash: "office-tools" },
+  { to: "/creator", label: "Creator Studio" },
   { to: "/career", label: "Career Hub" },
   {
     to: "/gov",
