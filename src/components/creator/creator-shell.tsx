@@ -76,7 +76,7 @@ export function CreatorShell({
               return (
                 <Link
                   key={r.slug}
-                  to={r.to}
+                  to={r.to as "/creator"}
                   className="group flex items-start gap-3 rounded-xl border border-border/60 bg-card/40 p-4 backdrop-blur transition-colors hover:border-primary/40"
                 >
                   <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
