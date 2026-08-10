@@ -69,6 +69,7 @@ import { Route as CreatorHookGeneratorRouteImport } from './routes/creator.hook-
 import { Route as CreatorScriptGeneratorRouteImport } from './routes/creator.script-generator'
 import { Route as CreatorShortsGeneratorRouteImport } from './routes/creator.shorts-generator'
 import { Route as CreatorStoryboardGeneratorRouteImport } from './routes/creator.storyboard-generator'
+import { Route as CreatorVoiceOverRouteImport } from './routes/creator.voice-over'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
@@ -396,6 +397,11 @@ const CreatorStoryboardGeneratorRoute =
     path: '/storyboard-generator',
     getParentRoute: () => CreatorRoute,
   } as any)
+const CreatorVoiceOverRoute = CreatorVoiceOverRouteImport.update({
+  id: '/voice-over',
+  path: '/voice-over',
+  getParentRoute: () => CreatorRoute,
+} as any)
 const GovIndexRoute = GovIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -570,6 +576,7 @@ export interface FileRoutesByFullPath {
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
   '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
+  '/creator/voice-over': typeof CreatorVoiceOverRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -650,6 +657,7 @@ export interface FileRoutesByTo {
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
   '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
+  '/creator/voice-over': typeof CreatorVoiceOverRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -734,6 +742,7 @@ export interface FileRoutesById {
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
   '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
+  '/creator/voice-over': typeof CreatorVoiceOverRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -821,6 +830,7 @@ export interface FileRouteTypes {
     | '/creator/script-generator'
     | '/creator/shorts-generator'
     | '/creator/storyboard-generator'
+    | '/creator/voice-over'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -901,6 +911,7 @@ export interface FileRouteTypes {
     | '/creator/script-generator'
     | '/creator/shorts-generator'
     | '/creator/storyboard-generator'
+    | '/creator/voice-over'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -984,6 +995,7 @@ export interface FileRouteTypes {
     | '/creator/script-generator'
     | '/creator/shorts-generator'
     | '/creator/storyboard-generator'
+    | '/creator/voice-over'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -1487,6 +1499,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorStoryboardGeneratorRouteImport
       parentRoute: typeof CreatorRoute
     }
+    '/creator/voice-over': {
+      id: '/creator/voice-over'
+      path: '/voice-over'
+      fullPath: '/creator/voice-over'
+      preLoaderRoute: typeof CreatorVoiceOverRouteImport
+      parentRoute: typeof CreatorRoute
+    }
     '/gov/': {
       id: '/gov/'
       path: '/'
@@ -1689,6 +1708,7 @@ interface CreatorRouteChildren {
   CreatorScriptGeneratorRoute: typeof CreatorScriptGeneratorRoute
   CreatorShortsGeneratorRoute: typeof CreatorShortsGeneratorRoute
   CreatorStoryboardGeneratorRoute: typeof CreatorStoryboardGeneratorRoute
+  CreatorVoiceOverRoute: typeof CreatorVoiceOverRoute
   CreatorIndexRoute: typeof CreatorIndexRoute
 }
 
@@ -1698,6 +1718,7 @@ const CreatorRouteChildren: CreatorRouteChildren = {
   CreatorScriptGeneratorRoute: CreatorScriptGeneratorRoute,
   CreatorShortsGeneratorRoute: CreatorShortsGeneratorRoute,
   CreatorStoryboardGeneratorRoute: CreatorStoryboardGeneratorRoute,
+  CreatorVoiceOverRoute: CreatorVoiceOverRoute,
   CreatorIndexRoute: CreatorIndexRoute,
 }
 
