@@ -23,6 +23,7 @@ import { Route as CoderRouteImport } from './routes/coder'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ContentCreatorRouteImport } from './routes/content-creator'
 import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as CreatorRouteImport } from './routes/creator'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DataAnalyzerRouteImport } from './routes/data-analyzer'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
@@ -62,6 +63,16 @@ import { Route as BusinessGstRouteImport } from './routes/business.gst'
 import { Route as BusinessSvanidhiRouteImport } from './routes/business.svanidhi'
 import { Route as BusinessUdyamRouteImport } from './routes/business.udyam'
 import { Route as CareerIndexRouteImport } from './routes/career.index'
+import { Route as CreatorIndexRouteImport } from './routes/creator.index'
+import { Route as CreatorContentGeneratorRouteImport } from './routes/creator.content-generator'
+import { Route as CreatorHookGeneratorRouteImport } from './routes/creator.hook-generator'
+import { Route as CreatorScriptGeneratorRouteImport } from './routes/creator.script-generator'
+import { Route as CreatorShortsGeneratorRouteImport } from './routes/creator.shorts-generator'
+import { Route as CreatorStoryboardGeneratorRouteImport } from './routes/creator.storyboard-generator'
+import { Route as CreatorSubtitlesRouteImport } from './routes/creator.subtitles'
+import { Route as CreatorThumbnailMakerRouteImport } from './routes/creator.thumbnail-maker'
+import { Route as CreatorVideoEditorRouteImport } from './routes/creator.video-editor'
+import { Route as CreatorVoiceOverRouteImport } from './routes/creator.voice-over'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
@@ -154,6 +165,11 @@ const ContentCreatorRoute = ContentCreatorRouteImport.update({
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorRoute = CreatorRouteImport.update({
+  id: '/creator',
+  path: '/creator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -353,6 +369,57 @@ const CareerIndexRoute = CareerIndexRouteImport.update({
   path: '/career/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CreatorIndexRoute = CreatorIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorContentGeneratorRoute = CreatorContentGeneratorRouteImport.update({
+  id: '/content-generator',
+  path: '/content-generator',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorHookGeneratorRoute = CreatorHookGeneratorRouteImport.update({
+  id: '/hook-generator',
+  path: '/hook-generator',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorScriptGeneratorRoute = CreatorScriptGeneratorRouteImport.update({
+  id: '/script-generator',
+  path: '/script-generator',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorShortsGeneratorRoute = CreatorShortsGeneratorRouteImport.update({
+  id: '/shorts-generator',
+  path: '/shorts-generator',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorStoryboardGeneratorRoute =
+  CreatorStoryboardGeneratorRouteImport.update({
+    id: '/storyboard-generator',
+    path: '/storyboard-generator',
+    getParentRoute: () => CreatorRoute,
+  } as any)
+const CreatorSubtitlesRoute = CreatorSubtitlesRouteImport.update({
+  id: '/subtitles',
+  path: '/subtitles',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorThumbnailMakerRoute = CreatorThumbnailMakerRouteImport.update({
+  id: '/thumbnail-maker',
+  path: '/thumbnail-maker',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorVideoEditorRoute = CreatorVideoEditorRouteImport.update({
+  id: '/video-editor',
+  path: '/video-editor',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorVoiceOverRoute = CreatorVoiceOverRouteImport.update({
+  id: '/voice-over',
+  path: '/voice-over',
+  getParentRoute: () => CreatorRoute,
+} as any)
 const GovIndexRoute = GovIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -485,6 +552,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/content-creator': typeof ContentCreatorRoute
   '/cookies': typeof CookiesRoute
+  '/creator': typeof CreatorRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -521,6 +589,15 @@ export interface FileRoutesByFullPath {
   '/business/gst': typeof BusinessGstRoute
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
+  '/creator/content-generator': typeof CreatorContentGeneratorRoute
+  '/creator/hook-generator': typeof CreatorHookGeneratorRoute
+  '/creator/script-generator': typeof CreatorScriptGeneratorRoute
+  '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
+  '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
+  '/creator/subtitles': typeof CreatorSubtitlesRoute
+  '/creator/thumbnail-maker': typeof CreatorThumbnailMakerRoute
+  '/creator/video-editor': typeof CreatorVideoEditorRoute
+  '/creator/voice-over': typeof CreatorVoiceOverRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -539,6 +616,7 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
   '/career/': typeof CareerIndexRoute
+  '/creator/': typeof CreatorIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -595,6 +673,15 @@ export interface FileRoutesByTo {
   '/business/gst': typeof BusinessGstRoute
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
+  '/creator/content-generator': typeof CreatorContentGeneratorRoute
+  '/creator/hook-generator': typeof CreatorHookGeneratorRoute
+  '/creator/script-generator': typeof CreatorScriptGeneratorRoute
+  '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
+  '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
+  '/creator/subtitles': typeof CreatorSubtitlesRoute
+  '/creator/thumbnail-maker': typeof CreatorThumbnailMakerRoute
+  '/creator/video-editor': typeof CreatorVideoEditorRoute
+  '/creator/voice-over': typeof CreatorVoiceOverRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -611,6 +698,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/business': typeof BusinessIndexRoute
   '/career': typeof CareerIndexRoute
+  '/creator': typeof CreatorIndexRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -636,6 +724,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/content-creator': typeof ContentCreatorRoute
   '/cookies': typeof CookiesRoute
+  '/creator': typeof CreatorRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -672,6 +761,15 @@ export interface FileRoutesById {
   '/business/gst': typeof BusinessGstRoute
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
+  '/creator/content-generator': typeof CreatorContentGeneratorRoute
+  '/creator/hook-generator': typeof CreatorHookGeneratorRoute
+  '/creator/script-generator': typeof CreatorScriptGeneratorRoute
+  '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
+  '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
+  '/creator/subtitles': typeof CreatorSubtitlesRoute
+  '/creator/thumbnail-maker': typeof CreatorThumbnailMakerRoute
+  '/creator/video-editor': typeof CreatorVideoEditorRoute
+  '/creator/voice-over': typeof CreatorVoiceOverRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -690,6 +788,7 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
   '/career/': typeof CareerIndexRoute
+  '/creator/': typeof CreatorIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -716,6 +815,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/content-creator'
     | '/cookies'
+    | '/creator'
     | '/dashboard'
     | '/data-analyzer'
     | '/disclaimer'
@@ -752,6 +852,15 @@ export interface FileRouteTypes {
     | '/business/gst'
     | '/business/svanidhi'
     | '/business/udyam'
+    | '/creator/content-generator'
+    | '/creator/hook-generator'
+    | '/creator/script-generator'
+    | '/creator/shorts-generator'
+    | '/creator/storyboard-generator'
+    | '/creator/subtitles'
+    | '/creator/thumbnail-maker'
+    | '/creator/video-editor'
+    | '/creator/voice-over'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -770,6 +879,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/business/'
     | '/career/'
+    | '/creator/'
     | '/gov/'
     | '/tools/'
     | '/.lovable/oauth/consent'
@@ -826,6 +936,15 @@ export interface FileRouteTypes {
     | '/business/gst'
     | '/business/svanidhi'
     | '/business/udyam'
+    | '/creator/content-generator'
+    | '/creator/hook-generator'
+    | '/creator/script-generator'
+    | '/creator/shorts-generator'
+    | '/creator/storyboard-generator'
+    | '/creator/subtitles'
+    | '/creator/thumbnail-maker'
+    | '/creator/video-editor'
+    | '/creator/voice-over'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -842,6 +961,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/business'
     | '/career'
+    | '/creator'
     | '/gov'
     | '/tools'
     | '/.lovable/oauth/consent'
@@ -866,6 +986,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/content-creator'
     | '/cookies'
+    | '/creator'
     | '/dashboard'
     | '/data-analyzer'
     | '/disclaimer'
@@ -902,6 +1023,15 @@ export interface FileRouteTypes {
     | '/business/gst'
     | '/business/svanidhi'
     | '/business/udyam'
+    | '/creator/content-generator'
+    | '/creator/hook-generator'
+    | '/creator/script-generator'
+    | '/creator/shorts-generator'
+    | '/creator/storyboard-generator'
+    | '/creator/subtitles'
+    | '/creator/thumbnail-maker'
+    | '/creator/video-editor'
+    | '/creator/voice-over'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -920,6 +1050,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/business/'
     | '/career/'
+    | '/creator/'
     | '/gov/'
     | '/tools/'
     | '/.lovable/oauth/consent'
@@ -945,6 +1076,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ContentCreatorRoute: typeof ContentCreatorRoute
   CookiesRoute: typeof CookiesRoute
+  CreatorRoute: typeof CreatorRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   DataAnalyzerRoute: typeof DataAnalyzerRoute
   DisclaimerRoute: typeof DisclaimerRoute
@@ -1079,6 +1211,13 @@ declare module '@tanstack/react-router' {
       path: '/cookies'
       fullPath: '/cookies'
       preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator': {
+      id: '/creator'
+      path: '/creator'
+      fullPath: '/creator'
+      preLoaderRoute: typeof CreatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -1354,6 +1493,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareerIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/creator/': {
+      id: '/creator/'
+      path: '/'
+      fullPath: '/creator/'
+      preLoaderRoute: typeof CreatorIndexRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/content-generator': {
+      id: '/creator/content-generator'
+      path: '/content-generator'
+      fullPath: '/creator/content-generator'
+      preLoaderRoute: typeof CreatorContentGeneratorRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/hook-generator': {
+      id: '/creator/hook-generator'
+      path: '/hook-generator'
+      fullPath: '/creator/hook-generator'
+      preLoaderRoute: typeof CreatorHookGeneratorRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/script-generator': {
+      id: '/creator/script-generator'
+      path: '/script-generator'
+      fullPath: '/creator/script-generator'
+      preLoaderRoute: typeof CreatorScriptGeneratorRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/shorts-generator': {
+      id: '/creator/shorts-generator'
+      path: '/shorts-generator'
+      fullPath: '/creator/shorts-generator'
+      preLoaderRoute: typeof CreatorShortsGeneratorRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/storyboard-generator': {
+      id: '/creator/storyboard-generator'
+      path: '/storyboard-generator'
+      fullPath: '/creator/storyboard-generator'
+      preLoaderRoute: typeof CreatorStoryboardGeneratorRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/subtitles': {
+      id: '/creator/subtitles'
+      path: '/subtitles'
+      fullPath: '/creator/subtitles'
+      preLoaderRoute: typeof CreatorSubtitlesRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/thumbnail-maker': {
+      id: '/creator/thumbnail-maker'
+      path: '/thumbnail-maker'
+      fullPath: '/creator/thumbnail-maker'
+      preLoaderRoute: typeof CreatorThumbnailMakerRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/video-editor': {
+      id: '/creator/video-editor'
+      path: '/video-editor'
+      fullPath: '/creator/video-editor'
+      preLoaderRoute: typeof CreatorVideoEditorRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/voice-over': {
+      id: '/creator/voice-over'
+      path: '/voice-over'
+      fullPath: '/creator/voice-over'
+      preLoaderRoute: typeof CreatorVoiceOverRouteImport
+      parentRoute: typeof CreatorRoute
+    }
     '/gov/': {
       id: '/gov/'
       path: '/'
@@ -1550,6 +1759,35 @@ const BusinessRouteWithChildren = BusinessRoute._addFileChildren(
   BusinessRouteChildren,
 )
 
+interface CreatorRouteChildren {
+  CreatorContentGeneratorRoute: typeof CreatorContentGeneratorRoute
+  CreatorHookGeneratorRoute: typeof CreatorHookGeneratorRoute
+  CreatorScriptGeneratorRoute: typeof CreatorScriptGeneratorRoute
+  CreatorShortsGeneratorRoute: typeof CreatorShortsGeneratorRoute
+  CreatorStoryboardGeneratorRoute: typeof CreatorStoryboardGeneratorRoute
+  CreatorSubtitlesRoute: typeof CreatorSubtitlesRoute
+  CreatorThumbnailMakerRoute: typeof CreatorThumbnailMakerRoute
+  CreatorVideoEditorRoute: typeof CreatorVideoEditorRoute
+  CreatorVoiceOverRoute: typeof CreatorVoiceOverRoute
+  CreatorIndexRoute: typeof CreatorIndexRoute
+}
+
+const CreatorRouteChildren: CreatorRouteChildren = {
+  CreatorContentGeneratorRoute: CreatorContentGeneratorRoute,
+  CreatorHookGeneratorRoute: CreatorHookGeneratorRoute,
+  CreatorScriptGeneratorRoute: CreatorScriptGeneratorRoute,
+  CreatorShortsGeneratorRoute: CreatorShortsGeneratorRoute,
+  CreatorStoryboardGeneratorRoute: CreatorStoryboardGeneratorRoute,
+  CreatorSubtitlesRoute: CreatorSubtitlesRoute,
+  CreatorThumbnailMakerRoute: CreatorThumbnailMakerRoute,
+  CreatorVideoEditorRoute: CreatorVideoEditorRoute,
+  CreatorVoiceOverRoute: CreatorVoiceOverRoute,
+  CreatorIndexRoute: CreatorIndexRoute,
+}
+
+const CreatorRouteWithChildren =
+  CreatorRoute._addFileChildren(CreatorRouteChildren)
+
 interface GovDocumentsRouteChildren {
   GovDocumentsSlugRoute: typeof GovDocumentsSlugRoute
   GovDocumentsIndexRoute: typeof GovDocumentsIndexRoute
@@ -1643,6 +1881,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ContentCreatorRoute: ContentCreatorRoute,
   CookiesRoute: CookiesRoute,
+  CreatorRoute: CreatorRouteWithChildren,
   DashboardRoute: DashboardRoute,
   DataAnalyzerRoute: DataAnalyzerRoute,
   DisclaimerRoute: DisclaimerRoute,

@@ -35,6 +35,16 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/hr-assistant", changefreq: "monthly", priority: "0.8" },
           { path: "/agreement", changefreq: "monthly", priority: "0.8" },
           { path: "/content-creator", changefreq: "weekly", priority: "0.8" },
+          { path: "/creator", changefreq: "weekly", priority: "0.9" },
+          { path: "/creator/content-generator", changefreq: "weekly", priority: "0.8" },
+          { path: "/creator/script-generator", changefreq: "weekly", priority: "0.8" },
+          { path: "/creator/shorts-generator", changefreq: "weekly", priority: "0.8" },
+          { path: "/creator/hook-generator", changefreq: "weekly", priority: "0.8" },
+          { path: "/creator/storyboard-generator", changefreq: "weekly", priority: "0.8" },
+          { path: "/creator/thumbnail-maker", changefreq: "weekly", priority: "0.8" },
+          { path: "/creator/subtitles", changefreq: "weekly", priority: "0.8" },
+          { path: "/creator/voice-over", changefreq: "weekly", priority: "0.8" },
+          { path: "/creator/video-editor", changefreq: "weekly", priority: "0.8" },
 
 
           { path: "/pricing", changefreq: "monthly", priority: "0.8" },
