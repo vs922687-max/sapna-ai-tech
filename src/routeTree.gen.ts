@@ -65,6 +65,7 @@ import { Route as BusinessUdyamRouteImport } from './routes/business.udyam'
 import { Route as CareerIndexRouteImport } from './routes/career.index'
 import { Route as CreatorIndexRouteImport } from './routes/creator.index'
 import { Route as CreatorContentGeneratorRouteImport } from './routes/creator.content-generator'
+import { Route as CreatorScriptGeneratorRouteImport } from './routes/creator.script-generator'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
@@ -371,6 +372,11 @@ const CreatorContentGeneratorRoute = CreatorContentGeneratorRouteImport.update({
   path: '/content-generator',
   getParentRoute: () => CreatorRoute,
 } as any)
+const CreatorScriptGeneratorRoute = CreatorScriptGeneratorRouteImport.update({
+  id: '/script-generator',
+  path: '/script-generator',
+  getParentRoute: () => CreatorRoute,
+} as any)
 const GovIndexRoute = GovIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -541,6 +547,7 @@ export interface FileRoutesByFullPath {
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
+  '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -617,6 +624,7 @@ export interface FileRoutesByTo {
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
+  '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -697,6 +705,7 @@ export interface FileRoutesById {
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
+  '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -780,6 +789,7 @@ export interface FileRouteTypes {
     | '/business/svanidhi'
     | '/business/udyam'
     | '/creator/content-generator'
+    | '/creator/script-generator'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -856,6 +866,7 @@ export interface FileRouteTypes {
     | '/business/svanidhi'
     | '/business/udyam'
     | '/creator/content-generator'
+    | '/creator/script-generator'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -935,6 +946,7 @@ export interface FileRouteTypes {
     | '/business/svanidhi'
     | '/business/udyam'
     | '/creator/content-generator'
+    | '/creator/script-generator'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -1410,6 +1422,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorContentGeneratorRouteImport
       parentRoute: typeof CreatorRoute
     }
+    '/creator/script-generator': {
+      id: '/creator/script-generator'
+      path: '/script-generator'
+      fullPath: '/creator/script-generator'
+      preLoaderRoute: typeof CreatorScriptGeneratorRouteImport
+      parentRoute: typeof CreatorRoute
+    }
     '/gov/': {
       id: '/gov/'
       path: '/'
@@ -1608,11 +1627,13 @@ const BusinessRouteWithChildren = BusinessRoute._addFileChildren(
 
 interface CreatorRouteChildren {
   CreatorContentGeneratorRoute: typeof CreatorContentGeneratorRoute
+  CreatorScriptGeneratorRoute: typeof CreatorScriptGeneratorRoute
   CreatorIndexRoute: typeof CreatorIndexRoute
 }
 
 const CreatorRouteChildren: CreatorRouteChildren = {
   CreatorContentGeneratorRoute: CreatorContentGeneratorRoute,
+  CreatorScriptGeneratorRoute: CreatorScriptGeneratorRoute,
   CreatorIndexRoute: CreatorIndexRoute,
 }
 
