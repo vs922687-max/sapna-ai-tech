@@ -69,6 +69,7 @@ import { Route as CreatorHookGeneratorRouteImport } from './routes/creator.hook-
 import { Route as CreatorScriptGeneratorRouteImport } from './routes/creator.script-generator'
 import { Route as CreatorShortsGeneratorRouteImport } from './routes/creator.shorts-generator'
 import { Route as CreatorStoryboardGeneratorRouteImport } from './routes/creator.storyboard-generator'
+import { Route as CreatorSubtitlesRouteImport } from './routes/creator.subtitles'
 import { Route as CreatorThumbnailMakerRouteImport } from './routes/creator.thumbnail-maker'
 import { Route as CreatorVoiceOverRouteImport } from './routes/creator.voice-over'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
@@ -398,6 +399,11 @@ const CreatorStoryboardGeneratorRoute =
     path: '/storyboard-generator',
     getParentRoute: () => CreatorRoute,
   } as any)
+const CreatorSubtitlesRoute = CreatorSubtitlesRouteImport.update({
+  id: '/subtitles',
+  path: '/subtitles',
+  getParentRoute: () => CreatorRoute,
+} as any)
 const CreatorThumbnailMakerRoute = CreatorThumbnailMakerRouteImport.update({
   id: '/thumbnail-maker',
   path: '/thumbnail-maker',
@@ -582,6 +588,7 @@ export interface FileRoutesByFullPath {
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
   '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
+  '/creator/subtitles': typeof CreatorSubtitlesRoute
   '/creator/thumbnail-maker': typeof CreatorThumbnailMakerRoute
   '/creator/voice-over': typeof CreatorVoiceOverRoute
   '/gov/$slug': typeof GovSlugRoute
@@ -664,6 +671,7 @@ export interface FileRoutesByTo {
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
   '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
+  '/creator/subtitles': typeof CreatorSubtitlesRoute
   '/creator/thumbnail-maker': typeof CreatorThumbnailMakerRoute
   '/creator/voice-over': typeof CreatorVoiceOverRoute
   '/gov/$slug': typeof GovSlugRoute
@@ -750,6 +758,7 @@ export interface FileRoutesById {
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
   '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
+  '/creator/subtitles': typeof CreatorSubtitlesRoute
   '/creator/thumbnail-maker': typeof CreatorThumbnailMakerRoute
   '/creator/voice-over': typeof CreatorVoiceOverRoute
   '/gov/$slug': typeof GovSlugRoute
@@ -839,6 +848,7 @@ export interface FileRouteTypes {
     | '/creator/script-generator'
     | '/creator/shorts-generator'
     | '/creator/storyboard-generator'
+    | '/creator/subtitles'
     | '/creator/thumbnail-maker'
     | '/creator/voice-over'
     | '/gov/$slug'
@@ -921,6 +931,7 @@ export interface FileRouteTypes {
     | '/creator/script-generator'
     | '/creator/shorts-generator'
     | '/creator/storyboard-generator'
+    | '/creator/subtitles'
     | '/creator/thumbnail-maker'
     | '/creator/voice-over'
     | '/gov/$slug'
@@ -1006,6 +1017,7 @@ export interface FileRouteTypes {
     | '/creator/script-generator'
     | '/creator/shorts-generator'
     | '/creator/storyboard-generator'
+    | '/creator/subtitles'
     | '/creator/thumbnail-maker'
     | '/creator/voice-over'
     | '/gov/$slug'
@@ -1511,6 +1523,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorStoryboardGeneratorRouteImport
       parentRoute: typeof CreatorRoute
     }
+    '/creator/subtitles': {
+      id: '/creator/subtitles'
+      path: '/subtitles'
+      fullPath: '/creator/subtitles'
+      preLoaderRoute: typeof CreatorSubtitlesRouteImport
+      parentRoute: typeof CreatorRoute
+    }
     '/creator/thumbnail-maker': {
       id: '/creator/thumbnail-maker'
       path: '/thumbnail-maker'
@@ -1727,6 +1746,7 @@ interface CreatorRouteChildren {
   CreatorScriptGeneratorRoute: typeof CreatorScriptGeneratorRoute
   CreatorShortsGeneratorRoute: typeof CreatorShortsGeneratorRoute
   CreatorStoryboardGeneratorRoute: typeof CreatorStoryboardGeneratorRoute
+  CreatorSubtitlesRoute: typeof CreatorSubtitlesRoute
   CreatorThumbnailMakerRoute: typeof CreatorThumbnailMakerRoute
   CreatorVoiceOverRoute: typeof CreatorVoiceOverRoute
   CreatorIndexRoute: typeof CreatorIndexRoute
@@ -1738,6 +1758,7 @@ const CreatorRouteChildren: CreatorRouteChildren = {
   CreatorScriptGeneratorRoute: CreatorScriptGeneratorRoute,
   CreatorShortsGeneratorRoute: CreatorShortsGeneratorRoute,
   CreatorStoryboardGeneratorRoute: CreatorStoryboardGeneratorRoute,
+  CreatorSubtitlesRoute: CreatorSubtitlesRoute,
   CreatorThumbnailMakerRoute: CreatorThumbnailMakerRoute,
   CreatorVoiceOverRoute: CreatorVoiceOverRoute,
   CreatorIndexRoute: CreatorIndexRoute,
