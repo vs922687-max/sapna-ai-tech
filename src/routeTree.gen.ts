@@ -68,6 +68,7 @@ import { Route as CreatorContentGeneratorRouteImport } from './routes/creator.co
 import { Route as CreatorHookGeneratorRouteImport } from './routes/creator.hook-generator'
 import { Route as CreatorScriptGeneratorRouteImport } from './routes/creator.script-generator'
 import { Route as CreatorShortsGeneratorRouteImport } from './routes/creator.shorts-generator'
+import { Route as CreatorStoryboardGeneratorRouteImport } from './routes/creator.storyboard-generator'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
@@ -389,6 +390,12 @@ const CreatorShortsGeneratorRoute = CreatorShortsGeneratorRouteImport.update({
   path: '/shorts-generator',
   getParentRoute: () => CreatorRoute,
 } as any)
+const CreatorStoryboardGeneratorRoute =
+  CreatorStoryboardGeneratorRouteImport.update({
+    id: '/storyboard-generator',
+    path: '/storyboard-generator',
+    getParentRoute: () => CreatorRoute,
+  } as any)
 const GovIndexRoute = GovIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -562,6 +569,7 @@ export interface FileRoutesByFullPath {
   '/creator/hook-generator': typeof CreatorHookGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
+  '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -641,6 +649,7 @@ export interface FileRoutesByTo {
   '/creator/hook-generator': typeof CreatorHookGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
+  '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -724,6 +733,7 @@ export interface FileRoutesById {
   '/creator/hook-generator': typeof CreatorHookGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
   '/creator/shorts-generator': typeof CreatorShortsGeneratorRoute
+  '/creator/storyboard-generator': typeof CreatorStoryboardGeneratorRoute
   '/gov/$slug': typeof GovSlugRoute
   '/gov/ask': typeof GovAskRoute
   '/gov/bookmarks': typeof GovBookmarksRoute
@@ -810,6 +820,7 @@ export interface FileRouteTypes {
     | '/creator/hook-generator'
     | '/creator/script-generator'
     | '/creator/shorts-generator'
+    | '/creator/storyboard-generator'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -889,6 +900,7 @@ export interface FileRouteTypes {
     | '/creator/hook-generator'
     | '/creator/script-generator'
     | '/creator/shorts-generator'
+    | '/creator/storyboard-generator'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -971,6 +983,7 @@ export interface FileRouteTypes {
     | '/creator/hook-generator'
     | '/creator/script-generator'
     | '/creator/shorts-generator'
+    | '/creator/storyboard-generator'
     | '/gov/$slug'
     | '/gov/ask'
     | '/gov/bookmarks'
@@ -1467,6 +1480,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorShortsGeneratorRouteImport
       parentRoute: typeof CreatorRoute
     }
+    '/creator/storyboard-generator': {
+      id: '/creator/storyboard-generator'
+      path: '/storyboard-generator'
+      fullPath: '/creator/storyboard-generator'
+      preLoaderRoute: typeof CreatorStoryboardGeneratorRouteImport
+      parentRoute: typeof CreatorRoute
+    }
     '/gov/': {
       id: '/gov/'
       path: '/'
@@ -1668,6 +1688,7 @@ interface CreatorRouteChildren {
   CreatorHookGeneratorRoute: typeof CreatorHookGeneratorRoute
   CreatorScriptGeneratorRoute: typeof CreatorScriptGeneratorRoute
   CreatorShortsGeneratorRoute: typeof CreatorShortsGeneratorRoute
+  CreatorStoryboardGeneratorRoute: typeof CreatorStoryboardGeneratorRoute
   CreatorIndexRoute: typeof CreatorIndexRoute
 }
 
@@ -1676,6 +1697,7 @@ const CreatorRouteChildren: CreatorRouteChildren = {
   CreatorHookGeneratorRoute: CreatorHookGeneratorRoute,
   CreatorScriptGeneratorRoute: CreatorScriptGeneratorRoute,
   CreatorShortsGeneratorRoute: CreatorShortsGeneratorRoute,
+  CreatorStoryboardGeneratorRoute: CreatorStoryboardGeneratorRoute,
   CreatorIndexRoute: CreatorIndexRoute,
 }
 
