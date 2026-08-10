@@ -63,6 +63,7 @@ import { Route as BusinessGstRouteImport } from './routes/business.gst'
 import { Route as BusinessSvanidhiRouteImport } from './routes/business.svanidhi'
 import { Route as BusinessUdyamRouteImport } from './routes/business.udyam'
 import { Route as CareerIndexRouteImport } from './routes/career.index'
+import { Route as CreatorIndexRouteImport } from './routes/creator.index'
 import { Route as GovIndexRouteImport } from './routes/gov.index'
 import { Route as GovSlugRouteImport } from './routes/gov.$slug'
 import { Route as GovAskRouteImport } from './routes/gov.ask'
@@ -359,6 +360,11 @@ const CareerIndexRoute = CareerIndexRouteImport.update({
   path: '/career/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CreatorIndexRoute = CreatorIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CreatorRoute,
+} as any)
 const GovIndexRoute = GovIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -491,7 +497,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/content-creator': typeof ContentCreatorRoute
   '/cookies': typeof CookiesRoute
-  '/creator': typeof CreatorRoute
+  '/creator': typeof CreatorRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -546,6 +552,7 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
   '/career/': typeof CareerIndexRoute
+  '/creator/': typeof CreatorIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -568,7 +575,6 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/content-creator': typeof ContentCreatorRoute
   '/cookies': typeof CookiesRoute
-  '/creator': typeof CreatorRoute
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -619,6 +625,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/business': typeof BusinessIndexRoute
   '/career': typeof CareerIndexRoute
+  '/creator': typeof CreatorIndexRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -644,7 +651,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/content-creator': typeof ContentCreatorRoute
   '/cookies': typeof CookiesRoute
-  '/creator': typeof CreatorRoute
+  '/creator': typeof CreatorRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -699,6 +706,7 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
   '/career/': typeof CareerIndexRoute
+  '/creator/': typeof CreatorIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -780,6 +788,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/business/'
     | '/career/'
+    | '/creator/'
     | '/gov/'
     | '/tools/'
     | '/.lovable/oauth/consent'
@@ -802,7 +811,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/content-creator'
     | '/cookies'
-    | '/creator'
     | '/dashboard'
     | '/data-analyzer'
     | '/disclaimer'
@@ -853,6 +861,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/business'
     | '/career'
+    | '/creator'
     | '/gov'
     | '/tools'
     | '/.lovable/oauth/consent'
@@ -932,6 +941,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/business/'
     | '/career/'
+    | '/creator/'
     | '/gov/'
     | '/tools/'
     | '/.lovable/oauth/consent'
@@ -957,7 +967,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ContentCreatorRoute: typeof ContentCreatorRoute
   CookiesRoute: typeof CookiesRoute
-  CreatorRoute: typeof CreatorRoute
+  CreatorRoute: typeof CreatorRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   DataAnalyzerRoute: typeof DataAnalyzerRoute
   DisclaimerRoute: typeof DisclaimerRoute
@@ -1374,6 +1384,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareerIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/creator/': {
+      id: '/creator/'
+      path: '/'
+      fullPath: '/creator/'
+      preLoaderRoute: typeof CreatorIndexRouteImport
+      parentRoute: typeof CreatorRoute
+    }
     '/gov/': {
       id: '/gov/'
       path: '/'
@@ -1570,6 +1587,17 @@ const BusinessRouteWithChildren = BusinessRoute._addFileChildren(
   BusinessRouteChildren,
 )
 
+interface CreatorRouteChildren {
+  CreatorIndexRoute: typeof CreatorIndexRoute
+}
+
+const CreatorRouteChildren: CreatorRouteChildren = {
+  CreatorIndexRoute: CreatorIndexRoute,
+}
+
+const CreatorRouteWithChildren =
+  CreatorRoute._addFileChildren(CreatorRouteChildren)
+
 interface GovDocumentsRouteChildren {
   GovDocumentsSlugRoute: typeof GovDocumentsSlugRoute
   GovDocumentsIndexRoute: typeof GovDocumentsIndexRoute
@@ -1663,7 +1691,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ContentCreatorRoute: ContentCreatorRoute,
   CookiesRoute: CookiesRoute,
-  CreatorRoute: CreatorRoute,
+  CreatorRoute: CreatorRouteWithChildren,
   DashboardRoute: DashboardRoute,
   DataAnalyzerRoute: DataAnalyzerRoute,
   DisclaimerRoute: DisclaimerRoute,
