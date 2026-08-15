@@ -1,33 +1,51 @@
 import { useEffect, useState } from "react";
+import { Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
-/** Live visitor count via realtime presence (no data stored). */
+/**
+ * Cumulative visitor count shown in the footer.
+ *
+ * `HISTORICAL_BASE` is the all-time unique-visitor total captured from project
+ * analytics before this counter existed. From here on, each new browser
+ * records one visit in the `site_visits` table (guarded by localStorage), so
+ * the displayed number = base + count of recorded visits.
+ */
+const HISTORICAL_BASE = 166;
+
 export function LiveVisitors({ className = "" }: { className?: string }) {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
-    const id = Math.random().toString(36).slice(2);
-    const channel = supabase.channel("live-visitors", {
-      config: { presence: { key: id } },
-    });
+    let cancelled = false;
 
-    const sync = () => {
-      const state = channel.presenceState();
-      setCount(Object.keys(state).length);
-    };
-
-    channel
-      .on("presence", { event: "sync" }, sync)
-      .on("presence", { event: "join" }, sync)
-      .on("presence", { event: "leave" }, sync)
-      .subscribe((status) => {
-        if (status === "SUBSCRIBED") {
-          void channel.track({ at: Date.now() });
+    async function run() {
+      try {
+        // Record this browser once.
+        const counted =
+          typeof window !== "undefined"
+            ? window.localStorage.getItem("bas_visitor_counted")
+            : "1";
+        if (!counted) {
+          const { error } = await supabase.from("site_visits").insert({});
+          if (!error || error.code === "23505") {
+            window.localStorage.setItem("bas_visitor_counted", "1");
+          }
         }
-      });
 
+        const { count: rows, error } = await supabase
+          .from("site_visits")
+          .select("*", { count: "exact", head: true });
+
+        if (error) throw error;
+        if (!cancelled) setCount(HISTORICAL_BASE + (rows ?? 0));
+      } catch {
+        if (!cancelled) setCount(null);
+      }
+    }
+
+    void run();
     return () => {
-      void supabase.removeChannel(channel);
+      cancelled = true;
     };
   }, []);
 
@@ -35,12 +53,12 @@ export function LiveVisitors({ className = "" }: { className?: string }) {
 
   return (
     <p className={`flex items-center gap-2 ${className}`} aria-live="polite">
-      <span className="relative flex h-2 w-2">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[oklch(0.66_0.16_155)] opacity-75" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-[oklch(0.66_0.16_155)]" />
-      </span>
+      <Users className="h-3.5 w-3.5 text-[oklch(0.66_0.16_155)]" />
       <span>
-        <strong className="font-semibold text-foreground">{count}</strong> live visitor{count === 1 ? "" : "s"}
+        <strong className="font-semibold text-foreground">
+          {count.toLocaleString("en-IN")}
+        </strong>{" "}
+        total visitors
       </span>
     </p>
   );
