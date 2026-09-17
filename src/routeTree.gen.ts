@@ -50,6 +50,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as TranslatorRouteImport } from './routes/translator'
 import { Route as VoiceRouteImport } from './routes/voice'
+import { Route as WorkRouteImport } from './routes/work'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
@@ -90,6 +91,9 @@ import { Route as GovTrackerRouteImport } from './routes/gov.tracker'
 import { Route as GovVaultRouteImport } from './routes/gov.vault'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
+import { Route as WorkIndexRouteImport } from './routes/work.index'
+import { Route as WorkMarketplaceRouteImport } from './routes/work.marketplace'
+import { Route as WorkPostJobRouteImport } from './routes/work.post-job'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as GovDocumentsIndexRouteImport } from './routes/gov.documents.index'
@@ -302,6 +306,11 @@ const VoiceRoute = VoiceRouteImport.update({
   path: '/voice',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkRoute = WorkRouteImport.update({
+  id: '/work',
+  path: '/work',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotmcpChar93ListToolsRoute =
   Char91DotmcpChar93ListToolsRouteImport.update({
     id: '/.mcp/list-tools',
@@ -505,6 +514,21 @@ const ToolsSlugRoute = ToolsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ToolsRoute,
 } as any)
+const WorkIndexRoute = WorkIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkRoute,
+} as any)
+const WorkMarketplaceRoute = WorkMarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => WorkRoute,
+} as any)
+const WorkPostJobRoute = WorkPostJobRouteImport.update({
+  id: '/post-job',
+  path: '/post-job',
+  getParentRoute: () => WorkRoute,
+} as any)
 const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
   id: '/.lovable/oauth/consent',
   path: '/.lovable/oauth/consent',
@@ -579,6 +603,7 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
+  '/work': typeof WorkRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
@@ -613,12 +638,15 @@ export interface FileRoutesByFullPath {
   '/gov/tracker': typeof GovTrackerRoute
   '/gov/vault': typeof GovVaultRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/work/marketplace': typeof WorkMarketplaceRoute
+  '/work/post-job': typeof WorkPostJobRoute
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
   '/career/': typeof CareerIndexRoute
   '/creator/': typeof CreatorIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
+  '/work/': typeof WorkIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
@@ -695,12 +723,15 @@ export interface FileRoutesByTo {
   '/gov/tracker': typeof GovTrackerRoute
   '/gov/vault': typeof GovVaultRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/work/marketplace': typeof WorkMarketplaceRoute
+  '/work/post-job': typeof WorkPostJobRoute
   '/blog': typeof BlogIndexRoute
   '/business': typeof BusinessIndexRoute
   '/career': typeof CareerIndexRoute
   '/creator': typeof CreatorIndexRoute
   '/gov': typeof GovIndexRoute
   '/tools': typeof ToolsIndexRoute
+  '/work': typeof WorkIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
@@ -751,6 +782,7 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRouteWithChildren
   '/translator': typeof TranslatorRoute
   '/voice': typeof VoiceRoute
+  '/work': typeof WorkRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
@@ -785,12 +817,15 @@ export interface FileRoutesById {
   '/gov/tracker': typeof GovTrackerRoute
   '/gov/vault': typeof GovVaultRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/work/marketplace': typeof WorkMarketplaceRoute
+  '/work/post-job': typeof WorkPostJobRoute
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
   '/career/': typeof CareerIndexRoute
   '/creator/': typeof CreatorIndexRoute
   '/gov/': typeof GovIndexRoute
   '/tools/': typeof ToolsIndexRoute
+  '/work/': typeof WorkIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
@@ -842,6 +877,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/translator'
     | '/voice'
+    | '/work'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/ai'
@@ -876,12 +912,15 @@ export interface FileRouteTypes {
     | '/gov/tracker'
     | '/gov/vault'
     | '/tools/$slug'
+    | '/work/marketplace'
+    | '/work/post-job'
     | '/blog/'
     | '/business/'
     | '/career/'
     | '/creator/'
     | '/gov/'
     | '/tools/'
+    | '/work/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
@@ -958,12 +997,15 @@ export interface FileRouteTypes {
     | '/gov/tracker'
     | '/gov/vault'
     | '/tools/$slug'
+    | '/work/marketplace'
+    | '/work/post-job'
     | '/blog'
     | '/business'
     | '/career'
     | '/creator'
     | '/gov'
     | '/tools'
+    | '/work'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
@@ -1013,6 +1055,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/translator'
     | '/voice'
+    | '/work'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/ai'
@@ -1047,12 +1090,15 @@ export interface FileRouteTypes {
     | '/gov/tracker'
     | '/gov/vault'
     | '/tools/$slug'
+    | '/work/marketplace'
+    | '/work/post-job'
     | '/blog/'
     | '/business/'
     | '/career/'
     | '/creator/'
     | '/gov/'
     | '/tools/'
+    | '/work/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
@@ -1103,6 +1149,7 @@ export interface RootRouteChildren {
   ToolsRoute: typeof ToolsRouteWithChildren
   TranslatorRoute: typeof TranslatorRoute
   VoiceRoute: typeof VoiceRoute
+  WorkRoute: typeof WorkRouteWithChildren
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ApiAiRoute: typeof ApiAiRoute
@@ -1402,6 +1449,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VoiceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/work': {
+      id: '/work'
+      path: '/work'
+      fullPath: '/work'
+      preLoaderRoute: typeof WorkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.mcp/list-tools': {
       id: '/.mcp/list-tools'
       path: '/.mcp/list-tools'
@@ -1682,6 +1736,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsSlugRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/work/': {
+      id: '/work/'
+      path: '/'
+      fullPath: '/work/'
+      preLoaderRoute: typeof WorkIndexRouteImport
+      parentRoute: typeof WorkRoute
+    }
+    '/work/marketplace': {
+      id: '/work/marketplace'
+      path: '/marketplace'
+      fullPath: '/work/marketplace'
+      preLoaderRoute: typeof WorkMarketplaceRouteImport
+      parentRoute: typeof WorkRoute
+    }
+    '/work/post-job': {
+      id: '/work/post-job'
+      path: '/post-job'
+      fullPath: '/work/post-job'
+      preLoaderRoute: typeof WorkPostJobRouteImport
+      parentRoute: typeof WorkRoute
+    }
     '/.lovable/oauth/consent': {
       id: '/.lovable/oauth/consent'
       path: '/.lovable/oauth/consent'
@@ -1866,6 +1941,20 @@ const ToolsRouteChildren: ToolsRouteChildren = {
 
 const ToolsRouteWithChildren = ToolsRoute._addFileChildren(ToolsRouteChildren)
 
+interface WorkRouteChildren {
+  WorkMarketplaceRoute: typeof WorkMarketplaceRoute
+  WorkPostJobRoute: typeof WorkPostJobRoute
+  WorkIndexRoute: typeof WorkIndexRoute
+}
+
+const WorkRouteChildren: WorkRouteChildren = {
+  WorkMarketplaceRoute: WorkMarketplaceRoute,
+  WorkPostJobRoute: WorkPostJobRoute,
+  WorkIndexRoute: WorkIndexRoute,
+}
+
+const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -1908,6 +1997,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsRoute: ToolsRouteWithChildren,
   TranslatorRoute: TranslatorRoute,
   VoiceRoute: VoiceRoute,
+  WorkRoute: WorkRouteWithChildren,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
