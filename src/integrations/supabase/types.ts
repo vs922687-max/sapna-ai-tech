@@ -236,6 +236,101 @@ export type Database = {
         }
         Relationships: []
       }
+      work_applications: {
+        Row: {
+          cover_note: string
+          created_at: string
+          id: string
+          job_id: string
+          quote_inr: number | null
+          status: string
+          submission_note: string | null
+          submission_url: string | null
+          updated_at: string
+          worker_id: string
+        }
+        Insert: {
+          cover_note: string
+          created_at?: string
+          id?: string
+          job_id: string
+          quote_inr?: number | null
+          status?: string
+          submission_note?: string | null
+          submission_url?: string | null
+          updated_at?: string
+          worker_id: string
+        }
+        Update: {
+          cover_note?: string
+          created_at?: string
+          id?: string
+          job_id?: string
+          quote_inr?: number | null
+          status?: string
+          submission_note?: string | null
+          submission_url?: string | null
+          updated_at?: string
+          worker_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "work_applications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "work_jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      work_jobs: {
+        Row: {
+          budget_inr: number
+          category: string
+          client_id: string
+          contact_note: string | null
+          created_at: string
+          deadline: string | null
+          description: string
+          id: string
+          requirements: string | null
+          skills: string[]
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          budget_inr?: number
+          category: string
+          client_id: string
+          contact_note?: string | null
+          created_at?: string
+          deadline?: string | null
+          description: string
+          id?: string
+          requirements?: string | null
+          skills?: string[]
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          budget_inr?: number
+          category?: string
+          client_id?: string
+          contact_note?: string | null
+          created_at?: string
+          deadline?: string | null
+          description?: string
+          id?: string
+          requirements?: string | null
+          skills?: string[]
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
