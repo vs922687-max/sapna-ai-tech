@@ -28,6 +28,7 @@ export function SiteFooter() {
             <li><Link to="/tools" className="hover:text-primary">All AI tools</Link></li>
             <li><Link to="/gov" className="hover:text-primary">Government</Link></li>
             <li><Link to="/chat" className="hover:text-primary">AI Chat</Link></li>
+            <li><Link to="/work" className="hover:text-primary">Work & Earn</Link></li>
             <li><Link to="/pricing" className="hover:text-primary">Pricing</Link></li>
           </ul>
         </div>
