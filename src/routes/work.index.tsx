@@ -152,7 +152,7 @@ function WorkLanding() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-gradient-to-r from-primary to-[oklch(0.68_0.2_30)] text-primary-foreground shadow-glow hover:opacity-90">
-                <Link to="/work/marketplace" search={{}}>Find Work <ArrowRight className="ml-1 h-4 w-4" /></Link>
+                <Link to="/work/marketplace" search={{ category: undefined }}>Find Work <ArrowRight className="ml-1 h-4 w-4" /></Link>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <Link to="/work/post-job">Post a Job</Link>
