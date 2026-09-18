@@ -14,10 +14,11 @@ import { toast } from "sonner";
 import {
   APPLICATION_STATUS_LABEL,
   JOB_STATUS_LABEL,
+  PAYMENT_STATUS_LABEL,
   categoryName,
   formatInr,
 } from "@/lib/work-jobs";
-import { ArrowLeft, Briefcase, CheckCircle2, ExternalLink, Loader2, Send, Users } from "lucide-react";
+import { ArrowLeft, Briefcase, CheckCircle2, ExternalLink, Loader2, Send, Users, WalletCards } from "lucide-react";
 
 const TITLE = "My Work — Applications and Posted Jobs | Bharat AI Sathi";
 const DESCRIPTION = "Track your Work & Earn applications, submissions, posted jobs and applicant status.";
@@ -53,6 +54,8 @@ type Application = {
   cover_note: string;
   quote_inr: number | null;
   status: string;
+  payment_status: string;
+  payment_updated_at: string | null;
   submission_note: string | null;
   submission_url: string | null;
   created_at: string;
@@ -136,6 +139,19 @@ function MyWork() {
     setBusyId(null);
     if (error) return toast.error("Job status update nahi hua.");
     toast.success("Job status update ho gaya.");
+    await loadData(user);
+  };
+
+  const updatePaymentStatus = async (id: string, paymentStatus: string) => {
+    if (!user) return;
+    setBusyId(id);
+    const { error } = await supabase
+      .from("work_applications")
+      .update({ payment_status: paymentStatus })
+      .eq("id", id);
+    setBusyId(null);
+    if (error) return toast.error("Payment status update nahi hua. Dobara try karo.");
+    toast.success("Payment status update ho gaya.");
     await loadData(user);
   };
 
@@ -223,6 +239,16 @@ function MyWork() {
                     <Badge>{APPLICATION_STATUS_LABEL[app.status] ?? app.status}</Badge>
                   </div>
                   <p className="mt-4 text-sm text-muted-foreground">{app.cover_note}</p>
+
+                  {app.status === "approved" ? (
+                    <div className="mt-4 flex flex-wrap items-center gap-2 rounded-xl border border-border/60 bg-secondary/40 p-3 text-sm">
+                      <WalletCards className="h-4 w-4 text-primary" />
+                      <span className="text-muted-foreground">Payment status</span>
+                      <Badge variant="outline">
+                        {PAYMENT_STATUS_LABEL[app.payment_status] ?? app.payment_status}
+                      </Badge>
+                    </div>
+                  ) : null}
 
                   {app.status === "accepted" ? (
                     <div className="mt-5 space-y-3 border-t border-border/60 pt-5">
@@ -397,6 +423,24 @@ function MyWork() {
                                 >
                                   <CheckCircle2 className="mr-1 h-4 w-4" /> Approve work
                                 </Button>
+                              ) : null}
+                              {app.status === "approved" ? (
+                                <div className="flex w-full flex-wrap items-center gap-2 border-t border-border/60 pt-4">
+                                  <span className="mr-1 inline-flex items-center gap-1 text-xs text-muted-foreground">
+                                    <WalletCards className="h-4 w-4" /> Payment
+                                  </span>
+                                  {(["pending", "processing", "paid", "issue"] as const).map((paymentStatus) => (
+                                    <Button
+                                      key={paymentStatus}
+                                      variant={app.payment_status === paymentStatus ? "default" : "outline"}
+                                      size="sm"
+                                      onClick={() => updatePaymentStatus(app.id, paymentStatus)}
+                                      disabled={busyId === app.id || app.payment_status === paymentStatus}
+                                    >
+                                      {PAYMENT_STATUS_LABEL[paymentStatus]}
+                                    </Button>
+                                  ))}
+                                </div>
                               ) : null}
                             </div>
                           </div>

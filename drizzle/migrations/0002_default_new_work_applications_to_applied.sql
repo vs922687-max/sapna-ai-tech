@@ -1,0 +1,1 @@
+ALTER TABLE public.work_applications ALTER COLUMN status SET DEFAULT 'applied';

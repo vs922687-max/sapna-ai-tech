@@ -51,3 +51,10 @@ export const APPLICATION_STATUS_LABEL: Record<string, string> = {
   approved: "Approved",
   rejected: "Not selected",
 };
+
+export const PAYMENT_STATUS_LABEL: Record<string, string> = {
+  pending: "Payment pending",
+  processing: "Payment processing",
+  paid: "Paid",
+  issue: "Payment issue",
+};

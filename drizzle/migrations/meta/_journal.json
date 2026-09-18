@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789709824796,
+      "tag": "0000_add_work_notifications_and_payment_status",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789709875811,
+      "tag": "0001_secure_work_application_status_transitions",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789709924712,
+      "tag": "0002_default_new_work_applications_to_applied",
+      "breakpoints": true
+    }
+  ]
+}

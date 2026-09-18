@@ -242,6 +242,8 @@ export type Database = {
           created_at: string
           id: string
           job_id: string
+          payment_status: string
+          payment_updated_at: string | null
           quote_inr: number | null
           status: string
           submission_note: string | null
@@ -254,6 +256,8 @@ export type Database = {
           created_at?: string
           id?: string
           job_id: string
+          payment_status?: string
+          payment_updated_at?: string | null
           quote_inr?: number | null
           status?: string
           submission_note?: string | null
@@ -266,6 +270,8 @@ export type Database = {
           created_at?: string
           id?: string
           job_id?: string
+          payment_status?: string
+          payment_updated_at?: string | null
           quote_inr?: number | null
           status?: string
           submission_note?: string | null
@@ -330,6 +336,60 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      work_notifications: {
+        Row: {
+          application_id: string | null
+          created_at: string
+          event_type: string
+          id: string
+          is_read: boolean
+          job_id: string | null
+          link: string
+          message: string
+          recipient_id: string
+          title: string
+        }
+        Insert: {
+          application_id?: string | null
+          created_at?: string
+          event_type: string
+          id?: string
+          is_read?: boolean
+          job_id?: string | null
+          link?: string
+          message: string
+          recipient_id: string
+          title: string
+        }
+        Update: {
+          application_id?: string | null
+          created_at?: string
+          event_type?: string
+          id?: string
+          is_read?: boolean
+          job_id?: string | null
+          link?: string
+          message?: string
+          recipient_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "work_notifications_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "work_applications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "work_notifications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "work_jobs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
