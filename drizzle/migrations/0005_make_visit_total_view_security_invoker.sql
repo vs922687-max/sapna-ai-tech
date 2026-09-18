@@ -1,0 +1,1 @@
+ALTER VIEW public.site_visit_totals SET (security_invoker = true);

@@ -36,6 +36,13 @@
       "when": 1789715418069,
       "tag": "0004_use_read_only_visit_total_view",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789715460897,
+      "tag": "0005_make_visit_total_view_security_invoker",
+      "breakpoints": true
     }
   ]
 }
