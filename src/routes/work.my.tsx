@@ -44,8 +44,6 @@ type JobSummary = {
   category: string;
   budget_inr: number;
   status: string;
-  payment_status: string;
-  payment_updated_at: string | null;
   client_id: string;
 };
 
@@ -56,6 +54,8 @@ type Application = {
   cover_note: string;
   quote_inr: number | null;
   status: string;
+  payment_status: string;
+  payment_updated_at: string | null;
   submission_note: string | null;
   submission_url: string | null;
   created_at: string;
