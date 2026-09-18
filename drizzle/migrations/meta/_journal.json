@@ -22,6 +22,34 @@
       "when": 1789709924712,
       "tag": "0002_default_new_work_applications_to_applied",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789715367201,
+      "tag": "0003_secure_visit_count_and_notification_inserts",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789715418069,
+      "tag": "0004_use_read_only_visit_total_view",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789715460897,
+      "tag": "0005_make_visit_total_view_security_invoker",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789715485991,
+      "tag": "0006_store_public_visit_total_only",
+      "breakpoints": true
     }
   ]
 }

@@ -200,6 +200,21 @@ export type Database = {
         }
         Relationships: []
       }
+      site_visit_metrics: {
+        Row: {
+          singleton: boolean
+          total: number
+        }
+        Insert: {
+          singleton?: boolean
+          total?: number
+        }
+        Update: {
+          singleton?: boolean
+          total?: number
+        }
+        Relationships: []
+      }
       site_visits: {
         Row: {
           created_at: string
@@ -393,9 +408,15 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      site_visit_totals: {
+        Row: {
+          total: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      get_site_visit_count: { Args: never; Returns: number }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
