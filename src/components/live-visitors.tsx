@@ -33,7 +33,7 @@ export function LiveVisitors({ className = "" }: { className?: string }) {
         }
 
         const { data, error } = await supabase
-          .from("site_visit_totals")
+          .from("site_visit_metrics")
           .select("total")
           .single();
 
