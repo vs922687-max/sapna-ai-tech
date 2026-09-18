@@ -100,6 +100,7 @@ import { Route as GovDocumentsIndexRouteImport } from './routes/gov.documents.in
 import { Route as GovDocumentsSlugRouteImport } from './routes/gov.documents.$slug'
 import { Route as GovFormsIndexRouteImport } from './routes/gov.forms.index'
 import { Route as GovFormsSlugRouteImport } from './routes/gov.forms.$slug'
+import { Route as WorkJobIdRouteImport } from './routes/work.job.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -560,6 +561,11 @@ const GovFormsSlugRoute = GovFormsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => GovFormsRoute,
 } as any)
+const WorkJobIdRoute = WorkJobIdRouteImport.update({
+  id: '/job/$id',
+  path: '/job/$id',
+  getParentRoute: () => WorkRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -651,6 +657,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
+  '/work/job/$id': typeof WorkJobIdRoute
   '/gov/documents/': typeof GovDocumentsIndexRoute
   '/gov/forms/': typeof GovFormsIndexRoute
 }
@@ -736,6 +743,7 @@ export interface FileRoutesByTo {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
+  '/work/job/$id': typeof WorkJobIdRoute
   '/gov/documents': typeof GovDocumentsIndexRoute
   '/gov/forms': typeof GovFormsIndexRoute
 }
@@ -830,6 +838,7 @@ export interface FileRoutesById {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/gov/documents/$slug': typeof GovDocumentsSlugRoute
   '/gov/forms/$slug': typeof GovFormsSlugRoute
+  '/work/job/$id': typeof WorkJobIdRoute
   '/gov/documents/': typeof GovDocumentsIndexRoute
   '/gov/forms/': typeof GovFormsIndexRoute
 }
@@ -925,6 +934,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
     | '/gov/forms/$slug'
+    | '/work/job/$id'
     | '/gov/documents/'
     | '/gov/forms/'
   fileRoutesByTo: FileRoutesByTo
@@ -1010,6 +1020,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
     | '/gov/forms/$slug'
+    | '/work/job/$id'
     | '/gov/documents'
     | '/gov/forms'
   id:
@@ -1103,6 +1114,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/gov/documents/$slug'
     | '/gov/forms/$slug'
+    | '/work/job/$id'
     | '/gov/documents/'
     | '/gov/forms/'
   fileRoutesById: FileRoutesById
@@ -1799,6 +1811,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovFormsSlugRouteImport
       parentRoute: typeof GovFormsRoute
     }
+    '/work/job/$id': {
+      id: '/work/job/$id'
+      path: '/job/$id'
+      fullPath: '/work/job/$id'
+      preLoaderRoute: typeof WorkJobIdRouteImport
+      parentRoute: typeof WorkRoute
+    }
   }
 }
 
@@ -1945,12 +1964,14 @@ interface WorkRouteChildren {
   WorkMarketplaceRoute: typeof WorkMarketplaceRoute
   WorkPostJobRoute: typeof WorkPostJobRoute
   WorkIndexRoute: typeof WorkIndexRoute
+  WorkJobIdRoute: typeof WorkJobIdRoute
 }
 
 const WorkRouteChildren: WorkRouteChildren = {
   WorkMarketplaceRoute: WorkMarketplaceRoute,
   WorkPostJobRoute: WorkPostJobRoute,
   WorkIndexRoute: WorkIndexRoute,
+  WorkJobIdRoute: WorkJobIdRoute,
 }
 
 const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
