@@ -22,6 +22,13 @@
       "when": 1789709924712,
       "tag": "0002_default_new_work_applications_to_applied",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789715367201,
+      "tag": "0003_secure_visit_count_and_notification_inserts",
+      "breakpoints": true
     }
   ]
 }
