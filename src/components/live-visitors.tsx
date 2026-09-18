@@ -32,12 +32,10 @@ export function LiveVisitors({ className = "" }: { className?: string }) {
           }
         }
 
-        const { count: rows, error } = await supabase
-          .from("site_visits")
-          .select("*", { count: "exact", head: true });
+        const { data: rows, error } = await supabase.rpc("get_site_visit_count");
 
         if (error) throw error;
-        if (!cancelled) setCount(HISTORICAL_BASE + (rows ?? 0));
+        if (!cancelled) setCount(HISTORICAL_BASE + Number(rows ?? 0));
       } catch {
         if (!cancelled) setCount(null);
       }
