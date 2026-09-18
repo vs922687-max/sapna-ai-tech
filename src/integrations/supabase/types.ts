@@ -200,6 +200,21 @@ export type Database = {
         }
         Relationships: []
       }
+      site_visit_metrics: {
+        Row: {
+          singleton: boolean
+          total: number
+        }
+        Insert: {
+          singleton?: boolean
+          total?: number
+        }
+        Update: {
+          singleton?: boolean
+          total?: number
+        }
+        Relationships: []
+      }
       site_visits: {
         Row: {
           created_at: string
