@@ -393,7 +393,12 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      site_visit_totals: {
+        Row: {
+          total: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_site_visit_count: { Args: never; Returns: number }
