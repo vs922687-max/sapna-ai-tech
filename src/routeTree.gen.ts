@@ -93,6 +93,7 @@ import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
 import { Route as WorkIndexRouteImport } from './routes/work.index'
 import { Route as WorkMarketplaceRouteImport } from './routes/work.marketplace'
+import { Route as WorkMyRouteImport } from './routes/work.my'
 import { Route as WorkPostJobRouteImport } from './routes/work.post-job'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -525,6 +526,11 @@ const WorkMarketplaceRoute = WorkMarketplaceRouteImport.update({
   path: '/marketplace',
   getParentRoute: () => WorkRoute,
 } as any)
+const WorkMyRoute = WorkMyRouteImport.update({
+  id: '/my',
+  path: '/my',
+  getParentRoute: () => WorkRoute,
+} as any)
 const WorkPostJobRoute = WorkPostJobRouteImport.update({
   id: '/post-job',
   path: '/post-job',
@@ -645,6 +651,7 @@ export interface FileRoutesByFullPath {
   '/gov/vault': typeof GovVaultRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/work/marketplace': typeof WorkMarketplaceRoute
+  '/work/my': typeof WorkMyRoute
   '/work/post-job': typeof WorkPostJobRoute
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
@@ -731,6 +738,7 @@ export interface FileRoutesByTo {
   '/gov/vault': typeof GovVaultRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/work/marketplace': typeof WorkMarketplaceRoute
+  '/work/my': typeof WorkMyRoute
   '/work/post-job': typeof WorkPostJobRoute
   '/blog': typeof BlogIndexRoute
   '/business': typeof BusinessIndexRoute
@@ -826,6 +834,7 @@ export interface FileRoutesById {
   '/gov/vault': typeof GovVaultRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/work/marketplace': typeof WorkMarketplaceRoute
+  '/work/my': typeof WorkMyRoute
   '/work/post-job': typeof WorkPostJobRoute
   '/blog/': typeof BlogIndexRoute
   '/business/': typeof BusinessIndexRoute
@@ -922,6 +931,7 @@ export interface FileRouteTypes {
     | '/gov/vault'
     | '/tools/$slug'
     | '/work/marketplace'
+    | '/work/my'
     | '/work/post-job'
     | '/blog/'
     | '/business/'
@@ -1008,6 +1018,7 @@ export interface FileRouteTypes {
     | '/gov/vault'
     | '/tools/$slug'
     | '/work/marketplace'
+    | '/work/my'
     | '/work/post-job'
     | '/blog'
     | '/business'
@@ -1102,6 +1113,7 @@ export interface FileRouteTypes {
     | '/gov/vault'
     | '/tools/$slug'
     | '/work/marketplace'
+    | '/work/my'
     | '/work/post-job'
     | '/blog/'
     | '/business/'
@@ -1762,6 +1774,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkMarketplaceRouteImport
       parentRoute: typeof WorkRoute
     }
+    '/work/my': {
+      id: '/work/my'
+      path: '/my'
+      fullPath: '/work/my'
+      preLoaderRoute: typeof WorkMyRouteImport
+      parentRoute: typeof WorkRoute
+    }
     '/work/post-job': {
       id: '/work/post-job'
       path: '/post-job'
@@ -1962,6 +1981,7 @@ const ToolsRouteWithChildren = ToolsRoute._addFileChildren(ToolsRouteChildren)
 
 interface WorkRouteChildren {
   WorkMarketplaceRoute: typeof WorkMarketplaceRoute
+  WorkMyRoute: typeof WorkMyRoute
   WorkPostJobRoute: typeof WorkPostJobRoute
   WorkIndexRoute: typeof WorkIndexRoute
   WorkJobIdRoute: typeof WorkJobIdRoute
@@ -1969,6 +1989,7 @@ interface WorkRouteChildren {
 
 const WorkRouteChildren: WorkRouteChildren = {
   WorkMarketplaceRoute: WorkMarketplaceRoute,
+  WorkMyRoute: WorkMyRoute,
   WorkPostJobRoute: WorkPostJobRoute,
   WorkIndexRoute: WorkIndexRoute,
   WorkJobIdRoute: WorkJobIdRoute,
