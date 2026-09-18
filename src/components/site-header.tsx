@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
+import { WorkNotifications } from "@/components/work-notifications";
 import { cn } from "@/lib/utils";
 
 type NavItem = {
@@ -165,9 +166,12 @@ export function SiteHeader() {
 
           <div className="hidden items-center gap-2 md:flex">
             {user ? (
-              <Button asChild size="sm" className="bg-gradient-to-r from-primary to-[oklch(0.68_0.2_30)] text-primary-foreground shadow-glow hover:opacity-90">
-                <Link to="/dashboard">Dashboard</Link>
-              </Button>
+              <>
+                <WorkNotifications user={user} />
+                <Button asChild size="sm" className="bg-gradient-to-r from-primary to-[oklch(0.68_0.2_30)] text-primary-foreground shadow-glow hover:opacity-90">
+                  <Link to="/dashboard">Dashboard</Link>
+                </Button>
+              </>
             ) : (
               <>
                 <Button asChild size="sm" variant="ghost">
@@ -231,9 +235,12 @@ export function SiteHeader() {
               })}
               <div className="mt-2 flex gap-2 pt-2">
                 {user ? (
-                  <Button asChild className="flex-1">
-                    <Link to="/dashboard">Dashboard</Link>
-                  </Button>
+                  <>
+                    <WorkNotifications user={user} />
+                    <Button asChild className="flex-1">
+                      <Link to="/dashboard">Dashboard</Link>
+                    </Button>
+                  </>
                 ) : (
                   <>
                     <Button asChild variant="outline" className="flex-1">
