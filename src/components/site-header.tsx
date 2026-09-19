@@ -23,6 +23,7 @@ const nav: NavItem[] = [
   { to: "/creator", label: "Creator Studio" },
   { to: "/career", label: "Career Hub" },
   { to: "/work", label: "Work & Earn" },
+  { to: "/devotional-darshan", label: "Devotional Darshan" },
   {
     to: "/gov",
     label: "Government",
