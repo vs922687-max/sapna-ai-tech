@@ -210,13 +210,14 @@ export function DevotionalAnimator() {
       if (!AudioContextConstructor) return;
       audioContext = new AudioContextConstructor();
       audioContextRef.current = audioContext;
-      const masterGain = audioContext.createGain();
+      const activeAudioContext = audioContext;
+      const masterGain = activeAudioContext.createGain();
       masterGain.gain.value = 0;
-      masterGain.connect(audioContext.destination);
+      masterGain.connect(activeAudioContext.destination);
       masterGainRef.current = masterGain;
       oscillatorsRef.current = [68.05, 136.1, 204.15, 272.2].map((frequency, index) => {
-        const oscillator = audioContext.createOscillator();
-        const gain = audioContext.createGain();
+        const oscillator = activeAudioContext.createOscillator();
+        const gain = activeAudioContext.createGain();
         oscillator.type = index === 1 ? "triangle" : "sine";
         oscillator.frequency.value = frequency;
         gain.gain.value = 0.2 / (index + 1);
