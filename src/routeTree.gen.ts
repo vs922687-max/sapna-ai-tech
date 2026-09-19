@@ -26,7 +26,6 @@ import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as CreatorRouteImport } from './routes/creator'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DataAnalyzerRouteImport } from './routes/data-analyzer'
-import { Route as DevotionalDarshanRouteImport } from './routes/devotional-darshan'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
 import { Route as EmailRouteImport } from './routes/email'
@@ -187,11 +186,6 @@ const DashboardRoute = DashboardRouteImport.update({
 const DataAnalyzerRoute = DataAnalyzerRouteImport.update({
   id: '/data-analyzer',
   path: '/data-analyzer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DevotionalDarshanRoute = DevotionalDarshanRouteImport.update({
-  id: '/devotional-darshan',
-  path: '/devotional-darshan',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DisclaimerRoute = DisclaimerRouteImport.update({
@@ -597,7 +591,6 @@ export interface FileRoutesByFullPath {
   '/creator': typeof CreatorRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
-  '/devotional-darshan': typeof DevotionalDarshanRoute
   '/disclaimer': typeof DisclaimerRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
@@ -690,7 +683,6 @@ export interface FileRoutesByTo {
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
-  '/devotional-darshan': typeof DevotionalDarshanRoute
   '/disclaimer': typeof DisclaimerRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
@@ -782,7 +774,6 @@ export interface FileRoutesById {
   '/creator': typeof CreatorRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/data-analyzer': typeof DataAnalyzerRoute
-  '/devotional-darshan': typeof DevotionalDarshanRoute
   '/disclaimer': typeof DisclaimerRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/email': typeof EmailRoute
@@ -880,7 +871,6 @@ export interface FileRouteTypes {
     | '/creator'
     | '/dashboard'
     | '/data-analyzer'
-    | '/devotional-darshan'
     | '/disclaimer'
     | '/editorial-policy'
     | '/email'
@@ -973,7 +963,6 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dashboard'
     | '/data-analyzer'
-    | '/devotional-darshan'
     | '/disclaimer'
     | '/editorial-policy'
     | '/email'
@@ -1064,7 +1053,6 @@ export interface FileRouteTypes {
     | '/creator'
     | '/dashboard'
     | '/data-analyzer'
-    | '/devotional-darshan'
     | '/disclaimer'
     | '/editorial-policy'
     | '/email'
@@ -1161,7 +1149,6 @@ export interface RootRouteChildren {
   CreatorRoute: typeof CreatorRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   DataAnalyzerRoute: typeof DataAnalyzerRoute
-  DevotionalDarshanRoute: typeof DevotionalDarshanRoute
   DisclaimerRoute: typeof DisclaimerRoute
   EditorialPolicyRoute: typeof EditorialPolicyRoute
   EmailRoute: typeof EmailRoute
@@ -1316,13 +1303,6 @@ declare module '@tanstack/react-router' {
       path: '/data-analyzer'
       fullPath: '/data-analyzer'
       preLoaderRoute: typeof DataAnalyzerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/devotional-darshan': {
-      id: '/devotional-darshan'
-      path: '/devotional-darshan'
-      fullPath: '/devotional-darshan'
-      preLoaderRoute: typeof DevotionalDarshanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/disclaimer': {
@@ -2035,7 +2015,6 @@ const rootRouteChildren: RootRouteChildren = {
   CreatorRoute: CreatorRouteWithChildren,
   DashboardRoute: DashboardRoute,
   DataAnalyzerRoute: DataAnalyzerRoute,
-  DevotionalDarshanRoute: DevotionalDarshanRoute,
   DisclaimerRoute: DisclaimerRoute,
   EditorialPolicyRoute: EditorialPolicyRoute,
   EmailRoute: EmailRoute,
