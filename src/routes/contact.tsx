@@ -94,7 +94,15 @@ function ContactPage() {
             </li>
             <li className="flex items-center gap-3">
               <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary/15 text-primary"><MessageSquare className="h-4 w-4" /></div>
-              WhatsApp: +91 98765 43210
+              <a
+                href="https://wa.me/918146896118"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-primary"
+                aria-label="Chat with Bharat AI Sathi on WhatsApp"
+              >
+                WhatsApp: +91 81468 96118
+              </a>
             </li>
             <li className="flex items-center gap-3">
               <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary/15 text-primary"><MapPin className="h-4 w-4" /></div>
