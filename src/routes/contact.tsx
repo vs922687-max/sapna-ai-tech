@@ -95,7 +95,7 @@ function ContactPage() {
             <li className="flex items-center gap-3">
               <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary/15 text-primary"><MessageSquare className="h-4 w-4" /></div>
               <a
-                href="https://wa.me/918146896118"
+                href="https://wa.me/918146896118?text=Namaste%21%20Mujhe%20Bharat%20AI%20Sathi%20ke%20baare%20mein%20jaankari%20chahiye."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors hover:text-primary"
