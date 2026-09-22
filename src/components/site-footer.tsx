@@ -42,6 +42,17 @@ export function SiteFooter() {
             <li><Link to="/blog" className="hover:text-primary">Blog</Link></li>
             <li><Link to="/faq" className="hover:text-primary">FAQ</Link></li>
             <li><Link to="/contact" className="hover:text-primary">Contact</Link></li>
+            <li>
+              <a
+                href="https://wa.me/918146896118"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary"
+                aria-label="Chat with Bharat AI Sathi on WhatsApp"
+              >
+                WhatsApp
+              </a>
+            </li>
           </ul>
         </div>
 
