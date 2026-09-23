@@ -43,6 +43,7 @@ import { Route as PresentationRouteImport } from './routes/presentation'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResumeRouteImport } from './routes/resume'
+import { Route as ShortsAgentRouteImport } from './routes/shorts-agent'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SocialRouteImport } from './routes/social'
 import { Route as SummarizerRouteImport } from './routes/summarizer'
@@ -271,6 +272,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const ResumeRoute = ResumeRouteImport.update({
   id: '/resume',
   path: '/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShortsAgentRoute = ShortsAgentRouteImport.update({
+  id: '/shorts-agent',
+  path: '/shorts-agent',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -608,6 +614,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/resume': typeof ResumeRoute
+  '/shorts-agent': typeof ShortsAgentRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/social': typeof SocialRoute
   '/summarizer': typeof SummarizerRoute
@@ -699,6 +706,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/resume': typeof ResumeRoute
+  '/shorts-agent': typeof ShortsAgentRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/social': typeof SocialRoute
   '/summarizer': typeof SummarizerRoute
@@ -791,6 +799,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/resume': typeof ResumeRoute
+  '/shorts-agent': typeof ShortsAgentRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/social': typeof SocialRoute
   '/summarizer': typeof SummarizerRoute
@@ -888,6 +897,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/privacy'
     | '/resume'
+    | '/shorts-agent'
     | '/sitemap.xml'
     | '/social'
     | '/summarizer'
@@ -979,6 +989,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/privacy'
     | '/resume'
+    | '/shorts-agent'
     | '/sitemap.xml'
     | '/social'
     | '/summarizer'
@@ -1070,6 +1081,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/privacy'
     | '/resume'
+    | '/shorts-agent'
     | '/sitemap.xml'
     | '/social'
     | '/summarizer'
@@ -1166,6 +1178,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   ResumeRoute: typeof ResumeRoute
+  ShortsAgentRoute: typeof ShortsAgentRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SocialRoute: typeof SocialRoute
   SummarizerRoute: typeof SummarizerRoute
@@ -1422,6 +1435,13 @@ declare module '@tanstack/react-router' {
       path: '/resume'
       fullPath: '/resume'
       preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shorts-agent': {
+      id: '/shorts-agent'
+      path: '/shorts-agent'
+      fullPath: '/shorts-agent'
+      preLoaderRoute: typeof ShortsAgentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -2032,6 +2052,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   ResumeRoute: ResumeRoute,
+  ShortsAgentRoute: ShortsAgentRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SocialRoute: SocialRoute,
   SummarizerRoute: SummarizerRoute,
