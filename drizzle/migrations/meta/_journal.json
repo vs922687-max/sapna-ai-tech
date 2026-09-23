@@ -50,6 +50,13 @@
       "when": 1789715485991,
       "tag": "0006_store_public_visit_total_only",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1790151109728,
+      "tag": "0007_create_generated_shorts",
+      "breakpoints": true
     }
   ]
 }
