@@ -1,8 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createOpenAI } from "@ai-sdk/openai";
-import { Output, streamText } from "ai";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { completeGatewayChat } from "@/lib/ai-gateway.server";
 
 const inputSchema = z.object({
   topic: z.string().trim().min(1, "Please enter a topic.").max(200),
@@ -21,34 +20,18 @@ export const generateShorts = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => inputSchema.parse(input))
   .handler(async ({ data, context }) => {
-    const key = process.env['LOVABLE_API_KEY'];
-    if (!key) throw new Error("AI service is not configured.");
-
-    const lovable = createOpenAI({
-      baseURL: "https://ai.gateway.lovable.dev/v1",
-      apiKey: key,
-      headers: { "Lovable-API-Key": key, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
-    });
-
-    const generation = streamText({
-      model: lovable.responses("openai/gpt-6-astra"),
-      output: Output.object({ schema: outputSchema }),
-      system: "You are Bharat AI Sathi's YouTube Shorts strategist for Indian creators. Be practical, original and culturally natural. Never make unsupported income or performance guarantees.",
-      prompt: `Create one YouTube Shorts content package about: ${data.topic}. Write all audience-facing content in ${data.language}. Return a 35-55 second spoken script with a first-three-second hook, natural pacing cues and a concise CTA; one clickable title under 70 characters; a concise description with CTA; 10 relevant tags without #; and 5 relevant hashtags beginning with #. Keep each field concise and return the requested structured object.`,
-      maxRetries: 0,
-      providerOptions: {
-        openai: {
-          forceReasoning: true,
-          reasoningEffort: "low",
-          reasoningSummary: "auto",
-          store: false,
-          include: ["reasoning.encrypted_content"],
-        },
-      },
-    });
-
-    const output = await generation.output;
-    if (!output) throw new Error("AI did not return a complete Shorts package. Please try again.");
+    const generation = await completeGatewayChat([
+      { role: "system", content: "You are Bharat AI Sathi's YouTube Shorts strategist for Indian creators. Be practical, original and culturally natural. Never make unsupported income or performance guarantees. Respond with only a valid JSON object, without markdown, with string properties script, title, description and string arrays tags and hashtags." },
+      { role: "user", content: `Create one YouTube Shorts content package about: ${data.topic}. Write all audience-facing content in ${data.language}. Return a 35-55 second spoken script with a first-three-second hook, natural pacing cues and a concise CTA; one clickable title under 70 characters; a concise description with CTA; 10 relevant tags without #; and 5 relevant hashtags beginning with #. Return only valid JSON.` },
+    ]);
+    if (!generation.ok) throw new Error("Shorts generation is unavailable right now. Please try again.");
+    let output: z.infer<typeof outputSchema>;
+    try {
+      const raw = generation.text.trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
+      output = outputSchema.parse(JSON.parse(raw));
+    } catch {
+      throw new Error("AI did not return a complete Shorts package. Please try again.");
+    }
     const script = output.script.trim().slice(0, 12000);
     const title = output.title.trim().slice(0, 200);
     const description = output.description.trim().slice(0, 5000);
