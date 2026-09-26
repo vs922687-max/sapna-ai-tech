@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import {
   CheckCircle2,
@@ -23,8 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { supabase } from "@/integrations/supabase/client";
-import { askAi } from "@/lib/ai-client";
+import { generateShorts } from "@/lib/shorts-agent.functions";
 
 const languages = ["Hindi", "Punjabi", "English"] as const;
 type Language = (typeof languages)[number];
@@ -66,36 +66,6 @@ export const Route = createFileRoute("/shorts-agent")({
   }),
   component: ShortsAgentPage,
 });
-
-function extractSection(text: string, start: string, end?: string) {
-  const startIndex = text.indexOf(start);
-  if (startIndex < 0) return "";
-  const contentStart = startIndex + start.length;
-  const endIndex = end ? text.indexOf(end, contentStart) : -1;
-  return text.slice(contentStart, endIndex >= 0 ? endIndex : undefined).trim();
-}
-
-function parseList(value: string) {
-  return value
-    .split(/[,\n]/)
-    .map((item) => item.replace(/^[-•]\s*/, "").trim())
-    .filter(Boolean)
-    .slice(0, 20);
-}
-
-function parseResult(text: string): ShortsResult {
-  const script = extractSection(text, "[[SCRIPT]]", "[[TITLE]]");
-  const title = extractSection(text, "[[TITLE]]", "[[DESCRIPTION]]");
-  const description = extractSection(text, "[[DESCRIPTION]]", "[[TAGS]]");
-  const tags = parseList(extractSection(text, "[[TAGS]]", "[[HASHTAGS]]"));
-  const hashtags = parseList(extractSection(text, "[[HASHTAGS]]"));
-
-  if (!script || !title || !description) {
-    throw new Error("AI response adhura tha. Please generate again.");
-  }
-
-  return { script, title, description, tags, hashtags };
-}
 
 function ResultBox({
   title,
@@ -139,6 +109,7 @@ function ResultBox({
 }
 
 function ShortsAgentPage() {
+  const runGeneration = useServerFn(generateShorts);
   const [topic, setTopic] = useState("");
   const [language, setLanguage] = useState<Language>("Hindi");
   const [result, setResult] = useState<ShortsResult>(emptyResult);
@@ -156,37 +127,16 @@ function ShortsAgentPage() {
       return;
     }
 
-    const { data: authData } = await supabase.auth.getUser();
-    if (!authData.user) {
-      toast.error("Please sign in to generate and save your Shorts script.");
-      return;
-    }
-
     setLoading(true);
     setSaved(false);
     try {
-      const text = await askAi(
-        `Create a complete YouTube Shorts content package about: ${cleanTopic}\nLanguage: ${language}\n\nUse exactly these section markers and no other section headings:\n[[SCRIPT]]\nA compelling 35-55 second spoken video script with a strong first-3-second hook, clear value, natural pacing cues, and a concise call to action.\n[[TITLE]]\nOne clickable YouTube Shorts title, maximum 70 characters.\n[[DESCRIPTION]]\nA concise YouTube description with a call to action.\n[[TAGS]]\n10 relevant comma-separated tags without # symbols.\n[[HASHTAGS]]\n5 relevant comma-separated hashtags, each beginning with #.\n\nWrite all audience-facing content in ${language}. Keep the section markers exactly in English.`,
-        "You are Bharat AI Sathi's expert YouTube Shorts strategist for Indian creators. Be practical, original, culturally natural, and never make unsupported income or performance guarantees.",
-      );
-      const nextResult = parseResult(text);
+      const nextResult = await runGeneration({ data: { topic: cleanTopic, language } });
       setResult(nextResult);
-
-      const { error } = await supabase.from("generated_shorts").insert({
-        user_id: authData.user.id,
-        topic: cleanTopic,
-        language,
-        script: nextResult.script,
-        title: nextResult.title,
-        description: nextResult.description,
-        tags: [...nextResult.tags, ...nextResult.hashtags],
-        status: "generated",
-      });
-      if (error) throw new Error(error.message);
       setSaved(true);
       toast.success("Shorts script generated and saved.");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Shorts script generate nahi ho saka.");
+      const message = error instanceof Error ? error.message : "Shorts script generate nahi ho saka.";
+      toast.error(message.includes("Unauthorized") ? "Please sign in to generate and save your Shorts script." : message);
     } finally {
       setLoading(false);
     }
