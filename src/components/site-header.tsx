@@ -21,6 +21,7 @@ const nav: NavItem[] = [
   { to: "/tools", label: "AI Tools" },
   { to: "/tools", label: "Office Tools", hash: "office-tools" },
   { to: "/creator", label: "Creator Studio" },
+  { to: "/shorts-agent", label: "Shorts Agent" },
   { to: "/career", label: "Career Hub" },
   { to: "/work", label: "Work & Earn" },
   {
