@@ -56,6 +56,7 @@ import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiCreatorNarrationRouteImport } from './routes/api/creator-narration'
 import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -339,6 +340,11 @@ const ApiAiRoute = ApiAiRouteImport.update({
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCreatorNarrationRoute = ApiCreatorNarrationRouteImport.update({
+  id: '/api/creator-narration',
+  path: '/api/creator-narration',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiTranscribeRoute = ApiTranscribeRouteImport.update({
@@ -627,6 +633,7 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/creator-narration': typeof ApiCreatorNarrationRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/business/fssai': typeof BusinessFssaiRoute
@@ -717,6 +724,7 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/creator-narration': typeof ApiCreatorNarrationRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/business/fssai': typeof BusinessFssaiRoute
@@ -812,6 +820,7 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/creator-narration': typeof ApiCreatorNarrationRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/business/fssai': typeof BusinessFssaiRoute
@@ -910,6 +919,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
+    | '/api/creator-narration'
     | '/api/transcribe'
     | '/blog/$slug'
     | '/business/fssai'
@@ -1000,6 +1010,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
+    | '/api/creator-narration'
     | '/api/transcribe'
     | '/blog/$slug'
     | '/business/fssai'
@@ -1094,6 +1105,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
+    | '/api/creator-narration'
     | '/api/transcribe'
     | '/blog/$slug'
     | '/business/fssai'
@@ -1191,6 +1203,7 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiCreatorNarrationRoute: typeof ApiCreatorNarrationRoute
   ApiTranscribeRoute: typeof ApiTranscribeRoute
   CareerIndexRoute: typeof CareerIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
@@ -1526,6 +1539,13 @@ declare module '@tanstack/react-router' {
       path: '/api/chat'
       fullPath: '/api/chat'
       preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/creator-narration': {
+      id: '/api/creator-narration'
+      path: '/api/creator-narration'
+      fullPath: '/api/creator-narration'
+      preLoaderRoute: typeof ApiCreatorNarrationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/transcribe': {
@@ -2066,6 +2086,7 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ApiAiRoute: ApiAiRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiCreatorNarrationRoute: ApiCreatorNarrationRoute,
   ApiTranscribeRoute: ApiTranscribeRoute,
   CareerIndexRoute: CareerIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
