@@ -3,3 +3,5 @@
 - [ ] Google recognizes the saved OAuth client, but consent is blocked by `400 origin_mismatch` in the local preview. The owner must add the app's exact website origins in Google Cloud (including the published domain and any preview origin used for testing), enable YouTube Data API v3, and finish channel consent to verify the channel read.
 - [x] Add a Creator Studio workflow that turns a script into narration, visual scenes, and a downloadable MP4 with honest browser support and failure states.
 - [x] Replace text-only video scenes with generated, previewable scene imagery while retaining user-uploaded photos and MP4 export.
+- [ ] Build no-paid-API Shorts animation with recorded Hindi narration, burned subtitles, vertical MP4 and direct YouTube upload.
+- [ ] Verify signed-in creation and upload readiness; Google OAuth origin/consent remains an owner-side blocker until configured.
