@@ -56,6 +56,7 @@ import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiCreatorNarrationRouteImport } from './routes/api/creator-narration'
 import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -66,6 +67,7 @@ import { Route as BusinessSvanidhiRouteImport } from './routes/business.svanidhi
 import { Route as BusinessUdyamRouteImport } from './routes/business.udyam'
 import { Route as CareerIndexRouteImport } from './routes/career.index'
 import { Route as CreatorIndexRouteImport } from './routes/creator.index'
+import { Route as CreatorAutoVideoRouteImport } from './routes/creator.auto-video'
 import { Route as CreatorContentGeneratorRouteImport } from './routes/creator.content-generator'
 import { Route as CreatorHookGeneratorRouteImport } from './routes/creator.hook-generator'
 import { Route as CreatorScriptGeneratorRouteImport } from './routes/creator.script-generator'
@@ -341,6 +343,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCreatorNarrationRoute = ApiCreatorNarrationRouteImport.update({
+  id: '/api/creator-narration',
+  path: '/api/creator-narration',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiTranscribeRoute = ApiTranscribeRouteImport.update({
   id: '/api/transcribe',
   path: '/api/transcribe',
@@ -389,6 +396,11 @@ const CareerIndexRoute = CareerIndexRouteImport.update({
 const CreatorIndexRoute = CreatorIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorAutoVideoRoute = CreatorAutoVideoRouteImport.update({
+  id: '/auto-video',
+  path: '/auto-video',
   getParentRoute: () => CreatorRoute,
 } as any)
 const CreatorContentGeneratorRoute = CreatorContentGeneratorRouteImport.update({
@@ -627,12 +639,14 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/creator-narration': typeof ApiCreatorNarrationRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/business/fssai': typeof BusinessFssaiRoute
   '/business/gst': typeof BusinessGstRoute
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
+  '/creator/auto-video': typeof CreatorAutoVideoRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
   '/creator/hook-generator': typeof CreatorHookGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
@@ -717,12 +731,14 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/creator-narration': typeof ApiCreatorNarrationRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/business/fssai': typeof BusinessFssaiRoute
   '/business/gst': typeof BusinessGstRoute
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
+  '/creator/auto-video': typeof CreatorAutoVideoRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
   '/creator/hook-generator': typeof CreatorHookGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
@@ -812,12 +828,14 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/creator-narration': typeof ApiCreatorNarrationRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/business/fssai': typeof BusinessFssaiRoute
   '/business/gst': typeof BusinessGstRoute
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
+  '/creator/auto-video': typeof CreatorAutoVideoRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
   '/creator/hook-generator': typeof CreatorHookGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
@@ -910,12 +928,14 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
+    | '/api/creator-narration'
     | '/api/transcribe'
     | '/blog/$slug'
     | '/business/fssai'
     | '/business/gst'
     | '/business/svanidhi'
     | '/business/udyam'
+    | '/creator/auto-video'
     | '/creator/content-generator'
     | '/creator/hook-generator'
     | '/creator/script-generator'
@@ -1000,12 +1020,14 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
+    | '/api/creator-narration'
     | '/api/transcribe'
     | '/blog/$slug'
     | '/business/fssai'
     | '/business/gst'
     | '/business/svanidhi'
     | '/business/udyam'
+    | '/creator/auto-video'
     | '/creator/content-generator'
     | '/creator/hook-generator'
     | '/creator/script-generator'
@@ -1094,12 +1116,14 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/api/ai'
     | '/api/chat'
+    | '/api/creator-narration'
     | '/api/transcribe'
     | '/blog/$slug'
     | '/business/fssai'
     | '/business/gst'
     | '/business/svanidhi'
     | '/business/udyam'
+    | '/creator/auto-video'
     | '/creator/content-generator'
     | '/creator/hook-generator'
     | '/creator/script-generator'
@@ -1191,6 +1215,7 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiCreatorNarrationRoute: typeof ApiCreatorNarrationRoute
   ApiTranscribeRoute: typeof ApiTranscribeRoute
   CareerIndexRoute: typeof CareerIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
@@ -1528,6 +1553,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/creator-narration': {
+      id: '/api/creator-narration'
+      path: '/api/creator-narration'
+      fullPath: '/api/creator-narration'
+      preLoaderRoute: typeof ApiCreatorNarrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/transcribe': {
       id: '/api/transcribe'
       path: '/api/transcribe'
@@ -1596,6 +1628,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/creator/'
       preLoaderRoute: typeof CreatorIndexRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/creator/auto-video': {
+      id: '/creator/auto-video'
+      path: '/auto-video'
+      fullPath: '/creator/auto-video'
+      preLoaderRoute: typeof CreatorAutoVideoRouteImport
       parentRoute: typeof CreatorRoute
     }
     '/creator/content-generator': {
@@ -1893,6 +1932,7 @@ const BusinessRouteWithChildren = BusinessRoute._addFileChildren(
 )
 
 interface CreatorRouteChildren {
+  CreatorAutoVideoRoute: typeof CreatorAutoVideoRoute
   CreatorContentGeneratorRoute: typeof CreatorContentGeneratorRoute
   CreatorHookGeneratorRoute: typeof CreatorHookGeneratorRoute
   CreatorScriptGeneratorRoute: typeof CreatorScriptGeneratorRoute
@@ -1906,6 +1946,7 @@ interface CreatorRouteChildren {
 }
 
 const CreatorRouteChildren: CreatorRouteChildren = {
+  CreatorAutoVideoRoute: CreatorAutoVideoRoute,
   CreatorContentGeneratorRoute: CreatorContentGeneratorRoute,
   CreatorHookGeneratorRoute: CreatorHookGeneratorRoute,
   CreatorScriptGeneratorRoute: CreatorScriptGeneratorRoute,
@@ -2066,6 +2107,7 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ApiAiRoute: ApiAiRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiCreatorNarrationRoute: ApiCreatorNarrationRoute,
   ApiTranscribeRoute: ApiTranscribeRoute,
   CareerIndexRoute: CareerIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,

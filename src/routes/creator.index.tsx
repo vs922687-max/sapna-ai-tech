@@ -118,7 +118,8 @@ function CreatorHub() {
                 <Sparkles className="mr-1 h-4 w-4" /> One-click content package
               </Link>
             </Button>
-            <Button variant="outline" onClick={createProject}>
+             <Button asChild variant="outline"><Link to="/creator/auto-video"><ArrowRight className="mr-1 h-4 w-4" /> Script to MP4</Link></Button>
+             <Button variant="outline" onClick={createProject}>
               <Plus className="mr-1 h-4 w-4" /> New project
             </Button>
           </div>

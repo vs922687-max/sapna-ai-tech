@@ -10,6 +10,7 @@ import {
   Hash,
   LayoutList,
   Scissors,
+  Film,
   type LucideIcon,
 } from "lucide-react";
 
@@ -29,6 +30,15 @@ export type CreatorTool = {
 };
 
 export const CREATOR_TOOLS: CreatorTool[] = [
+  {
+    slug: "auto-video",
+    to: "/creator/auto-video",
+    title: "Automatic Video Maker",
+    hindi: "ऑटो वीडियो मेकर",
+    description: "Script se AI voice, scene visuals aur downloadable vertical MP4 banayein.",
+    icon: Film,
+    needsAi: true,
+  },
   {
     slug: "content-generator",
     to: "/creator/content-generator",
