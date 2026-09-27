@@ -111,6 +111,7 @@ function AutoVideoPage() {
 
   const generateImagesFor = async (sourceScenes: VideoScene[], indices: number[]) => {
     if (!indices.length) return;
+    setVideoUrl(""); setVideoBlob(null);
     setBusy("images"); setImageError("");
     try {
       const headers = await aiAuthHeaders();
@@ -131,7 +132,6 @@ function AutoVideoPage() {
           const file = new File([blob], `scene-${index + 1}.png`, { type: "image/png" });
           setScenes((current) => current.map((item, i) => i === index ? { ...item, image: file } : item));
           setImagePreviews((current) => { const next = { ...current }; delete next[index]; return next; });
-           setVideoUrl(""); setVideoBlob(null);
         } catch (error) {
           setImagePreviews((current) => { const next = { ...current }; delete next[index]; return next; });
           const reason = error instanceof Error ? error.message : "Image generation failed.";
@@ -162,7 +162,7 @@ function AutoVideoPage() {
       const { exportCreatorMp4 } = await import("@/lib/creator-video-export");
       const blob = await exportCreatorMp4(audio, scenes, project.topic || "Bharat AI Sathi", setProgress);
       const url = URL.createObjectURL(blob);
-       setVideoBlob(blob);
+      setVideoBlob(blob);
       setVideoUrl(url);
       downloadBlob(`bharat-ai-sathi-${(project.topic || "short-video").toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 36)}.mp4`, blob);
       toast.success("MP4 video download ho gaya.");
@@ -211,10 +211,10 @@ function AutoVideoPage() {
                     const file = e.target.files?.[0];
                     if (!file) return;
                     if (file.size > 10 * 1024 * 1024) { toast.error("Photo 10 MB se chhoti honi chahiye."); return; }
-                     setScenes((current) => current.map((item, i) => i === index ? { ...item, image: file } : item)); setImagePreviews((current) => { const next = { ...current }; delete next[index]; return next; }); setVideoUrl(""); setVideoBlob(null);
+                    setScenes((current) => current.map((item, i) => i === index ? { ...item, image: file } : item)); setImagePreviews((current) => { const next = { ...current }; delete next[index]; return next; }); setVideoUrl(""); setVideoBlob(null);
                   }} />
                 </label>
-                 {scene.image && <Button size="sm" variant="ghost" disabled={!!busy} onClick={() => { setScenes((current) => current.map((item, i) => i === index ? { ...item, image: undefined } : item)); setVideoUrl(""); setVideoBlob(null); }}><Trash2 className="mr-1 h-3 w-3" /> Remove image</Button>}
+                {scene.image && <Button size="sm" variant="ghost" disabled={!!busy} onClick={() => { setScenes((current) => current.map((item, i) => i === index ? { ...item, image: undefined } : item)); setVideoUrl(""); setVideoBlob(null); }}><Trash2 className="mr-1 h-3 w-3" /> Remove image</Button>}
                 </div>
               </div>
             ))}
