@@ -23,13 +23,15 @@ export function YoutubePublisher({ video, defaultTitle }: { video: Blob | null; 
   const [connecting, setConnecting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadedUrl, setUploadedUrl] = useState("");
+  const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
   const [details, setDetails] = useState<YoutubePublishDetails>({ title: defaultTitle.slice(0, 100), description: "", tags: "", privacy: "private", madeForKids: false });
   const token = useRef<string | null>(null);
   const tokenClient = useRef<GoogleTokenClient | null>(null);
   const mounted = useRef(true);
+  const readyVideo = video ?? selectedVideo;
 
   useEffect(() => { setDetails((current) => ({ ...current, title: defaultTitle.slice(0, 100) })); }, [defaultTitle]);
-  useEffect(() => { setUploadedUrl(""); }, [video]);
+  useEffect(() => { setUploadedUrl(""); }, [video, selectedVideo]);
   useEffect(() => {
     mounted.current = true;
     void supabase.auth.getUser().then(({ data }) => { if (mounted.current) setSignedIn(Boolean(data.user)); });
@@ -116,10 +118,10 @@ export function YoutubePublisher({ video, defaultTitle }: { video: Blob | null; 
 
   const upload = async () => {
     const accessToken = token.current;
-    if (!video || !channel || !accessToken) { toast.error("Pehle video banayein aur YouTube channel connect karein."); return; }
+    if (!readyVideo || !channel || !accessToken) { toast.error("Pehle video banayein aur YouTube channel connect karein."); return; }
     setUploading(true); setUploadedUrl("");
     try {
-      const url = await uploadYoutubeVideo(video, accessToken, details);
+      const url = await uploadYoutubeVideo(readyVideo, accessToken, details);
       if (mounted.current) { setUploadedUrl(url); toast.success("Video YouTube par upload ho gaya."); }
     } catch (error) {
       if (mounted.current) toast.error(error instanceof Error ? error.message : "YouTube upload fail hua.");
@@ -148,9 +150,18 @@ export function YoutubePublisher({ video, defaultTitle }: { video: Blob | null; 
         <div className="sm:col-span-2"><Label htmlFor="studio-youtube-description">Description</Label><Textarea id="studio-youtube-description" className="mt-2" maxLength={5000} value={details.description} onChange={(event) => setDetails((current) => ({ ...current, description: event.target.value }))} /></div>
         <div><Label htmlFor="studio-youtube-privacy">Visibility</Label><Select value={details.privacy} onValueChange={(value) => setDetails((current) => ({ ...current, privacy: value as YoutubePublishDetails["privacy"] }))}><SelectTrigger id="studio-youtube-privacy" className="mt-2"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="private">Private</SelectItem><SelectItem value="unlisted">Unlisted</SelectItem><SelectItem value="public">Public</SelectItem></SelectContent></Select></div>
         <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={details.madeForKids} onChange={(event) => setDetails((current) => ({ ...current, madeForKids: event.target.checked }))} className="accent-primary" /> This video is made for kids</label>
+        {!video && <div className="sm:col-span-2">
+          <Label htmlFor="studio-youtube-file">Already have an MP4?</Label>
+          <Input id="studio-youtube-file" type="file" accept="video/mp4,.mp4" className="mt-2 h-auto py-2" onChange={(event) => {
+            const file = event.target.files?.[0];
+            if (!file) { setSelectedVideo(null); return; }
+            if (!file.name.toLowerCase().endsWith(".mp4") || !file.size) { toast.error("Valid MP4 video chunein."); event.target.value = ""; setSelectedVideo(null); return; }
+            setSelectedVideo(file);
+          }} />
+        </div>}
         <div className="sm:col-span-2 flex flex-wrap items-center gap-3">
-          <Button onClick={upload} disabled={!video || !channel || !signedIn || uploading || !details.title.trim()} className="bg-royal text-royal-foreground hover:bg-royal/90"><Upload className="h-4 w-4" /> {uploading ? "Uploading…" : "Upload to YouTube"}</Button>
-          {!video && <span className="text-xs text-muted-foreground">Create the MP4 above before uploading.</span>}
+          <Button onClick={upload} disabled={!readyVideo || !channel || !signedIn || uploading || !details.title.trim()} className="bg-royal text-royal-foreground hover:bg-royal/90"><Upload className="h-4 w-4" /> {uploading ? "Uploading…" : "Upload to YouTube"}</Button>
+          {!readyVideo && <span className="text-xs text-muted-foreground">Create the MP4 above or select one from your device.</span>}
           {uploadedUrl && <a href={uploadedUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-primary underline">View uploaded video on YouTube</a>}
         </div>
       </div>
