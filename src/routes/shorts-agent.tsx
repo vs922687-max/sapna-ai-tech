@@ -79,11 +79,13 @@ function ResultBox({
   icon: Icon,
   value,
   placeholder,
+  onChange,
 }: {
   title: string;
   icon: typeof PlaySquare;
   value: string;
   placeholder: string;
+  onChange?: (value: string) => void;
 }) {
   const copy = async () => {
     if (!value) return;
@@ -105,7 +107,8 @@ function ResultBox({
         </Button>
       </div>
       <Textarea
-        readOnly
+        readOnly={!onChange}
+        onChange={onChange ? (event) => onChange(event.target.value) : undefined}
         value={value}
         placeholder={placeholder}
         aria-label={title}
@@ -189,6 +192,7 @@ function ShortsAgentPage() {
     const next = { script, title, description: `${clean} पर संक्षिप्त जानकारी। कृपया महत्वपूर्ण जानकारी स्वतंत्र रूप से जाँचें। #Shorts #BharatAISathi`, tags: [clean, "Hindi shorts", "Bharat AI Sathi"], hashtags: ["#Shorts", "#Hindi", "#BharatAISathi"] };
     resetVideo(); setResult(next); setSaved(false);
     setPublishTitle(next.title); setPublishDescription(next.description); setPublishTags(next.tags.join(", "));
+    toast.info("Yeh free starter template hai. Recording se pehle script apne topic ke hisaab se edit karein.");
   };
 
   const stopRecording = () => { if (mediaRecorder.current?.state === "recording") mediaRecorder.current.stop(); };
@@ -203,7 +207,7 @@ function ShortsAgentPage() {
       mediaRecorder.current = recorder;
       const chunks: Blob[] = [];
       recorder.ondataavailable = (event) => { if (event.data.size) chunks.push(event.data); };
-      recorder.onerror = () => toast.error("Recording fail ho gayi. Dobara try karein.");
+      recorder.onerror = () => { stopRecording(); toast.error("Recording fail ho gayi. Dobara try karein."); };
       recorder.onstop = () => {
         if (timer.current) clearInterval(timer.current);
         stream.getTracks().forEach((track) => track.stop());
@@ -443,13 +447,13 @@ function ShortsAgentPage() {
           <Button
             size="lg"
             onClick={generate}
-            disabled={loading}
+            disabled={loading || recording || videoBusy || uploadBusy}
             className="mt-6 h-12 w-full bg-royal text-royal-foreground shadow-glow hover:bg-royal/90 sm:w-auto"
           >
             {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Sparkles className="h-5 w-5" />}
             {loading ? "Generating..." : "Generate Shorts Script"}
           </Button>
-          <Button variant="outline" onClick={freeScript} disabled={loading} className="mt-3 h-12 w-full sm:ml-3 sm:w-auto"><Sparkles className="h-4 w-4" /> Create free Hindi Short</Button>
+          <Button variant="outline" onClick={freeScript} disabled={loading || recording || videoBusy || uploadBusy} className="mt-3 h-12 w-full sm:ml-3 sm:w-auto"><Sparkles className="h-4 w-4" /> Create free Hindi Short</Button>
           {saved && (
             <p className="mt-3 flex items-center gap-2 text-sm text-india-green">
               <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Saved to your account
@@ -458,7 +462,7 @@ function ShortsAgentPage() {
         </section>
 
         <div className="mt-7 grid gap-5 lg:grid-cols-3">
-          <ResultBox title="Video Script" icon={PlaySquare} value={result.script} placeholder="Your video script will appear here." />
+          <ResultBox title="Video Script" icon={PlaySquare} value={result.script} placeholder="Your video script will appear here." onChange={result.script ? (value) => { setResult((previous) => ({ ...previous, script: value })); setVideo(null); setVideoUrl(""); setUploadedUrl(""); } : undefined} />
           <ResultBox title="Title + Description" icon={Sparkles} value={titleAndDescription} placeholder="Your title and description will appear here." />
           <ResultBox title="Tags and Hashtags" icon={Youtube} value={tagsAndHashtags} placeholder="Your tags and hashtags will appear here." />
         </div>
@@ -474,7 +478,7 @@ function ShortsAgentPage() {
                   <SelectContent><SelectItem value="sathi">Sathi</SelectItem><SelectItem value="creator">Creator</SelectItem><SelectItem value="teacher">Teacher</SelectItem></SelectContent>
                 </Select>
               </div>
-              <p className="text-sm text-muted-foreground">Script ko apni Hindi awaaz mein padhein. Microphone recording aur character video sirf is browser mein rehte hain.</p>
+              <p className="text-sm text-muted-foreground">Script ko edit karke apni awaaz mein padhein. Free Hindi script ek starter template hai, AI research nahi. Microphone recording aur character video sirf is browser mein rehte hain.</p>
               <div className="flex flex-wrap items-center gap-3">
                 {recording ? <Button variant="destructive" onClick={stopRecording}><Square className="h-4 w-4" /> Stop recording · {recordingSeconds}s</Button> : <Button variant="outline" onClick={startRecording} disabled={!result.script || videoBusy}><Mic className="h-4 w-4" /> Record Hindi voice</Button>}
                 {recordingUrl && <audio src={recordingUrl} controls aria-label="Voice recording preview" className="h-10 max-w-full" />}
