@@ -57,6 +57,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiCreatorNarrationRouteImport } from './routes/api/creator-narration'
+import { Route as ApiCreatorSceneImageRouteImport } from './routes/api/creator-scene-image'
 import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -346,6 +347,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
 const ApiCreatorNarrationRoute = ApiCreatorNarrationRouteImport.update({
   id: '/api/creator-narration',
   path: '/api/creator-narration',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCreatorSceneImageRoute = ApiCreatorSceneImageRouteImport.update({
+  id: '/api/creator-scene-image',
+  path: '/api/creator-scene-image',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiTranscribeRoute = ApiTranscribeRouteImport.update({
@@ -640,6 +646,7 @@ export interface FileRoutesByFullPath {
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/api/creator-narration': typeof ApiCreatorNarrationRoute
+  '/api/creator-scene-image': typeof ApiCreatorSceneImageRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/business/fssai': typeof BusinessFssaiRoute
@@ -732,6 +739,7 @@ export interface FileRoutesByTo {
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/api/creator-narration': typeof ApiCreatorNarrationRoute
+  '/api/creator-scene-image': typeof ApiCreatorSceneImageRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/business/fssai': typeof BusinessFssaiRoute
@@ -829,6 +837,7 @@ export interface FileRoutesById {
   '/api/ai': typeof ApiAiRoute
   '/api/chat': typeof ApiChatRoute
   '/api/creator-narration': typeof ApiCreatorNarrationRoute
+  '/api/creator-scene-image': typeof ApiCreatorSceneImageRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/business/fssai': typeof BusinessFssaiRoute
@@ -929,6 +938,7 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/chat'
     | '/api/creator-narration'
+    | '/api/creator-scene-image'
     | '/api/transcribe'
     | '/blog/$slug'
     | '/business/fssai'
@@ -1021,6 +1031,7 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/chat'
     | '/api/creator-narration'
+    | '/api/creator-scene-image'
     | '/api/transcribe'
     | '/blog/$slug'
     | '/business/fssai'
@@ -1117,6 +1128,7 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/chat'
     | '/api/creator-narration'
+    | '/api/creator-scene-image'
     | '/api/transcribe'
     | '/blog/$slug'
     | '/business/fssai'
@@ -1216,6 +1228,7 @@ export interface RootRouteChildren {
   ApiAiRoute: typeof ApiAiRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiCreatorNarrationRoute: typeof ApiCreatorNarrationRoute
+  ApiCreatorSceneImageRoute: typeof ApiCreatorSceneImageRoute
   ApiTranscribeRoute: typeof ApiTranscribeRoute
   CareerIndexRoute: typeof CareerIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
@@ -1558,6 +1571,13 @@ declare module '@tanstack/react-router' {
       path: '/api/creator-narration'
       fullPath: '/api/creator-narration'
       preLoaderRoute: typeof ApiCreatorNarrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/creator-scene-image': {
+      id: '/api/creator-scene-image'
+      path: '/api/creator-scene-image'
+      fullPath: '/api/creator-scene-image'
+      preLoaderRoute: typeof ApiCreatorSceneImageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/transcribe': {
@@ -2108,6 +2128,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAiRoute: ApiAiRoute,
   ApiChatRoute: ApiChatRoute,
   ApiCreatorNarrationRoute: ApiCreatorNarrationRoute,
+  ApiCreatorSceneImageRoute: ApiCreatorSceneImageRoute,
   ApiTranscribeRoute: ApiTranscribeRoute,
   CareerIndexRoute: CareerIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
