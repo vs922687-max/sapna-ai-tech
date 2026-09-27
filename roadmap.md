@@ -1,0 +1,2 @@
+- [ ] Add the supplied public Google client ID to the Shorts Agent connection flow.
+- [ ] Enable/check Google sign-in and verify YouTube channel connection UI.

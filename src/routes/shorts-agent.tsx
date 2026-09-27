@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   CheckCircle2,
   Copy,
@@ -25,6 +25,8 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { generateShorts } from "@/lib/shorts-agent.functions";
+import { supabase } from "@/integrations/supabase/client";
+import { GOOGLE_YOUTUBE_CLIENT_ID, YOUTUBE_READ_SCOPE, googleAccounts, type GoogleTokenClient, type GoogleTokenResponse } from "@/lib/youtube-connect";
 
 const languages = ["Hindi", "Punjabi", "English"] as const;
 type Language = (typeof languages)[number];
@@ -115,6 +117,99 @@ function ShortsAgentPage() {
   const [result, setResult] = useState<ShortsResult>(emptyResult);
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+  const [channel, setChannel] = useState<{ id: string; title: string } | null>(null);
+  const [connecting, setConnecting] = useState(false);
+  const [googleReady, setGoogleReady] = useState(false);
+  const tokenClient = useRef<GoogleTokenClient | null>(null);
+  const accessToken = useRef<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    void supabase.auth.getUser().then(({ data }) => { if (active) setSignedIn(Boolean(data.user)); });
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!active) return;
+      setSignedIn(Boolean(session?.user));
+      if (!session) {
+        accessToken.current = null;
+        setChannel(null);
+      }
+    });
+    return () => { active = false; listener.subscription.unsubscribe(); };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    const onGoogleLoaded = () => { if (active) setGoogleReady(Boolean(googleAccounts()?.oauth2)); };
+    const existing = document.querySelector<HTMLScriptElement>('script[data-youtube-google]');
+    if (existing) {
+      if (googleAccounts()?.oauth2) onGoogleLoaded();
+      else existing.addEventListener("load", onGoogleLoaded);
+    } else {
+      const script = document.createElement("script");
+      script.src = "https://accounts.google.com/gsi/client";
+      script.async = true;
+      script.dataset.youtubeGoogle = "true";
+      script.addEventListener("load", onGoogleLoaded);
+      document.head.appendChild(script);
+    }
+    return () => {
+      active = false;
+      document.querySelector<HTMLScriptElement>('script[data-youtube-google]')?.removeEventListener("load", onGoogleLoaded);
+    };
+  }, []);
+
+  const handleGoogleToken = async (response: GoogleTokenResponse) => {
+    if (response.error || !response.access_token) {
+      toast.error(response.error_description || response.error || "Google permission was not granted.");
+      setConnecting(false);
+      return;
+    }
+    try {
+      const apiResponse = await fetch("https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true", {
+        headers: { Authorization: `Bearer ${response.access_token}` },
+      });
+      if (!apiResponse.ok) throw new Error(`YouTube channel could not be loaded (${apiResponse.status}). Check that YouTube Data API v3 is enabled for this Google project.`);
+      const payload: { items?: Array<{ id: string; snippet?: { title?: string } }> } = await apiResponse.json();
+      const item = payload.items?.[0];
+      if (!item?.id) throw new Error("No YouTube channel was found for this Google account.");
+      accessToken.current = response.access_token;
+      setChannel({ id: item.id, title: item.snippet?.title || "YouTube channel" });
+      toast.success(`Connected to ${item.snippet?.title || "YouTube"}`);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not connect to YouTube.");
+    } finally {
+      setConnecting(false);
+    }
+  };
+
+  const connectYoutube = () => {
+    const oauth = googleAccounts()?.oauth2;
+    if (!oauth) { toast.error("Google is still loading. Please try again."); return; }
+    try {
+      setConnecting(true);
+      tokenClient.current ??= oauth.initTokenClient({
+        client_id: GOOGLE_YOUTUBE_CLIENT_ID,
+        scope: YOUTUBE_READ_SCOPE,
+        callback: (response) => { void handleGoogleToken(response); },
+        error_callback: (error) => {
+          setConnecting(false);
+          if (error.type !== "popup_closed") toast.error(`Google connection failed: ${error.type}`);
+        },
+      });
+      tokenClient.current.requestAccessToken({ prompt: "consent" });
+    } catch (error) {
+      setConnecting(false);
+      toast.error(error instanceof Error ? error.message : "Could not open Google sign-in.");
+    }
+  };
+
+  const disconnectYoutube = () => {
+    if (accessToken.current) googleAccounts()?.oauth2.revoke(accessToken.current);
+    accessToken.current = null;
+    setChannel(null);
+    toast.success("YouTube channel disconnected from this session.");
+  };
 
   const generate = async () => {
     const cleanTopic = topic.trim();
@@ -143,7 +238,7 @@ function ShortsAgentPage() {
   };
 
   const youtubeReadyNotice = () => {
-    toast.info("YouTube connection is ready for a future setup. No channel has been connected yet.");
+    toast.info("Direct upload is not available yet. Export your video from Creator Studio and upload it on YouTube.");
   };
 
   const titleAndDescription = result.title
@@ -224,12 +319,17 @@ function ShortsAgentPage() {
         <section className="mt-7 flex flex-col items-start justify-between gap-5 rounded-lg border border-border/70 bg-card/60 p-5 sm:flex-row sm:items-center sm:p-6">
           <div>
             <h2 className="font-display text-lg font-semibold">YouTube publishing</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Channel connection और direct upload अभी active नहीं हैं।</p>
+            <p className="mt-1 text-sm text-muted-foreground">{channel ? `Connected: ${channel.title}` : "YouTube channel जोड़ें। Direct upload अभी उपलब्ध नहीं है।"}</p>
           </div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-            <Button variant="outline" onClick={youtubeReadyNotice} className="h-11">
-              <Youtube className="h-4 w-4" /> Connect YouTube Channel
-            </Button>
+            {signedIn ? (
+              <Button variant="outline" onClick={channel ? disconnectYoutube : connectYoutube} disabled={connecting || (!channel && !googleReady)} className="h-11">
+                {connecting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Youtube className="h-4 w-4" />}
+                {channel ? "Disconnect YouTube" : connecting ? "Connecting..." : "Connect YouTube Channel"}
+              </Button>
+            ) : (
+              <Button variant="outline" asChild className="h-11"><Link to="/auth" search={{ next: "/shorts-agent" }}><Youtube className="h-4 w-4" /> Sign in to connect YouTube</Link></Button>
+            )}
             <Button onClick={youtubeReadyNotice} className="h-11 bg-royal text-royal-foreground hover:bg-royal/90">
               <Upload className="h-4 w-4" /> Upload to YouTube
             </Button>
