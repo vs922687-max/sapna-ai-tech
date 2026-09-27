@@ -1,4 +1,5 @@
 export const YOUTUBE_READ_SCOPE = "https://www.googleapis.com/auth/youtube.readonly";
+export const YOUTUBE_UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload";
 
 export type GoogleTokenResponse = {
   access_token?: string;
