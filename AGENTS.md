@@ -11,3 +11,4 @@
 
 - Keep Shorts Agent generation in an authenticated server function using the existing AI gateway helper, then save through the caller's RLS-scoped database client; this avoids exposing keys and keeps each user's scripts private.
 - Keep YouTube channel authorization separate from Google app sign-in: expose only the validated public Google web client ID from the server environment, then hold the short-lived, read-only YouTube token in browser memory; app sign-in alone does not grant YouTube access.
+- Record public visits through a server function that accepts no row fields while keeping direct database inserts closed to visitors; the public footer still needs an anonymous cumulative count.
