@@ -25,8 +25,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { generateShorts } from "@/lib/shorts-agent.functions";
+import { getYoutubeClientId } from "@/lib/youtube-client.functions";
 import { supabase } from "@/integrations/supabase/client";
-import { GOOGLE_YOUTUBE_CLIENT_ID, YOUTUBE_READ_SCOPE, googleAccounts, type GoogleTokenClient, type GoogleTokenResponse } from "@/lib/youtube-connect";
+import { YOUTUBE_READ_SCOPE, googleAccounts, type GoogleTokenClient, type GoogleTokenResponse } from "@/lib/youtube-connect";
 
 const languages = ["Hindi", "Punjabi", "English"] as const;
 type Language = (typeof languages)[number];
@@ -112,6 +113,7 @@ function ResultBox({
 
 function ShortsAgentPage() {
   const runGeneration = useServerFn(generateShorts);
+  const loadYoutubeClientId = useServerFn(getYoutubeClientId);
   const [topic, setTopic] = useState("");
   const [language, setLanguage] = useState<Language>("Hindi");
   const [result, setResult] = useState<ShortsResult>(emptyResult);
@@ -121,6 +123,8 @@ function ShortsAgentPage() {
   const [channel, setChannel] = useState<{ id: string; title: string } | null>(null);
   const [connecting, setConnecting] = useState(false);
   const [googleReady, setGoogleReady] = useState(false);
+  const [youtubeClientId, setYoutubeClientId] = useState<string | null>(null);
+  const [youtubeConfigError, setYoutubeConfigError] = useState(false);
   const tokenClient = useRef<GoogleTokenClient | null>(null);
   const accessToken = useRef<string | null>(null);
 
@@ -141,6 +145,11 @@ function ShortsAgentPage() {
   useEffect(() => {
     let active = true;
     const onGoogleLoaded = () => { if (active) setGoogleReady(Boolean(googleAccounts()?.oauth2)); };
+    void loadYoutubeClientId().then((id) => {
+      if (active) setYoutubeClientId(id);
+    }).catch(() => {
+      if (active) setYoutubeConfigError(true);
+    });
     const existing = document.querySelector<HTMLScriptElement>('script[data-youtube-google]');
     if (existing) {
       if (googleAccounts()?.oauth2) onGoogleLoaded();
@@ -157,7 +166,7 @@ function ShortsAgentPage() {
       active = false;
       document.querySelector<HTMLScriptElement>('script[data-youtube-google]')?.removeEventListener("load", onGoogleLoaded);
     };
-  }, []);
+  }, [loadYoutubeClientId]);
 
   const handleGoogleToken = async (response: GoogleTokenResponse) => {
     if (response.error || !response.access_token) {
@@ -184,12 +193,13 @@ function ShortsAgentPage() {
   };
 
   const connectYoutube = () => {
+    if (!youtubeClientId) { toast.error("Google connection is not configured yet."); return; }
     const oauth = googleAccounts()?.oauth2;
     if (!oauth) { toast.error("Google is still loading. Please try again."); return; }
     try {
       setConnecting(true);
       tokenClient.current ??= oauth.initTokenClient({
-        client_id: GOOGLE_YOUTUBE_CLIENT_ID,
+        client_id: youtubeClientId,
         scope: YOUTUBE_READ_SCOPE,
         callback: (response) => { void handleGoogleToken(response); },
         error_callback: (error) => {
@@ -319,11 +329,11 @@ function ShortsAgentPage() {
         <section className="mt-7 flex flex-col items-start justify-between gap-5 rounded-lg border border-border/70 bg-card/60 p-5 sm:flex-row sm:items-center sm:p-6">
           <div>
             <h2 className="font-display text-lg font-semibold">YouTube publishing</h2>
-            <p className="mt-1 text-sm text-muted-foreground">{channel ? `Connected: ${channel.title}` : "YouTube channel जोड़ें। Direct upload अभी उपलब्ध नहीं है।"}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{channel ? `Connected: ${channel.title}` : youtubeConfigError ? "Google connection अभी उपलब्ध नहीं है।" : "YouTube channel जोड़ें। Direct upload अभी उपलब्ध नहीं है।"}</p>
           </div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             {signedIn ? (
-              <Button variant="outline" onClick={channel ? disconnectYoutube : connectYoutube} disabled={connecting || (!channel && !googleReady)} className="h-11">
+              <Button variant="outline" onClick={channel ? disconnectYoutube : connectYoutube} disabled={connecting || (!channel && (!googleReady || !youtubeClientId))} className="h-11">
                 {connecting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Youtube className="h-4 w-4" />}
                 {channel ? "Disconnect YouTube" : connecting ? "Connecting..." : "Connect YouTube Channel"}
               </Button>

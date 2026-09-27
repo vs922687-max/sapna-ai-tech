@@ -1,5 +1,3 @@
-/** The Google OAuth web client ID is public; no client secret belongs in browser code. */
-export const GOOGLE_YOUTUBE_CLIENT_ID = "459328131247-31dnr4f4ih9onc5nsw4m4m5o8oc3gpi1c.apps.googleusercontent.com";
 export const YOUTUBE_READ_SCOPE = "https://www.googleapis.com/auth/youtube.readonly";
 
 export type GoogleTokenResponse = {
