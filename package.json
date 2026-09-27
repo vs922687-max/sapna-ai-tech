@@ -69,6 +69,7 @@
     "jspdf": "^4.2.1",
     "jsqr": "^1.4.0",
     "lucide-react": "^0.575.0",
+    "mediabunny": "^1.60.0",
     "papaparse": "^5.5.4",
     "pdfjs-dist": "^6.1.200",
     "pptxgenjs": "^4.0.1",
