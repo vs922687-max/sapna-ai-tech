@@ -4,7 +4,7 @@ import { Download, ImagePlus, Loader2, Play, Sparkles, Trash2 } from "lucide-rea
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { CreatorShell, creatorSchema } from "@/components/creator/creator-shell";
-import { inputCls, textareaCls, downloadBlob } from "@/components/tools/ui-primitives";
+import { textareaCls, downloadBlob } from "@/components/tools/ui-primitives";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { creatorTool } from "@/lib/creator-studio";
 import { aiAuthHeaders } from "@/lib/ai-client";

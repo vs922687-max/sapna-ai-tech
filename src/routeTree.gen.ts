@@ -67,6 +67,7 @@ import { Route as BusinessSvanidhiRouteImport } from './routes/business.svanidhi
 import { Route as BusinessUdyamRouteImport } from './routes/business.udyam'
 import { Route as CareerIndexRouteImport } from './routes/career.index'
 import { Route as CreatorIndexRouteImport } from './routes/creator.index'
+import { Route as CreatorAutoVideoRouteImport } from './routes/creator.auto-video'
 import { Route as CreatorContentGeneratorRouteImport } from './routes/creator.content-generator'
 import { Route as CreatorHookGeneratorRouteImport } from './routes/creator.hook-generator'
 import { Route as CreatorScriptGeneratorRouteImport } from './routes/creator.script-generator'
@@ -397,6 +398,11 @@ const CreatorIndexRoute = CreatorIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CreatorRoute,
 } as any)
+const CreatorAutoVideoRoute = CreatorAutoVideoRouteImport.update({
+  id: '/auto-video',
+  path: '/auto-video',
+  getParentRoute: () => CreatorRoute,
+} as any)
 const CreatorContentGeneratorRoute = CreatorContentGeneratorRouteImport.update({
   id: '/content-generator',
   path: '/content-generator',
@@ -640,6 +646,7 @@ export interface FileRoutesByFullPath {
   '/business/gst': typeof BusinessGstRoute
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
+  '/creator/auto-video': typeof CreatorAutoVideoRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
   '/creator/hook-generator': typeof CreatorHookGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
@@ -731,6 +738,7 @@ export interface FileRoutesByTo {
   '/business/gst': typeof BusinessGstRoute
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
+  '/creator/auto-video': typeof CreatorAutoVideoRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
   '/creator/hook-generator': typeof CreatorHookGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
@@ -827,6 +835,7 @@ export interface FileRoutesById {
   '/business/gst': typeof BusinessGstRoute
   '/business/svanidhi': typeof BusinessSvanidhiRoute
   '/business/udyam': typeof BusinessUdyamRoute
+  '/creator/auto-video': typeof CreatorAutoVideoRoute
   '/creator/content-generator': typeof CreatorContentGeneratorRoute
   '/creator/hook-generator': typeof CreatorHookGeneratorRoute
   '/creator/script-generator': typeof CreatorScriptGeneratorRoute
@@ -926,6 +935,7 @@ export interface FileRouteTypes {
     | '/business/gst'
     | '/business/svanidhi'
     | '/business/udyam'
+    | '/creator/auto-video'
     | '/creator/content-generator'
     | '/creator/hook-generator'
     | '/creator/script-generator'
@@ -1017,6 +1027,7 @@ export interface FileRouteTypes {
     | '/business/gst'
     | '/business/svanidhi'
     | '/business/udyam'
+    | '/creator/auto-video'
     | '/creator/content-generator'
     | '/creator/hook-generator'
     | '/creator/script-generator'
@@ -1112,6 +1123,7 @@ export interface FileRouteTypes {
     | '/business/gst'
     | '/business/svanidhi'
     | '/business/udyam'
+    | '/creator/auto-video'
     | '/creator/content-generator'
     | '/creator/hook-generator'
     | '/creator/script-generator'
@@ -1618,6 +1630,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorIndexRouteImport
       parentRoute: typeof CreatorRoute
     }
+    '/creator/auto-video': {
+      id: '/creator/auto-video'
+      path: '/auto-video'
+      fullPath: '/creator/auto-video'
+      preLoaderRoute: typeof CreatorAutoVideoRouteImport
+      parentRoute: typeof CreatorRoute
+    }
     '/creator/content-generator': {
       id: '/creator/content-generator'
       path: '/content-generator'
@@ -1913,6 +1932,7 @@ const BusinessRouteWithChildren = BusinessRoute._addFileChildren(
 )
 
 interface CreatorRouteChildren {
+  CreatorAutoVideoRoute: typeof CreatorAutoVideoRoute
   CreatorContentGeneratorRoute: typeof CreatorContentGeneratorRoute
   CreatorHookGeneratorRoute: typeof CreatorHookGeneratorRoute
   CreatorScriptGeneratorRoute: typeof CreatorScriptGeneratorRoute
@@ -1926,6 +1946,7 @@ interface CreatorRouteChildren {
 }
 
 const CreatorRouteChildren: CreatorRouteChildren = {
+  CreatorAutoVideoRoute: CreatorAutoVideoRoute,
   CreatorContentGeneratorRoute: CreatorContentGeneratorRoute,
   CreatorHookGeneratorRoute: CreatorHookGeneratorRoute,
   CreatorScriptGeneratorRoute: CreatorScriptGeneratorRoute,
