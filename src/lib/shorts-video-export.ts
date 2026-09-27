@@ -79,6 +79,11 @@ function render(ctx: CanvasRenderingContext2D, title: string, segments: string[]
   ctx.fillStyle = colors[2]; ctx.fillRect(40, 914, (W - 80) * Math.min(1, time / duration), 4);
 }
 
+export function drawShortsPreview(canvas: HTMLCanvasElement, script: string, title: string, style: CharacterStyle, time: number, duration: number) {
+  const ctx = canvas.getContext("2d");
+  if (ctx) render(ctx, title, captionSegments(script), style, time, duration);
+}
+
 export async function exportShortsVideo(audio: AudioBuffer, script: string, title: string, style: CharacterStyle, onProgress: (value: number) => void): Promise<Blob> {
   if (!audio.duration || audio.duration > 60) throw new Error("Recording 60 seconds se chhoti rakhein.");
   if (!await canEncodeVideo("avc", { width: W, height: H, bitrate: 1_000_000 }) || !await canEncodeAudio("aac")) {
