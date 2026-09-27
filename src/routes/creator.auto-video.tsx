@@ -96,23 +96,25 @@ function AutoVideoPage() {
       if (!blob.size || !blob.type.includes("audio")) throw new Error("Voice generation returned no playable audio.");
       audioBlob.current = blob;
       setAudioUrl(URL.createObjectURL(blob));
-      setScenes(splitScenes(script));
+      const preparedScenes = splitScenes(script);
+      setScenes(preparedScenes);
       setImagePreviews({}); setImageError("");
       save();
-      toast.success("Voice aur scenes tayyar hain.");
+      toast.success("Voice tayyar hai. Ab scene images bana rahe hain.");
+      await generateImagesFor(preparedScenes, preparedScenes.map((_, i) => i));
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Voice generation failed.");
     } finally { setBusy(""); }
   };
 
-  const generateImages = async (indices: number[]) => {
-    if (!indices.length || busy) return;
+  const generateImagesFor = async (sourceScenes: VideoScene[], indices: number[]) => {
+    if (!indices.length) return;
     setBusy("images"); setImageError("");
     try {
       const headers = await aiAuthHeaders();
       const { streamImage } = await import("@/lib/stream-image");
       for (const index of indices) {
-        const scene = scenes[index];
+        const scene = sourceScenes[index];
         if (!scene) continue;
         setGeneratingScene(index);
         setImagePreviews((current) => { const next = { ...current }; delete next[index]; return next; });
@@ -142,6 +144,11 @@ function AutoVideoPage() {
     } finally { setGeneratingScene(null); setBusy(""); }
   };
 
+  const generateImages = (indices: number[]) => {
+    if (busy) return;
+    return generateImagesFor(scenes, indices);
+  };
+
   const makeVideo = async () => {
     if (!audioBlob.current || !scenes.length) { toast.error("Pehle voice banayein."); return; }
     setBusy("export"); setProgress(0); setVideoUrl("");
@@ -162,7 +169,7 @@ function AutoVideoPage() {
   };
 
   return (
-    <CreatorShell tool={tool} faqs={FAQS} intro={<p>Script likhein ya Creator Studio mein banaya hua script use karein. AI voice banne par scenes taiyar hote hain; har scene ki image AI se banayein ya apni photo lagakar MP4 download karein. Narration aur AI images ke liye scene text AI service ko bheja jaata hai; uploaded photos aur video export aapke browser mein rehte hain.</p>}>
+    <CreatorShell tool={tool} faqs={FAQS} intro={<p>Script likhein ya Creator Studio mein banaya hua script use karein. AI voice ke saath har scene ki image bhi banegi; chahein to apni photo lagakar MP4 download karein. Narration aur AI images ke liye scene text AI service ko bheja jaata hai; uploaded photos aur video export aapke browser mein rehte hain.</p>}>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-4">
         <span className="text-sm font-semibold text-foreground">Script → Voice → Visuals → MP4</span>
         <Button asChild size="sm" variant="outline"><Link to="/creator/script-generator"><Sparkles className="mr-2 h-4 w-4" /> Script Generator</Link></Button>
