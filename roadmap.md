@@ -1,3 +1,3 @@
-- [x] Add the supplied public Google client ID to the Shorts Agent connection flow (the managed environment reserves `VITE_` names, so the public value is in app configuration rather than `.env`).
+- [x] Load the saved Google web client ID for the Shorts Agent connection flow from the server environment; expose only the validated public ID to Google Identity Services.
 - [x] Confirm Google sign-in is enabled and verify the signed-in YouTube connection button opens Google.
-- [ ] Google must recognize the supplied OAuth client before users can authorize a channel; a real popup returned `401 invalid_client — The OAuth client was not found`. The owner must provide a valid Web OAuth client ID and configure allowed website origins and YouTube Data API v3 in Google Cloud.
+- [ ] Google recognizes the saved OAuth client, but consent is blocked by `400 origin_mismatch` in the local preview. The owner must add the app's exact website origins in Google Cloud (including the published domain and any preview origin used for testing), enable YouTube Data API v3, and finish channel consent to verify the channel read.
