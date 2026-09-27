@@ -30,7 +30,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { generateShorts } from "@/lib/shorts-agent.functions";
 import { getYoutubeClientId } from "@/lib/youtube-client.functions";
 import { supabase } from "@/integrations/supabase/client";
-import { YOUTUBE_UPLOAD_SCOPE, googleAccounts, type GoogleTokenClient, type GoogleTokenResponse } from "@/lib/youtube-connect";
+import { YOUTUBE_READ_SCOPE, YOUTUBE_UPLOAD_SCOPE, googleAccounts, type GoogleTokenClient, type GoogleTokenResponse } from "@/lib/youtube-connect";
 import { drawShortsPreview, exportShortsVideo, type CharacterStyle } from "@/lib/shorts-video-export";
 
 const languages = ["Hindi", "Punjabi", "English"] as const;
@@ -144,6 +144,7 @@ function ShortsAgentPage() {
   const [publishDescription, setPublishDescription] = useState("");
   const [publishTags, setPublishTags] = useState("");
   const [privacy, setPrivacy] = useState<"private" | "unlisted" | "public">("private");
+  const [madeForKids, setMadeForKids] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const recordingStream = useRef<MediaStream | null>(null);
@@ -314,7 +315,7 @@ function ShortsAgentPage() {
       setConnecting(true);
       tokenClient.current ??= oauth.initTokenClient({
         client_id: youtubeClientId,
-        scope: YOUTUBE_UPLOAD_SCOPE,
+        scope: `${YOUTUBE_READ_SCOPE} ${YOUTUBE_UPLOAD_SCOPE}`,
         callback: (response) => { void handleGoogleToken(response); },
         error_callback: (error) => {
           setConnecting(false);
@@ -370,7 +371,7 @@ function ShortsAgentPage() {
     try {
       // Multipart upload keeps the short-lived OAuth token and video bytes in browser memory.
       const boundary = `shorts_${crypto.randomUUID().replaceAll("-", "")}`;
-      const metadata = { snippet: { title: publishTitle.trim().slice(0, 100), description: publishDescription.trim().slice(0, 5000), tags: publishTags.split(",").map((tag) => tag.trim()).filter(Boolean).slice(0, 30), categoryId: "22" }, status: { privacyStatus: privacy, selfDeclaredMadeForKids: false } };
+      const metadata = { snippet: { title: publishTitle.trim().slice(0, 100), description: publishDescription.trim().slice(0, 5000), tags: publishTags.split(",").map((tag) => tag.trim()).filter(Boolean).slice(0, 30), categoryId: "22" }, status: { privacyStatus: privacy, selfDeclaredMadeForKids: madeForKids } };
       const body = new Blob([
         `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(metadata)}\r\n`,
         `--${boundary}\r\nContent-Type: video/mp4\r\n\r\n`, video, `\r\n--${boundary}--\r\n`,
@@ -509,6 +510,7 @@ function ShortsAgentPage() {
           <div><Label htmlFor="publish-tags">Tags (comma separated)</Label><Input id="publish-tags" className="mt-2" value={publishTags} onChange={(e) => setPublishTags(e.target.value)} /></div>
           <div className="sm:col-span-2"><Label htmlFor="publish-description">Description</Label><Textarea id="publish-description" className="mt-2" maxLength={5000} value={publishDescription} onChange={(e) => setPublishDescription(e.target.value)} /></div>
           <div><Label htmlFor="publish-privacy">Visibility</Label><Select value={privacy} onValueChange={(value) => setPrivacy(value as typeof privacy)}><SelectTrigger id="publish-privacy" className="mt-2"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="private">Private</SelectItem><SelectItem value="unlisted">Unlisted</SelectItem><SelectItem value="public">Public</SelectItem></SelectContent></Select></div>
+          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={madeForKids} onChange={(event) => setMadeForKids(event.target.checked)} className="accent-primary" /> This video is made for kids</label>
           <div className="flex items-end"><Button onClick={uploadToYoutube} disabled={!video || !channel || uploadBusy || !publishTitle.trim()} className="h-11 w-full bg-royal text-royal-foreground hover:bg-royal/90"><Upload className="h-4 w-4" /> {uploadBusy ? "Uploading…" : "Upload to YouTube"}</Button></div>
           {uploadedUrl && <a className="text-sm text-primary underline sm:col-span-2" href={uploadedUrl} target="_blank" rel="noopener noreferrer">View uploaded video on YouTube</a>}
         </section>
