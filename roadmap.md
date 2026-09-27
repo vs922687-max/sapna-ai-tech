@@ -1,0 +1,3 @@
+- [x] Add the supplied public Google client ID to the Shorts Agent connection flow (the managed environment reserves `VITE_` names, so the public value is in app configuration rather than `.env`).
+- [x] Confirm Google sign-in is enabled and verify the signed-in YouTube connection button opens Google.
+- [ ] Google must recognize the supplied OAuth client before users can authorize a channel; a real popup returned `401 invalid_client — The OAuth client was not found`. The owner must provide a valid Web OAuth client ID and configure allowed website origins and YouTube Data API v3 in Google Cloud.
