@@ -18,8 +18,13 @@ function fitText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, 
     else line = candidate;
   }
   if (line) lines.push(line);
-  if (lines.length > maxLines) {
+  if (lines.length > maxLines && fontSize > 24) {
     return fitText(ctx, text, maxWidth, maxLines, Math.max(24, fontSize - 3));
+  }
+  if (lines.length > maxLines) {
+    const visible = lines.slice(0, maxLines);
+    visible[maxLines - 1] = `${visible[maxLines - 1].slice(0, 26)}…`;
+    return visible;
   }
   return lines;
 }

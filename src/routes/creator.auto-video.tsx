@@ -41,7 +41,7 @@ function splitScenes(text: string): VideoScene[] {
 }
 
 function AutoVideoPage() {
-  const { project, setOutput, save } = useCreatorProject();
+  const { project, hydrated, setOutput, save } = useCreatorProject();
   const [scenes, setScenes] = useState<VideoScene[]>([]);
   const [audioUrl, setAudioUrl] = useState("");
   const [busy, setBusy] = useState<"voice" | "export" | "">("");
@@ -49,7 +49,7 @@ function AutoVideoPage() {
   const [videoUrl, setVideoUrl] = useState("");
   const audioBlob = useRef<Blob | null>(null);
   const script = project.outputs.voiceover ?? project.outputs.script ?? "";
-  const canPrepare = script.trim().length > 0 && script.trim().length <= 900;
+  const canPrepare = hydrated && script.trim().length > 0 && script.trim().length <= 900;
   const shownScenes = useMemo(() => scenes.map((scene, i) => ({ ...scene, number: i + 1 })), [scenes]);
 
   useEffect(() => {
@@ -115,7 +115,7 @@ function AutoVideoPage() {
       </div>
       <label className="block">
         <span className="mb-1 block text-sm font-medium">Narration script</span>
-        <textarea aria-label="Narration script" value={script} onChange={(e) => changeScript(e.target.value)} placeholder="Apni video ki script yahan likhein…" maxLength={900} className={textareaCls()} />
+        <textarea aria-label="Narration script" value={script} disabled={!hydrated || !!busy} onChange={(e) => changeScript(e.target.value)} placeholder="Apni video ki script yahan likhein…" maxLength={900} className={textareaCls()} />
         <span className="mt-1 block text-xs text-muted-foreground">{script.length}/900 characters · Hindi, Punjabi, English aur Hinglish text</span>
       </label>
       <div className="mt-4 flex flex-wrap items-center gap-3">
