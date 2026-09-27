@@ -4,6 +4,7 @@ import { Download, ImagePlus, Loader2, Play, Sparkles, Trash2 } from "lucide-rea
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { CreatorShell, creatorSchema } from "@/components/creator/creator-shell";
+import { YoutubePublisher } from "@/components/creator/youtube-publisher";
 import { textareaCls, downloadBlob } from "@/components/tools/ui-primitives";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { creatorTool } from "@/lib/creator-studio";
@@ -62,6 +63,7 @@ function AutoVideoPage() {
   const [imageError, setImageError] = useState("");
   const [progress, setProgress] = useState(0);
   const [videoUrl, setVideoUrl] = useState("");
+  const [videoBlob, setVideoBlob] = useState<Blob | null>(null);
   const audioBlob = useRef<Blob | null>(null);
   const script = project.outputs.voiceover ?? project.outputs.script ?? "";
   const canPrepare = hydrated && script.trim().length > 0 && script.trim().length <= 900;
@@ -76,12 +78,12 @@ function AutoVideoPage() {
     setScenes([]);
     setImagePreviews({}); setImageError("");
     audioBlob.current = null;
-    setAudioUrl(""); setVideoUrl("");
+    setAudioUrl(""); setVideoUrl(""); setVideoBlob(null);
   };
 
   const makeVoice = async () => {
     if (!canPrepare) { toast.error("900 characters tak ka script likhein."); return; }
-    setBusy("voice"); setVideoUrl("");
+    setBusy("voice"); setVideoUrl(""); setVideoBlob(null);
     audioBlob.current = null; setAudioUrl("");
     try {
       const headers = await aiAuthHeaders();
@@ -109,6 +111,7 @@ function AutoVideoPage() {
 
   const generateImagesFor = async (sourceScenes: VideoScene[], indices: number[]) => {
     if (!indices.length) return;
+    setVideoUrl(""); setVideoBlob(null);
     setBusy("images"); setImageError("");
     try {
       const headers = await aiAuthHeaders();
@@ -129,7 +132,6 @@ function AutoVideoPage() {
           const file = new File([blob], `scene-${index + 1}.png`, { type: "image/png" });
           setScenes((current) => current.map((item, i) => i === index ? { ...item, image: file } : item));
           setImagePreviews((current) => { const next = { ...current }; delete next[index]; return next; });
-          setVideoUrl("");
         } catch (error) {
           setImagePreviews((current) => { const next = { ...current }; delete next[index]; return next; });
           const reason = error instanceof Error ? error.message : "Image generation failed.";
@@ -151,7 +153,7 @@ function AutoVideoPage() {
 
   const makeVideo = async () => {
     if (!audioBlob.current || !scenes.length) { toast.error("Pehle voice banayein."); return; }
-    setBusy("export"); setProgress(0); setVideoUrl("");
+    setBusy("export"); setProgress(0); setVideoUrl(""); setVideoBlob(null);
     try {
       const ctx = new AudioContext();
       let audio: AudioBuffer;
@@ -160,6 +162,7 @@ function AutoVideoPage() {
       const { exportCreatorMp4 } = await import("@/lib/creator-video-export");
       const blob = await exportCreatorMp4(audio, scenes, project.topic || "Bharat AI Sathi", setProgress);
       const url = URL.createObjectURL(blob);
+      setVideoBlob(blob);
       setVideoUrl(url);
       downloadBlob(`bharat-ai-sathi-${(project.topic || "short-video").toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 36)}.mp4`, blob);
       toast.success("MP4 video download ho gaya.");
@@ -208,10 +211,10 @@ function AutoVideoPage() {
                     const file = e.target.files?.[0];
                     if (!file) return;
                     if (file.size > 10 * 1024 * 1024) { toast.error("Photo 10 MB se chhoti honi chahiye."); return; }
-                    setScenes((current) => current.map((item, i) => i === index ? { ...item, image: file } : item)); setImagePreviews((current) => { const next = { ...current }; delete next[index]; return next; }); setVideoUrl("");
+                    setScenes((current) => current.map((item, i) => i === index ? { ...item, image: file } : item)); setImagePreviews((current) => { const next = { ...current }; delete next[index]; return next; }); setVideoUrl(""); setVideoBlob(null);
                   }} />
                 </label>
-                {scene.image && <Button size="sm" variant="ghost" disabled={!!busy} onClick={() => { setScenes((current) => current.map((item, i) => i === index ? { ...item, image: undefined } : item)); setVideoUrl(""); }}><Trash2 className="mr-1 h-3 w-3" /> Remove image</Button>}
+                {scene.image && <Button size="sm" variant="ghost" disabled={!!busy} onClick={() => { setScenes((current) => current.map((item, i) => i === index ? { ...item, image: undefined } : item)); setVideoUrl(""); setVideoBlob(null); }}><Trash2 className="mr-1 h-3 w-3" /> Remove image</Button>}
                 </div>
               </div>
             ))}
@@ -224,6 +227,7 @@ function AutoVideoPage() {
           {videoUrl && <video controls playsInline src={videoUrl} className="mt-5 aspect-[9/16] max-h-[520px] w-full rounded-md bg-background object-contain" aria-label="Exported MP4 preview" />}
         </section>
       )}
+      <YoutubePublisher video={videoBlob} defaultTitle={project.topic || "Bharat AI Sathi Short"} />
     </CreatorShell>
   );
 }

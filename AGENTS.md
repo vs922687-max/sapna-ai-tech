@@ -15,3 +15,4 @@
 - Encode short Creator Studio MP4 videos in the browser with WebCodecs via Mediabunny and fetch AI narration through an authenticated streaming route; this avoids server-side native renderers and keeps uploaded scene photos on the user's device.
 - Generate Creator Studio scene imagery through an authenticated streaming image route and keep generated/user-selected image bytes in browser memory for MP4 export; this keeps gateway credentials private and avoids storing personal photos.
 - Render free Shorts animations, recorded narration and timed captions locally with browser MediaRecorder, Canvas and Mediabunny; this avoids paid generation and keeps microphone recordings on the user's device.
+- Publish Creator Studio MP4s with the existing browser-to-YouTube OAuth upload flow and retain the exported Blob only in memory; this reuses the video without regenerating AI assets or spending extra credits.
