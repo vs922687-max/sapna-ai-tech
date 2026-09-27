@@ -53,9 +53,10 @@ function draw(ctx: CanvasRenderingContext2D, scene: VideoScene, image: HTMLImage
   ctx.fillStyle = accent; ctx.fillRect(36, 50, 42, 5);
   ctx.font = '600 19px "Space Grotesk", sans-serif'; ctx.fillStyle = "#ffffff"; ctx.fillText("BHARAT AI SATHI", 92, 69);
   ctx.font = '600 21px "Space Grotesk", sans-serif'; ctx.fillStyle = accent; ctx.fillText(`SCENE ${String(index + 1).padStart(2, "0")} / ${String(count).padStart(2, "0")}`, 38, 480);
-  const lines = fitText(ctx, scene.text, W - 76, 8, 42);
+  const lines = fitText(ctx, scene.text, W - 76, image ? 3 : 8, image ? 34 : 42);
   ctx.fillStyle = "#ffffff";
-  lines.forEach((line, i) => ctx.fillText(line, 38, 550 + i * 54));
+  if (image) { ctx.fillStyle = "#101a2bcc"; ctx.fillRect(0, 660, W, 260); ctx.fillStyle = "#ffffff"; }
+  lines.forEach((line, i) => ctx.fillText(line, 38, (image ? 720 : 550) + i * (image ? 46 : 54)));
   ctx.font = '500 19px "Space Grotesk", sans-serif'; ctx.fillStyle = "#d0d8dd";
   const topicLine = fitText(ctx, topic, W - 76, 2, 19);
   topicLine.forEach((line, i) => ctx.fillText(line, 38, 868 + i * 24));

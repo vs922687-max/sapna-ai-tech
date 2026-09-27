@@ -13,3 +13,4 @@
 - Keep YouTube channel authorization separate from Google app sign-in: expose only the validated public Google web client ID from the server environment, then hold the short-lived, read-only YouTube token in browser memory; app sign-in alone does not grant YouTube access.
 - Record public visits through a server function that accepts no row fields while keeping direct database inserts closed to visitors; the public footer still needs an anonymous cumulative count.
 - Encode short Creator Studio MP4 videos in the browser with WebCodecs via Mediabunny and fetch AI narration through an authenticated streaming route; this avoids server-side native renderers and keeps uploaded scene photos on the user's device.
+- Generate Creator Studio scene imagery through an authenticated streaming image route and keep generated/user-selected image bytes in browser memory for MP4 export; this keeps gateway credentials private and avoids storing personal photos.
