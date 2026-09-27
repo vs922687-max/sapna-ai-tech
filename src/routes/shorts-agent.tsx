@@ -32,6 +32,7 @@ import { getYoutubeClientId } from "@/lib/youtube-client.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { YOUTUBE_READ_SCOPE, YOUTUBE_UPLOAD_SCOPE, googleAccounts, type GoogleTokenClient, type GoogleTokenResponse } from "@/lib/youtube-connect";
 import { drawShortsPreview, exportShortsVideo, type CharacterStyle } from "@/lib/shorts-video-export";
+import { uploadYoutubeVideo } from "@/lib/youtube-upload";
 
 const languages = ["Hindi", "Punjabi", "English"] as const;
 type Language = (typeof languages)[number];
@@ -373,19 +374,8 @@ function ShortsAgentPage() {
     if (!publishTitle.trim()) { toast.error("Video title likhein."); return; }
     setUploadBusy(true); setUploadedUrl("");
     try {
-      // Multipart upload keeps the short-lived OAuth token and video bytes in browser memory.
-      const boundary = `shorts_${crypto.randomUUID().replaceAll("-", "")}`;
-      const metadata = { snippet: { title: publishTitle.trim().slice(0, 100), description: publishDescription.trim().slice(0, 5000), tags: publishTags.split(",").map((tag) => tag.trim()).filter(Boolean).slice(0, 30), categoryId: "22" }, status: { privacyStatus: privacy, selfDeclaredMadeForKids: madeForKids } };
-      const body = new Blob([
-        `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(metadata)}\r\n`,
-        `--${boundary}\r\nContent-Type: video/mp4\r\n\r\n`, video, `\r\n--${boundary}--\r\n`,
-      ], { type: `multipart/related; boundary=${boundary}` });
-      const response = await fetch("https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status", {
-        method: "POST", headers: { Authorization: `Bearer ${uploadToken.current}`, "Content-Type": `multipart/related; boundary=${boundary}` }, body,
-      });
-      const data = await response.json().catch(() => ({})) as { id?: string; error?: { message?: string } };
-      if (!response.ok || !data.id) throw new Error(data.error?.message || `YouTube upload fail hua (${response.status}).`);
-      setUploadedUrl(`https://www.youtube.com/watch?v=${encodeURIComponent(data.id)}`);
+      const url = await uploadYoutubeVideo(video, uploadToken.current, { title: publishTitle, description: publishDescription, tags: publishTags, privacy, madeForKids });
+      setUploadedUrl(url);
       toast.success("Video YouTube par upload ho gaya.");
     } catch (error) { toast.error(error instanceof Error ? error.message : "Upload fail hua."); }
     finally { setUploadBusy(false); }
