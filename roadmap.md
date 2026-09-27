@@ -5,3 +5,4 @@
 - [x] Replace text-only video scenes with generated, previewable scene imagery while retaining user-uploaded photos and MP4 export.
 - [x] Build no-paid-API Shorts animation with recorded Hindi narration, burned subtitles, vertical MP4 and direct YouTube upload.
 - [ ] Verify a real MP4 export and YouTube upload after Chrome/Edge AVC+AAC support and Google OAuth origin/consent are available; local headless Chromium lacks the codecs, and Google Cloud still blocks consent with origin_mismatch.
+- [ ] Let creators publish the already-exported Creator Studio MP4 straight to YouTube without another AI generation or credit charge.
