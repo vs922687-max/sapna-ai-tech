@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { recordSiteVisit } from "@/lib/visit-count.functions";
 
 /**
  * Cumulative visitor count shown in the footer.
@@ -20,16 +21,16 @@ export function LiveVisitors({ className = "" }: { className?: string }) {
 
     async function run() {
       try {
-        // Record this browser once.
+         // Record this browser once through a server function that accepts no row data.
         const counted =
           typeof window !== "undefined"
             ? window.localStorage.getItem("bas_visitor_counted")
             : "1";
         if (!counted) {
-          const { error } = await supabase.from("site_visits").insert({});
-          if (!error || error.code === "23505") {
+           try {
+             await recordSiteVisit();
             window.localStorage.setItem("bas_visitor_counted", "1");
-          }
+           } catch { /* Still show the last recorded total below. */ }
         }
 
         const { data, error } = await supabase
