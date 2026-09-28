@@ -79,10 +79,8 @@ function ChatPage() {
       });
 
       if (!res.ok || !res.body) {
-        const errText = await res.text();
-        if (res.status === 429) toast.error("Rate limited — please retry in a moment.");
-        else if (res.status === 402) toast.error("AI credits exhausted. Please upgrade.");
-        else toast.error(errText || "Chat failed");
+        const data = await res.json().catch(() => null) as { error?: string } | null;
+        toast.error(data?.error || `Chat failed (${res.status}).`);
         setMessages((m) => m.slice(0, -1));
         return;
       }
@@ -105,7 +103,7 @@ function ChatPage() {
           if (data === "[DONE]") continue;
           try {
             const json = JSON.parse(data);
-            const delta = json.choices?.[0]?.delta?.content ?? "";
+            const delta = json.type === "response.output_text.delta" ? json.delta ?? "" : "";
             if (delta) {
               assistant += delta;
               setMessages((prev) => {
