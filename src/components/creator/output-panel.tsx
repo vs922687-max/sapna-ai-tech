@@ -57,10 +57,11 @@ export function OutputPanel({
       <textarea
         value={draft}
         onChange={(e) => commit(e.target.value)}
+        disabled={loading}
         spellCheck={false}
         aria-label="Generated output (editable)"
         style={{ minHeight }}
-        className="w-full rounded-xl border border-border/60 bg-background/60 p-3 text-sm leading-relaxed outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
+        className="w-full rounded-xl border border-border/60 bg-background/60 p-3 text-sm leading-relaxed outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 disabled:cursor-wait disabled:opacity-80"
       />
       <div className="mt-3 flex flex-wrap gap-2">
         <Button
@@ -77,11 +78,11 @@ export function OutputPanel({
         >
           <Copy className="mr-1 h-4 w-4" /> Copy
         </Button>
-        <Button size="sm" variant="outline" onClick={() => downloadTxt(filename, draft)}>
+        <Button size="sm" variant="outline" onClick={() => downloadTxt(filename, draft)} disabled={loading}>
           <Download className="mr-1 h-4 w-4" /> Download
         </Button>
         {onSave && (
-          <Button size="sm" variant="outline" onClick={onSave}>
+          <Button size="sm" variant="outline" onClick={onSave} disabled={loading}>
             <Save className="mr-1 h-4 w-4" /> Save to project
           </Button>
         )}

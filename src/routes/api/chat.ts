@@ -32,7 +32,7 @@ export const Route = createFileRoute("/api/chat")({
           ? [{ role: "system", content: body.system }, ...messages]
           : messages;
 
-        return streamGatewayChat(withSystem, body.model);
+        return streamGatewayChat(withSystem, body.model, request);
       },
     },
   },
