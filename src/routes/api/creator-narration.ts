@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { verifyBearer } from "@/lib/verify-auth.server";
 
-const payload = z.object({ text: z.string().trim().min(1).max(900) });
+const payload = z.object({ text: z.string().trim().min(1).max(10_000) });
 
 export const Route = createFileRoute("/api/creator-narration")({
   server: {
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/api/creator-narration")({
         const auth = await verifyBearer(request);
         if (!auth.ok) return auth.response;
         const parsed = payload.safeParse(await request.json().catch(() => null));
-        if (!parsed.success) return Response.json({ error: "Narration must be between 1 and 900 characters." }, { status: 400 });
+        if (!parsed.success) return Response.json({ error: "Narration must be between 1 and 10,000 characters." }, { status: 400 });
         const key = process.env["LOVABLE_API_KEY"];
         if (!key) return Response.json({ error: "AI voice is not configured." }, { status: 500 });
 
