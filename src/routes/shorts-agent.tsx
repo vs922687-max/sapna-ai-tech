@@ -188,7 +188,7 @@ function ShortsAgentPage() {
     const clean = topic.trim();
     if (!clean) { toast.error("Pehle topic likhein."); return; }
     if (language !== "Hindi") { toast.error("Free animated flow abhi Hindi mein available hai. Hindi chunein."); return; }
-    const script = `क्या आप ${clean} के बारे में जानना चाहते हैं? चलिए इसे आसान भाषा में समझते हैं। सबसे पहले, इस विषय की बुनियादी जानकारी भरोसेमंद स्रोतों से जाँचें। फिर एक छोटा लक्ष्य तय करें और उसे पूरा करने के लिए कदम-दर-कदम आगे बढ़ें। जो सीखें, उसे अपने अनुभव के साथ मिलाकर परखें। ज़्यादा जानकारी के लिए जुड़े रहें और अपनी राय कमेंट में बताएँ।`;
+    const script = `शायद ${clean} के बारे में आपने जो सुना, वो पूरी कहानी नहीं है। [विज़ुअल: तुरंत विषय से जुड़ी तस्वीर, तेज कट] असली बात जानने के लिए पहले भरोसेमंद स्रोत देखें। [विज़ुअल: स्रोत की झलक, तेज कट] फिर एक छोटा कदम तय करें और नतीजा खुद परखें। [विज़ुअल: पहले और बाद का दृश्य] अपना अनुभव कमेंट में बताएँ। [विज़ुअल: शुरुआती तस्वीर पर वापस कट] क्योंकि ${clean} के बारे में…`;
     const title = `${clean} | आसान हिंदी में #Shorts`.slice(0, 100);
     const next = { script, title, description: `${clean} पर संक्षिप्त जानकारी। कृपया महत्वपूर्ण जानकारी स्वतंत्र रूप से जाँचें। #Shorts #BharatAISathi`, tags: [clean, "Hindi shorts", "Bharat AI Sathi"], hashtags: ["#Shorts", "#Hindi", "#BharatAISathi"] };
     resetVideo(); setResult(next); setSaved(false);

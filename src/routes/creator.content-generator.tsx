@@ -8,7 +8,7 @@ import { CreatorBrief } from "@/components/creator/creator-brief";
 import { OutputPanel } from "@/components/creator/output-panel";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { askAi } from "@/lib/ai-client";
-import { CREATOR_SYSTEM, briefLine, creatorTool } from "@/lib/creator-studio";
+import { CREATOR_SYSTEM, VIRAL_HOOK_ENGINE, briefLine, creatorTool, isShortForm } from "@/lib/creator-studio";
 
 const tool = creatorTool("content-generator");
 
@@ -68,7 +68,7 @@ function ContentGeneratorPage() {
     setLoading(true);
     try {
       const text = await askAi(
-        `${briefLine(project)}\n\nProduce a complete, production-ready content package with EXACTLY these sections in this order:\n\nHOOK\n- The exact spoken first 3 seconds (max 14 words).\n\nFULL SCRIPT\n- Spoken script that fits ${project.duration} at natural Indian narration speed, with timestamps like [0-3s].\n\nSCENE BREAKDOWN\n- Scene 1..N with: Duration | Visual to shoot (phone-friendly) | Voice-over line | On-screen text | Transition.\n\nVOICE-OVER SCRIPT\n- Clean narration-only text, no directions, ready to read aloud.\n\nON-SCREEN TEXT\n- Short overlay lines, one per scene.\n\nCAPTION\n- Platform-appropriate caption for ${project.platform} with a clear CTA.\n\nTITLE\n- 3 options, keyword-front-loaded, within ${project.platform} limits.\n\nDESCRIPTION\n- First line works as the visible preview; include searchable Hindi + English keywords and a CTA.\n\nHASHTAGS\n- The right count for ${project.platform}, one copy-paste line, mixing broad + niche + Indian local tags.\n\nTHUMBNAIL TEXT\n- 3 options, max 4 words each, high contrast wording.`,
+        `${briefLine(project)}\n\n${isShortForm(project) ? VIRAL_HOOK_ENGINE : ""}\n\nProduce a complete, production-ready content package with EXACTLY these sections in this order:\n\nHOOK\n- The exact spoken first 3 seconds (max 14 words)${isShortForm(project) ? ", a truthful contrarian/expectation-breaking opening" : ""}.\n\nFULL SCRIPT\n- Spoken script that fits ${project.duration} at natural Indian narration speed, with timestamps like [0-3s]${isShortForm(project) ? "; end with the exact loop-back spoken phrase after any CTA" : ""}.\n\nSCENE BREAKDOWN\n- Scene 1..N with: Duration | Visual to shoot (phone-friendly) | Voice-over line | On-screen text | Transition${isShortForm(project) ? "; fast visual cues in every scene and an explicit final-to-first-frame transition" : ""}.\n\nVOICE-OVER SCRIPT\n- Clean narration-only text, no directions, ready to read aloud${isShortForm(project) ? ", including the same opening hook and loop ending as FULL SCRIPT" : ""}.\n\nON-SCREEN TEXT\n- Short overlay lines, one per scene.\n\nCAPTION\n- Platform-appropriate caption for ${project.platform} with a clear CTA.\n\nTITLE\n- 3 options, keyword-front-loaded, within ${project.platform} limits.\n\nDESCRIPTION\n- First line works as the visible preview; include searchable Hindi + English keywords and a CTA.\n\nHASHTAGS\n- The right count for ${project.platform}, one copy-paste line, mixing broad + niche + Indian local tags.\n\nTHUMBNAIL TEXT\n- 3 options, max 4 words each, high contrast wording.`,
         CREATOR_SYSTEM,
       );
       setOutput("package", text);

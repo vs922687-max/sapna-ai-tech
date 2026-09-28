@@ -8,7 +8,7 @@ import { CreatorBrief } from "@/components/creator/creator-brief";
 import { OutputPanel } from "@/components/creator/output-panel";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { askAi } from "@/lib/ai-client";
-import { CREATOR_SYSTEM, briefLine, creatorTool } from "@/lib/creator-studio";
+import { CREATOR_SYSTEM, VIRAL_HOOK_ENGINE, briefLine, creatorTool } from "@/lib/creator-studio";
 
 const tool = creatorTool("hook-generator");
 
@@ -48,7 +48,7 @@ function HookGeneratorPage() {
     setLoading(true);
     try {
       const text = await askAi(
-        `${briefLine(project)}\n\nWrite 20 spoken video hooks for the first 3 seconds, grouped under these headings with a number list under each: CURIOSITY, QUESTION, PROBLEM, STORY, EMOTIONAL, NUMBER/LIST, CONTRARIAN.\nRules: each hook is one sentence, 8-14 words, speakable, no clickbait lies, no emoji.\nEnd with a section BEST 3 PICKS explaining in one line each why they work for ${project.platform}.`,
+        `${briefLine(project)}\n\n${VIRAL_HOOK_ENGINE}\n\nWrite 20 spoken video hooks for the first 3 seconds, grouped under these headings with a number list under each: CONTRARIAN, CURIOSITY, QUESTION, PROBLEM, STORY, EMOTIONAL, NUMBER/LIST. Lead with the strongest truthful contrarian hooks.\nRules: each hook is one sentence, speakable in 3 seconds (prefer 6-10 words; shorter for slower languages), no clickbait lies, no emoji.\nEnd with BEST 3 PICKS: for each, explain why it works for ${project.platform}, give a fast opening visual cue and an exact short final spoken phrase that loops back into that opening without repeating the whole hook.`,
         CREATOR_SYSTEM,
       );
       setOutput("hooks", text);

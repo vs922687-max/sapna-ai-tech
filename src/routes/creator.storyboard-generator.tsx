@@ -8,7 +8,7 @@ import { CreatorBrief } from "@/components/creator/creator-brief";
 import { OutputPanel } from "@/components/creator/output-panel";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { askAi } from "@/lib/ai-client";
-import { CREATOR_SYSTEM, briefLine, creatorTool } from "@/lib/creator-studio";
+import { CREATOR_SYSTEM, VIRAL_HOOK_ENGINE, briefLine, creatorTool, isShortForm } from "@/lib/creator-studio";
 import { textareaCls } from "@/components/tools/ui-primitives";
 
 const tool = creatorTool("storyboard-generator");
@@ -50,7 +50,7 @@ function StoryboardPage() {
     setLoading(true);
     try {
       const text = await askAi(
-        `${briefLine(project)}\n\n${script.trim() ? `Use this script as the source:\n${script}` : "No script provided — create one from the topic."}\n\nBuild a shooting storyboard for the full ${project.duration}.\nFor every scene output these labelled lines:\nSCENE n\n- Duration:\n- Shot type (phone-friendly):\n- Visual / action:\n- Voice-over line (exact words):\n- On-screen text:\n- Transition to next:\n\nEnd with:\nSHOT LIST\n- Bullet list of everything to film.\nPROPS & LOCATION\n- Simple, low-budget suggestions.`,
+        `${briefLine(project)}\n\n${script.trim() ? `Use this script as the source:\n${script}` : "No script provided — create one from the topic."}\n\n${isShortForm(project) ? `${VIRAL_HOOK_ENGINE}\nIf a source script is supplied, preserve its factual content while adapting the opening and ending for the loop; do not invent unsupported facts.` : ""}\n\nBuild a shooting storyboard for the full ${project.duration}.\nFor every scene output these labelled lines:\nSCENE n\n- Duration:\n- Shot type (phone-friendly):\n- Visual / action${isShortForm(project) ? " (fast cue/cut)" : ""}:\n- Voice-over line (exact words):\n- On-screen text:\n- Transition to next:\n\n${isShortForm(project) ? "Make the 0-3s scene a contrarian hook and the final scene's exact spoken line and cut lead seamlessly back to that opening frame.\n" : ""}End with:\nSHOT LIST\n- Bullet list of everything to film.\nPROPS & LOCATION\n- Simple, low-budget suggestions.`,
         CREATOR_SYSTEM,
       );
       setOutput("storyboard", text);
