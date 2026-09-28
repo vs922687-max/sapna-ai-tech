@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Loader2, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -58,24 +58,37 @@ export const Route = createFileRoute("/creator/content-generator")({
 function ContentGeneratorPage() {
   const { project, patch, setOutput, save } = useCreatorProject();
   const [loading, setLoading] = useState(false);
+  const [streamedOutput, setStreamedOutput] = useState("");
+  const activeRequest = useRef<AbortController | null>(null);
   const out = project.outputs.package ?? "";
 
+  useEffect(() => () => activeRequest.current?.abort(), []);
+
   const generate = async () => {
+    if (loading) return;
     if (!project.topic.trim()) {
       toast.error("Pehle topic likhein.");
       return;
     }
+    const controller = new AbortController();
+    activeRequest.current?.abort();
+    activeRequest.current = controller;
+    setStreamedOutput("");
     setLoading(true);
     try {
       const text = await askAi(
-        `${briefLine(project)}\n\n${isShortForm(project) ? VIRAL_HOOK_ENGINE : ""}\n\nProduce a complete, production-ready content package with EXACTLY these sections in this order:\n\nHOOK\n- The exact spoken first 3 seconds (max 14 words)${isShortForm(project) ? ", a truthful contrarian/expectation-breaking opening" : ""}.\n\nFULL SCRIPT\n- Spoken script that fits ${project.duration} at natural Indian narration speed, with timestamps like [0-3s]${isShortForm(project) ? "; end with the exact loop-back spoken phrase after any CTA" : ""}.\n\nSCENE BREAKDOWN\n- Scene 1..N with: Duration | Visual to shoot (phone-friendly) | Voice-over line | On-screen text | Transition${isShortForm(project) ? "; fast visual cues in every scene and an explicit final-to-first-frame transition" : ""}.\n\nVOICE-OVER SCRIPT\n- Clean narration-only text, no directions, ready to read aloud${isShortForm(project) ? ", including the same opening hook and loop ending as FULL SCRIPT" : ""}.\n\nON-SCREEN TEXT\n- Short overlay lines, one per scene.\n\nCAPTION\n- Platform-appropriate caption for ${project.platform} with a clear CTA.\n\nTITLE\n- 3 options, keyword-front-loaded, within ${project.platform} limits.\n\nDESCRIPTION\n- First line works as the visible preview; include searchable Hindi + English keywords and a CTA.\n\nHASHTAGS\n- The right count for ${project.platform}, one copy-paste line, mixing broad + niche + Indian local tags.\n\nTHUMBNAIL TEXT\n- 3 options, max 4 words each, high contrast wording.`,
+        `${briefLine(project)}\n\n${isShortForm(project) ? VIRAL_HOOK_ENGINE : ""}\n\nCreate one complete, ready-to-record content package. Write every spoken line in ${project.language}; keep technical names unchanged when translation would be misleading. Match ${project.duration} at a natural Indian speaking pace. Never invent statistics, dates, prices, scheme rules, guarantees, or sources; mark uncertain factual claims as [VERIFY BEFORE PUBLISHING]. Do not stop early or omit a section.\n\nUse EXACTLY these headings in this order:\n\nHOOK\n- Exact first spoken line, max 14 words${isShortForm(project) ? "; truthful contrarian opening within 3 seconds" : "; specific and relevant"}.\n\nFULL SCRIPT\n- Complete spoken script with continuous timestamps such as [0-3s].\n- Keep the word count realistic; no filler or repeated paragraphs.${isShortForm(project) ? "\n- Put the CTA before the final loop-back line." : ""}\n\nSCENE BREAKDOWN\n- Number every scene. Use exactly: TIME | VISUAL | VOICE-OVER | ON-SCREEN TEXT | TRANSITION.\n- Visuals must be concrete, phone-friendly and directly related to the spoken line.${isShortForm(project) ? "\n- Include a visible change in every scene and a final-to-first-frame transition." : ""}\n\nVOICE-OVER SCRIPT\n- Narration-only copy matching FULL SCRIPT; remove timestamps and directions.${isShortForm(project) ? " Keep the same opening hook and final loop line." : ""}\n\nON-SCREEN TEXT\n- Numbered short overlay line for every scene.\n\nCAPTION\n- One platform-ready caption with a natural CTA; no unsupported claims.\n\nTITLE\n- 3 distinct keyword-front-loaded options within normal ${project.platform} limits.\n\nDESCRIPTION\n- Searchable description. The first line must work as the visible preview; include relevant Hindi and English search terms naturally, then one CTA.\n\nHASHTAGS\n- One copy-ready line with an appropriate mix of broad, niche and India-relevant hashtags; no unrelated trending tags.\n\nTHUMBNAIL TEXT\n- 3 distinct options, maximum 4 words each, readable and truthful.\n\nFINAL QUALITY CHECK\n- Confirm all 10 sections are present, timestamps cover ${project.duration}, scene count matches overlays, language is ${project.language}, and uncertain factual claims are marked [VERIFY BEFORE PUBLISHING].`,
         CREATOR_SYSTEM,
+        { signal: controller.signal, onProgress: setStreamedOutput },
       );
       setOutput("package", text);
+      setStreamedOutput("");
+      toast.success("Complete content package tayyar hai.");
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Generation fail ho gaya — dobara koshish karein.");
+      setStreamedOutput("");
+      if (!(e instanceof DOMException && e.name === "AbortError")) toast.error(e instanceof Error ? e.message : "Generation fail ho gaya — dobara koshish karein.");
     } finally {
-      setLoading(false);
+      if (activeRequest.current === controller) { activeRequest.current = null; setLoading(false); }
     }
   };
 
@@ -111,7 +124,7 @@ function ContentGeneratorPage() {
       </div>
       <div className="mt-5">
         <OutputPanel
-          value={out}
+          value={streamedOutput || out}
           onChange={(v) => setOutput("package", v)}
           onRegenerate={generate}
           onSave={() => {

@@ -9,3 +9,4 @@
 - [x] Default Creator Studio Shorts prompts to truthful contrarian first-three-second hooks, fast visual cues and seamless looping endings.
 - [x] Allow up to 10,000 characters in Script to MP4 narration input and API, and clarify the existing 65-second MP4 limit in the FAQ.
 - [x] Make the Script to MP4 narration box visibly larger and show its 10,000-character capacity beside the label.
+- [x] Improve AI Content Creator with streamed complete packages, strict validation, preserved drafts and clear errors.
