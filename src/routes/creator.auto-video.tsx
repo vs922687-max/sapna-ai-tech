@@ -179,8 +179,8 @@ function AutoVideoPage() {
         <Button asChild size="sm" variant="outline"><Link to="/creator/script-generator"><Sparkles className="mr-2 h-4 w-4" /> Script Generator</Link></Button>
       </div>
       <label className="block">
-        <span className="mb-1 block text-sm font-medium">Narration script</span>
-        <textarea aria-label="Narration script" value={script} disabled={!hydrated || !!busy} onChange={(e) => changeScript(e.target.value)} placeholder="Apni video ki script yahan likhein…" maxLength={MAX_SCRIPT_LENGTH} className={textareaCls()} />
+        <span className="mb-1 block text-sm font-medium">Narration script · up to 10,000 characters</span>
+        <textarea aria-label="Narration script" value={script} disabled={!hydrated || !!busy} onChange={(e) => changeScript(e.target.value)} placeholder="Apni poori script yahan paste karein…" maxLength={MAX_SCRIPT_LENGTH} className={`${textareaCls()} h-[360px] resize-y sm:h-[440px]`} />
         <span className="mt-1 block text-xs text-muted-foreground">{script.length.toLocaleString()}/{MAX_SCRIPT_LENGTH.toLocaleString()} characters · Hindi, Punjabi, English aur Hinglish text</span>
       </label>
       <div className="mt-4 flex flex-wrap items-center gap-3">
