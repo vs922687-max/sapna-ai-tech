@@ -12,10 +12,11 @@ import { aiAuthHeaders } from "@/lib/ai-client";
 import type { VideoScene } from "@/lib/creator-video-export";
 
 const tool = creatorTool("auto-video");
+const MAX_SCRIPT_LENGTH = 10_000;
 const FAQS = [
   { q: "MP4 mein voice hoti hai?", a: "Haan. Sign in karke AI narration banayein; export usi audio ko scene visuals ke saath MP4 mein jodta hai." },
   { q: "Apni photos laga sakte hain?", a: "Haan, har scene ki apni photo chunein ya AI se scene ki image banayein. Bina image ke text visuals bante hain." },
-  { q: "Kitni lambi video banegi?", a: "Is workflow mein 900 characters tak ka script aur 65 seconds tak ka voiceover support hota hai. Lambi script ko pehle chhota karein." },
+  { q: "Kitni lambi video banegi?", a: "Narration script box mein 10,000 characters (lagbhag 2,000 words) tak ka text, scene notes aur Shorts package paste kar sakte hain. MP4 export mein voiceover abhi 65 seconds tak hi support hota hai; lambi narration ko export se pehle chhota karein." },
 ];
 
 export const Route = createFileRoute("/creator/auto-video")({
@@ -66,7 +67,7 @@ function AutoVideoPage() {
   const [videoBlob, setVideoBlob] = useState<Blob | null>(null);
   const audioBlob = useRef<Blob | null>(null);
   const script = project.outputs.voiceover ?? project.outputs.script ?? "";
-  const canPrepare = hydrated && script.trim().length > 0 && script.trim().length <= 900;
+  const canPrepare = hydrated && script.trim().length > 0 && script.trim().length <= MAX_SCRIPT_LENGTH;
   const shownScenes = useMemo(() => scenes.map((scene, i) => ({ ...scene, number: i + 1 })), [scenes]);
 
   useEffect(() => {
@@ -82,7 +83,7 @@ function AutoVideoPage() {
   };
 
   const makeVoice = async () => {
-    if (!canPrepare) { toast.error("900 characters tak ka script likhein."); return; }
+    if (!canPrepare) { toast.error("10,000 characters tak ka script likhein."); return; }
     setBusy("voice"); setVideoUrl(""); setVideoBlob(null);
     audioBlob.current = null; setAudioUrl("");
     try {
@@ -179,8 +180,8 @@ function AutoVideoPage() {
       </div>
       <label className="block">
         <span className="mb-1 block text-sm font-medium">Narration script</span>
-        <textarea aria-label="Narration script" value={script} disabled={!hydrated || !!busy} onChange={(e) => changeScript(e.target.value)} placeholder="Apni video ki script yahan likhein…" maxLength={900} className={textareaCls()} />
-        <span className="mt-1 block text-xs text-muted-foreground">{script.length}/900 characters · Hindi, Punjabi, English aur Hinglish text</span>
+        <textarea aria-label="Narration script" value={script} disabled={!hydrated || !!busy} onChange={(e) => changeScript(e.target.value)} placeholder="Apni video ki script yahan likhein…" maxLength={MAX_SCRIPT_LENGTH} className={textareaCls()} />
+        <span className="mt-1 block text-xs text-muted-foreground">{script.length.toLocaleString()}/{MAX_SCRIPT_LENGTH.toLocaleString()} characters · Hindi, Punjabi, English aur Hinglish text</span>
       </label>
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <Button onClick={makeVoice} disabled={!canPrepare || !!busy}>
