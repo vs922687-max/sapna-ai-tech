@@ -283,6 +283,14 @@ export function loadActiveProject(): CreatorProject | null {
 export const CREATOR_SYSTEM =
   "You are a senior Indian short-form and YouTube content strategist. You write specific, production-ready output for Hindi, English, Hinglish and Punjabi audiences in India. Never give vague advice. Use exact spoken lines, exact timestamps, exact hashtags and concrete visual instructions. Output clean plain text with UPPERCASE section headings and dashes — no markdown symbols.";
 
+/** Default creative direction for Shorts/Reels across the Studio's generation tools. */
+export const VIRAL_HOOK_ENGINE =
+  "VIRAL HOOK ENGINE: Begin the spoken video with a truthful, topic-specific contrarian or expectation-breaking claim/question that can be said within the first 3 seconds (not a generic greeting or unsupported promise). Immediately pay off the hook with useful substance. Give each short timeline block a fast, concrete visual cue or change of shot/on-screen text, especially at 0-3s. Write a looping script: make the final spoken phrase and final visual connect naturally back to the opening line and opening frame so replay feels seamless. Include the exact final spoken line and visual-to-opening transition. Keep the loop meaningful, not repetitive clickbait; do not sacrifice factual accuracy.";
+
+export function isShortForm(p: Pick<CreatorProject, "platform" | "duration">) {
+  return p.platform.includes("Shorts") || p.platform.includes("Reels") || p.platform === "TikTok" || ["15 sec", "30 sec", "45 sec", "60 sec"].includes(p.duration);
+}
+
 export function briefLine(p: Pick<CreatorProject, "topic" | "platform" | "language" | "duration" | "contentType" | "tone">) {
   return `Topic: ${p.topic}\nPlatform: ${p.platform}\nLanguage: ${p.language}\nTarget duration: ${p.duration}\nContent type: ${p.contentType}\nTone: ${p.tone}\nAudience: India, mobile-first.`;
 }
