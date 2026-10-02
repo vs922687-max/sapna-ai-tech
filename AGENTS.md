@@ -17,3 +17,4 @@
 - Render free Shorts animations, recorded narration and timed captions locally with browser MediaRecorder, Canvas and Mediabunny; this avoids paid generation and keeps microphone recordings on the user's device.
 - Publish Creator Studio MP4s with the existing browser-to-YouTube OAuth upload flow and retain the exported Blob only in memory; this reuses the video without regenerating AI assets or spending extra credits.
 - Use Viral Hook Engine only for short form, and send text AI through authenticated, validated Responses streaming; this keeps long-form distinct and prevents blank output.
+- Render festival posters entirely in the browser with Canvas and keep uploaded shop images on-device; this avoids credit usage and protects customer photos.

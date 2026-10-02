@@ -12,6 +12,7 @@ type NavItem = {
   label: string;
   icon?: typeof Landmark;
   hash?: string;
+  badge?: string;
   children?: { to: string; label: string }[];
 };
 
@@ -24,6 +25,7 @@ const nav: NavItem[] = [
   { to: "/shorts-agent", label: "Shorts Agent" },
   { to: "/career", label: "Career Hub" },
   { to: "/work", label: "Work & Earn" },
+  { to: "/poster-maker", label: "Poster Maker", badge: "NEW" },
   {
     to: "/gov",
     label: "Government",
@@ -115,6 +117,7 @@ export function SiteHeader() {
                     >
                       {Icon && <Icon className="h-4 w-4" aria-hidden="true" />}
                       {item.label}
+                      {item.badge && <span className="rounded bg-poster px-1.5 py-0.5 text-[9px] font-bold text-poster-foreground">{item.badge}</span>}
                       <ChevronDown className="h-3 w-3 opacity-70" aria-hidden="true" />
                     </Link>
                     {isOpen && (
@@ -159,6 +162,7 @@ export function SiteHeader() {
                   )}
                 >
                   {item.label}
+                  {item.badge && <span className="ml-1 rounded bg-poster px-1.5 py-0.5 text-[9px] font-bold text-poster-foreground">{item.badge}</span>}
                 </Link>
               );
 
@@ -209,6 +213,7 @@ export function SiteHeader() {
                     >
                       {Icon && <Icon className="h-4 w-4" aria-hidden="true" />}
                       {item.label}
+                      {item.badge && <span className="ml-auto rounded bg-poster px-1.5 py-0.5 text-[9px] font-bold text-poster-foreground">{item.badge}</span>}
                     </Link>
 
                     {item.children && (
