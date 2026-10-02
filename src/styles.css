@@ -52,6 +52,8 @@
   --color-india-green-foreground: var(--india-green-foreground);
   --color-royal: var(--royal);
   --color-royal-foreground: var(--royal-foreground);
+  --color-poster: var(--poster);
+  --color-poster-foreground: var(--poster-foreground);
 
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -88,6 +90,10 @@
   /* Royal navy accent (chakra blue) */
   --royal: oklch(0.62 0.19 260);
   --royal-foreground: oklch(0.98 0.005 260);
+
+  /* Festival Poster Maker saffron — #FF6B00 */
+  --poster: oklch(0.7 0.2 48);
+  --poster-foreground: oklch(0.15 0.03 48);
 
   --secondary: oklch(0.26 0.03 265);
   --secondary-foreground: oklch(0.97 0.01 90);

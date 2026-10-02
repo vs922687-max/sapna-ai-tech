@@ -39,6 +39,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
 import { Route as PdfRouteImport } from './routes/pdf'
 import { Route as PmayRouteImport } from './routes/pmay'
+import { Route as PosterMakerRouteImport } from './routes/poster-maker'
 import { Route as PresentationRouteImport } from './routes/presentation'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -255,6 +256,11 @@ const PdfRoute = PdfRouteImport.update({
 const PmayRoute = PmayRouteImport.update({
   id: '/pmay',
   path: '/pmay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosterMakerRoute = PosterMakerRouteImport.update({
+  id: '/poster-maker',
+  path: '/poster-maker',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PresentationRoute = PresentationRouteImport.update({
@@ -628,6 +634,7 @@ export interface FileRoutesByFullPath {
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pmay': typeof PmayRoute
+  '/poster-maker': typeof PosterMakerRoute
   '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -723,6 +730,7 @@ export interface FileRoutesByTo {
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pmay': typeof PmayRoute
+  '/poster-maker': typeof PosterMakerRoute
   '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -819,6 +827,7 @@ export interface FileRoutesById {
   '/meeting-notes': typeof MeetingNotesRoute
   '/pdf': typeof PdfRoute
   '/pmay': typeof PmayRoute
+  '/poster-maker': typeof PosterMakerRoute
   '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -920,6 +929,7 @@ export interface FileRouteTypes {
     | '/meeting-notes'
     | '/pdf'
     | '/pmay'
+    | '/poster-maker'
     | '/presentation'
     | '/pricing'
     | '/privacy'
@@ -1015,6 +1025,7 @@ export interface FileRouteTypes {
     | '/meeting-notes'
     | '/pdf'
     | '/pmay'
+    | '/poster-maker'
     | '/presentation'
     | '/pricing'
     | '/privacy'
@@ -1110,6 +1121,7 @@ export interface FileRouteTypes {
     | '/meeting-notes'
     | '/pdf'
     | '/pmay'
+    | '/poster-maker'
     | '/presentation'
     | '/pricing'
     | '/privacy'
@@ -1210,6 +1222,7 @@ export interface RootRouteChildren {
   MeetingNotesRoute: typeof MeetingNotesRoute
   PdfRoute: typeof PdfRoute
   PmayRoute: typeof PmayRoute
+  PosterMakerRoute: typeof PosterMakerRoute
   PresentationRoute: typeof PresentationRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -1445,6 +1458,13 @@ declare module '@tanstack/react-router' {
       path: '/pmay'
       fullPath: '/pmay'
       preLoaderRoute: typeof PmayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poster-maker': {
+      id: '/poster-maker'
+      path: '/poster-maker'
+      fullPath: '/poster-maker'
+      preLoaderRoute: typeof PosterMakerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/presentation': {
@@ -2109,6 +2129,7 @@ const rootRouteChildren: RootRouteChildren = {
   MeetingNotesRoute: MeetingNotesRoute,
   PdfRoute: PdfRoute,
   PmayRoute: PmayRoute,
+  PosterMakerRoute: PosterMakerRoute,
   PresentationRoute: PresentationRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,

@@ -10,3 +10,4 @@
 - [x] Allow up to 10,000 characters in Script to MP4 narration input and API, and clarify the existing 65-second MP4 limit in the FAQ.
 - [x] Make the Script to MP4 narration box visibly larger and show its 10,000-character capacity beside the label.
 - [x] Improve AI Content Creator with streamed complete packages, strict validation, preserved drafts and clear errors.
+- [x] Add a browser-only festival poster maker with five templates, local lead saving, watermarked download and a clearly labelled demo HD modal.
