@@ -8,7 +8,7 @@ import { CreatorBrief } from "@/components/creator/creator-brief";
 import { OutputPanel } from "@/components/creator/output-panel";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { askAi } from "@/lib/ai-client";
-import { CREATOR_SYSTEM, VIRAL_HOOK_ENGINE, briefLine, creatorTool, isShortForm } from "@/lib/creator-studio";
+import { VIRAL_HOOK_ENGINE, briefLine, creatorTool, isShortForm } from "@/lib/creator-studio";
 
 const tool = creatorTool("content-generator");
 
@@ -78,7 +78,7 @@ function ContentGeneratorPage() {
     try {
       const text = await askAi(
         `${briefLine(project)}\n\n${isShortForm(project) ? VIRAL_HOOK_ENGINE : ""}\n\nCreate one complete, ready-to-record content package. Write every spoken line in ${project.language}; keep technical names unchanged when translation would be misleading. Match ${project.duration} at a natural Indian speaking pace. Never invent statistics, dates, prices, scheme rules, guarantees, or sources; mark uncertain factual claims as [VERIFY BEFORE PUBLISHING]. Do not stop early or omit a section.\n\nUse EXACTLY these headings in this order:\n\nHOOK\n- Exact first spoken line, max 14 words${isShortForm(project) ? "; truthful contrarian opening within 3 seconds" : "; specific and relevant"}.\n\nFULL SCRIPT\n- Complete spoken script with continuous timestamps such as [0-3s].\n- Keep the word count realistic; no filler or repeated paragraphs.${isShortForm(project) ? "\n- Put the CTA before the final loop-back line." : ""}\n\nSCENE BREAKDOWN\n- Number every scene. Use exactly: TIME | VISUAL | VOICE-OVER | ON-SCREEN TEXT | TRANSITION.\n- Visuals must be concrete, phone-friendly and directly related to the spoken line.${isShortForm(project) ? "\n- Include a visible change in every scene and a final-to-first-frame transition." : ""}\n\nVOICE-OVER SCRIPT\n- Narration-only copy matching FULL SCRIPT; remove timestamps and directions.${isShortForm(project) ? " Keep the same opening hook and final loop line." : ""}\n\nON-SCREEN TEXT\n- Numbered short overlay line for every scene.\n\nCAPTION\n- One platform-ready caption with a natural CTA; no unsupported claims.\n\nTITLE\n- 3 distinct keyword-front-loaded options within normal ${project.platform} limits.\n\nDESCRIPTION\n- Searchable description. The first line must work as the visible preview; include relevant Hindi and English search terms naturally, then one CTA.\n\nHASHTAGS\n- One copy-ready line with an appropriate mix of broad, niche and India-relevant hashtags; no unrelated trending tags.\n\nTHUMBNAIL TEXT\n- 3 distinct options, maximum 4 words each, readable and truthful.\n\nFINAL QUALITY CHECK\n- Confirm all 10 sections are present, timestamps cover ${project.duration}, scene count matches overlays, language is ${project.language}, and uncertain factual claims are marked [VERIFY BEFORE PUBLISHING].`,
-        CREATOR_SYSTEM,
+        "creator",
         { signal: controller.signal, onProgress: setStreamedOutput },
       );
       setOutput("package", text);

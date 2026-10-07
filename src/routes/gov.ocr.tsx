@@ -104,23 +104,7 @@ function OcrPage() {
     setExtracting(true);
     setExtracted(null);
     try {
-      const system = `You are a document field extractor for Indian government IDs (Aadhaar, PAN, Passport, Driving Licence, Voter ID, certificates).
-Return ONLY a strict JSON object with this shape (omit fields you cannot find, do not invent):
-{
-  "name": string,
-  "dob": string,
-  "gender": string,
-  "documentNumber": string,
-  "address": string,
-  "fatherOrHusbandName": string,
-  "issueDate": string,
-  "expiryDate": string,
-  "otherFields": { "<label>": "<value>" },
-  "warnings": string[]
-}
-Add helpful entries in "warnings" if the number looks malformed (e.g. Aadhaar should be 12 digits, PAN should be 10 chars AAAAA9999A).
-Do not include any prose, backticks, or markdown — JSON only.`;
-      const reply = await askAi(rawText, system);
+      const reply = await askAi(rawText, "gov-ocr-1");
       const cleaned = reply
         .trim()
         .replace(/^```(?:json)?/i, "")

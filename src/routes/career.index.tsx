@@ -101,7 +101,7 @@ function MockInterview() {
     setLoadingQ(true);
     try {
       const prompt = `Generate 5 realistic ${lang} interview questions for a ${exp.toLowerCase()} ${role} role in India. Return ONLY the numbered list, no intro.`;
-      const text = await askAi(prompt, "You are an experienced Indian HR interviewer.");
+      const text = await askAi(prompt, "career-index-1");
       const list = text.split("\n").map((l) => l.replace(/^\s*\d+[.\)]\s*/, "").trim()).filter(Boolean);
       setQuestions(list.slice(0, 6));
       setAnswers({});
@@ -116,7 +116,7 @@ function MockInterview() {
     setLoadingF(i);
     try {
       const prompt = `Question: ${questions[i]}\nCandidate answer in ${lang}:\n${answers[i]}\n\nGive 1-line feedback in ${lang}: what was good and one tip to improve. Keep under 200 characters.`;
-      const fb = await askAi(prompt, "You are a friendly Indian career coach.");
+      const fb = await askAi(prompt, "career-index-2");
       setFeedbacks({ ...feedbacks, [i]: fb });
     } catch (e) {
       toast.error((e as Error).message);
@@ -182,7 +182,7 @@ function StudyPlanner() {
     setLoading(true);
     try {
       const prompt = `Create a ${weeks}-week study plan for ${exam} covering ${subjects}. I can study ${hours} hours/day. Include daily focus, revision days and mock-test days. Output as a simple week-by-week list in English with Hindi headings.`;
-      const text = await askAi(prompt, "You are a top Indian competitive-exam mentor.");
+      const text = await askAi(prompt, "career-index-3");
       setPlan(text);
     } catch (e) { toast.error((e as Error).message); }
     finally { setLoading(false); }
@@ -226,7 +226,7 @@ function ExamPrep() {
     setLoading(true); setSelected(null);
     try {
       const prompt = `Generate one multiple-choice question for ${exam} on the topic: ${topic}. Format exactly as:\nQuestion: ...\nA) ...\nB) ...\nC) ...\nD) ...\nAnswer: A/B/C/D`;
-      const text = await askAi(prompt, "You are an Indian exam-prep expert.");
+      const text = await askAi(prompt, "career-index-4");
       const q = text.match(/Question:\s*(.+)/)?.[1]?.trim();
       const options = ["A", "B", "C", "D"].map((l) => text.match(new RegExp(`${l}\\)\\s*(.+)`))?.[1]?.trim() ?? "");
       const ans = text.match(/Answer:\s*([A-D])/)?.[1]?.trim() ?? "";
@@ -315,7 +315,7 @@ function SkillsRoadmap() {
     setLoading(true);
     try {
       const prompt = `Create a 12-week beginner-to-job-ready skills roadmap for someone who wants to become a ${goal} in India. Current level: ${current || "beginner"}. Output week-by-week list with resources (free/Indian preferred). Include Hindi section titles.`;
-      const text = await askAi(prompt, "You are an Indian career mentor and ed-tech expert.");
+      const text = await askAi(prompt, "career-index-5");
       setRoadmap(text);
     } catch (e) { toast.error((e as Error).message); }
     finally { setLoading(false); }

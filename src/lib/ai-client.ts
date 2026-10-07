@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import type { AiPresetSelection } from "@/lib/ai-request";
 
 async function authHeaders(): Promise<Record<string, string>> {
   const { data } = await supabase.auth.getSession();
@@ -34,13 +35,13 @@ async function readAiStream(response: Response, onProgress?: (text: string) => v
   return text.trim();
 }
 
-export async function askAi(prompt: string, system?: string, options: AskAiOptions = {}): Promise<string> {
+export async function askAi(prompt: string, selection: AiPresetSelection = "general", options: AskAiOptions = {}): Promise<string> {
   const auth = await authHeaders();
   for (let attempt = 0; attempt < 2; attempt += 1) {
     const res = await fetch("/api/ai", {
       method: "POST",
       headers: { "Content-Type": "application/json", ...auth },
-      body: JSON.stringify({ prompt, system }),
+      body: JSON.stringify({ prompt, ...(typeof selection === "string" ? { preset: selection } : selection) }),
       signal: options.signal,
     });
     if (res.ok) return readAiStream(res, options.onProgress);

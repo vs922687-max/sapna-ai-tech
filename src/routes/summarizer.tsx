@@ -30,7 +30,7 @@ function SummarizerPage() {
     try {
       const text = await askAi(
         `Summarize the following text into ${spec}. Use markdown bullets. Match the source language.\n\n${input}`,
-        "You are a concise summarizer.",
+        "summarizer-1",
       );
       setOutput(text.trim());
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); }

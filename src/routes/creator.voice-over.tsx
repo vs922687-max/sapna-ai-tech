@@ -7,7 +7,7 @@ import { CreatorShell, creatorSchema } from "@/components/creator/creator-shell"
 import { OutputPanel } from "@/components/creator/output-panel";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { askAi } from "@/lib/ai-client";
-import { CREATOR_SYSTEM, briefLine, creatorTool } from "@/lib/creator-studio";
+import { briefLine, creatorTool } from "@/lib/creator-studio";
 import { textareaCls } from "@/components/tools/ui-primitives";
 
 const tool = creatorTool("voice-over");
@@ -92,7 +92,7 @@ function VoiceOverPage() {
     try {
       const out = await askAi(
         `${briefLine(project)}\n\nWrite ONLY a clean voice-over narration script for ${project.duration}. Narration text only — no headings, no timestamps, no stage directions, no emoji. Short sentences that are easy to read aloud.`,
-        CREATOR_SYSTEM,
+        "creator",
       );
       setOutput("voiceover", out);
     } catch (e) {

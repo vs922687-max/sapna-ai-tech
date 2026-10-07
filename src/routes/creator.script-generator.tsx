@@ -8,7 +8,7 @@ import { CreatorBrief } from "@/components/creator/creator-brief";
 import { OutputPanel } from "@/components/creator/output-panel";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { askAi } from "@/lib/ai-client";
-import { CREATOR_SYSTEM, VIRAL_HOOK_ENGINE, briefLine, creatorTool, isShortForm } from "@/lib/creator-studio";
+import { VIRAL_HOOK_ENGINE, briefLine, creatorTool, isShortForm } from "@/lib/creator-studio";
 
 const tool = creatorTool("script-generator");
 
@@ -49,7 +49,7 @@ function ScriptGeneratorPage() {
     try {
       const text = await askAi(
         `${briefLine(project)}\n\n${isShortForm(project) ? VIRAL_HOOK_ENGINE : ""}\n\nWrite a complete spoken video script.\n\nHOOK\n- First 3 seconds, exact words${isShortForm(project) ? "; make it a truthful contrarian hook" : ""}.\n\nSCRIPT\n- Timestamped blocks like [0-5s], [5-15s] covering the whole ${project.duration}.\n- Only spoken words plus short (visual: ...) notes${isShortForm(project) ? "; include a fast visual cue/cut in every block" : ""}.\n- Keep sentences short enough to say out loud comfortably.\n\nCTA\n- ${isShortForm(project) ? "A brief natural CTA before the last line, without interrupting the loop" : "One natural closing line asking for follow/save/share"}.\n${isShortForm(project) ? "\nLOOP ENDING\n- Exact final spoken phrase and final visual cut that lead naturally into the first spoken line and opening frame.\n" : ""}\nRETENTION TIPS\n- 3 specific tips for THIS script (pattern interrupts, where to add text, where to cut).`,
-        CREATOR_SYSTEM,
+        "creator",
       );
       setOutput("script", text);
     } catch (e) {

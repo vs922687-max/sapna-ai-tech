@@ -51,19 +51,6 @@ const SUGGEST: Record<Lang, string[]> = {
   ],
 };
 
-const buildSystem = (lang: Lang) =>
-  `You are Bharat AI Sathi — India's AI Government Expert.
-Help users understand Indian government schemes, documents, eligibility, fees, timelines and application processes.
-
-Rules:
-- Reply in ${lang === "hi" ? "simple Hindi" : lang === "hinglish" ? "Hinglish (Roman Hindi + easy English)" : "simple English"}.
-- Be concise: short paragraphs or 5-8 bullets max.
-- Explain sarkari / legal terms in plain language.
-- Always recommend the official government website for the final application; never invent fees, deadlines or portal URLs.
-- If unsure, say "please verify on the official website" and suggest which ministry/department to check.
-- If the question is not about Indian government services, politely redirect.
-- Do not ask users to share Aadhaar, PAN, OTPs, passwords or bank details.`;
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SR = any;
 
@@ -105,7 +92,8 @@ function GovAsk() {
         method: "POST",
         headers: { "Content-Type": "application/json", ...auth },
         body: JSON.stringify({
-          system: buildSystem(lang),
+          preset: "government",
+          language: lang,
           messages: next.slice(0, -1).map((m) => ({ role: m.role, content: m.content })),
         }),
       });

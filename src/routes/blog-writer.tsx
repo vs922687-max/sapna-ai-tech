@@ -33,7 +33,7 @@ function BlogWriterPage() {
     try {
       const text = await askAi(
         `Write a full blog post in ${lang}, ${tone} tone.\nTopic: ${topic}\n\nStructure using markdown:\n- H1 title\n- Compelling intro\n- 4-6 H2 sections with detailed body\n- Conclusion with CTA\n\nAim for 700-1000 words.`,
-        "You are an expert blog writer.",
+        "blog-writer-1",
       );
       setOutput(text.trim());
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); }

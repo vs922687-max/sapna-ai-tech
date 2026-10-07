@@ -36,22 +36,6 @@ export function GovAiAssistant({ service }: { service: GovService }) {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [msgs, loading]);
 
-  const buildSystem = () =>
-    `You are Bharat AI Sathi's assistant for the Indian government service "${service.name}" (${service.hindi}), managed by ${service.ministry}. Official site: ${service.official}.
-
-Known eligibility: ${service.eligibility.join("; ")}.
-Documents: ${service.documents.join("; ")}.
-Steps: ${service.steps.map((s) => `${s.title}: ${s.detail}`).join(" | ")}.
-Notes: ${service.notes.join(" | ")}.
-
-Rules:
-- Answer ONLY about this service. If unrelated, politely redirect.
-- Be accurate, concise (5-8 short bullets max).
-- Explain government/legal terms simply.
-- Reply in ${lang === "hi" ? "simple Hindi" : lang === "hinglish" ? "Hinglish (Roman Hindi + easy English words)" : "simple English"}.
-- Never invent fees or deadlines — say "check official website" if unsure.
-- Always recommend applying only on: ${service.official}`;
-
   const send = async (text: string) => {
     const q = text.trim();
     if (!q || loading) return;
@@ -63,7 +47,7 @@ Rules:
       const history = next
         .map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
         .join("\n");
-      const reply = await askAi(history, buildSystem());
+      const reply = await askAi(history, { preset: "government-service", serviceSlug: service.slug, language: lang });
       setMsgs((m) => [...m, { role: "assistant", content: reply.trim() }]);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Assistant failed");

@@ -39,12 +39,11 @@ function PresentationPage() {
     setLoading(true);
     setDeck(null);
     try {
-      const system = `You generate structured presentation outlines. Reply with ONLY a JSON object (no markdown fences) matching: {"title":string,"subtitle":string,"slides":[{"title":string,"bullets":string[3-5],"notes":string}]}. Write everything in ${language}.`;
       const prompt = `Create a ${slideCount}-slide presentation outline.
 Topic: ${topic}
 Audience: ${audience || "general"}
 Include a title slide, agenda, and closing/thank-you slide within the count. Keep bullets crisp (max 12 words each). Speaker notes 1-2 sentences.`;
-      const text = await askAi(prompt, system);
+      const text = await askAi(prompt, { preset: "presentation", language });
       const cleaned = text.replace(/^```(?:json)?/i, "").replace(/```$/i, "").trim();
       const parsed = JSON.parse(cleaned) as Deck;
       if (!parsed?.slides?.length) throw new Error("Empty deck");

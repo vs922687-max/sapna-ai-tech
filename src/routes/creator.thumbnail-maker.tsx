@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CreatorShell, creatorSchema } from "@/components/creator/creator-shell";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { askAi } from "@/lib/ai-client";
-import { CREATOR_SYSTEM, briefLine, creatorTool } from "@/lib/creator-studio";
+import { briefLine, creatorTool } from "@/lib/creator-studio";
 import { downloadBlob } from "@/components/tools/ui-primitives";
 
 const tool = creatorTool("thumbnail-maker");
@@ -147,7 +147,7 @@ function ThumbnailMakerPage() {
     try {
       const out = await askAi(
         `${briefLine(project)}\n\nGive 8 thumbnail text options. Each: max 4 words, UPPERCASE, high curiosity, no lies, no emoji. After the list add a short section COLOR TIP with one background + text colour pairing that reads well on mobile.`,
-        CREATOR_SYSTEM,
+        "creator",
       );
       setIdeas(out);
     } catch (e) {

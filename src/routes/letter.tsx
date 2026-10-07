@@ -151,7 +151,7 @@ Requirements:
 - Use realistic placeholders like [Your Address], [Date] only where the user has not provided info.
 - Keep length appropriate — concise but complete.
 - Return only the letter text, no commentary or markdown fences.`;
-      const text = await askAi(prompt, "You are an expert at drafting official Indian letters and applications.");
+      const text = await askAi(prompt, "letter-1");
       setOutput(text.trim());
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Failed to generate letter");

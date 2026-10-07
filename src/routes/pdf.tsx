@@ -68,7 +68,7 @@ function PdfPage() {
       const context = pdfText.slice(0, 60000);
       const answer = await askAi(
         `PDF content:\n---\n${context}\n---\n\nQuestion: ${question}\n\nAnswer based ONLY on the PDF above. If the answer isn't in the PDF, say so.`,
-        "You are a document assistant.",
+        "pdf-1",
       );
       setMsgs((m) => [...m, { role: "assistant", content: answer }]);
     } catch (e) {

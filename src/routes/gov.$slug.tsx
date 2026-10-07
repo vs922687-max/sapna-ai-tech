@@ -114,7 +114,7 @@ function GovDetail() {
       const prompt = aiLang === "hi"
         ? `भारत की "${s.name}" सरकारी सेवा को बहुत ही सरल हिंदी में समझाओ। 5-7 छोटे बुलेट पॉइंट्स दो: यह क्या है, किसके लिए है, फायदा क्या है, कैसे apply करें, और एक ज़रूरी tip। कोई अंग्रेज़ी शब्द ज़रूरी हो तभी इस्तेमाल करो।`
         : `Explain the Indian government service "${s.name}" in very simple English. Give 5-7 short bullet points: what it is, who it's for, key benefit, how to apply, and one important tip.`;
-      const text = await askAi(prompt, "You are a helpful assistant that explains Indian government schemes accurately and simply.");
+      const text = await askAi(prompt, "gov-$slug-1");
       setAiText(text.trim());
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "AI explanation failed");

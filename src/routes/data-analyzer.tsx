@@ -263,7 +263,7 @@ function DataAnalyzerPage() {
       const ctx = buildContext();
       const answer = await askAi(
         `You are analyzing a user's dataset. Here is a structured summary and a sample of the data (JSON):\n\n${ctx}\n\nUser question: ${question}\n\nAnswer clearly in plain language. When helpful, include a small markdown table. Point out data-quality issues (nulls, duplicates, outliers) when relevant. Do not invent numbers — if a full-dataset computation is beyond the sample provided, say so and give the best estimate from the summary.`,
-        "You are an expert data analyst who explains findings clearly and concisely.",
+        "data-analyzer-1",
       );
       setMsgs((m) => [...m, { role: "assistant", content: answer.trim() }]);
     } catch (e) {
@@ -287,7 +287,7 @@ function DataAnalyzerPage() {
         msgs.filter((m) => m.role === "assistant").slice(-3).map((m) => m.content).join("\n\n") ||
         (await askAi(
           `Data summary:\n${buildContext()}\n\nGive a concise executive summary with 5 key insights and 2 recommendations.`,
-          "You are an expert data analyst.",
+          "data-analyzer-2",
         ));
 
       const pdf = new jsPDF({ unit: "pt", format: "a4" });

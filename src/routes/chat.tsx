@@ -22,12 +22,6 @@ export const Route = createFileRoute("/chat")({
 
 type Msg = { role: "user" | "assistant"; content: string };
 
-const SYSTEM = `You are Bharat AI Sathi, a friendly, culturally-aware AI companion made for India.
-- Respond in the same language the user writes in (Hindi, English, Hinglish, or any Indian language).
-- Be concise, warm, and helpful.
-- Use markdown when it improves clarity.
-- When appropriate, reference Indian context (₹ pricing, UPI, cities, festivals, etc).`;
-
 function ChatPage() {
   const nav = useNavigate();
   const [user, setUser] = useState<User | null>(null);
@@ -73,7 +67,7 @@ function ChatPage() {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
-          system: SYSTEM,
+          preset: "chat",
           messages: next.slice(0, -1).map((m) => ({ role: m.role, content: m.content })),
         }),
       });

@@ -94,7 +94,7 @@ Structure the JD with clearly labeled sections:
 5. How to Apply (one short line)
 
 Return plain text only (no markdown code fences). Use hyphen bullets.`;
-      const text = await askAi(prompt, "You are an expert HR partner writing job descriptions for Indian companies.");
+      const text = await askAi(prompt, "hr-assistant-1");
       setOutput(text.trim());
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Failed to generate");
@@ -126,7 +126,7 @@ Under each heading, give 5-8 numbered questions. After each question, on a new l
 Return plain text only, no markdown code fences.`;
       const text = await askAi(
         prompt,
-        "You are an experienced Indian tech/HR interviewer designing structured interview kits.",
+        "hr-assistant-2",
       );
       setOutput(text.trim());
     } catch (e) {
