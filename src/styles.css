@@ -92,8 +92,13 @@
   --royal-foreground: oklch(0.98 0.005 260);
 
   /* Festival Poster Maker saffron — #FF6B00 */
-  --poster: oklch(0.7 0.2 48);
+  --poster: #FF6B00;
   --poster-foreground: oklch(0.15 0.03 48);
+  --poster-royal: linear-gradient(135deg, #240913, #74151c, #ff6b00);
+  --poster-glow: linear-gradient(135deg, #351103, #c43d06, #ff9d00);
+  --poster-rangoli: linear-gradient(135deg, #131039, #5d176d, #d92d77);
+  --poster-pride: linear-gradient(135deg, #08271c, #116149, #ff6b00);
+  --poster-midnight: linear-gradient(135deg, #080c18, #17213d, #3e2b65);
 
   --secondary: oklch(0.26 0.03 265);
   --secondary-foreground: oklch(0.97 0.01 90);

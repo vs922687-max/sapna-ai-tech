@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Check, Download, ImagePlus, Loader2, Sparkles, Upload, X } from "lucide-react";
+import { Check, Download, ImagePlus, Loader2, Sparkles, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,7 +37,7 @@ const TEMPLATES: Template[] = [
 
 function fitText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, maxSize: number, minSize = 38) {
   let size = maxSize;
-  while (size > minSize) {
+  while (size > 20) {
     ctx.font = `800 ${size}px "Space Grotesk", Inter, sans-serif`;
     if (ctx.measureText(text).width <= maxWidth) break;
     size -= 4;
@@ -302,7 +302,7 @@ export function PosterMaker() {
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
               {TEMPLATES.map((template, index) => (
                 <Button key={template.name} type="button" variant="outline" onClick={() => setTemplateIndex(index)} className={cn("relative h-auto min-h-20 overflow-hidden whitespace-normal p-2 text-xs", index === templateIndex && "border-poster ring-2 ring-poster/40")}>
-                  <span className="absolute inset-0 opacity-35" style={{ background: `linear-gradient(135deg, ${template.colors.join(",")})` }} />
+                  <span className={cn("absolute inset-0 opacity-35", ["bg-(image:--poster-royal)", "bg-(image:--poster-glow)", "bg-(image:--poster-rangoli)", "bg-(image:--poster-pride)", "bg-(image:--poster-midnight)"][index])} />
                   <span className="relative">{index === templateIndex && <Check className="mx-auto mb-1 h-4 w-4 text-poster" />}{template.name}</span>
                 </Button>
               ))}
