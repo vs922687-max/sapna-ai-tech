@@ -29,7 +29,7 @@ export const Route = createFileRoute("/gov/forms/$slug")({
     };
   },
   notFoundComponent: () => <div className="p-10 text-center">Form not found. <Link to="/gov/forms" className="text-primary">Back</Link></div>,
-  errorComponent: ({ error }) => <div className="p-10 text-center text-sm">Error: {error.message}</div>,
+  errorComponent: ({ error }) => <div className="p-10 text-center text-sm">Error: {error instanceof Error ? error.message : "Unable to load this form."}</div>,
   component: FormFiller,
 });
 
