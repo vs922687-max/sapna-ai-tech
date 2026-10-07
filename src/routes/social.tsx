@@ -31,7 +31,7 @@ function SocialPage() {
     try {
       const text = await askAi(
         `Write a ready-to-post ${platform} caption about: ${topic}\n\nInclude emojis, a strong hook, and relevant hashtags. Match ${platform} best practices for length and formatting.`,
-        "You are a social media copywriter for Indian audiences.",
+        "social-1",
       );
       setOutput(text.trim());
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); }

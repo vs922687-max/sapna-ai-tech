@@ -60,7 +60,7 @@ function EligibilityPage() {
       const list = GOV_SERVICES.map((s) => `- ${s.name} (${s.category}): ${s.tagline}`).join("\n");
       const profile = FIELDS.map((x) => `${x.label}: ${ans[x.key] || "-"}`).join("\n");
       const prompt = `User profile:\n${profile}\n\nCandidate schemes:\n${list}\n\nTask: Based on the user profile, list Indian government schemes/services they are likely ELIGIBLE for, PARTIALLY ELIGIBLE for, and NOT ELIGIBLE for. For each, give 1-line reason. Group under headings "✅ Eligible", "⚠️ Partially Eligible", "❌ Not Eligible". End with "🎯 Top 3 Recommendations" naming schemes they should apply to first.`;
-      const text = await askAi(prompt, "You are an expert on Indian government welfare schemes. Be accurate, concise, and cite scheme names exactly from the candidate list.");
+      const text = await askAi(prompt, "gov-eligibility-1");
       setResult(text.trim());
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Failed to check eligibility");

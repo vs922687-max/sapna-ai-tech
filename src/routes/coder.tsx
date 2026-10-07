@@ -31,7 +31,7 @@ function CoderPage() {
     try {
       const text = await askAi(
         `Language: ${lang}\n\nUser request:\n${prompt}\n\nIf the user pasted code, debug or explain it. If they described a task, write clean, commented code. Always wrap code in fenced markdown blocks (\`\`\`${lang.toLowerCase()}). Add a brief explanation.`,
-        "You are an expert programming assistant.",
+        "coder-1",
       );
       setOutput(text.trim());
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); }

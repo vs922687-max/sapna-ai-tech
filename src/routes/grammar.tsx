@@ -28,7 +28,7 @@ function GrammarPage() {
     try {
       const text = await askAi(
         `Correct grammar, spelling and tone in the following text. Preserve the original language (English or Hindi). Return ONLY the corrected text, no commentary.\n\n${input}`,
-        "You are an expert editor for English and Hindi.",
+        "grammar-1",
       );
       setOutput(text.trim());
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); }

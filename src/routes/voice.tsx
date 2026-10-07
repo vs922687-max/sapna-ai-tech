@@ -52,7 +52,7 @@ function VoicePage() {
   const ask = async (text: string) => {
     setLoading(true); setReply("");
     try {
-      const answer = await askAi(text, "You are a friendly voice assistant. Reply concisely in the same language as the user. Keep it under 4 sentences.");
+      const answer = await askAi(text, "voice-1");
       setReply(answer);
       const u = new SpeechSynthesisUtterance(answer);
       u.lang = lang;

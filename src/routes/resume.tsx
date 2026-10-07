@@ -30,7 +30,7 @@ function ResumePage() {
     try {
       const text = await askAi(
         `Create an ATS-friendly resume using this info. Use clean markdown with sections: Header, Summary, Skills, Work Experience, Education, Languages. Use strong action verbs and quantifiable outcomes.\n\nName: ${f.name}\nEmail: ${f.email}\nPhone: ${f.phone}\nSkills: ${f.skills}\nExperience: ${f.experience}\nEducation: ${f.education}\nLanguages: ${f.languages}`,
-        "You are an expert resume writer for Indian and global recruiters.",
+        "resume-1",
       );
       setOutput(text.trim());
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); }

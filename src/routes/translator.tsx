@@ -33,7 +33,7 @@ function TranslatorPage() {
     try {
       const text = await askAi(
         `Translate the following text from ${from} to ${to}. Return ONLY the translation, no explanations, no quotes.\n\n${input}`,
-        "You are a professional translator specialising in Indian languages. Preserve tone, names, and formatting.",
+        "translator-1",
       );
       setOutput(text.trim());
     } catch (e) {

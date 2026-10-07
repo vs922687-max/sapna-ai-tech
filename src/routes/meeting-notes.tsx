@@ -106,7 +106,6 @@ function MeetingNotesPage() {
     if (!transcript.trim()) { toast.error("Please provide a transcript"); return; }
     setGenerating(true); setNotes(null);
     try {
-      const system = "You are an expert meeting minutes assistant. Detect the language of the transcript (Hindi, English, or Hinglish) and write ALL output fields in that SAME language. Return ONLY valid minified JSON — no markdown, no code fences, no commentary.";
       const prompt = `Analyse the meeting transcript below and produce structured notes.
 
 Return JSON with EXACTLY these keys:
@@ -127,7 +126,7 @@ Transcript:
 """
 ${transcript.slice(0, 60000)}
 """`;
-      const raw = await askAi(prompt, system);
+      const raw = await askAi(prompt, "meeting-notes-1");
       const cleaned = raw.trim().replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
       const jsonStart = cleaned.indexOf("{");
       const jsonEnd = cleaned.lastIndexOf("}");

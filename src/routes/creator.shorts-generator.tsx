@@ -8,7 +8,7 @@ import { CreatorBrief } from "@/components/creator/creator-brief";
 import { OutputPanel } from "@/components/creator/output-panel";
 import { useCreatorProject } from "@/hooks/use-creator-project";
 import { askAi } from "@/lib/ai-client";
-import { CREATOR_SYSTEM, VIRAL_HOOK_ENGINE, briefLine, creatorTool } from "@/lib/creator-studio";
+import { VIRAL_HOOK_ENGINE, briefLine, creatorTool } from "@/lib/creator-studio";
 
 const tool = creatorTool("shorts-generator");
 
@@ -49,7 +49,7 @@ function ShortsGeneratorPage() {
     try {
       const text = await askAi(
         `${briefLine(project)}\n\n${VIRAL_HOOK_ENGINE}\n\nCreate a vertical short-video package for exactly ${project.duration}.\n\nVIRAL HOOK\n- 3 truthful contrarian/expectation-breaking first-lines (max 12 words each); select the strongest as the actual 0-3s spoken line in the timeline.\n\nTIMELINE\n- Second-by-second blocks (e.g. 0-3s, 3-8s) covering the full duration with: spoken line | fast visual cue | on-screen text | cut or transition. The last block must complete the thought and flow into the first block without a hard outro.\n\nLOOP ENDING\n- Exact final spoken phrase and final visual cut matching the opening line and frame.\n\nON-SCREEN TEXT\n- One punchy overlay per block.\n\nMUSIC & SOUND\n- Type of trending sound, energy level and where the beat drop should land.\n\nCAPTION\n- ${project.platform} caption with CTA.\n\nHASHTAGS\n- One copy-paste line, right count for ${project.platform}.\n\nWHY THIS CAN WORK\n- 3 short reasons tied to this specific idea.`,
-        CREATOR_SYSTEM,
+        "creator",
       );
       setOutput("shorts", text);
     } catch (e) {

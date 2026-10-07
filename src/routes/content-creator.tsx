@@ -45,9 +45,6 @@ const TABS = [
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
 
-const SYSTEM =
-  "You are a senior short-form video strategist who has grown multiple Indian creator channels (Hindi + Hinglish audience) past 1M views. You give specific, actionable, non-generic output. Never give vague advice like 'post good content'. Use concrete numbers, exact words, exact hashtags and real Indian audience context. Format with clean markdown-free plain text headings and dashes.";
-
 function ContentCreatorPage() {
   const [tab, setTab] = useState<TabId>("ideas");
 
@@ -153,7 +150,7 @@ function useAiRun() {
     setLoading(true);
     setOutput("");
     try {
-      const text = await askAi(prompt, SYSTEM);
+      const text = await askAi(prompt, "content-creator-1");
       setOutput(text.trim());
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Something went wrong");

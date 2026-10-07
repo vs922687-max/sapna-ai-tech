@@ -155,7 +155,7 @@ Requirements:
 - Return ONLY the agreement text. No markdown code fences, no commentary.`;
       const text = await askAi(
         prompt,
-        "You are an experienced Indian contracts drafter producing clean, well-structured legal-style agreements.",
+        "agreement-1",
       );
       setOutput(text.trim());
     } catch (e) {

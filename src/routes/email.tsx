@@ -33,7 +33,7 @@ function EmailPage() {
     try {
       const text = await askAi(
         `Write a ${tone.toLowerCase()} email.\nSubject: ${subject || "(suggest one)"}\nKey points:\n${points}\n\nReturn the full email including subject line, greeting, body, and sign-off.`,
-        "You are an expert email copywriter.",
+        "email-1",
       );
       setOutput(text.trim());
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); }

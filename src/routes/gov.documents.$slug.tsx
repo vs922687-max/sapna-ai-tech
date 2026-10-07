@@ -58,7 +58,7 @@ function DocGen() {
     try {
       const ctx = [usedProfile ? profileToContext(profile) : "", details].filter(Boolean).join("\n");
       const prompt = t.prompt(ctx || "(no extra details provided)", lang);
-      const text = await askAi(prompt, "You are an expert Indian legal & government document drafter. Produce formal, print-ready drafts.");
+      const text = await askAi(prompt, "gov-documents-$slug-1");
       setOutput(text.trim());
     } catch (e) { toast.error(e instanceof Error ? e.message : "Generation failed"); }
     finally { setLoading(false); }
