@@ -73,7 +73,7 @@ function ChatPage() {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
-          system: SYSTEM,
+          preset: "chat",
           messages: next.slice(0, -1).map((m) => ({ role: m.role, content: m.content })),
         }),
       });

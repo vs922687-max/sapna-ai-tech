@@ -1,13 +1,7 @@
-// @ts-nocheck
 import { createFileRoute } from "@tanstack/react-router";
-import { streamGatewayChat, type GatewayMessage } from "@/lib/ai-gateway.server";
+import { streamGatewayChat } from "@/lib/ai-gateway.server";
 import { verifyBearer } from "@/lib/verify-auth.server";
-
-type ChatBody = {
-  messages?: GatewayMessage[];
-  system?: string;
-  model?: string;
-};
+import { buildChatMessages } from "@/lib/ai-instructions.server";
 
 export const Route = createFileRoute("/api/chat")({
   server: {
@@ -16,23 +10,9 @@ export const Route = createFileRoute("/api/chat")({
         const auth = await verifyBearer(request);
         if (!auth.ok) return auth.response;
 
-        let body: ChatBody;
-        try {
-          body = (await request.json()) as ChatBody;
-        } catch {
-          return new Response("Invalid JSON", { status: 400 });
-        }
-
-        const messages = Array.isArray(body.messages) ? body.messages : [];
-        if (messages.length === 0) {
-          return new Response("messages required", { status: 400 });
-        }
-
-        const withSystem: GatewayMessage[] = body.system
-          ? [{ role: "system", content: body.system }, ...messages]
-          : messages;
-
-        return streamGatewayChat(withSystem, body.model, request);
+        const messages = buildChatMessages(await request.json().catch(() => null));
+        if (!messages) return Response.json({ error: "Invalid chat request." }, { status: 400 });
+        return streamGatewayChat(messages, undefined, request);
       },
     },
   },

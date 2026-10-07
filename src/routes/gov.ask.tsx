@@ -105,7 +105,8 @@ function GovAsk() {
         method: "POST",
         headers: { "Content-Type": "application/json", ...auth },
         body: JSON.stringify({
-          system: buildSystem(lang),
+          preset: "government",
+          language: lang,
           messages: next.slice(0, -1).map((m) => ({ role: m.role, content: m.content })),
         }),
       });
