@@ -11,3 +11,4 @@
 - [x] Make the Script to MP4 narration box visibly larger and show its 10,000-character capacity beside the label.
 - [x] Improve AI Content Creator with streamed complete packages, strict validation, preserved drafts and clear errors.
 - [x] Add a browser-only festival poster maker with five templates, local lead saving, watermarked download and a clearly labelled demo HD modal.
+- [x] Fix the signed-in homepage 500 caused by notification channel reuse and verify repeated menu remounts without a crash.

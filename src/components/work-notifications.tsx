@@ -27,8 +27,10 @@ export function WorkNotifications({ user }: { user: User }) {
 
   useEffect(() => {
     void loadNotifications();
+    // Cleanup is asynchronous; remounts must not reuse a subscribed channel.
+    const channelName = `work-notifications-${user.id}-${crypto.randomUUID()}`;
     const channel = supabase
-      .channel(`work-notifications-${user.id}`)
+      .channel(channelName)
       .on(
         "postgres_changes",
         {
