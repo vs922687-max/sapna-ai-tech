@@ -12,4 +12,4 @@
 - [x] Improve AI Content Creator with streamed complete packages, strict validation, preserved drafts and clear errors.
 - [x] Add a browser-only festival poster maker with five templates, local lead saving, watermarked download and a clearly labelled demo HD modal.
 - [x] Fix the signed-in homepage 500 caused by notification channel reuse and verify repeated menu remounts without a crash.
-- [ ] Replace poster demo checkout with the owner's Paytm QR, ₹29 UPI link and manual WhatsApp payment confirmation.
+- [x] Replace poster demo checkout with the owner's Paytm QR, ₹29 UPI link and manual WhatsApp payment confirmation.
