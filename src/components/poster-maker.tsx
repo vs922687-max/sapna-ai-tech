@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Check, Download, ImagePlus, Loader2, Sparkles, X } from "lucide-react";
+import { Check, Copy, Download, ExternalLink, ImagePlus, Loader2, MessageCircle, Sparkles, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +19,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import paytmQr from "@/assets/paytm-payment-qr.jpeg.asset.json";
+import { POSTER_PAYMENT, posterPaymentUrl, posterPaymentReceiptUrl } from "@/lib/poster-payment";
 
 const SIZE = 1080;
 const LEADS_KEY = "bas.poster-maker.leads.v1";
@@ -312,18 +314,26 @@ export function PosterMaker() {
       </div>
 
       <Dialog open={paymentOpen} onOpenChange={setPaymentOpen}>
-        <DialogContent className="border-poster/30 sm:max-w-md">
+        <DialogContent className="max-h-[90dvh] overflow-y-auto border-poster/30 sm:max-w-md">
           <DialogHeader>
             <DialogTitle>HD Poster — ₹29</DialogTitle>
-            <DialogDescription>This is a demo payment screen. No real payment will be charged.</DialogDescription>
+            <DialogDescription>Paytm ya kisi bhi UPI app se ₹29 Varinder Singh ko pay karein. QR scan karte waqt amount ₹29 dalein aur naam check karein.</DialogDescription>
           </DialogHeader>
-          <div className="rounded-lg border border-poster/25 bg-poster/10 p-4 text-sm">
-            <p className="font-semibold">You will receive</p>
-            <ul className="mt-2 space-y-2 text-muted-foreground"><li>• 1080×1080 PNG quality</li><li>• BharatAISathi.com watermark removed</li><li>• Ready for WhatsApp and social media</li></ul>
+          <div className="space-y-3 text-sm">
+            <img src={paytmQr.url} alt="Varinder Singh ka Paytm payment QR — UPI 8146896118@ptsbi" className="mx-auto h-auto w-full max-w-60 rounded-lg" />
+            <div className="flex items-center justify-center gap-2">
+              <span className="break-all font-medium">{POSTER_PAYMENT.upiId}</span>
+              <Button size="icon" variant="ghost" aria-label="Copy UPI ID" title="Copy UPI ID" onClick={async () => {
+                try { await navigator.clipboard.writeText(POSTER_PAYMENT.upiId); toast.success("UPI ID copy ho gayi"); }
+                catch { toast.error("Copy nahi hui. UPI ID manually copy karein."); }
+              }}><Copy className="h-4 w-4" /></Button>
+            </div>
+            <Button asChild className="w-full bg-poster text-poster-foreground hover:bg-poster/90"><a href={posterPaymentUrl()}><ExternalLink className="h-4 w-4" /> UPI App Mein ₹29 Pay Karein</a></Button>
+            <p className="text-xs leading-relaxed text-muted-foreground">Payment apne-aap verify nahi hoti aur HD download yahan unlock nahi hoga. Receipt aur free downloaded poster WhatsApp par bhejein; payment confirm hone ke baad watermark-free 1080×1080 poster wahin milega. OTP ya UPI PIN kabhi share na karein.</p>
           </div>
-          <DialogFooter className="gap-2 sm:gap-0">
+          <DialogFooter className="gap-2 sm:gap-2">
             <Button variant="outline" onClick={() => setPaymentOpen(false)}>Cancel</Button>
-            <Button className="bg-poster text-poster-foreground hover:bg-poster/90" onClick={() => { setPaymentOpen(false); download(false); }}>Demo Unlock & Download</Button>
+            <Button asChild className="h-auto min-h-10 whitespace-normal"><a href={posterPaymentReceiptUrl(shopName, festival)} target="_blank" rel="noopener noreferrer" onClick={() => saveLead(shopName, whatsapp, festival)}><MessageCircle className="h-4 w-4" /> Receipt WhatsApp Par Bhejein</a></Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

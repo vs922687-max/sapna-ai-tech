@@ -18,5 +18,6 @@
 - Publish Creator Studio MP4s with the existing browser-to-YouTube OAuth upload flow and retain the exported Blob only in memory; this reuses the video without regenerating AI assets or spending extra credits.
 - Use Viral Hook Engine only for short form, and send text AI through authenticated, validated Responses streaming; this keeps long-form distinct and prevents blank output.
 - Render festival posters entirely in the browser with Canvas and keep uploaded shop images on-device; this avoids credit usage and protects customer photos.
+- Poster checkout displays the owner's uploaded QR and UPI intent with manual WhatsApp receipt review; never unlock HD exports from client-side payment claims because static QR payment has no verified callback.
 - Keep chat and AI-tool system instructions in a server-only preset registry; accept only validated preset IDs, language/service choices and non-privileged task content so callers cannot replace app rules.
 - Give each WorkNotifications effect its own unique realtime channel name and remove that channel on cleanup; simultaneous header instances and remounts must not reuse an already-subscribed channel.
