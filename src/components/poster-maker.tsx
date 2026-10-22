@@ -1,16 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Check, Copy, Download, ExternalLink, ImagePlus, Loader2, MessageCircle, Sparkles, X } from "lucide-react";
+import { Check, Download, ImagePlus, Loader2, Sparkles, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -19,8 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import paytmQr from "@/assets/paytm-payment-qr.jpeg.asset.json";
-import { POSTER_PAYMENT, posterPaymentUrl, posterPaymentReceiptUrl } from "@/lib/poster-payment";
+import { posterPaymentReceiptUrl } from "@/lib/poster-payment";
+import { PosterPaymentDialog } from "@/components/poster-payment-dialog";
 
 const SIZE = 1080;
 const LEADS_KEY = "bas.poster-maker.leads.v1";
@@ -161,7 +153,7 @@ function drawPoster(
   }
 }
 
-function saveLead(shopName: string, whatsapp: string, festival: Festival) {
+export function savePosterLead(shopName: string, whatsapp: string, festival: string) {
   try {
     const existing = JSON.parse(window.localStorage.getItem(LEADS_KEY) || "[]") as unknown[];
     existing.push({ shopName: shopName.trim(), whatsapp: whatsapp.trim(), festival, createdAt: new Date().toISOString() });
@@ -213,7 +205,7 @@ export function PosterMaker() {
 
   const generate = () => {
     if (!requireName()) return;
-    setGenerating(true); saveLead(shopName, whatsapp, festival);
+    setGenerating(true); savePosterLead(shopName, whatsapp, festival);
     window.setTimeout(() => { setGenerating(false); toast.success("Poster taiyar hai!"); }, 650);
   };
 
@@ -227,7 +219,7 @@ export function PosterMaker() {
       const link = document.createElement("a");
       link.href = url; link.download = `${shopName.trim().replace(/[^a-z0-9]+/gi, "-").toLowerCase()}-${festival.toLowerCase().replace(/\s+/g, "-")}.png`;
       link.click(); URL.revokeObjectURL(url);
-      saveLead(shopName, whatsapp, festival);
+      savePosterLead(shopName, whatsapp, festival);
       toast.success(watermark ? "Free poster download ho gaya" : "HD poster download ho gaya");
     }, "image/png");
   };
@@ -313,30 +305,13 @@ export function PosterMaker() {
         </section>
       </div>
 
-      <Dialog open={paymentOpen} onOpenChange={setPaymentOpen}>
-        <DialogContent className="max-h-[90dvh] overflow-y-auto border-poster/30 sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>HD Poster — ₹29</DialogTitle>
-            <DialogDescription>Paytm ya kisi bhi UPI app se ₹29 Varinder Singh ko pay karein. QR scan karte waqt amount ₹29 dalein aur naam check karein.</DialogDescription>
-          </DialogHeader>
-          <div className="space-y-3 text-sm">
-            <img src={paytmQr.url} alt="Varinder Singh ka Paytm payment QR — UPI 8146896118@ptsbi" className="mx-auto h-auto w-full max-w-60 rounded-lg" />
-            <div className="flex items-center justify-center gap-2">
-              <span className="break-all font-medium">{POSTER_PAYMENT.upiId}</span>
-              <Button size="icon" variant="ghost" aria-label="Copy UPI ID" title="Copy UPI ID" onClick={async () => {
-                try { await navigator.clipboard.writeText(POSTER_PAYMENT.upiId); toast.success("UPI ID copy ho gayi"); }
-                catch { toast.error("Copy nahi hui. UPI ID manually copy karein."); }
-              }}><Copy className="h-4 w-4" /></Button>
-            </div>
-            <Button asChild className="w-full bg-poster text-poster-foreground hover:bg-poster/90"><a href={posterPaymentUrl()}><ExternalLink className="h-4 w-4" /> UPI App Mein ₹29 Pay Karein</a></Button>
-            <p className="text-xs leading-relaxed text-muted-foreground">Payment apne-aap verify nahi hoti aur HD download yahan unlock nahi hoga. Receipt aur free downloaded poster WhatsApp par bhejein; payment confirm hone ke baad watermark-free 1080×1080 poster wahin milega. OTP ya UPI PIN kabhi share na karein.</p>
-          </div>
-          <DialogFooter className="gap-2 sm:gap-2">
-            <Button variant="outline" onClick={() => setPaymentOpen(false)}>Cancel</Button>
-            <Button asChild className="h-auto min-h-10 whitespace-normal"><a href={posterPaymentReceiptUrl(shopName, festival)} target="_blank" rel="noopener noreferrer" onClick={() => saveLead(shopName, whatsapp, festival)}><MessageCircle className="h-4 w-4" /> Receipt WhatsApp Par Bhejein</a></Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <PosterPaymentDialog
+        open={paymentOpen}
+        onOpenChange={setPaymentOpen}
+        posterLabel="Poster"
+        receiptUrl={posterPaymentReceiptUrl(shopName, festival)}
+        onReceiptClick={() => savePosterLead(shopName, whatsapp, festival)}
+      />
     </>
   );
 }
