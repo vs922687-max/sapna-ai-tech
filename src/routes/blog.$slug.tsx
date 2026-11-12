@@ -123,7 +123,6 @@ function renderBody(body: string) {
 }
 
 function renderBlock(block: string, i: number) {
-  {
     if (block.startsWith("## ")) {
       return (
         <h2 key={i} className="mt-8 font-display text-xl font-semibold text-foreground">
@@ -163,7 +162,6 @@ function renderBlock(block: string, i: number) {
         {inline(block)}
       </p>
     );
-  }
 }
 
 function relatedFor(post: BlogPost) {
