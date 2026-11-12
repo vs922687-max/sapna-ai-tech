@@ -14,8 +14,12 @@ import { z } from "zod";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Bharat AI Sathi" },
-      { name: "description", content: "Get in touch with the Bharat AI Sathi team. We reply within one working day." },
+      { title: "Contact Bharat AI Sathi — Email, WhatsApp & Contact Form" },
+      { name: "description", content: "Contact the Bharat AI Sathi team by form, email at support@bharataisathi.com or WhatsApp for help, feedback, partnerships or corrections." },
+      { property: "og:title", content: "Contact Bharat AI Sathi — Email, WhatsApp & Contact Form" },
+      { property: "og:description", content: "Contact the Bharat AI Sathi team by form, email at support@bharataisathi.com or WhatsApp for help, feedback, partnerships or corrections." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/contact" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/contact" }],
@@ -30,7 +34,11 @@ const EMAILJS_PUBLIC_KEY = "J12QyKSq8xnR0Drpr";
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Invalid email").max(255),
-  phone: z.string().trim().min(7, "Phone is required").max(20),
+  phone: z
+    .string()
+    .trim()
+    .max(20)
+    .refine((v) => v === "" || /^[+\d][\d\s-]{6,19}$/.test(v), "Please enter a valid phone number"),
   message: z.string().trim().min(5, "Message is too short").max(1000),
 });
 
@@ -45,7 +53,7 @@ function ContactPage() {
     const parsed = schema.safeParse({
       name: data.get("name"),
       email: data.get("email"),
-      phone: data.get("phone"),
+      phone: data.get("phone") ?? "",
       message: data.get("message"),
     });
     if (!parsed.success) {
@@ -61,7 +69,7 @@ function ContactPage() {
         {
           name: parsed.data.name,
           email: parsed.data.email,
-          phone: parsed.data.phone,
+          phone: parsed.data.phone || "Not provided",
           message: parsed.data.message,
         },
         { publicKey: EMAILJS_PUBLIC_KEY },
@@ -90,7 +98,7 @@ function ContactPage() {
           <ul className="mt-8 space-y-4 text-sm">
             <li className="flex items-center gap-3">
               <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary/15 text-primary"><Mail className="h-4 w-4" /></div>
-              hello@bharataisathi.in
+              <a href="mailto:support@bharataisathi.com" className="transition-colors hover:text-primary">support@bharataisathi.com</a>
             </li>
             <li className="flex items-center gap-3">
               <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary/15 text-primary"><MessageSquare className="h-4 w-4" /></div>
@@ -121,8 +129,8 @@ function ContactPage() {
             <Input id="email" name="email" type="email" required maxLength={255} className="mt-1 bg-background/40" />
           </div>
           <div>
-            <Label htmlFor="phone">Phone</Label>
-            <Input id="phone" name="phone" type="tel" required maxLength={20} className="mt-1 bg-background/40" />
+            <Label htmlFor="phone">Phone <span className="text-muted-foreground">(optional)</span></Label>
+            <Input id="phone" name="phone" type="tel" maxLength={20} className="mt-1 bg-background/40" />
           </div>
           <div>
             <Label htmlFor="message">Message</Label>
