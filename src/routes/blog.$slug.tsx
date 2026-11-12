@@ -181,106 +181,158 @@ function latestPosts(post: BlogPost) {
 function BlogPostPage() {
   const { post } = Route.useLoaderData();
   const related = relatedFor(post);
+  const latest = latestPosts(post);
+  const cover = coverImageForPost(post);
+  const published = new Date(post.date).toLocaleDateString("en-IN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <div className="min-h-dvh">
       <SiteHeader />
-      <main className="mx-auto max-w-3xl px-4 pb-16 pt-10 sm:px-6">
-        <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Link to="/" className="inline-flex items-center gap-1 hover:text-foreground">
-            <Home className="h-3 w-3" /> Home
-          </Link>
-          <span>/</span>
-          <Link to="/blog" className="hover:text-foreground">
-            Blog
-          </Link>
-          <span>/</span>
-          <span className="truncate text-foreground">{post.title}</span>
-        </nav>
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 pt-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_300px]">
+        <main className="min-w-0">
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-muted-foreground">
+            <Link to="/" className="inline-flex items-center gap-1 hover:text-foreground">
+              <Home className="h-3 w-3" /> Home
+            </Link>
+            <span>/</span>
+            <Link to="/blog" className="hover:text-foreground">
+              Blog
+            </Link>
+            <span>/</span>
+            <span className="truncate text-foreground">{post.title}</span>
+          </nav>
 
-        <p className="text-xs font-semibold uppercase tracking-widest text-primary">{post.category}</p>
-        <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">{post.title}</h1>
-        <p className="mt-3 text-muted-foreground">{post.description}</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">{post.category}</p>
+          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">{post.title}</h1>
+          <p className="mt-3 text-muted-foreground">{post.description}</p>
 
-        <div className="mt-5 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1"><User className="h-3 w-3" /> {post.author}</span>
-          <span className="flex items-center gap-1">
-            <Calendar className="h-3 w-3" />
-            {new Date(post.date).toLocaleDateString("en-IN", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </span>
-          <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {post.readMinutes} min read</span>
-        </div>
+          <div className="mt-5 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1"><User className="h-3 w-3" /> {post.author}</span>
+            <span className="flex items-center gap-1">
+              <Calendar className="h-3 w-3" />
+              <time dateTime={post.date}>Published {published}</time>
+            </span>
+            <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {post.readMinutes} min read</span>
+          </div>
 
-        <ShareButtons
-          url={`${BASE}/blog/${post.slug}`}
-          title={post.title}
-          className="mt-6 border-t border-border/50 pt-5"
-        />
+          <ShareButtons
+            url={`${BASE}/blog/${post.slug}`}
+            title={post.title}
+            className="mt-6 border-t border-border/50 pt-5"
+          />
 
-        <img
-          src={ogImageForPost(post)}
-          alt={`${post.title} — Bharat AI Sathi`}
-          width={1200}
-          height={630}
-          loading="lazy"
-          className="mt-8 w-full rounded-2xl border border-border/60"
-        />
+          <img
+            src={cover.src}
+            srcSet={cover.srcSet}
+            sizes="(min-width: 1024px) 760px, 100vw"
+            alt={`${post.title} — featured image, Bharat AI Sathi ${post.category} guide`}
+            width={1200}
+            height={640}
+            decoding="async"
+            className="mt-8 aspect-[15/8] w-full rounded-2xl border border-border/60 object-cover"
+          />
 
-        <AdSlot name="articleTop" className="my-8" />
+          <article className="mt-8 text-sm text-muted-foreground [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground">
+            {renderBody(post.body)}
+          </article>
 
-
-        <article className="mt-8 text-sm text-muted-foreground [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground">
-          {renderBody(post.body)}
-        </article>
-
-        <AdSlot name="articleBottom" className="my-10" />
-
-
-        <div className="mt-10 rounded-2xl border border-border/60 bg-card/30 p-5 text-xs text-muted-foreground">
-          <p>
-            <strong className="text-foreground">Editorial note.</strong> This article was written by the
-            Bharat AI Sathi editorial team following our
-            {" "}<Link to="/editorial-policy" className="text-primary hover:underline">Editorial Policy</Link>
-            {" "}and <Link to="/ai-policy" className="text-primary hover:underline">AI Usage Policy</Link>.
-            Spot a factual error? Email {" "}
-            <a href="mailto:editorial@bharataisathi.com" className="text-primary hover:underline">
-              editorial@bharataisathi.com
-            </a>.
-          </p>
-        </div>
-
-        {related.length > 0 && (
-          <section className="mt-12">
-            <h2 className="font-display text-xl font-bold">Related articles</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {related.map((r) => (
-                <Link
-                  key={r.slug}
-                  to="/blog/$slug"
-                  params={{ slug: r.slug }}
-                  className="rounded-xl border border-border/60 bg-card/40 p-4 transition-colors hover:border-primary/40"
-                >
-                  <p className="text-sm font-semibold hover:text-primary">{r.title}</p>
-                  <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{r.description}</p>
-                </Link>
-              ))}
+          <section
+            aria-label="About the author"
+            className="mt-10 flex gap-4 rounded-2xl border border-border/60 bg-card/40 p-5"
+          >
+            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
+              <PenLine className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div className="text-sm">
+              <p className="text-xs uppercase tracking-widest text-muted-foreground">Written by</p>
+              <p className="mt-0.5 font-display text-base font-semibold text-foreground">{post.author}</p>
+              <p className="mt-1 text-muted-foreground">
+                The Bharat AI Sathi team writes practical, plain-language guides on AI tools,
+                careers and Indian government services. Facts about schemes and fees are checked
+                against official portals at the time of writing — always confirm the latest rules
+                on the official website. Published {published}.
+              </p>
+              <p className="mt-2 text-xs">
+                <Link to="/about" className="text-primary hover:underline">About us</Link>
+                {" · "}
+                <Link to="/editorial-policy" className="text-primary hover:underline">Editorial Policy</Link>
+                {" · "}
+                <Link to="/ai-policy" className="text-primary hover:underline">AI Usage Policy</Link>
+                {" · "}
+                <a href="mailto:support@bharataisathi.com" className="text-primary hover:underline">
+                  Report an error
+                </a>
+              </p>
             </div>
           </section>
-        )}
 
-        <div className="mt-12">
-          <Link
-            to="/blog"
-            className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-          >
-            <ArrowLeft className="h-4 w-4" /> Back to all articles
-          </Link>
-        </div>
-      </main>
+          {related.length > 0 && (
+            <section className="mt-12">
+              <h2 className="font-display text-xl font-bold">Related posts</h2>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {related.map((r) => (
+                  <Link
+                    key={r.slug}
+                    to="/blog/$slug"
+                    params={{ slug: r.slug }}
+                    className="rounded-xl border border-border/60 bg-card/40 p-4 transition-colors hover:border-primary/40"
+                  >
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-primary">{r.category}</p>
+                    <p className="mt-1 text-sm font-semibold hover:text-primary">{r.title}</p>
+                    <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{r.description}</p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <AdSlot name="articleBottom" placeholder minHeight={120} className="mt-12" />
+
+          <div className="mt-10">
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back to all articles
+            </Link>
+          </div>
+        </main>
+
+        <aside aria-label="Blog sidebar" className="space-y-6 lg:pt-16">
+          <div className="lg:sticky lg:top-24 lg:space-y-6">
+            <AdSlot name="blogSidebar" placeholder minHeight={600} className="hidden lg:block" />
+            <div className="rounded-2xl border border-border/60 bg-card/40 p-5">
+              <h2 className="font-display text-base font-semibold">Latest articles</h2>
+              <ul className="mt-3 space-y-3 text-sm">
+                {latest.map((p) => (
+                  <li key={p.slug}>
+                    <Link
+                      to="/blog/$slug"
+                      params={{ slug: p.slug }}
+                      className="line-clamp-2 text-muted-foreground hover:text-primary"
+                    >
+                      {p.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-border/60 bg-card/40 p-5 text-sm">
+              <h2 className="font-display text-base font-semibold">Try free AI tools</h2>
+              <p className="mt-1 text-muted-foreground">
+                Chat, translate, build a resume or make a festival poster — in Hindi and English.
+              </p>
+              <Link to="/tools" className="mt-3 inline-flex items-center gap-1 text-primary hover:underline">
+                Explore tools <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </aside>
+      </div>
       <SiteFooter />
     </div>
   );
