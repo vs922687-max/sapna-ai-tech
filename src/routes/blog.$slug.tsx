@@ -252,9 +252,9 @@ function BlogPostPage() {
               <p className="mt-0.5 font-display text-base font-semibold text-foreground">{post.author}</p>
               <p className="mt-1 text-muted-foreground">
                 The Bharat AI Sathi team writes practical, plain-language guides on AI tools,
-                careers and Indian government services. Facts about schemes and fees are checked
-                against official portals at the time of writing — always confirm the latest rules
-                on the official website. Published {published}.
+                careers and Indian government services. Scheme rules, fees and dates change often —
+                always confirm the latest details on the official website before you act.
+                Published {published}.
               </p>
               <p className="mt-2 text-xs">
                 <Link to="/about" className="text-primary hover:underline">About us</Link>
