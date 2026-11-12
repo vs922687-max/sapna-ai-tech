@@ -15,6 +15,10 @@ export const Route = createFileRoute("/gov/tracker")({
     meta: [
       { title: "Application Tracker | Bharat AI Sathi" },
       { name: "description", content: "Track your Indian government applications, reference numbers, status updates and AI-powered next steps — all in one place." },
+      { property: "og:title", content: "Application Tracker | Bharat AI Sathi" },
+      { property: "og:description", content: "Track your Indian government applications, reference numbers, status updates and AI-powered next steps — all in one place." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://bharataisathi.com/gov/tracker" },
     ],

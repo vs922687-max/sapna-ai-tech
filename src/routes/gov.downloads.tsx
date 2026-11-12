@@ -12,6 +12,10 @@ export const Route = createFileRoute("/gov/downloads")({
     meta: [
       { title: "Download Center | Bharat AI Sathi" },
       { name: "description", content: "All your generated forms, documents, letters and certificates in one place." },
+      { property: "og:title", content: "Download Center | Bharat AI Sathi" },
+      { property: "og:description", content: "All your generated forms, documents, letters and certificates in one place." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://bharataisathi.com/gov/downloads" },
     ],

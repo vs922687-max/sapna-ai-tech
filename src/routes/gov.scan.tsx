@@ -15,6 +15,10 @@ export const Route = createFileRoute("/gov/scan")({
         content:
           "Scan Aadhaar QR, government certificate QR or verification QR safely using your camera or by uploading an image. Runs entirely in your browser.",
       },
+      { property: "og:title", content: "QR Code Scanner — Aadhaar, Certificates, Gov QR | Bharat AI Sathi" },
+      { property: "og:description", content: "Scan Aadhaar QR, government certificate QR or verification QR safely using your camera or by uploading an image. Runs entirely in your browser." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/scan" }],
   }),

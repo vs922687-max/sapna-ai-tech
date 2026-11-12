@@ -14,6 +14,10 @@ export const Route = createFileRoute("/letter")({
     meta: [
       { title: "Official Letter Writer — Bharat AI Sathi" },
       { name: "description", content: "AI Official Letter Writer for Indian formats — leave, job, resignation, complaint, RTI, bank & school applications in Hindi, English or Hinglish." },
+      { property: "og:title", content: "Official Letter Writer — Bharat AI Sathi" },
+      { property: "og:description", content: "AI Official Letter Writer for Indian formats — leave, job, resignation, complaint, RTI, bank & school applications in Hindi, English or Hinglish." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/letter" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/letter" }],

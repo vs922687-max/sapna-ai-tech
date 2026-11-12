@@ -10,6 +10,10 @@ import { askAi } from "@/lib/ai-client";
 export const Route = createFileRoute("/summarizer")({
   head: () => ({
     meta: [{ title: "AI Summarizer — Bharat AI Sathi" }, { name: "description", content: "Summarize long articles into crisp bullet points with AI." },
+      { property: "og:title", content: "AI Summarizer — Bharat AI Sathi" },
+      { property: "og:description", content: "Summarize long articles into crisp bullet points with AI." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/summarizer" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/summarizer" }],

@@ -9,6 +9,10 @@ import { askAi } from "@/lib/ai-client";
 export const Route = createFileRoute("/voice")({
   head: () => ({
     meta: [{ title: "AI Voice Assistant — Bharat AI Sathi" }, { name: "description", content: "Speak to AI in Hindi or English. Voice in, voice out — using your browser." },
+      { property: "og:title", content: "AI Voice Assistant — Bharat AI Sathi" },
+      { property: "og:description", content: "Speak to AI in Hindi or English. Voice in, voice out — using your browser." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/voice" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/voice" }],

@@ -16,6 +16,10 @@ export const Route = createFileRoute("/gov/ocr")({
         content:
           "Upload Aadhaar, PAN, Passport, Driving Licence or any government certificate — extract Name, DOB, Number, Address instantly. All processing runs in your browser.",
       },
+      { property: "og:title", content: "Document OCR — Extract Aadhaar, PAN, Certificate details | Bharat AI Sathi" },
+      { property: "og:description", content: "Upload Aadhaar, PAN, Passport, Driving Licence or any government certificate — extract Name, DOB, Number, Address instantly. All processing runs in your browser." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/ocr" }],
   }),

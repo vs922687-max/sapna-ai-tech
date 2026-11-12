@@ -12,6 +12,10 @@ export const Route = createFileRoute("/gov/reminders")({
     meta: [
       { title: "Smart Reminders — Passport, DL, Aadhaar renewals | Bharat AI Sathi" },
       { name: "description", content: "Never miss a passport, driving licence, PAN update, Aadhaar update or scheme deadline. Ready for email & SMS notifications." },
+      { property: "og:title", content: "Smart Reminders — Passport, DL, Aadhaar renewals | Bharat AI Sathi" },
+      { property: "og:description", content: "Never miss a passport, driving licence, PAN update, Aadhaar update or scheme deadline. Ready for email & SMS notifications." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),

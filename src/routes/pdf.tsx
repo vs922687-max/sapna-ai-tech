@@ -10,6 +10,10 @@ import { askAi } from "@/lib/ai-client";
 export const Route = createFileRoute("/pdf")({
   head: () => ({
     meta: [{ title: "AI PDF Chat — Bharat AI Sathi" }, { name: "description", content: "Upload a PDF and chat with it — extract answers instantly." },
+      { property: "og:title", content: "AI PDF Chat — Bharat AI Sathi" },
+      { property: "og:description", content: "Upload a PDF and chat with it — extract answers instantly." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/pdf" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/pdf" }],

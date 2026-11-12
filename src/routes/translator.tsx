@@ -10,6 +10,10 @@ import { askAi } from "@/lib/ai-client";
 export const Route = createFileRoute("/translator")({
   head: () => ({
     meta: [{ title: "Indian Language Translator — Bharat AI Sathi" }, { name: "description", content: "Translate across Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati and more with AI." },
+      { property: "og:title", content: "Indian Language Translator — Bharat AI Sathi" },
+      { property: "og:description", content: "Translate across Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati and more with AI." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/translator" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/translator" }],

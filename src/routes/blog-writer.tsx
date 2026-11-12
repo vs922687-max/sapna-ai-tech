@@ -10,6 +10,10 @@ import { askAi } from "@/lib/ai-client";
 export const Route = createFileRoute("/blog-writer")({
   head: () => ({
     meta: [{ title: "AI Blog Writer — Bharat AI Sathi" }, { name: "description", content: "Generate full SEO-ready blog posts in Hindi or English with AI." },
+      { property: "og:title", content: "AI Blog Writer — Bharat AI Sathi" },
+      { property: "og:description", content: "Generate full SEO-ready blog posts in Hindi or English with AI." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/blog-writer" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/blog-writer" }],
