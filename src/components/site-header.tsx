@@ -43,6 +43,18 @@ const nav: NavItem[] = [
   { to: "/business", label: "Business Services" },
   { to: "/pricing", label: "Pricing" },
   { to: "/blog", label: "Blog" },
+  {
+    to: "/about",
+    label: "About",
+    children: [
+      { to: "/about", label: "About Us" },
+      { to: "/contact", label: "Contact" },
+      { to: "/privacy", label: "Privacy Policy" },
+      { to: "/terms", label: "Terms & Conditions" },
+      { to: "/disclaimer", label: "Disclaimer" },
+      { to: "/refund-policy", label: "Refund Policy" },
+    ],
+  },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -129,10 +141,14 @@ export function SiteHeader() {
                         onMouseLeave={scheduleClose}
                       >
                         <div className="glass-strong overflow-hidden rounded-xl border border-border/60 p-1 shadow-glow">
-                          <div className="px-3 py-2 text-[11px] leading-snug text-muted-foreground">
-                            AI help for 275+ Indian govt schemes, forms & documents.
-                          </div>
-                          <div className="mx-1 my-1 h-px bg-border/60" />
+                          {item.to === "/gov" && (
+                            <>
+                              <div className="px-3 py-2 text-[11px] leading-snug text-muted-foreground">
+                                AI help for 275+ Indian govt schemes, forms & documents.
+                              </div>
+                              <div className="mx-1 my-1 h-px bg-border/60" />
+                            </>
+                          )}
                           {item.children.map((c) => (
                             <Link
                               key={c.to}

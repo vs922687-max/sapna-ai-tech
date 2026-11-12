@@ -18,6 +18,9 @@ export function SiteFooter() {
             A premium, made-for-India AI suite. Chat, create, translate, code and build —
             in Hindi, English and every major Indian language.
           </p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            <a href="mailto:support@bharataisathi.com" className="hover:text-primary">support@bharataisathi.com</a>
+          </p>
         </div>
 
         <div>
@@ -64,6 +67,7 @@ export function SiteFooter() {
             <li><Link to="/privacy" className="hover:text-primary">Privacy Policy</Link></li>
             <li><Link to="/terms" className="hover:text-primary">Terms &amp; Conditions</Link></li>
             <li><Link to="/disclaimer" className="hover:text-primary">Disclaimer</Link></li>
+            <li><Link to="/refund-policy" className="hover:text-primary">Refund Policy</Link></li>
             <li><Link to="/cookies" className="hover:text-primary">Cookie Policy</Link></li>
             <li><Link to="/ai-policy" className="hover:text-primary">AI Usage Policy</Link></li>
             <li><Link to="/editorial-policy" className="hover:text-primary">Editorial Policy</Link></li>
@@ -72,9 +76,8 @@ export function SiteFooter() {
                 type="button"
                 onClick={openCookiePreferences}
                 className="text-left hover:text-primary"
-                aria-label="Manage cookie preferences"
               >
-                Cookie preferences
+                Cookie settings
               </button>
             </li>
           </ul>
