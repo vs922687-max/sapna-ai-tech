@@ -43,6 +43,8 @@ import { Route as PosterMakerRouteImport } from './routes/poster-maker'
 import { Route as PresentationRouteImport } from './routes/presentation'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ShortsAgentRouteImport } from './routes/shorts-agent'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -276,6 +278,16 @@ const PricingRoute = PricingRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundPolicyRoute = RefundPolicyRouteImport.update({
+  id: '/refund-policy',
+  path: '/refund-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResumeRoute = ResumeRouteImport.update({
@@ -638,6 +650,8 @@ export interface FileRoutesByFullPath {
   '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/resume': typeof ResumeRoute
   '/shorts-agent': typeof ShortsAgentRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -734,6 +748,8 @@ export interface FileRoutesByTo {
   '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/resume': typeof ResumeRoute
   '/shorts-agent': typeof ShortsAgentRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -831,6 +847,8 @@ export interface FileRoutesById {
   '/presentation': typeof PresentationRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/resume': typeof ResumeRoute
   '/shorts-agent': typeof ShortsAgentRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -933,6 +951,8 @@ export interface FileRouteTypes {
     | '/presentation'
     | '/pricing'
     | '/privacy'
+    | '/privacy-policy'
+    | '/refund-policy'
     | '/resume'
     | '/shorts-agent'
     | '/sitemap.xml'
@@ -1029,6 +1049,8 @@ export interface FileRouteTypes {
     | '/presentation'
     | '/pricing'
     | '/privacy'
+    | '/privacy-policy'
+    | '/refund-policy'
     | '/resume'
     | '/shorts-agent'
     | '/sitemap.xml'
@@ -1125,6 +1147,8 @@ export interface FileRouteTypes {
     | '/presentation'
     | '/pricing'
     | '/privacy'
+    | '/privacy-policy'
+    | '/refund-policy'
     | '/resume'
     | '/shorts-agent'
     | '/sitemap.xml'
@@ -1226,6 +1250,8 @@ export interface RootRouteChildren {
   PresentationRoute: typeof PresentationRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  RefundPolicyRoute: typeof RefundPolicyRoute
   ResumeRoute: typeof ResumeRoute
   ShortsAgentRoute: typeof ShortsAgentRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -1486,6 +1512,20 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund-policy': {
+      id: '/refund-policy'
+      path: '/refund-policy'
+      fullPath: '/refund-policy'
+      preLoaderRoute: typeof RefundPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resume': {
@@ -2133,6 +2173,8 @@ const rootRouteChildren: RootRouteChildren = {
   PresentationRoute: PresentationRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  RefundPolicyRoute: RefundPolicyRoute,
   ResumeRoute: ResumeRoute,
   ShortsAgentRoute: ShortsAgentRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
