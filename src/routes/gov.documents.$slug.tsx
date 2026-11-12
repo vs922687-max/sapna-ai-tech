@@ -19,12 +19,22 @@ export const Route = createFileRoute("/gov/documents/$slug")({
     if (!t) throw notFound();
     return { t };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Template not found" }, { name: "robots", content: "noindex" }] };
-    return { meta: [
-      { title: `${loaderData.t.name} — AI Document Generator | Bharat AI Sathi` },
-      { name: "description", content: loaderData.t.description },
-    ] };
+    const title = `${loaderData.t.name} — AI Document Generator | Bharat AI Sathi`;
+    const url = `https://bharataisathi.com/gov/documents/${params.slug}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: loaderData.t.description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: loaderData.t.description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [{ rel: "canonical", href: url }],
+    };
   },
   notFoundComponent: () => <div className="p-10 text-center">Template not found. <Link to="/gov/documents" className="text-primary">Back</Link></div>,
   errorComponent: ({ error }) => <div className="p-10 text-center text-sm">Error: {error instanceof Error ? error.message : "Unable to load this document."}</div>,
