@@ -18,14 +18,20 @@ export const Route = createFileRoute("/gov/forms/$slug")({
     if (!f) throw notFound();
     return { f };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Form not found" }, { name: "robots", content: "noindex" }] };
     const f = loaderData.f;
     return {
       meta: [
         { title: `${f.name} — AI Auto-Fill | Bharat AI Sathi` },
         { name: "description", content: `${f.description} Fill the ${f.name} form with AI auto-fill from your saved profile.` },
+        { property: "og:title", content: `${f.name} — AI Auto-Fill | Bharat AI Sathi` },
+        { property: "og:description", content: `${f.description} Fill the ${f.name} form with AI auto-fill from your saved profile.` },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: `https://bharataisathi.com/gov/forms/${params.slug}` },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
+      links: [{ rel: "canonical", href: `https://bharataisathi.com/gov/forms/${params.slug}` }],
     };
   },
   notFoundComponent: () => <div className="p-10 text-center">Form not found. <Link to="/gov/forms" className="text-primary">Back</Link></div>,

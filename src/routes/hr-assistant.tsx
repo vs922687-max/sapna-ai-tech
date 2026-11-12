@@ -18,6 +18,10 @@ export const Route = createFileRoute("/hr-assistant")({
         content:
           "AI HR Assistant for Indian teams — generate professional job descriptions and categorized interview questions (Technical, Behavioural, Situational) in Hindi or English.",
       },
+      { property: "og:title", content: "HR Assistant — Job Descriptions & Interview Questions | Bharat AI Sathi" },
+      { property: "og:description", content: "AI HR Assistant for Indian teams — generate professional job descriptions and categorized interview questions (Technical, Behavioural, Situational) in Hindi or English." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/hr-assistant" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/hr-assistant" }],

@@ -11,6 +11,10 @@ import { askAi } from "@/lib/ai-client";
 export const Route = createFileRoute("/email")({
   head: () => ({
     meta: [{ title: "AI Email Writer — Bharat AI Sathi" }, { name: "description", content: "Write professional emails in seconds with AI — formal, casual, sales, apology." },
+      { property: "og:title", content: "AI Email Writer — Bharat AI Sathi" },
+      { property: "og:description", content: "Write professional emails in seconds with AI — formal, casual, sales, apology." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/email" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/email" }],

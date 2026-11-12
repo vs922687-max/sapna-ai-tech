@@ -12,6 +12,10 @@ export const Route = createFileRoute("/gov/vault")({
     meta: [
       { title: "Document Vault — Government AI Assistant | Bharat AI Sathi" },
       { name: "description", content: "Track your passport, Aadhaar, PAN, driving licence, marksheets and other government documents. Know expiry dates and renewal windows." },
+      { property: "og:title", content: "Document Vault — Government AI Assistant | Bharat AI Sathi" },
+      { property: "og:description", content: "Track your passport, Aadhaar, PAN, driving licence, marksheets and other government documents. Know expiry dates and renewal windows." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://bharataisathi.com/gov/vault" },
     ],

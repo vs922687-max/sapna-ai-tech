@@ -10,6 +10,10 @@ import { askAi } from "@/lib/ai-client";
 export const Route = createFileRoute("/social")({
   head: () => ({
     meta: [{ title: "AI Social Media Post Generator — Bharat AI Sathi" }, { name: "description", content: "Generate ready-to-post captions with emojis and hashtags for Instagram, LinkedIn, WhatsApp, X." },
+      { property: "og:title", content: "AI Social Media Post Generator — Bharat AI Sathi" },
+      { property: "og:description", content: "Generate ready-to-post captions with emojis and hashtags for Instagram, LinkedIn, WhatsApp, X." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/social" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/social" }],

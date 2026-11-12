@@ -1,15 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Sparkles, Zap, Shield, Globe, Star, Quote } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Zap, Shield, Globe, UserPlus, MousePointerClick, Download, ChevronDown } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { CORE_TOOLS, OFFICE_TOOLS, accentClass, type AiTool } from "@/lib/ai-tools";
+import { BLOG_POSTS } from "@/lib/blog-posts";
+import { PLANS } from "@/lib/plans";
 
 const HOME_URL = "https://bharataisathi.com/";
-const HOME_TITLE = "Bharat AI Sathi — India's Premium AI Companion";
+const HOME_TITLE = "Bharat AI Sathi — Free AI Tools in Hindi & English for India";
 const HOME_DESC =
-  "Chat, translate Indian languages, analyze PDFs, code and more with Bharat AI Sathi — a premium AI suite built for India.";
+  "Free AI chat, translator, resume builder, poster maker, creator tools and government service guides in Hindi, English and Indian languages — made in India.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,11 +64,6 @@ export const Route = createFileRoute("/")({
               operatingSystem: "Web",
               url: HOME_URL,
               offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.8",
-                ratingCount: "1240",
-              },
             },
           ],
         }),
@@ -81,10 +78,14 @@ function HomePage() {
     <div className="min-h-screen">
       <SiteHeader />
       <Hero />
+      <AboutIntro />
       <Features />
+      <HowItWorks />
       <ToolsGrid />
       <Why />
-      <Testimonials />
+      <PricingPreview />
+      <LatestArticles />
+      <HomeFaq />
       <CTA />
       <SiteFooter />
     </div>
@@ -96,7 +97,7 @@ function Hero() {
     <section className="relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-20 sm:px-6 sm:pt-28">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center"
@@ -148,7 +149,7 @@ function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="glass-strong mx-auto mt-16 max-w-5xl overflow-hidden rounded-3xl border border-border/60 p-1 shadow-elegant"
@@ -156,9 +157,9 @@ function Hero() {
           <div className="rounded-[calc(theme(borderRadius.3xl)-4px)] bg-background/60 p-6 sm:p-10">
             <div className="grid gap-6 sm:grid-cols-3">
               {[
-                { k: "19+", v: "AI tools" },
-                { k: "11", v: "Indian languages" },
-                { k: "<200ms", v: "First token" },
+                { k: "110+", v: "AI & utility tools" },
+                { k: "270+", v: "Govt service guides" },
+                { k: "₹0", v: "To get started" },
               ].map((s) => (
                 <div key={s.v} className="text-center">
                   <div className="font-display text-4xl font-bold text-gradient-primary">
@@ -181,7 +182,7 @@ function Features() {
   const items = [
     { icon: Zap, title: "Lightning fast", body: "Streamed responses, edge-served. Every keystroke feels instant." },
     { icon: Globe, title: "Truly Indian", body: "Fluent in Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati, Kannada and more." },
-    { icon: Shield, title: "Private by default", body: "Your conversations are yours. Enterprise-grade encryption end-to-end." },
+    { icon: Shield, title: "Private by default", body: "We never sell your data. Everything travels over HTTPS and each account's data is locked to its owner." },
     { icon: Sparkles, title: "One suite, everything", body: "Chat, PDF, voice, resume, translator, office tools — under one login." },
   ];
   return (
@@ -300,7 +301,7 @@ function Why() {
             {[
               "Native Hindi and 10+ Indian language support, not a bolted-on translator",
               "Optimized for slow networks and small screens across Tier 2 & 3 cities",
-              "Team, student and creator plans in ₹ INR — no dollar surprises",
+              "Plans priced in ₹ INR with UPI payments — no dollar surprises",
               "Voice-first workflows for hands-busy users and accessibility",
             ].map((t) => (
               <li key={t} className="flex items-start gap-3 text-sm">
@@ -317,70 +318,206 @@ function Why() {
   );
 }
 
-function Testimonials() {
-  const testimonials = [
+function AboutIntro() {
+  return (
+    <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <h2 className="font-display text-2xl font-bold sm:text-3xl">What is Bharat AI Sathi?</h2>
+      <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
+        <p>
+          Bharat AI Sathi is a free, made-in-India website that puts useful AI tools and plain-language
+          guides in one place. You can chat with an AI assistant in Hindi, English or Hinglish, translate
+          between Indian languages, summarise PDFs, write letters and emails, build a resume, make a
+          festival poster for your shop, and plan YouTube Shorts — without needing any technical skills.
+        </p>
+        <p>
+          Alongside the tools, we publish step-by-step guides for 270+ central and state government
+          services — Aadhaar, PAN, passport, PM Kisan, Ayushman Bharat, PM Awas Yojana and more — with
+          eligibility, documents and links to the official portals. Bharat AI Sathi is an independent
+          platform, not a government website: we explain the process, and you apply on the official site.
+        </p>
+        <p>
+          It is built for students, job seekers, small shop owners, creators and families across India,
+          including people on slow mobile networks. Read our{" "}
+          <Link to="/blog" className="text-primary hover:underline">blog</Link> for practical guides, or
+          learn more{" "}
+          <Link to="/about" className="text-primary hover:underline">about us</Link>.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function HowItWorks() {
+  const steps = [
     {
-      quote:
-        "Bharat AI Sathi se maine apna Aadhaar card easily update kar liya, process bilkul simple tha.",
-      name: "Gurpreet Singh",
-      role: "Punjab",
+      icon: UserPlus,
+      title: "1. Create a free account",
+      body: "Sign up with email or Google in under a minute. No credit card needed.",
     },
     {
-      quote:
-        "Bharat AI Sathi ne mujhe apna business plan Hindi mein samjhaya, bahut hi easy tha.",
-      name: "Priya Sharma",
-      role: "Small Business Owner, Lucknow",
+      icon: MousePointerClick,
+      title: "2. Pick a tool and ask",
+      body: "Choose a tool — chat, translator, resume, poster — and type or speak in Hindi, English or Hinglish.",
     },
     {
-      quote:
-        "Bharat AI Sathi ne mera resume Hindi mein 5 minute mein bana diya, bahut madad mili interview ke liye.",
-      name: "Rajesh Kumar",
-      role: "Software Engineer, Jaipur",
+      icon: Download,
+      title: "3. Review, edit and download",
+      body: "Check the result, edit it, then copy, download or share. Always verify important facts.",
     },
   ];
-
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
       <div className="mx-auto max-w-2xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-          Loved across Bharat
-        </p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary">How it works</p>
         <h2 className="mt-2 font-display text-3xl font-bold sm:text-4xl">
-          Real users. <span className="text-gradient-tricolor">Real impact.</span>
+          Three simple <span className="text-gradient-tricolor">steps</span>
         </h2>
       </div>
+      <ol className="mt-10 grid gap-4 sm:grid-cols-3">
+        {steps.map((s) => (
+          <li key={s.title} className="glass rounded-2xl p-6">
+            <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/15 text-primary">
+              <s.icon className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <h3 className="font-display text-lg font-semibold">{s.title}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {testimonials.map((t, i) => (
-          <motion.div
-            key={t.name}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            className="glass relative flex flex-col rounded-3xl border border-border/60 p-6 sm:p-8"
+function PricingPreview() {
+  const plans = PLANS.filter((p) => p.name === "Free" || p.name === "Pro");
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <div className="mx-auto max-w-2xl text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary">Pricing</p>
+        <h2 className="mt-2 font-display text-3xl font-bold sm:text-4xl">
+          Free to start. <span className="text-gradient-tricolor">Pro when you need more.</span>
+        </h2>
+      </div>
+      <div className="mx-auto mt-10 grid max-w-4xl gap-6 sm:grid-cols-2">
+        {plans.map((p) => (
+          <div
+            key={p.name}
+            className={`rounded-3xl border p-8 ${p.highlight ? "glass-strong border-primary/50" : "glass border-border/60"}`}
           >
-            <Quote className="h-6 w-6 text-primary/40" />
-            <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground sm:text-base">
-              "{t.quote}"
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-primary to-[oklch(0.68_0.2_30)] font-display text-sm font-bold text-primary-foreground">
-                {t.name.charAt(0)}
-              </div>
-              <div>
-                <p className="text-sm font-semibold">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
-              </div>
+            <h3 className="font-display text-2xl font-bold">{p.name}</h3>
+            <div className="mt-4 flex items-baseline gap-1">
+              <span className="font-display text-4xl font-bold">{p.price}</span>
+              <span className="text-sm text-muted-foreground">{p.period}</span>
             </div>
-            <div className="absolute right-6 top-6 flex gap-0.5">
-              {[...Array(5)].map((_, j) => (
-                <Star key={j} className="h-3.5 w-3.5 fill-[oklch(0.72_0.16_55)] text-[oklch(0.72_0.16_55)]" />
+            <ul className="mt-6 space-y-2 text-sm">
+              {p.features.map((f) => (
+                <li key={f} className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[oklch(0.72_0.16_155)]" />
+                  <span>{f}</span>
+                </li>
               ))}
-            </div>
-          </motion.div>
+            </ul>
+            <Button asChild className="mt-6 w-full" variant={p.highlight ? "default" : "outline"}>
+              <Link to={p.to}>{p.cta}</Link>
+            </Button>
+          </div>
         ))}
       </div>
+      <p className="mt-6 text-center text-xs text-muted-foreground">
+        See all plans on the <Link to="/pricing" className="text-primary hover:underline">Pricing page</Link> ·{" "}
+        <Link to="/refund-policy" className="text-primary hover:underline">Refund policy</Link>
+      </p>
+    </section>
+  );
+}
+
+function LatestArticles() {
+  const posts = [...BLOG_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, 3);
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">From the blog</p>
+          <h2 className="mt-2 font-display text-3xl font-bold">Latest guides</h2>
+        </div>
+        <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+          All articles <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
+        {posts.map((p) => (
+          <Link
+            key={p.slug}
+            to="/blog/$slug"
+            params={{ slug: p.slug }}
+            className="glass rounded-2xl border border-border/60 p-6 transition-colors hover:border-primary/40"
+          >
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-primary">{p.category}</p>
+            <h3 className="mt-2 font-display text-base font-semibold leading-snug">{p.title}</h3>
+            <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{p.description}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const HOME_FAQ = [
+  {
+    q: "What is Bharat AI Sathi?",
+    a: "An independent, made-in-India website with free AI tools (chat, translator, resume, poster maker, creator tools and more) and step-by-step guides for Indian government services.",
+  },
+  {
+    q: "Is Bharat AI Sathi free?",
+    a: "Yes, you can start for free. The free plan includes 20 AI chat messages per day, and most tools have no charge. Optional paid features, such as the Pro plan and HD posters, are listed on the Pricing page.",
+  },
+  {
+    q: "Which languages does it support?",
+    a: "Hindi, English and Hinglish work across most tools. AI chat and the translator also handle other Indian languages such as Punjabi, Bengali, Marathi, Tamil, Telugu, Gujarati and Kannada.",
+  },
+  {
+    q: "Is my data safe?",
+    a: "We never sell your data. Everything travels over HTTPS and each account's saved data can only be read by its owner. Photos you add to Poster Maker stay on your device. Never type passwords, OTPs or bank details into any AI tool.",
+  },
+  {
+    q: "Do I need to sign up?",
+    a: "No sign-up is needed to read the homepage, blog, government guides, About or Contact pages. AI tools need a free account so we can keep usage fair.",
+  },
+  {
+    q: "Is this a government website?",
+    a: "No. Bharat AI Sathi is not affiliated with any government body. We explain processes and link to official portals; applications are always made on the official website.",
+  },
+  {
+    q: "Can the AI make mistakes?",
+    a: "Yes. AI answers can be wrong or out of date. Check important information — especially legal, medical, financial or government details — with official sources. See our Disclaimer.",
+  },
+  {
+    q: "How can I contact you?",
+    a: "Use the contact form, email support@bharataisathi.com, or message us on WhatsApp at +91 81468 96118.",
+  },
+];
+
+function HomeFaq() {
+  return (
+    <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <div className="text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary">FAQ</p>
+        <h2 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Frequently asked questions</h2>
+      </div>
+      <div className="mt-10 space-y-3">
+        {HOME_FAQ.map((f) => (
+          <details key={f.q} className="glass group rounded-2xl border border-border/60 p-5">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium">
+              <h3 className="text-sm font-semibold sm:text-base">{f.q}</h3>
+              <ChevronDown className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true" />
+            </summary>
+            <p className="mt-3 text-sm text-muted-foreground">{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <p className="mt-6 text-center text-sm text-muted-foreground">
+        More answers on our <Link to="/faq" className="text-primary hover:underline">FAQ page</Link>.
+      </p>
     </section>
   );
 }
@@ -409,9 +546,9 @@ function CTA() {
           </Button>
         </div>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
-          <span>🔒 Secure payments via Razorpay & UPI</span>
+          <span>🔒 UPI payments</span>
           <span>·</span>
-          <span>256-bit SSL</span>
+          <span>HTTPS secured</span>
           <span>·</span>
           <span>Cancel anytime</span>
           <span>·</span>

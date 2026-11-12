@@ -12,6 +12,10 @@ export const Route = createFileRoute("/gov/search")({
     meta: [
       { title: "Search Government Services, Forms & Documents | Bharat AI Sathi" },
       { name: "description", content: "Universal search across 276 Indian government services, 60+ forms and 20+ document templates." },
+      { property: "og:title", content: "Search Government Services, Forms & Documents | Bharat AI Sathi" },
+      { property: "og:description", content: "Universal search across 276 Indian government services, 60+ forms and 20+ document templates." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/gov/search" }],
   }),

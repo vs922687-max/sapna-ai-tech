@@ -18,6 +18,10 @@ export const Route = createFileRoute("/agreement")({
         content:
           "AI Agreement Generator for Indian users — draft rent agreements, NDAs, offer letters, freelance and partnership agreements. Editable, exportable to PDF/DOCX.",
       },
+      { property: "og:title", content: "Agreement Generator — Rent, NDA, Offer Letter & More | Bharat AI Sathi" },
+      { property: "og:description", content: "AI Agreement Generator for Indian users — draft rent agreements, NDAs, offer letters, freelance and partnership agreements. Editable, exportable to PDF/DOCX." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/agreement" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/agreement" }],

@@ -16,6 +16,10 @@ export const Route = createFileRoute("/gov/profile")({
     meta: [
       { title: "My Profile — AI Form Auto-Fill | Bharat AI Sathi" },
       { name: "description", content: "Save your details once. Auto-fill 500+ Indian government forms and letters instantly. Sync to your account to access across devices." },
+      { property: "og:title", content: "My Profile — AI Form Auto-Fill | Bharat AI Sathi" },
+      { property: "og:description", content: "Save your details once. Auto-fill 500+ Indian government forms and letters instantly. Sync to your account to access across devices." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://bharataisathi.com/gov/profile" },
     ],

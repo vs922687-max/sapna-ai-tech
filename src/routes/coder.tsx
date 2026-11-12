@@ -10,6 +10,10 @@ import { askAi } from "@/lib/ai-client";
 export const Route = createFileRoute("/coder")({
   head: () => ({
     meta: [{ title: "AI Coding Assistant — Bharat AI Sathi" }, { name: "description", content: "Write, debug and explain code with AI pair-programming across 40+ languages." },
+      { property: "og:title", content: "AI Coding Assistant — Bharat AI Sathi" },
+      { property: "og:description", content: "Write, debug and explain code with AI pair-programming across 40+ languages." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/coder" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/coder" }],

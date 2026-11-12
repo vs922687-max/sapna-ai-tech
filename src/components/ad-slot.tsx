@@ -13,13 +13,27 @@ type Props = {
   label?: string;
   className?: string;
   format?: string;
+  /**
+   * Reserve a labelled, empty space while the AdSense unit id is not set yet.
+   * Keeps layout stable once real units are added in src/lib/adsense.ts.
+   */
+  placeholder?: boolean;
+  /** Reserved height for the placeholder box, in px. */
+  minHeight?: number;
 };
 
 /**
  * Renders a responsive AdSense unit. Renders nothing when the slot id is not
  * configured yet, so pages never show blank ad frames.
  */
-export function AdSlot({ name, label = "Advertisement", className, format = "auto" }: Props) {
+export function AdSlot({
+  name,
+  label = "Advertisement",
+  className,
+  format = "auto",
+  placeholder = false,
+  minHeight = 250,
+}: Props) {
   const slot = ADSENSE_SLOTS[name];
   const ref = useRef<HTMLModElement>(null);
   const pushed = useRef(false);
@@ -37,7 +51,21 @@ export function AdSlot({ name, label = "Advertisement", className, format = "aut
     }
   }, [mounted, slot]);
 
-  if (!slot || !mounted) return null;
+  if (!slot) {
+    if (!placeholder) return null;
+    return (
+      <aside className={className ?? "my-8"} aria-label={label} data-ad-placeholder={name}>
+        <p className="mb-1 text-center text-[10px] uppercase tracking-widest text-muted-foreground">
+          {label}
+        </p>
+        <div
+          className="rounded-xl border border-dashed border-border/60 bg-muted/20"
+          style={{ minHeight }}
+        />
+      </aside>
+    );
+  }
+  if (!mounted) return null;
 
   return (
     <aside

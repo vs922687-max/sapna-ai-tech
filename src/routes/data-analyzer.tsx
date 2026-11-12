@@ -31,6 +31,10 @@ export const Route = createFileRoute("/data-analyzer")({
         content:
           "Upload CSV or Excel files and chat with your data. Get instant insights, summaries, error detection and auto-generated charts.",
       },
+      { property: "og:title", content: "AI Data Analyzer — Bharat AI Sathi" },
+      { property: "og:description", content: "Upload CSV or Excel files and chat with your data. Get instant insights, summaries, error detection and auto-generated charts." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://bharataisathi.com/data-analyzer" },
     ],
     links: [{ rel: "canonical", href: "https://bharataisathi.com/data-analyzer" }],

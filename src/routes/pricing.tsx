@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PLANS } from "@/lib/plans";
 
 const PRICING_URL = "https://bharataisathi.com/pricing";
 const PRICING_TITLE = "Pricing — Bharat AI Sathi";
@@ -17,6 +18,7 @@ export const Route = createFileRoute("/pricing")({
       { property: "og:description", content: PRICING_DESC },
       { property: "og:url", content: PRICING_URL },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: PRICING_URL }],
     scripts: [
@@ -54,11 +56,6 @@ export const Route = createFileRoute("/pricing")({
               availability: "https://schema.org/InStock",
             },
           ],
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.8",
-            ratingCount: "1240",
-          },
         }),
       },
     ],
@@ -66,53 +63,7 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
 });
 
-const tiers = [
-  {
-    name: "Free",
-    price: "₹0",
-    period: "forever",
-    tag: "Start here",
-    features: [
-      "20 messages per day (resets every 24h)",
-      "Hindi + English + 9 languages",
-      "Community support",
-    ],
-    cta: "Get started",
-    to: "/auth" as const,
-    highlight: false,
-  },
-  {
-    name: "Pro",
-    price: "₹499",
-    period: "/month",
-    tag: "Most popular",
-    features: [
-      "Everything in Free",
-      "Priority Gemini Pro access",
-      "PDF chat + voice assistant",
-      "Save & export conversations",
-    ],
-    cta: "Upgrade to Pro",
-    to: "/auth" as const,
-    highlight: true,
-  },
-  {
-    name: "Team",
-    price: "₹1,499",
-    period: "/month",
-    tag: "For businesses",
-    features: [
-      "Everything in Pro",
-      "5 seats included",
-      "Team workspaces",
-      "Admin analytics dashboard",
-      "Priority email support",
-    ],
-    cta: "Contact sales",
-    to: "/contact" as const,
-    highlight: false,
-  },
-];
+const tiers = PLANS;
 
 function PricingPage() {
   return (
@@ -175,13 +126,13 @@ function PricingPage() {
 
         <div className="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
-            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Secure payments via Razorpay & UPI
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Pay by UPI
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
-            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> 256-bit SSL encryption
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> HTTPS secured
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
-            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Cancel anytime · GST invoices
+            <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Cancel anytime
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5">
             <Check className="h-3.5 w-3.5 text-[oklch(0.72_0.16_155)]" /> Made in India 🇮🇳
