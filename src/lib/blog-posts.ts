@@ -628,8 +628,16 @@ Don't be the person who forwards first. Be the person who waits.`,
 
 import { GUIDE_POSTS_A } from "./blog-guides-a";
 import { GUIDE_POSTS_B } from "./blog-guides-b";
+import { GUIDE_POSTS_C } from "./blog-guides-c";
+import { GUIDE_POSTS_D } from "./blog-guides-d";
 
-export const BLOG_POSTS: BlogPost[] = [...GUIDE_POSTS_A, ...GUIDE_POSTS_B, ...CORE_POSTS];
+export const BLOG_POSTS: BlogPost[] = [
+  ...GUIDE_POSTS_C,
+  ...GUIDE_POSTS_D,
+  ...GUIDE_POSTS_A,
+  ...GUIDE_POSTS_B,
+  ...CORE_POSTS,
+];
 
 export const BLOG_CATEGORIES = Array.from(new Set(BLOG_POSTS.map((p) => p.category)));
 
