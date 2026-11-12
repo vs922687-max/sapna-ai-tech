@@ -1,11 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { ArrowLeft, Calendar, Clock, Home, User } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Clock, Home, PenLine, User } from "lucide-react";
 import { BLOG_POSTS, getPostBySlug, type BlogPost } from "@/lib/blog-posts";
 import { AdSlot } from "@/components/ad-slot";
 import { ShareButtons } from "@/components/share-buttons";
-import { ogImageForPost } from "@/lib/og-image";
+import { coverImageForPost, ogImageForPost } from "@/lib/og-image";
 
 const BASE = "https://bharataisathi.com";
 
@@ -105,7 +105,25 @@ function inline(text: string) {
 
 function renderBody(body: string) {
   const blocks = body.split(/\n\n+/);
+  let paragraphs = 0;
   return blocks.map((block, i) => {
+    const isParagraph = !/^(#{2,3}\s|-\s|\d+\.\s)/.test(block);
+    if (isParagraph) paragraphs += 1;
+    const node = renderBlock(block, i);
+    if (isParagraph && paragraphs === 2) {
+      return (
+        <div key={i}>
+          {node}
+          <AdSlot name="articleInline" placeholder minHeight={250} className="my-8" />
+        </div>
+      );
+    }
+    return node;
+  });
+}
+
+function renderBlock(block: string, i: number) {
+  {
     if (block.startsWith("## ")) {
       return (
         <h2 key={i} className="mt-8 font-display text-xl font-semibold text-foreground">
@@ -145,11 +163,21 @@ function renderBody(body: string) {
         {inline(block)}
       </p>
     );
-  });
+  }
 }
 
 function relatedFor(post: BlogPost) {
-  return BLOG_POSTS.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 3);
+  const others = BLOG_POSTS.filter((p) => p.slug !== post.slug);
+  const sameCategory = others.filter((p) => p.category === post.category);
+  const rest = others.filter((p) => p.category !== post.category).sort((a, b) => (a.date < b.date ? 1 : -1));
+  return [...sameCategory, ...rest].slice(0, 4);
+}
+
+function latestPosts(post: BlogPost) {
+  return [...BLOG_POSTS]
+    .filter((p) => p.slug !== post.slug)
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .slice(0, 5);
 }
 
 function BlogPostPage() {
