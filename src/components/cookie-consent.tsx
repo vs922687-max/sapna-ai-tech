@@ -50,10 +50,7 @@ export function CookieConsent() {
       setShow(true);
     };
     window.addEventListener(OPEN_EVENT, open);
-    const off = onConsentChange(() => {
-      syncSwitches();
-      if (!unanswered()) setShow((s) => (s ? s : false));
-    });
+    const off = onConsentChange(syncSwitches);
     return () => {
       window.removeEventListener(OPEN_EVENT, open);
       off();

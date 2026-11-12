@@ -11,6 +11,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 import { CookieConsent } from "@/components/cookie-consent";
 import { AdSenseLoader } from "@/components/adsense-loader";
+import { CONSENT_DEFAULTS_SCRIPT } from "@/lib/consent-defaults";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -101,9 +102,9 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   );
 }
 
-const TITLE = "Bharat AI Sathi — India's Premium AI Companion";
+const TITLE = "Bharat AI Sathi — Free AI Tools & Government Services for India";
 const DESCRIPTION =
-  "Chat, translate Indian languages, analyze PDFs, code, prepare for exams and access government services with Bharat AI Sathi — a premium AI suite built for India.";
+  "Bharat AI Sathi offers free AI tools, content creation, office tools, government services guides, forms and more — in Hindi, English and Indian languages.";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -117,19 +118,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Bharat AI Sathi" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
       { name: "google-site-verification", content: "zmj1xBBhvb2DhYZ0yKV58cHWTOOJcUeDnUH2C2X2ST4" },
       { name: "google-adsense-account", content: "ca-pub-4119150710486933" },
-      { title: "bharat Ai Sathi _Free Ai Tools & Servies" },
-      { property: "og:title", content: "bharat Ai Sathi _Free Ai Tools & Servies" },
-      { name: "twitter:title", content: "bharat Ai Sathi _Free Ai Tools & Servies" },
-      { name: "description", content: "Bharat Ai Sathi offers free Ai tools ,content creation ,office tools ,government services ,forms ,SEO tools and more -all in one" },
-      { property: "og:description", content: "Bharat Ai Sathi offers free Ai tools ,content creation ,office tools ,government services ,forms ,SEO tools and more -all in one" },
-      { name: "twitter:description", content: "Bharat Ai Sathi offers free Ai tools ,content creation ,office tools ,government services ,forms ,SEO tools and more -all in one" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f4859c5df97470e12e96ca9730f5467c/id-preview-aa558c6f--6ede2fec-09eb-4707-a251-9f2ad37bf72f.lovable.app-1786337505020.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f4859c5df97470e12e96ca9730f5467c/id-preview-aa558c6f--6ede2fec-09eb-4707-a251-9f2ad37bf72f.lovable.app-1786337505020.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -141,6 +136,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
 
     scripts: [
+      { children: CONSENT_DEFAULTS_SCRIPT },
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -180,7 +176,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <head>
         <HeadContent />
       </head>
