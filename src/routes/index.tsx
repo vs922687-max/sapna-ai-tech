@@ -97,7 +97,7 @@ function Hero() {
     <section className="relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-20 sm:px-6 sm:pt-28">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center"
@@ -149,7 +149,7 @@ function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="glass-strong mx-auto mt-16 max-w-5xl overflow-hidden rounded-3xl border border-border/60 p-1 shadow-elegant"
