@@ -5,6 +5,7 @@ import { Calendar, Clock, User } from "lucide-react";
 import { useMemo, useState } from "react";
 import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blog-posts";
 import { AdSlot } from "@/components/ad-slot";
+import { coverImageForPost } from "@/lib/og-image";
 
 const BLOG_URL = "https://bharataisathi.com/blog";
 const BLOG_TITLE = "Blog — Bharat AI Sathi";
@@ -119,8 +120,18 @@ function BlogPage() {
           {posts.map((p) => (
             <article
               key={p.slug}
-              className="glass rounded-2xl border border-border/60 p-6 transition-all hover:border-primary/40 hover:shadow-glow"
+              className="glass overflow-hidden rounded-2xl border border-border/60 transition-all hover:border-primary/40 hover:shadow-glow"
             >
+              <img
+                src={coverImageForPost(p).src.replace(/\.webp$/, "-600.webp")}
+                alt={`${p.title} — featured image`}
+                width={600}
+                height={320}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[15/8] w-full border-b border-border/60 object-cover"
+              />
+              <div className="p-6">
               <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                 <span className="rounded-full bg-primary/15 px-2 py-0.5 font-medium text-primary">
                   {p.category}
@@ -158,6 +169,7 @@ function BlogPage() {
                 >
                   Read article →
                 </Link>
+              </div>
               </div>
             </article>
           ))}
