@@ -14,6 +14,10 @@ export const ADSENSE_SLOTS = {
   articleTop: "",
   /** Bottom of an article, above related posts */
   articleBottom: "",
+  /** Blog article sidebar */
+  blogSidebar: "",
+  /** Inside a blog article, after the 2nd paragraph */
+  articleInline: "",
   /** In the blog listing grid */
   listing: "",
   /** Below tool output / long content pages */
