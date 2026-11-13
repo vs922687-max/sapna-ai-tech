@@ -1,17 +1,18 @@
-import { describe, expect, it } from "bun:test";
+import { describe, it } from "node:test";
+import assert from "node:assert/strict";
 import { PLANS } from "./plans";
 
 const byName = (name: string) => PLANS.find((p) => p.name === name);
 
 describe("pricing plans", () => {
   it("Free plan costs ₹0", () => {
-    expect(byName("Free")?.priceNumber).toBe(0);
+    assert.equal(byName("Free")?.priceNumber, 0);
   });
   it("Pro plan costs ₹499", () => {
-    expect(byName("Pro")?.priceNumber).toBe(499);
-    expect(byName("Pro")?.price).toBe("₹499");
+    assert.equal(byName("Pro")?.priceNumber, 499);
+    assert.equal(byName("Pro")?.price, "₹499");
   });
   it("Team plan costs ₹1,499", () => {
-    expect(byName("Team")?.priceNumber).toBe(1499);
+    assert.equal(byName("Team")?.priceNumber, 1499);
   });
 });
