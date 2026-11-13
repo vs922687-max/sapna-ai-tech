@@ -20,7 +20,7 @@ export const Route = createFileRoute("/gov/forms/$slug")({
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Form not found" }, { name: "robots", content: "noindex" }] };
-    const f = loaderData.f;
+    const f = getGovForm(loaderData.slug)!;
     return {
       meta: [
         { title: `${f.name} — AI Auto-Fill | Bharat AI Sathi` },
@@ -42,7 +42,8 @@ export const Route = createFileRoute("/gov/forms/$slug")({
 type Draft = { values: Record<string, string>; savedAt: number };
 
 function FormFiller() {
-  const { f } = Route.useLoaderData() as { f: GovForm };
+  const { slug } = Route.useLoaderData();
+  const f = getGovForm(slug) as GovForm;
   const [profile] = useGovProfile();
   const [draft, setDraft] = useGovStore<Draft | null>(`draft:${f.slug}`, null);
   const [values, setValues] = useState<Record<string, string>>({});

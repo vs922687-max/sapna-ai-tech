@@ -16,13 +16,14 @@ export const Route = createFileRoute("/gov/$slug")({
   loader: ({ params }) => {
     const svc = getGovService(params.slug);
     if (!svc) throw notFound();
-    return { svc };
+    // Return only serialisable data; the service is looked up by slug.
+    return { slug: params.slug };
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return { meta: [{ title: "Service not found — Bharat AI Sathi" }, { name: "robots", content: "noindex" }] };
     }
-    const s = loaderData.svc;
+    const s = getGovService(loaderData.slug)!;
     const url = `https://bharataisathi.com/gov/${params.slug}`;
     const title = `${s.name} (${s.hindi}) — Eligibility, Documents & How to Apply | Bharat AI Sathi`;
     const desc = `${s.tagline} Complete guide to ${s.name}: eligibility, required documents, step-by-step application and official links.`;
@@ -99,7 +100,8 @@ function ErrorView({ reset }: { reset: () => void }) {
 }
 
 function GovDetail() {
-  const { svc: s } = Route.useLoaderData() as { svc: GovService };
+  const { slug } = Route.useLoaderData();
+  const s = getGovService(slug) as GovService;
   const Icon = s.icon;
   const [aiLang, setAiLang] = useState<"hi" | "en">("hi");
   const [aiText, setAiText] = useState("");
