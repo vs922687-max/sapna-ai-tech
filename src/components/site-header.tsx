@@ -148,7 +148,7 @@ export function SiteHeader() {
                         onMouseEnter={cancelClose}
                         onMouseLeave={scheduleClose}
                       >
-                        <div className="glass-strong overflow-hidden rounded-xl border border-border/60 p-1 shadow-glow">
+                        <div className="overflow-hidden rounded-xl border border-border/60 bg-popover p-1 text-popover-foreground shadow-glow">
                           {item.to === "/gov" && (
                             <>
                               <div className="px-3 py-2 text-[11px] leading-snug text-muted-foreground">
