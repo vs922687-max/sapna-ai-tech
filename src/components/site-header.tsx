@@ -55,13 +55,20 @@ const nav: NavItem[] = [
       { to: "/refund-policy", label: "Refund Policy" },
     ],
   },
-  { to: "/contact", label: "Contact" },
 ];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  // Dropdowns are positioned against the header so the scrollable nav row can't clip them.
+  const [menuPos, setMenuPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
+  const openAt = (key: string, el: HTMLElement) => {
+    const r = el.getBoundingClientRect();
+    const h = el.closest("header")?.getBoundingClientRect();
+    setMenuPos({ top: r.bottom - (h?.top ?? 0), left: r.left - (h?.left ?? 0) });
+    setOpenMenu(key);
+  };
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -112,14 +119,14 @@ export function SiteHeader() {
                   <div
                     key={item.to}
                     className="relative"
-                    onMouseEnter={() => { cancelClose(); setOpenMenu(item.to); }}
+                    onMouseEnter={(e) => { cancelClose(); openAt(item.to, e.currentTarget); }}
                     onMouseLeave={scheduleClose}
                   >
                     <Link
                       to={item.to}
                       aria-haspopup="menu"
                       aria-expanded={isOpen}
-                      onFocus={() => { cancelClose(); setOpenMenu(item.to); }}
+                      onFocus={(e) => { cancelClose(); openAt(item.to, e.currentTarget); }}
                       className={cn(
                         "inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                         active
@@ -136,11 +143,12 @@ export function SiteHeader() {
                       <div
                         role="menu"
                         aria-label={item.label}
-                        className="absolute left-0 top-full min-w-[220px] pt-2"
+                        className="fixed z-50 min-w-[220px] pt-2"
+                        style={{ top: menuPos.top, left: menuPos.left }}
                         onMouseEnter={cancelClose}
                         onMouseLeave={scheduleClose}
                       >
-                        <div className="glass-strong overflow-hidden rounded-xl border border-border/60 p-1 shadow-glow">
+                        <div className="overflow-hidden rounded-xl border border-border/60 bg-popover p-1 text-popover-foreground shadow-glow">
                           {item.to === "/gov" && (
                             <>
                               <div className="px-3 py-2 text-[11px] leading-snug text-muted-foreground">

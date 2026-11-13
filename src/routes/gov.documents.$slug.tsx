@@ -17,18 +17,20 @@ export const Route = createFileRoute("/gov/documents/$slug")({
   loader: ({ params }) => {
     const t = getTemplate(params.slug);
     if (!t) throw notFound();
-    return { t };
+    // Return only serialisable data; the template is looked up by slug.
+    return { slug: params.slug };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Template not found" }, { name: "robots", content: "noindex" }] };
-    const title = `${loaderData.t.name} — AI Document Generator | Bharat AI Sathi`;
+    const tpl = getTemplate(loaderData.slug)!;
+    const title = `${tpl.name} — AI Document Generator | Bharat AI Sathi`;
     const url = `https://bharataisathi.com/gov/documents/${params.slug}`;
     return {
       meta: [
         { title },
-        { name: "description", content: loaderData.t.description },
+        { name: "description", content: tpl.description },
         { property: "og:title", content: title },
-        { property: "og:description", content: loaderData.t.description },
+        { property: "og:description", content: tpl.description },
         { property: "og:type", content: "website" },
         { property: "og:url", content: url },
         { name: "twitter:card", content: "summary_large_image" },
@@ -54,7 +56,8 @@ function profileToContext(p: GovProfile): string {
 }
 
 function DocGen() {
-  const { t } = Route.useLoaderData() as { t: DocTemplate };
+  const { slug } = Route.useLoaderData();
+  const t = getTemplate(slug) as DocTemplate;
   const [profile] = useGovProfile();
   const [details, setDetails] = useState("");
   const [lang, setLang] = useState<"en" | "hi" | "bilingual">("en");

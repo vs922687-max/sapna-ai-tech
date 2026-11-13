@@ -12,11 +12,12 @@ export const Route = createFileRoute("/tools/$slug")({
   loader: ({ params }) => {
     const tool = TOOL_BY_SLUG[params.slug];
     if (!tool) throw notFound();
-    return { tool };
+    // Return only serialisable data; the tool (with its icon component) is looked up by slug.
+    return { slug: params.slug };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Tool not found — Bharat AI Sathi" }, { name: "robots", content: "noindex" }] };
-    const { tool } = loaderData;
+    const tool = TOOL_BY_SLUG[loaderData.slug];
     const url = `${BASE}/tools/${params.slug}`;
     const title = `${tool.title} — Free Online Tool | Bharat AI Sathi`;
     const desc = tool.description;
@@ -76,7 +77,8 @@ export const Route = createFileRoute("/tools/$slug")({
 });
 
 function ToolPage() {
-  const { tool } = Route.useLoaderData();
+  const { slug } = Route.useLoaderData();
+  const tool = TOOL_BY_SLUG[slug];
   const Comp = TOOL_COMPONENTS[tool.slug];
   return (
     <ToolLayout tool={tool}>
