@@ -15,11 +15,14 @@
 - [x] Replace poster demo checkout with the owner's Paytm QR, ₹29 UPI link and manual WhatsApp payment confirmation.
 
 ## AdSense readiness (Nov 2026)
-- [ ] Legal pages: refund policy (new), /privacy-policy alias, privacy policy covering AdSense/cookies/AI/payments, footer + header links
-- [ ] Contact form: Name/Email/Message (phone optional), support@bharataisathi.com
-- [ ] Cookie banner connected to Google Consent Mode (analytics + advertising)
-- [ ] 10 new 1000+ word Hinglish blog posts; author box, related posts, featured images
-- [ ] Homepage: remove invented testimonials/ratings, add How it works, 8-question FAQ, Free vs Pro pricing, public intro text
-- [ ] Labelled empty ad placeholders: blog sidebar, after 2nd paragraph, blog footer
-- [ ] Per-page title/description/og tags on every public page; sitemap + robots
-- [ ] Broken-link / public-access check of homepage, blog, about, contact
+- [x] Legal pages: refund policy (new), /privacy-policy alias, privacy policy covering AdSense/cookies/AI/payments, footer + header links
+- [x] Contact form: Name/Email/Message (phone optional), support@bharataisathi.com
+- [x] Cookie banner connected to Google Consent Mode (analytics + advertising)
+- [x] 10 new 1000+ word Hinglish blog posts; author box, related posts, featured images
+- [x] Homepage: remove invented testimonials/ratings, add How it works, 8-question FAQ, Free vs Pro pricing, public intro text
+- [x] Labelled empty ad placeholders: blog sidebar, after 2nd paragraph, blog footer
+- [x] Per-page title/description/og tags on every public page; sitemap + robots
+- [x] Broken-link / public-access check of homepage, blog, about, contact
+- [x] Fix tool and government detail pages that failed to load (500) and the top-menu dropdowns being cut off
+- [ ] Owner to confirm the refund rules, Pro/Team prices and the Bengaluru address shown on Contact
+- [ ] Create real AdSense ad units and paste their slot IDs (placeholders show until then)
