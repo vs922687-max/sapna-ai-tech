@@ -9,6 +9,8 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
+    // Keep "/page/" and "/page" both rendering so ready-made pages build without redirect loops.
+    trailingSlash: "preserve",
     defaultPreloadStaleTime: 0,
   });
 
