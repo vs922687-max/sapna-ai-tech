@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import QRCode from "qrcode";
 import JsBarcode from "jsbarcode";
 import { toast } from "sonner";
 import { ActionBar, Field, Stat, copyText, downloadBlob, inputCls, textareaCls } from "./ui-primitives";
@@ -16,7 +15,10 @@ export function QrCodeGenerator() {
   const [url, setUrl] = useState("");
   useEffect(() => {
     if (!text) { setUrl(""); return; }
-    QRCode.toDataURL(text, { width: size, color: { dark, light }, margin: 2 }).then(setUrl).catch(() => setUrl(""));
+    import("qrcode")
+      .then((m) => m.default.toDataURL(text, { width: size, color: { dark, light }, margin: 2 }))
+      .then(setUrl)
+      .catch(() => setUrl(""));
   }, [text, size, dark, light]);
   const download = async () => {
     if (!url) return;
