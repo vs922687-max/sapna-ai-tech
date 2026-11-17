@@ -85,16 +85,12 @@ function MockInterview() {
   const [role, setRole] = useState("");
   const [exp, setExp] = useState("Fresher");
   const [lang, setLang] = useState("English");
-  const [questions, setQuestions] = useState<string[]>(JSON.parse(localStorage.getItem("career-interview-q") || "[]"));
-  const [answers, setAnswers] = useState<Record<number, string>>(JSON.parse(localStorage.getItem("career-interview-a") || "{}"));
+  const [questions, setQuestions] = useStoredState<string[]>("career-interview-q", []);
+  const [answers, setAnswers] = useStoredState<Record<number, string>>("career-interview-a", {});
   const [feedbacks, setFeedbacks] = useState<Record<number, string>>({});
   const [loadingQ, setLoadingQ] = useState(false);
   const [loadingF, setLoadingF] = useState<number | null>(null);
 
-  useEffect(() => {
-    localStorage.setItem("career-interview-q", JSON.stringify(questions));
-    localStorage.setItem("career-interview-a", JSON.stringify(answers));
-  }, [questions, answers]);
 
   const generate = async () => {
     if (!role.trim()) return toast.error("Enter target role");
@@ -172,10 +168,9 @@ function StudyPlanner() {
   const [subjects, setSubjects] = useState("");
   const [hours, setHours] = useState("4");
   const [weeks, setWeeks] = useState("4");
-  const [plan, setPlan] = useState(localStorage.getItem("career-study-plan") || "");
+  const [plan, setPlan] = useStoredState("career-study-plan", "");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => { localStorage.setItem("career-study-plan", plan); }, [plan]);
 
   const generate = async () => {
     if (!exam.trim() || !subjects.trim()) return toast.error("Enter exam and subjects");
@@ -305,10 +300,9 @@ function Scholarships() {
 function SkillsRoadmap() {
   const [goal, setGoal] = useState("");
   const [current, setCurrent] = useState("");
-  const [roadmap, setRoadmap] = useState(localStorage.getItem("career-roadmap") || "");
+  const [roadmap, setRoadmap] = useStoredState("career-roadmap", "");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => { localStorage.setItem("career-roadmap", roadmap); }, [roadmap]);
 
   const generate = async () => {
     if (!goal.trim()) return toast.error("Enter your career goal");
@@ -341,4 +335,26 @@ function SkillsRoadmap() {
       )}
     </div>
   );
+}
+
+// Saved progress lives in the visitor's browser; read it after the page loads so the
+// server-rendered page never touches browser storage.
+function useStoredState<T>(key: string, initial: T) {
+  const [value, setValue] = useState<T>(initial);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw != null) setValue((typeof initial === "string" ? raw : JSON.parse(raw)) as T);
+    } catch {
+      /* ignore unreadable saved data */
+    }
+    setLoaded(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+  useEffect(() => {
+    if (!loaded) return;
+    localStorage.setItem(key, typeof value === "string" ? value : JSON.stringify(value));
+  }, [key, value, loaded]);
+  return [value, setValue] as const;
 }

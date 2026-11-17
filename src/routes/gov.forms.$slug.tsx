@@ -10,7 +10,6 @@ import { useGovStore, uid } from "@/lib/gov-store";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { downloadTextFile } from "@/lib/gov-download";
-import { jsPDF } from "jspdf";
 
 export const Route = createFileRoute("/gov/forms/$slug")({
   loader: ({ params }) => {
@@ -135,8 +134,10 @@ function FormFiller() {
     toast.success("Downloaded. Also saved to Download Center.");
   };
 
-  const downloadPdf = () => {
+  const downloadPdf = async () => {
     if (!validate()) return;
+    // Load the PDF library only when someone downloads, keeping the page light.
+    const { jsPDF } = await import("jspdf");
     const doc = new jsPDF();
     doc.setFontSize(16);
     doc.text(f.name, 14, 20);

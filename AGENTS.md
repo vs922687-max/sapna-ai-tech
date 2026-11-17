@@ -24,3 +24,4 @@
 - Route loaders return only serialisable values (e.g. a slug) and look up catalog entries with icon components in head()/component; returning objects with functions makes SSR fail with a Seroval 500.
 - Read tracking permission only through src/lib/consent.ts (Google Consent Mode v2 + GPC), with its defaults script first in the root head; one banner controls analytics and advertising separately.
 - Keep plan prices in src/lib/plans.ts and render pricing/homepage tiers from it so prices never drift between pages.
+- Prerender every same-for-everyone public page (list built in prerender-pages.ts from the sitemap, blog posts, tools and gov forms) and keep router trailingSlash "preserve"; prerendering cuts first-load time and the default trailing-slash redirect loops during prerender. Never read browser storage during render on these pages.

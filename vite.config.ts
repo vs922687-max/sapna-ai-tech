@@ -6,12 +6,16 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
+import { prerenderPages } from "./prerender-pages";
 
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    // Serve public, same-for-everyone pages as ready-made HTML (much faster first load).
+    pages: prerenderPages(),
+    prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
   vite: {
     plugins: [mcpPlugin()],
