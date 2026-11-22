@@ -28,7 +28,7 @@
 - [ ] Create real AdSense ad units and paste their slot IDs (placeholders show until then)
 
 ## Plan payments (UPI)
-- [ ] Pricing page UPI QR payment for Pro/Team (QR, UPI copy, amount, 12-digit UTR, saved submission, success message)
-- [ ] Activate the plan instantly on UTR submit; admin can reject fake payments to revoke the plan
-- [ ] Admin panel list of plan payments with verify/reject
-- [ ] Tests for plan payment rules
+- [x] Pricing page UPI QR payment for Pro/Team (QR, UPI copy, amount, 12-digit UTR, saved submission, success message)
+- [x] Activate the plan instantly on UTR submit; admin can reject fake payments to revoke the plan
+- [x] Admin panel list of plan payments with verify/reject
+- [x] Tests for plan payment rules
