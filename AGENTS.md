@@ -19,7 +19,7 @@
 - Use Viral Hook Engine only for short form, and send text AI through authenticated, validated Responses streaming; this keeps long-form distinct and prevents blank output.
 - Render festival posters entirely in the browser with Canvas and keep uploaded shop images on-device; this avoids credit usage and protects customer photos.
 - Poster checkout displays the owner's uploaded QR and UPI intent with manual WhatsApp receipt review; never unlock HD exports from client-side payment claims because static QR payment has no verified callback.
-- Keep chat and AI-tool system instructions in a server-only preset registry; accept only validated preset IDs, language/service choices and non-privileged task content so callers cannot replace app rules.
+- Keep chat and AI-tool system instructions in a server-only preset registry; accept only validated preset IDs, language/service choices and non-privileged task content, and send earlier chat turns as a quoted user-role transcript, so callers cannot replace app rules or forge assistant replies.
 - Give each WorkNotifications effect its own unique realtime channel name and remove that channel on cleanup; simultaneous header instances and remounts must not reuse an already-subscribed channel.
 - Route loaders return only serialisable values (e.g. a slug) and look up catalog entries with icon components in head()/component; returning objects with functions makes SSR fail with a Seroval 500.
 - Read tracking permission only through src/lib/consent.ts (Google Consent Mode v2 + GPC), with its defaults script first in the root head; one banner controls analytics and advertising separately.

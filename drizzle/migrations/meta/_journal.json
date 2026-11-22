@@ -64,6 +64,13 @@
       "when": 1790480677695,
       "tag": "0008_restrict_public_visit_row_inserts",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1795336936522,
+      "tag": "0009_lock_work_application_insert_fields",
+      "breakpoints": true
     }
   ]
 }
