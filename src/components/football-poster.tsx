@@ -476,7 +476,7 @@ export function FootballPoster() {
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <Button type="button" variant="outline" size="lg" className="h-auto min-h-11 whitespace-normal" onClick={() => download(true)}><Download /> Free Download (With Watermark)</Button>
-            <Button type="button" size="lg" className="h-auto min-h-11 whitespace-normal bg-poster text-poster-foreground hover:bg-poster/90" onClick={() => { if (requireName()) setPaymentOpen(true); }}><Sparkles /> HD Download Without Watermark - ₹29</Button>
+            <Button type="button" size="lg" className="h-auto min-h-11 whitespace-normal bg-poster text-poster-foreground hover:bg-poster/90" onClick={() => { if (requireName()) setPaymentOpen(true); }}><Sparkles /> Order HD Poster (No Watermark) - ₹29</Button>
           </div>
           <p className="mt-3 text-center text-xs text-muted-foreground">Fan poster template — kisi bhi football club se officially affiliated nahi hai.</p>
 

@@ -114,7 +114,7 @@ function renderBody(body: string) {
       return (
         <div key={i}>
           {node}
-          <AdSlot name="articleInline" placeholder minHeight={250} className="my-8" />
+          <AdSlot name="articleInline" className="my-8" />
         </div>
       );
     }
@@ -290,7 +290,7 @@ function BlogPostPage() {
             </section>
           )}
 
-          <AdSlot name="articleBottom" placeholder minHeight={120} className="mt-12" />
+          <AdSlot name="articleBottom" className="mt-12" />
 
           <div className="mt-10">
             <Link
@@ -304,7 +304,7 @@ function BlogPostPage() {
 
         <aside aria-label="Blog sidebar" className="space-y-6 lg:pt-16">
           <div className="lg:sticky lg:top-24 lg:space-y-6">
-            <AdSlot name="blogSidebar" placeholder minHeight={600} className="hidden lg:block" />
+            <AdSlot name="blogSidebar" className="hidden lg:block" />
             <div className="rounded-2xl border border-border/60 bg-card/40 p-5">
               <h2 className="font-display text-base font-semibold">Latest articles</h2>
               <ul className="mt-3 space-y-3 text-sm">

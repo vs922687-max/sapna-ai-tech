@@ -26,6 +26,8 @@ export const Route = createFileRoute("/tools/$slug")({
         { title },
         { name: "description", content: desc },
         { name: "keywords", content: tool.keywords },
+        // Short single-purpose tool pages share template FAQ text; keep them out of search so they are not judged as thin content.
+        { name: "robots", content: "noindex, follow" },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
         { property: "og:url", content: url },

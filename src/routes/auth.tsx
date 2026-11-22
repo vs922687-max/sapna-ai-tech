@@ -25,6 +25,7 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Login or Sign up — Bharat AI Sathi" },
+      { name: "robots", content: "noindex, follow" },
       { name: "description", content: "Sign in or create your Bharat AI Sathi account with email or Google." },
       { property: "og:title", content: "Login or Sign up — Bharat AI Sathi" },
       { property: "og:description", content: "Sign in or create your Bharat AI Sathi account with email or Google." },

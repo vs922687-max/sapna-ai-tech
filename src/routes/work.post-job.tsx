@@ -28,6 +28,7 @@ export const Route = createFileRoute("/work/post-job")({
   head: () => ({
     meta: [
       { title: TITLE },
+      { name: "robots", content: "noindex, follow" },
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },

@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { UTILITY_TOOLS } from "@/lib/utility-tools";
 import { BLOG_POSTS } from "@/lib/blog-posts";
 
 const BASE_URL = "https://bharataisathi.com";
@@ -50,8 +49,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 
           { path: "/work", changefreq: "weekly", priority: "0.9" },
           { path: "/work/marketplace", changefreq: "weekly", priority: "0.8" },
-          { path: "/work/post-job", changefreq: "monthly", priority: "0.7" },
-          { path: "/work/my", changefreq: "monthly", priority: "0.5" },
 
           { path: "/pricing", changefreq: "monthly", priority: "0.8" },
           { path: "/blog", changefreq: "weekly", priority: "0.6" },
@@ -64,13 +61,10 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/business/udyam", changefreq: "monthly", priority: "0.7" },
           { path: "/business/svanidhi", changefreq: "monthly", priority: "0.7" },
           { path: "/business/fssai", changefreq: "monthly", priority: "0.7" },
-          { path: "/auth", changefreq: "monthly", priority: "0.4" },
           { path: "/gov", changefreq: "weekly", priority: "0.9" },
           { path: "/gov/forms", changefreq: "weekly", priority: "0.8" },
           { path: "/gov/documents", changefreq: "monthly", priority: "0.7" },
           { path: "/gov/eligibility", changefreq: "monthly", priority: "0.7" },
-          { path: "/gov/vault", changefreq: "monthly", priority: "0.7" },
-          { path: "/gov/tracker", changefreq: "monthly", priority: "0.7" },
           { path: "/career", changefreq: "weekly", priority: "0.8" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/terms", changefreq: "yearly", priority: "0.3" },
@@ -80,7 +74,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/ai-policy", changefreq: "yearly", priority: "0.4" },
           { path: "/editorial-policy", changefreq: "yearly", priority: "0.4" },
           ...BLOG_POSTS.map((p) => ({ path: `/blog/${p.slug}`, changefreq: "monthly" as const, priority: "0.6" })),
-          ...UTILITY_TOOLS.map((t) => ({ path: `/tools/${t.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
         ];
 
         const urls = entries
