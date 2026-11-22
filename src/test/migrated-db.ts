@@ -2,10 +2,11 @@
 // the hosted auth/storage schemas the migrations reference, then replays every
 // project migration in order so tests run against the real policies and triggers.
 import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { PGlite } from "@electric-sql/pglite";
 
-const ROOT = join(import.meta.dir, "..", "..");
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 const PLATFORM_STUBS = `
 CREATE ROLE anon NOLOGIN;
