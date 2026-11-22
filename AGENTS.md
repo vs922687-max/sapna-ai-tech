@@ -26,3 +26,5 @@
 - Keep plan prices in src/lib/plans.ts and render pricing/homepage tiers from it so prices never drift between pages.
 - Prerender every same-for-everyone public page (list built in prerender-pages.ts from the sitemap, blog posts, tools and gov forms) and keep router trailingSlash "preserve"; prerendering cuts first-load time and the default trailing-slash redirect loops during prerender. Never read browser storage during render on these pages.
 - Keep /tools/$slug pages noindex and out of the sitemap until each has its own substantial guide text; their shared template FAQs read as thin content to AdSense and Search reviews.
+
+- Test database rules (RLS, triggers) by replaying every migration into in-memory PGlite via src/test/migrated-db.ts and acting as users with asUser; the sandbox database role cannot impersonate signed-in users and tests must never write to the live database.
