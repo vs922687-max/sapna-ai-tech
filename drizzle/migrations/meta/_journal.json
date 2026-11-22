@@ -71,6 +71,20 @@
       "when": 1795336936522,
       "tag": "0009_lock_work_application_insert_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1795341033661,
+      "tag": "0010_create_plan_payments",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1795341072814,
+      "tag": "0011_activate_plan_on_payment_submit",
+      "breakpoints": true
     }
   ]
 }

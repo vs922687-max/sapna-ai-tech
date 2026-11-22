@@ -137,6 +137,45 @@ export type Database = {
         }
         Relationships: []
       }
+      plan_payments: {
+        Row: {
+          admin_note: string | null
+          amount: number
+          created_at: string
+          id: string
+          plan_name: string
+          reviewed_at: string | null
+          status: string
+          user_email: string | null
+          user_id: string
+          utr_number: string
+        }
+        Insert: {
+          admin_note?: string | null
+          amount?: number
+          created_at?: string
+          id?: string
+          plan_name: string
+          reviewed_at?: string | null
+          status?: string
+          user_email?: string | null
+          user_id: string
+          utr_number: string
+        }
+        Update: {
+          admin_note?: string | null
+          amount?: number
+          created_at?: string
+          id?: string
+          plan_name?: string
+          reviewed_at?: string | null
+          status?: string
+          user_email?: string | null
+          user_id?: string
+          utr_number?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           aadhaar: string | null
@@ -271,6 +310,44 @@ export type Database = {
           id?: string
         }
         Relationships: []
+      }
+      user_plans: {
+        Row: {
+          activated_at: string | null
+          expires_at: string | null
+          payment_id: string | null
+          plan_name: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          activated_at?: string | null
+          expires_at?: string | null
+          payment_id?: string | null
+          plan_name?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          activated_at?: string | null
+          expires_at?: string | null
+          payment_id?: string | null
+          plan_name?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_plans_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "plan_payments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {

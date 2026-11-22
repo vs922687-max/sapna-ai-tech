@@ -26,3 +26,9 @@
 - [x] Fix tool and government detail pages that failed to load (500) and the top-menu dropdowns being cut off
 - [ ] Owner to confirm the refund rules, Pro/Team prices and the Bengaluru address shown on Contact
 - [ ] Create real AdSense ad units and paste their slot IDs (placeholders show until then)
+
+## Plan payments (UPI)
+- [ ] Pricing page UPI QR payment for Pro/Team (QR, UPI copy, amount, 12-digit UTR, saved submission, success message)
+- [ ] Activate the plan instantly on UTR submit; admin can reject fake payments to revoke the plan
+- [ ] Admin panel list of plan payments with verify/reject
+- [ ] Tests for plan payment rules

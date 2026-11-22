@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/site-header";
+import { AdminPlanPayments } from "@/components/admin-plan-payments";
 import { Users, MessagesSquare, TrendingUp, Loader2, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -77,6 +78,8 @@ function AdminPage() {
             </div>
           ))}
         </div>
+
+        <AdminPlanPayments />
 
         <div className="mt-8 glass rounded-2xl border border-border/60 p-8 text-center text-sm text-muted-foreground">
           Full analytics, user management, and CMS coming in the next iteration.

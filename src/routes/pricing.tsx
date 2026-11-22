@@ -1,9 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useCallback, useEffect, useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PLANS } from "@/lib/plans";
+import { PLANS, type Plan } from "@/lib/plans";
+import { supabase } from "@/integrations/supabase/client";
+import { PlanPaymentDialog } from "@/components/plan-payment-dialog";
+import type { PaidPlanName } from "@/lib/plan-payment";
 
 const PRICING_URL = "https://bharataisathi.com/pricing";
 const PRICING_TITLE = "Pricing — Bharat AI Sathi";
@@ -65,7 +69,41 @@ export const Route = createFileRoute("/pricing")({
 
 const tiers = PLANS;
 
+type CurrentPlan = { plan_name: string; status: string; expires_at: string | null };
+
+function isActive(plan: CurrentPlan | null): plan is CurrentPlan {
+  return !!plan && plan.status === "active" && (!plan.expires_at || new Date(plan.expires_at) > new Date());
+}
+
 function PricingPage() {
+  const nav = useNavigate();
+  const [userId, setUserId] = useState<string | null>(null);
+  const [current, setCurrent] = useState<CurrentPlan | null>(null);
+  const [checkout, setCheckout] = useState<Plan | null>(null);
+
+  const loadPlan = useCallback(async (uid: string) => {
+    const { data } = await supabase.from("user_plans").select("plan_name, status, expires_at").eq("user_id", uid).maybeSingle();
+    setCurrent(data ?? null);
+  }, []);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      const uid = data.session?.user.id ?? null;
+      setUserId(uid);
+      if (uid) void loadPlan(uid);
+    });
+  }, [loadPlan]);
+
+  const startUpgrade = (plan: Plan) => {
+    if (!userId) {
+      nav({ to: "/auth", search: { next: "/pricing" } });
+      return;
+    }
+    setCheckout(plan);
+  };
+
+  const active = isActive(current) ? current : null;
+
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -79,6 +117,13 @@ function PricingPage() {
             No dollar surprises. Start free, upgrade when you need more.
           </p>
         </div>
+
+        {active && (
+          <div role="status" className="mx-auto mt-8 max-w-xl rounded-2xl border border-primary/40 bg-primary/10 px-4 py-3 text-center text-sm">
+            Your <strong>{active.plan_name}</strong> plan is active
+            {active.expires_at ? ` until ${new Date(active.expires_at).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}` : ""}.
+          </div>
+        )}
 
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-3">
           {tiers.map((t) => (
@@ -109,17 +154,25 @@ function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Button
-                asChild
-                className={`mt-8 w-full ${
-                  t.highlight
-                    ? "bg-gradient-to-r from-primary to-[oklch(0.68_0.2_30)] text-primary-foreground shadow-glow hover:opacity-90"
-                    : ""
-                }`}
-                variant={t.highlight ? "default" : "outline"}
-              >
-                <Link to={t.to}>{t.cta}</Link>
-              </Button>
+              {t.priceNumber > 0 ? (
+                <Button
+                  type="button"
+                  onClick={() => startUpgrade(t)}
+                  disabled={active?.plan_name === t.name}
+                  className={`mt-8 w-full ${
+                    t.highlight
+                      ? "bg-gradient-to-r from-primary to-[oklch(0.68_0.2_30)] text-primary-foreground shadow-glow hover:opacity-90"
+                      : ""
+                  }`}
+                  variant={t.highlight ? "default" : "outline"}
+                >
+                  {active?.plan_name === t.name ? "Current plan" : t.cta}
+                </Button>
+              ) : (
+                <Button asChild className="mt-8 w-full" variant="outline">
+                  <Link to={t.to}>{t.cta}</Link>
+                </Button>
+              )}
             </div>
           ))}
         </div>
@@ -139,6 +192,16 @@ function PricingPage() {
           </span>
         </div>
       </section>
+      {checkout && userId && (
+        <PlanPaymentDialog
+          open={!!checkout}
+          onOpenChange={(o) => { if (!o) setCheckout(null); }}
+          userId={userId}
+          planName={checkout.name as PaidPlanName}
+          amount={checkout.priceNumber}
+          onActivated={() => void loadPlan(userId)}
+        />
+      )}
       <SiteFooter />
     </div>
   );

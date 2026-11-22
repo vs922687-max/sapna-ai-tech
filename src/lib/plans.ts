@@ -7,7 +7,7 @@ export type Plan = {
   tag: string;
   features: string[];
   cta: string;
-  to: "/auth" | "/contact";
+  to: "/auth" | "/contact" | "/pricing";
   highlight: boolean;
 };
 
@@ -40,7 +40,7 @@ export const PLANS: Plan[] = [
       "Save & export conversations",
     ],
     cta: "Upgrade to Pro",
-    to: "/auth",
+    to: "/pricing",
     highlight: true,
   },
   {
@@ -56,8 +56,8 @@ export const PLANS: Plan[] = [
       "Admin analytics dashboard",
       "Priority email support",
     ],
-    cta: "Contact sales",
-    to: "/contact",
+    cta: "Upgrade to Team",
+    to: "/pricing",
     highlight: false,
   },
 ];
