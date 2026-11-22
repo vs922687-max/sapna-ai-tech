@@ -630,8 +630,10 @@ import { GUIDE_POSTS_A } from "./blog-guides-a";
 import { GUIDE_POSTS_B } from "./blog-guides-b";
 import { GUIDE_POSTS_C } from "./blog-guides-c";
 import { GUIDE_POSTS_D } from "./blog-guides-d";
+import { GUIDE_POSTS_E } from "./blog-guides-e";
 
 export const BLOG_POSTS: BlogPost[] = [
+  ...GUIDE_POSTS_E,
   ...GUIDE_POSTS_C,
   ...GUIDE_POSTS_D,
   ...GUIDE_POSTS_A,
