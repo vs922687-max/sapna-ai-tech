@@ -32,7 +32,7 @@ type Props = {
   onActivated: () => void;
 };
 
-type Done = { utr: string; expiresAt: string | null };
+type Done = { utr: string };
 
 export function PlanPaymentDialog({ open, onOpenChange, userId, planName, amount, onActivated }: Props) {
   const [copied, setCopied] = useState(false);
@@ -59,9 +59,8 @@ export function PlanPaymentDialog({ open, onOpenChange, userId, planName, amount
       setError(planPaymentErrorMessage(insertError));
       return;
     }
-    const { data: plan } = await supabase.from("user_plans").select("expires_at").eq("user_id", userId).maybeSingle();
     setSaving(false);
-    setDone({ utr: parsed.data, expiresAt: plan?.expires_at ?? null });
+    setDone({ utr: parsed.data });
     onActivated();
   };
 
@@ -72,20 +71,19 @@ export function PlanPaymentDialog({ open, onOpenChange, userId, planName, amount
           <div className="space-y-4 py-2 text-center">
             <CheckCircle2 className="mx-auto h-14 w-14 text-[oklch(0.72_0.16_155)]" aria-hidden />
             <DialogHeader className="sm:text-center">
-              <DialogTitle className="text-2xl">Your {planName} plan is active!</DialogTitle>
+              <DialogTitle className="text-2xl">Payment submitted!</DialogTitle>
               <DialogDescription>
-                Thank you! We saved your payment of ₹{amount.toLocaleString("en-IN")} (UTR {done.utr}).
-                {done.expiresAt ? ` Your plan runs until ${new Date(done.expiresAt).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}.` : ""}
+                Thank you! We saved your payment of ₹{amount.toLocaleString("en-IN")} for {planName} (UTR {done.utr}).
               </DialogDescription>
             </DialogHeader>
             <p className="text-xs text-muted-foreground">
-              We match every UTR with our bank statement. If the payment is not found, the plan is switched back to Free.
+              We match every UTR with our bank statement. Your {planName} plan turns on for 30 days as soon as the payment is confirmed. Sending the screenshot on WhatsApp helps us confirm faster.
             </p>
             <div className="flex flex-col gap-2">
               <Button onClick={() => onOpenChange(false)}>Done</Button>
               <Button asChild variant="outline">
                 <a href={planReceiptWhatsappUrl(planName, amount, done.utr)} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="h-4 w-4" /> Send screenshot on WhatsApp (optional)
+                  <MessageCircle className="h-4 w-4" /> Send screenshot on WhatsApp
                 </a>
               </Button>
             </div>
@@ -160,7 +158,7 @@ export function PlanPaymentDialog({ open, onOpenChange, userId, planName, amount
             <DialogFooter className="gap-2 sm:gap-2">
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
               <Button type="submit" disabled={saving}>
-                {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null} Submit & activate {planName}
+                {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null} Submit payment for {planName}
               </Button>
             </DialogFooter>
             <p className="text-center text-[11px] text-muted-foreground">Never share your UPI PIN or OTP with anyone.</p>

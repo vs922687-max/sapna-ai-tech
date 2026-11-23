@@ -23,7 +23,7 @@
 - Give each WorkNotifications effect its own unique realtime channel name and remove that channel on cleanup; simultaneous header instances and remounts must not reuse an already-subscribed channel.
 - Route loaders return only serialisable values (e.g. a slug) and look up catalog entries with icon components in head()/component; returning objects with functions makes SSR fail with a Seroval 500.
 - Read tracking permission only through src/lib/consent.ts (Google Consent Mode v2 + GPC), with its defaults script first in the root head; one banner controls analytics and advertising separately.
-- Plan checkout saves UPI UTR submissions to plan_payments, where triggers set the amount from the plan and keep user_plans in step; clients never write user_plans, so an admin rejection can always revoke a plan granted from an unverified UTR.
+- Plan checkout saves UPI UTR submissions to plan_payments as pending; triggers set the amount from the plan and activate user_plans only when an admin marks the payment received, because a typed UTR is unverified and clients never write user_plans.
 - Keep plan prices in src/lib/plans.ts and render pricing/homepage tiers from it so prices never drift between pages.
 - Prerender every same-for-everyone public page (list built in prerender-pages.ts from the sitemap, blog posts, tools and gov forms) and keep router trailingSlash "preserve"; prerendering cuts first-load time and the default trailing-slash redirect loops during prerender. Never read browser storage during render on these pages.
 - Keep /tools/$slug pages noindex and out of the sitemap until each has its own substantial guide text; their shared template FAQs read as thin content to AdSense and Search reviews.

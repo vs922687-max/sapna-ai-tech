@@ -85,6 +85,13 @@
       "when": 1795341072814,
       "tag": "0011_activate_plan_on_payment_submit",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1795423360214,
+      "tag": "0012_activate_plan_only_after_admin_approval",
+      "breakpoints": true
     }
   ]
 }

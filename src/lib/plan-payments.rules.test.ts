@@ -57,14 +57,13 @@ describe("plan payment submission", () => {
     assert.equal(Number(r.rows[0]?.amount), 1499);
   });
 
-  it("activates the plan instantly for 30 days on submit", async () => {
+  it("submitting a UTR does not activate the plan; it waits for verification", async () => {
     await resetUser(USER);
     await pay(USER, "Pro");
     const plan = await planOf(USER);
     assert.equal(plan?.plan_name, "Pro");
-    assert.equal(plan?.status, "active");
-    const days = (new Date(plan!.expires_at!).getTime() - Date.now()) / 86_400_000;
-    assert.ok(days > 29.9 && days <= 30, `expected ~30 days, got ${days}`);
+    assert.equal(plan?.status, "pending");
+    assert.equal(plan?.expires_at, null);
   });
 
   it("requires a 12-digit UTR", async () => {
@@ -133,12 +132,25 @@ describe("who can see and review plan payments", () => {
     assert.ok(r.rows.length >= 2);
   });
 
-  it("admin marking received keeps the plan active", async () => {
+  it("admin marking received activates the plan for 30 days", async () => {
     await resetUser(USER);
     const id = (await pay(USER, "Team")).rows[0]!.id;
     await asUser(db, ADMIN, () => db.query("UPDATE public.plan_payments SET status = 'approved' WHERE id = $1", [id]));
-    assert.equal((await planOf(USER))?.status, "active");
-    assert.equal((await planOf(USER))?.plan_name, "Team");
+    const plan = await planOf(USER);
+    assert.equal(plan?.status, "active");
+    assert.equal(plan?.plan_name, "Team");
+    const days = (new Date(plan!.expires_at!).getTime() - Date.now()) / 86_400_000;
+    assert.ok(days > 29.9 && days <= 30, `expected ~30 days, got ${days}`);
+  });
+
+  it("a new unverified UTR does not replace an active plan", async () => {
+    await resetUser(USER);
+    const id = (await pay(USER, "Pro")).rows[0]!.id;
+    await asUser(db, ADMIN, () => db.query("UPDATE public.plan_payments SET status = 'approved' WHERE id = $1", [id]));
+    await pay(USER, "Team");
+    const plan = await planOf(USER);
+    assert.equal(plan?.plan_name, "Pro");
+    assert.equal(plan?.status, "active");
   });
 
   it("admin rejecting a fake payment switches the user back to Free", async () => {

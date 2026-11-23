@@ -15,7 +15,7 @@ type PaymentRow = {
 };
 
 const STATUS_LABEL: Record<string, string> = {
-  pending: "Active · not checked yet",
+  pending: "Waiting · plan not active yet",
   approved: "Checked · payment received",
   rejected: "Rejected · plan removed",
 };
@@ -41,7 +41,7 @@ export function AdminPlanPayments() {
     const { error } = await supabase.from("plan_payments").update({ status }).eq("id", id);
     setBusy(null);
     if (error) { toast.error("Could not update this payment"); return; }
-    toast.success(status === "approved" ? "Marked as received" : "Payment rejected and plan removed");
+    toast.success(status === "approved" ? "Marked as received" : "Payment rejected");
     void load();
   };
 
@@ -52,7 +52,7 @@ export function AdminPlanPayments() {
         <h2 className="font-display text-xl font-bold">Plan payments (UPI)</h2>
       </div>
       <p className="mb-4 text-sm text-muted-foreground">
-        Plans turn on as soon as a user submits a UTR. Match each UTR with your Paytm statement, then mark it received — or reject it to switch that user back to Free.
+        A plan only turns on after you mark its payment received. Match each UTR with your Paytm statement, then mark it received to activate the plan for 30 days — or reject it.
       </p>
       {rows === null ? (
         <Loader2 className="h-5 w-5 animate-spin text-primary" />

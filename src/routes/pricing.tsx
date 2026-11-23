@@ -103,6 +103,7 @@ function PricingPage() {
   };
 
   const active = isActive(current) ? current : null;
+  const pending = !active && current?.status === "pending" ? current : null;
 
   return (
     <div className="min-h-screen">
@@ -122,6 +123,12 @@ function PricingPage() {
           <div role="status" className="mx-auto mt-8 max-w-xl rounded-2xl border border-primary/40 bg-primary/10 px-4 py-3 text-center text-sm">
             Your <strong>{active.plan_name}</strong> plan is active
             {active.expires_at ? ` until ${new Date(active.expires_at).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}` : ""}.
+          </div>
+        )}
+
+        {pending && (
+          <div role="status" className="mx-auto mt-8 max-w-xl rounded-2xl border border-border/60 bg-card/40 px-4 py-3 text-center text-sm">
+            Your <strong>{pending.plan_name}</strong> payment is being verified. The plan turns on as soon as we confirm it.
           </div>
         )}
 
