@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Check, Link2, Share2 } from "lucide-react";
+import { withUtm } from "@/lib/utm";
 
 interface ShareButtonsProps {
   url: string;
@@ -13,17 +14,19 @@ const base =
 export function ShareButtons({ url, title, className = "" }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
   const enc = encodeURIComponent;
+  // Tag every shared link so visits from shares show their real source in analytics.
+  const tagged = (source: string) => withUtm(url, source, "social", "share_button");
 
   const links = [
-    { label: "WhatsApp", href: `https://wa.me/?text=${enc(`${title} — ${url}`)}` },
-    { label: "X", href: `https://twitter.com/intent/tweet?text=${enc(title)}&url=${enc(url)}` },
-    { label: "LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}` },
-    { label: "Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}` },
+    { label: "WhatsApp", href: `https://wa.me/?text=${enc(`${title} — ${tagged("whatsapp")}`)}` },
+    { label: "X", href: `https://twitter.com/intent/tweet?text=${enc(title)}&url=${enc(tagged("x"))}` },
+    { label: "LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(tagged("linkedin"))}` },
+    { label: "Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${enc(tagged("facebook"))}` },
   ];
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(tagged("copied_link"));
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -34,7 +37,7 @@ export function ShareButtons({ url, title, className = "" }: ShareButtonsProps) 
   const nativeShare = async () => {
     if (typeof navigator !== "undefined" && "share" in navigator) {
       try {
-        await navigator.share({ title, url });
+        await navigator.share({ title, url: tagged("mobile_share") });
       } catch {
         /* dismissed */
       }
